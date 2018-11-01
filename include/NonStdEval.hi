@@ -1,0 +1,9 @@
+interface NonStdEval where {
+
+interface ! NonStdEval
+{-# NEED evaluating #-}
+evaluating{-# 1 #-}::(a -> Prelude.Bool);
+
+{-# NEED evaluated #-}
+evaluated{-# 1 #-}::(a -> Prelude.Bool);
+}

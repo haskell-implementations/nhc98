@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>The NHC.IOExtras library</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>The NHC.IOExtras library in nhc98</h1></center>
+
+<hr>
+This document sketches the IOExtras library in nhc98.  It is loosely
+based on the non-standard IOExts library in ghc.
+
+<hr>
+<h3>The NHC.IOExtras library</h3>
+<pre>
+module NHC.IOExtras
+  ( fixIO		-- :: (a-&gt;IO a) -&gt; IO a
+  , unsafePerformIO	-- :: IO a -&gt; a
+
+  , IORef		-- data IORef a = &lt;abstract&gt;
+    -- instance Eq (IORef a)
+  , newIORef		-- :: a -&gt; IO (IORef a)
+  , readIORef		-- :: IORef a -&gt; IO a
+  , writeIORef		-- :: IORef a -&gt; a -&gt; IO ()
+
+  , module Ix		-- re-export Ix for the benefit of IOArrays
+  , IOArray		-- data IOArray ix elt -- mutable arrays
+  , newIOArray		-- :: Ix ix =&gt; (ix,ix) -&gt; elt -&gt; IO (IOArray ix elt)
+  , boundsIOArray	-- :: Ix ix =&gt; IOArray ix elt -&gt; (ix, ix)
+  , readIOArray		-- :: Ix ix =&gt; IOArray ix elt -&gt; ix -&gt; IO elt
+  , writeIOArray	-- :: Ix ix =&gt; IOArray ix elt -&gt; ix -&gt; elt -&gt; IO ()
+  , freezeIOArray	-- :: Ix ix =&gt; IOArray ix elt -&gt; IO (Array ix elt)
+    -- instance Eq (IOArray ix elt)
+
+  , performGC		-- :: IO ()
+  , trace		-- :: String -&gt; a -&gt; a
+  , unsafePtrEq		-- :: a -&gt; a -&gt; Bool
+  ) where
+</pre>
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.cs.york.ac.uk/fp/nhc98/">
+<tt>http://www.cs.york.ac.uk/fp/nhc98/</tt></a>
+
+<p>
+2001.11.27<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+
+</td></tr></table>
+</body></html>
+

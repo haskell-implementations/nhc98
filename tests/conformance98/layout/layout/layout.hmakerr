@@ -1,0 +1,2 @@
+======	In file: ./Main.hs:
+3:9 Found {-end-of-definition-} but expected one of <string> <char> <rational> <integer> ( [ <varid> <conid> _case_ _if_ _do_ _let_ \ ` <varop> <conop>

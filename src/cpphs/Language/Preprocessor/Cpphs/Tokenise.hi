@@ -1,0 +1,107 @@
+interface Language.Preprocessor.Cpphs.Tokenise where {
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Show WordStyle;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show Language.Preprocessor.Cpphs.Position.Posn;
+
+{-# NEED #-}
+instance Prelude.Show Language.Preprocessor.Cpphs.HashDefine.ArgOrText;
+
+{-# NEED #-}
+instance Prelude.Show Language.Preprocessor.Cpphs.HashDefine.HashDefine;
+
+{-# NEED #-}
+instance Prelude.Eq WordStyle;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq Language.Preprocessor.Cpphs.Position.Posn;
+
+{-# NEED #-}
+instance Prelude.Eq Language.Preprocessor.Cpphs.HashDefine.ArgOrText;
+
+{-# NEED #-}
+instance Prelude.Eq Language.Preprocessor.Cpphs.HashDefine.HashDefine;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Language.Preprocessor.Cpphs.Tokenise
+{-# NEED parseMacroCall #-}
+parseMacroCall{-# 1 #-}::(Language.Preprocessor.Cpphs.Position.Posn -> ([WordStyle] -> (Prelude.Maybe ([[WordStyle]],[WordStyle]))));
+
+{-# NEED tokenise #-}
+tokenise{-# 5 #-}::(Prelude.Bool -> (Prelude.Bool -> (Prelude.Bool -> (Prelude.Bool -> ([(Language.Preprocessor.Cpphs.Position.Posn,Prelude.String)] -> [WordStyle])))));
+
+{-# NEED deWordStyle #-}
+deWordStyle{-# 1 #-}::(WordStyle -> Prelude.String);
+
+{-# NEED {WordStyle Ident Other Cmd} #-}
+data WordStyle
+  = Ident Language.Preprocessor.Cpphs.Position.Posn Prelude.String
+  | Other Prelude.String
+  | Cmd (Prelude.Maybe Language.Preprocessor.Cpphs.HashDefine.HashDefine);
+interface Language.Preprocessor.Cpphs.HashDefine
+{-# NEED HashDefine #-}
+data HashDefine;
+
+{-# NEED ArgOrText #-}
+data ArgOrText;
+interface Language.Preprocessor.Cpphs.Position
+{-# NEED Posn #-}
+data Posn;
+interface ! Language.Preprocessor.Cpphs.Tokenise
+{-# NEED reslash #-}
+reslash{-# 1 #-}::(Prelude.String -> Prelude.String);
+
+{-# NEED linesCpp #-}
+linesCpp{-# 1 #-}::(Prelude.String -> [Prelude.String]);
+}

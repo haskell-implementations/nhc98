@@ -1,0 +1,1037 @@
+#!/bin/sh
+#	configure -- prepare to compile/install nhc98
+#	author:   Malcolm.Wallace@cs.york.ac.uk
+#       (nhc13config - March 1998)
+#       (nhc98config - May 1999)
+#       (configure   - Oct 1999)
+
+# When incrementing this version number, don't forget to change the
+# corresponding definition in Makefile.inc!
+VERSIONNUM=122
+NHC98VERSION="v1.22 (2010-07-09)"
+HMAKEVERSION="3.14 (2008-05-21)" export HMAKEVERSION
+
+if uname >/dev/null 2>&1
+then OS=`uname -s`
+else OS=unknown
+fi
+
+case $0 in
+  ./configure) ;;
+  configure) ;;
+  *) echo "Error: The nhc98 configuration utility must be invoked from"
+     echo "       within the directory where it is located."
+     exit 1 ;;
+esac
+
+# Note for people building binary packages of nhc98:
+# The variable INSTALLDIR, default /usr/local, changed with --prefix=
+# gives the final destination of everything.  The configure script
+# hard-wires this path into scripts when you give the --install flag.
+# However, if you set the environment variable DESTDIR, the installation
+# process will still hardwire your INSTALLDIR into scripts, but actually
+# install the files in $DESTDIR$INSTALLDIR.  In this way, you can build
+# a complete installation tree in a temporary directory, then tar it up
+# as a package with all the scripts pointing to the correct final location.
+INSTALLDIR=/usr/local
+
+USER=${USER-`whoami 2>/dev/null`}
+
+# we need to know the --target argument to overload MACHINE
+# TODO: parameter sanity check
+
+TARGET=
+
+for PARAM;
+do
+  case $PARAM in
+  --target=*) TARGET=`echo "$PARAM" | cut -c10-` ;;
+  esac
+done
+
+# TARGET is defined, let update harch script to reflect that
+if [ "$TARGET" != "" ]
+then
+  echo '#!/bin/sh' > script/harch || exit 1
+  echo  >> script/harch
+  echo "echo \"$TARGET\"" >> script/harch
+  echo "exit 0" >> script/harch
+else
+  cp script/harch.inst script/harch || exit 1
+fi
+
+chmod +x script/harch || exit 1
+
+MACHINE=`script/harch`
+
+case $MACHINE in
+  powerpc-Darwin[56]) CCC=${CC-cc} ;;
+  *)                  CCC=${CC-gcc} ;  ;;
+esac
+
+STRIP=${STRIP}
+if [ "$STRIP" = "" ]
+then
+  STRIP=strip
+fi
+
+PWD=`pwd`
+case $OS in
+  CYGWIN*) PWD=`cygpath -w "$PWD" | tr '\\\\' '/'`
+           case $PWD in	# path mangling required for older CYGWIN ?
+             file://?/*) PWD=`echo $PWD | sed -e "s|^file://||" |\
+                              sed -e "s|^[^/]|&:|"` ;;
+             //?/*)      PWD=`echo $PWD | sed -e "s|^//||" |\
+                              sed -e "s|^[^/]|&:|"` ;;
+           esac
+           READLINE=""
+           EXE=.exe ;;
+  *) EXE="" ;;
+esac
+
+case "$PWD" in
+  *' '*)
+    echo "Error: nhc98 will not build in a directory with spaces anywhere"
+    echo "       in the full pathname."
+    echo "Suggestion: move the build tree somewhere else."
+    exit 1 ;;
+esac
+
+#RTSMESSAGE='(default)'
+#RTSFLAG=yes
+HEAP=100000
+BUILDWITH=
+BACKCCOPTIONS=-m32
+BACKLDOPTIONS=-m32
+
+BUILDLIBDIR=$PWD/lib
+BUILDINCDIR=$PWD/include
+BUILDBINDIR=$PWD/script
+BUILDDIR=$PWD/targets
+CABALPARSE=
+HOSTCCC=
+HOSTSTRIP=
+INSTALL=no
+LIB=yes
+BIN=yes
+INC=yes
+MAN=yes
+DOCS=no
+
+if [ -f targets/$MACHINE/config.cache ]
+then		# cached settings override defaults above
+  . targets/$MACHINE/config.cache
+else
+  if [ ! -d targets/$MACHINE ]
+  then mkdir -p targets/$MACHINE
+  fi
+fi
+NEWHEAP=$HEAP
+
+while [ "$1" != "" ]
+do
+  case $1 in
+ #  +rts) RTSFLAG=yes; RTSMESSAGE='(option +rts chosen)' ;;
+ #  -rts) RTSFLAG=no; RTSMESSAGE='(option -rts chosen)' ;;
+    -H*)      NEWHEAP=`echo $1 | cut -c3-` ;;
+    --heap=*) NEWHEAP=`echo $1 | cut -c8-` ;;
+    +lib) LIB=yes ;;
+    -lib) LIB=no ;;
+    +bin) BIN=yes ;;
+    -bin) BIN=no ;;
+    +inc) INC=yes ;;
+    -inc) INC=no ;;
+    +man) MAN=yes ;;
+    -man) MAN=no ;;
+    +docs) DOCS=yes ;;
+    -docs) DOCS=no ;;
+    --buildwith=*)  BUILDWITH=`echo "$1" | cut -c13-` ;;
+    --buildopts=*)  BUILDOPTS=$BUILDOPTS" "`echo "$1" | cut -c13-` ;;
+    --builddir=*)   BUILDDIR=`echo "$1" | cut -c12-` ;;
+    --copts=*)      COPTS=`echo "$1" | cut -c9-` ;;
+    --prefix=*)     INSTALLDIR=`echo "$1" | cut -c10-` ;;
+    --installdir=*) INSTALLDIR=`echo "$1" | cut -c14-` ;;
+    --bindir=*)  BINDIR=`echo "$1" | cut -c10-` ;;
+    --libdir=*)  LIBDIR=`echo "$1" | cut -c10-` ;;
+    --incdir=*)  INCDIR=`echo "$1" | cut -c10-` ;;
+    --mandir=*)  MANDIR=`echo "$1" | cut -c10-` ;;
+    --docdir=*)  DOCDIR=`echo "$1" | cut -c10-` ;;
+#   --hbcdir=*)  HBCDIR=`echo "$1" | cut -c10-` ;;
+#   --ghcdir=*)  GHCDIR=`echo "$1" | cut -c10-` ;;
+    --endian=*)  ENDIAN=`echo "$1" | cut -c10-` ;;
+    --ccoption=*)  BACKCCOPTIONS=`echo "$1" | cut -c12-` ;;
+    --ldoption=*)  BACKLDOPTIONS=`echo "$1" | cut -c12-` ;;
+    --cabal-parse=*)  CABALPARSE=`echo "$1" | cut -c15-` ;;
+    --hostcc=*)  HOSTCCC=`echo "$1" | cut -c10-` ;;
+    --hoststrip=*)  HOSTSTRIP=`echo "$1" | cut -c13-` ;;
+    --install)   INSTALL=yes ;;
+    --config)    INSTALL=no ;;
+    --target=*)  ;;
+    --help|-h)
+  echo "`basename $0` options:     [default in brackets]"
+  echo "  --config             Configure only (do not install) [default]"
+  echo "  --install            Configure AND install now"
+  echo "  --help / -h          Display these options and quit"
+  echo "  --version / -v       Display versions of hmake and nhc98"
+  echo
+ #echo "  [+/-]rts             Compiler does/doesn't expect RTS delimiters [+rts]"
+  echo "  --heap=num / -Hnum   Configure compiled programs' default heap [400kb]"
+  echo "  --buildwith=comp     Build nhc98 with given compiler [detected]"
+  echo "  --buildopts=flags    Give extra flags needed by your build compiler [none]"
+  echo "  --copts=flags        Give extra flags to the underlying C compiler [none]"
+  echo "  --builddir=dir       Build intermediate object files under dir [./targets]"
+ #echo
+ #echo "  --hbcdir=dir         Tell hmake about hbc/LML installation in dir [detected]"
+ #echo "  --ghcdir=dir         Tell hmake about ghc installation in dir [detected]"
+  echo
+  echo "  --prefix=rootdir     |"
+  echo "  --installdir=rootdir | Use rootdir as base for installation [/usr/local]"
+  echo "  --bindir=dir         Install scripts in dir [rootdir/bin]"
+  echo "  --libdir=dir         Install libraries in dir [rootdir/lib/nhc98]"
+  echo "  --incdir=dir         Install interfaces in dir [rootdir/include/nhc98]"
+  echo "  --mandir=dir         Install man pages in dir [rootdir/man/man1]"
+  echo "  --docdir=dir         Install html docs in dir [rootdir/doc/nhc98]"
+  echo
+  echo "  [+/-]bin             Do/don't (re-)install scripts [+bin]"
+  echo "  [+/-]lib             Do/don't (re-)install executables [+lib]"
+  echo "  [+/-]inc             Do/don't (re-)install interface files [+inc]"
+  echo "  [+/-]man             Do/don't (re-)install man pages [+man]"
+  echo "  [+/-]docs            Do/don't (re-)install html docs [-docs]"
+  echo
+  echo "  Cross-compilation"
+  echo "    --target=TARGET    configure for building compilers for TARGET [HOST]"
+  echo "    --hostcc=path      path to the host compiler [mandatory]"
+  echo "    --hoststrip=path   path to the host strip command [mandatory]"
+  echo "    --endian=flag      -DLOW_BYTE_FIRST (little endian) | -DHIGH_BYTE_FIRST (big endian) [mandatory]"
+  echo "    --ccoption=flags   C options for the back-end compiler called by nhc98 [-m32]"
+  echo "    --ldoption=flags   LD options for the back-end linker called by nhc98 [-m32]"
+  echo "    --intsize=32       (nhc98 only support 32 bits compatible architectures by now)"
+  echo "    --cabal-parse=path path to a local cabal-parse binary [mandatory]"
+            exit 0 ;;
+    --version|-v) echo "nhc98:     $NHC98VERSION"
+                  echo "hmake:     $HMAKEVERSION"
+                  echo '  [' $INSTALLINFO ']'
+                  exit 0 ;;
+    *) echo "`basename $0`: unrecognised option $1"
+       echo '    (use --help for option information)'
+       exit 1 ;;
+  esac
+  shift
+done
+
+# check/set HOSTCCC
+if [ "$TARGET" != "" ]
+then
+  if [ "$HOSTCCC" = "" ] ; then echo "error: you must specify your host compiler when cross-compiling. try ./configure --help " && exit 1 ; fi
+else
+  HOSTCCC=$CCC
+fi
+
+# check/set HOSTSTRIP
+if [ "$TARGET" != "" ]
+then
+  if [ "$HOSTSTRIP" = "" ] ; then echo "error: you must specify your host strip utility when cross-compiling. try ./configure --help " && exit 1 ; fi
+else
+  HOSTSTRIP=$STRIP
+fi
+
+# We need a working `echo' command: at least Solaris2.6 may not have it.
+case `echo -n hello | wc -c | ( read n ; echo $n )` in
+    5) ;;
+    *) echo "The builtin 'echo' command doesn't do '-n' - emulating it."
+       $CCC -o script/echo script/echo.c
+       echo () { $PWD/script/echo "$@"; } ;;
+esac
+
+
+echo Configuring for nhc98... '[' $NHC98VERSION ']'
+if [ -f targets/$MACHINE/config.cache ]
+then
+  echo "Starting with earlier config in targets/$MACHINE/config.cache"
+  echo '[' $INSTALLINFO ']'
+  echo '  (but cmdline options have precedence)'
+fi
+
+INSTALLINFO="config: $MACHINE/$BUILDWITH by $USER@`uname -n` on `date`"
+
+LIBDIR=${LIBDIR-$INSTALLDIR/lib/nhc98}
+BINDIR=${BINDIR-$INSTALLDIR/bin}
+INCDIR=${INCDIR-$INSTALLDIR/include/nhc98}
+MANDIR=${MANDIR-$INSTALLDIR/man/man1}
+DOCDIR=${DOCDIR-$INSTALLDIR/doc/nhc98}
+#HBCDIR=${HBCDIR}
+#GHCDIR=${GHCDIR}
+HMAKELIBDIR=${HMAKELIBDIR-$INSTALLDIR/lib/hmake}
+
+case $OS in
+  CYGWIN*) INSTALLDIR=`cygpath -w "$INSTALLDIR" | tr '\\\\' '/'`
+           BUILDDIR=`cygpath -w "$BUILDDIR" | tr '\\\\' '/'`
+           LIBDIR=`cygpath -w "$LIBDIR" | tr '\\\\' '/'`
+           INCDIR=`cygpath -w "$INCDIR" | tr '\\\\' '/'`
+           BINDIR=`cygpath -w "$BINDIR" | tr '\\\\' '/'`
+           HMAKELIBDIR=`cygpath -w "$HMAKELIBDIR" | tr '\\\\' '/'`
+           LIBCOMPAT=""
+           ;;
+  SunOS)   LIBCOMPAT=" -lsocket -lnsl"  ;;
+  NetBSD)  LIBCOMPAT=" -lcompat"  ;;
+  *)       LIBCOMPAT=""  ;;
+esac
+
+# Detect Haskell compilers and choose one for building with.
+# (Also generates a little script for configuring hmake later.)
+if [ -d src ]	# Delay this step if it is a binary (src-less) distribution.
+then
+  echo "--------"
+  CCC=$CCC script/confhc $BUILDWITH
+  echo "--------"
+fi
+
+echo "                   Configuration report for nhc98."
+
+if [ "$INSTALL" = "no" ]
+then
+  echo "    (You can re-run `basename $0` to change settings before proceeding.)"
+  echo "You wish (eventually) to install the following components in these locations:"
+  echo "    (Installation directories are not created/checked at this stage.)"
+  echo "Final install root:   $INSTALLDIR"
+  if [ "$LIB" = "yes" ]
+  then
+    echo "nhc98 binaries/libs:  $LIBDIR/$MACHINE"
+    echo "hmake binaries:       $HMAKELIBDIR/$MACHINE"
+  else
+    echo "Executables and libs: (none)"
+  fi
+  if [ "$INC" = "yes" ]
+  then
+    echo "Interfaces/includes:  $INCDIR"
+  else
+    echo "Interfaces/includes:  (none)"
+  fi
+  if [ "$BIN" = "yes" ]
+  then
+    echo "Scripts:              $BINDIR"
+  else
+    echo "Scripts:              (none)"
+  fi
+  if [ "$MAN" = "yes" ]
+  then
+    echo "Man pages:            $MANDIR"
+  else
+    echo "Man pages:            (none)"
+  fi
+  if [ "$DOCS" = "yes" ]
+  then
+    echo "Html documents:       $DOCDIR"
+  else
+    echo "Html documents:       (none)"
+  fi
+
+  if [ -d src ]	# Don't bother with these if unpacking a binary distribution
+  then
+    echo
+    echo "Now we check/create your build directories:"
+    echo "Config directory:      targets/$MACHINE"
+    echo "Build directory root:"
+    echo -n "    $BUILDDIR"
+    if [ ! -d $BUILDDIR ]
+    then mkdir -p $BUILDDIR;  echo ' (created)'
+    else echo ' (exists)'
+    fi
+    echo "Object files build in:"
+    echo -n "    $BUILDDIR/$MACHINE"
+    if [ ! -d $BUILDDIR/$MACHINE ]
+    then mkdir -p $BUILDDIR/$MACHINE;  echo ' (created)'
+    else echo ' (exists)'
+    fi
+    echo "Executables and libs:"
+    echo -n "    $BUILDLIBDIR/$MACHINE"
+    if [ ! -d $BUILDLIBDIR/$MACHINE ]
+    then mkdir -p $BUILDLIBDIR/$MACHINE;  echo ' (created)'
+    else echo ' (exists)'
+    fi
+  else
+    echo
+    echo "Checking your binary distribution for integrity:"
+    echo -n "Config directory:      targets/$MACHINE"
+    if [ ! -d targets/$MACHINE ]
+    then mkdir -p targets/$MACHINE;  echo ' (created ok)'
+    else echo ' (exists)'
+    fi
+    echo -n "Executables and libs:  $BUILDLIBDIR/$MACHINE"
+    if [ ! -d $BUILDLIBDIR/$MACHINE ]
+    then echo ' (***MISSING!)'
+         echo 'Help!  Have you got the right executables for your machine?'
+         exit 1
+    else echo ' (ok)'
+    fi
+  fi
+fi
+
+if [ "$TARGET" != "" ]
+then
+  echo "target:                                     $TARGET"
+fi
+
+# report on toolchain
+echo
+echo "Toolchain:"
+echo "host compiler:                              $HOSTCCC"
+echo "host strip:                                 $HOSTSTRIP"
+if [ "$TARGET" != "" ]
+then
+  echo "cross-compiler:                             $CCC"
+  echo "cross-strip:                                $STRIP"
+fi
+
+#report on cabal parse
+echo -n  "cabal-parse:                                "
+
+if [ "$TARGET" != "" ]
+then
+	if [ "$CABALPARSE" = "" ]
+	then
+		echo "error: this option is mandatory when cross-compiling. try ./configure --help " && exit 1
+	else
+		echo "$CABALPARSE"
+	fi
+else
+	CABALPARSE="$BUILDBINDIR/cabal-parse"
+	echo "$CABALPARSE" 
+fi
+echo
+# The following tests are unnecessary in a binary (src-less) distribution.
+if [ -d src ]
+then
+  if [ "$BUILDWITH" = "" ]
+  then
+    BUILDWITH=`cat targets/$MACHINE/buildwith`
+    echo "I am guessing you will build nhc98 with:    $BUILDWITH"
+  else
+    echo "You are going to build nhc98 with:          $BUILDWITH"
+  fi
+  case $BUILDWITH in
+    hbc|xtc)   RTSFLAG=no;;
+    ghc*|nhc*) RTSFLAG=yes;;
+    gcc)       RTSFLAG=yes;;
+  esac
+  
+  echo "backend compiler option:                    $BACKCCOPTIONS"
+  echo "backend linker option:                      $BACKLDOPTIONS"
+  
+  echo "nhc98comp uses RTS delimiters?              $RTSFLAG"
+  if [ "$BUILDOPTS" != "" ]
+  then echo "You gave the following extra build options: $BUILDOPTS"
+  fi
+
+  echo -n "This machine's endian-ness is:              "
+  if [ "$TARGET" != "" ]
+  then
+    case $ENDIAN in
+    -DLOW_BYTE_FIRST) echo "$ENDIAN";;
+    -DHIGH_BYTE_FIRST) echo "$ENDIAN";;
+    "") echo "error: for a cross-compiler, you must use --endian to specify it" && exit 1;;
+    *) echo "unknown value. try ./configure --help" && exit 1;;
+    esac
+  else
+
+  if [ "$ENDIAN" = "" ]
+  then
+    cat >endian.c <<!!!
+main() {
+  union {
+    unsigned i;
+    char s[4];
+  } convert;
+  convert.i = 0x32;
+  if (convert.s[0]==0x32) {
+    puts("-DLOW_BYTE_FIRST");
+  } else {
+    puts("-DHIGH_BYTE_FIRST");
+  }
+}
+!!!
+    $HOSTCCC -m32 $COPTS -o endian endian.c
+    ENDIAN=`./endian`
+    rm -f endian$EXE endian.c
+    echo -n "$ENDIAN "
+    echo '(detected) '
+  else
+    echo -n "$ENDIAN "
+    echo '(cached) '
+  fi
+  fi
+
+  if [ "$EXE" = "" ]
+  then echo "Executables need .exe suffix?               no  (detected)"
+  else echo "Executables need .exe suffix?               yes (detected)"
+  fi
+
+  TRUE=/bin/true
+  if [ ! -x $TRUE ]
+  then TRUE=/usr/bin/true
+       echo "Found /usr/bin/true not /bin/true"
+  fi
+
+  if [ "$EXE" = "" ]
+  then
+    echo -n "Testing for the curses library:             "
+    if [ "$CURSES" = "" ]
+    then
+      cat >curses.c <<!!!
+#include <curses.h>
+void test (void) { mvaddstr(1,2,"hello world"); }
+int main (void) { test(); }
+!!!
+      if $CCC $COPTS -m32 -o curses curses.c >/dev/null 2>/dev/null
+      then CURSES=""
+      else
+        if $CCC $COPTS -m32 -o curses curses.c -lncurses >/dev/null 2>/dev/null
+        then CURSES="-lncurses"
+        else
+          if $CCC $COPTS -m32 -o curses curses.c -lcurses >/dev/null 2>/dev/null
+          then CURSES="-lcurses"
+          else
+            if $CCC $COPTS -m32 -o curses curses.c -lcurses -ltermcap >/dev/null 2>/dev/null
+            then CURSES="-lcurses -ltermcap"
+            else CURSES="-ltermcap -lcurses"	# don't know a good default?
+            fi
+          fi
+        fi
+      fi
+      rm -f curses curses.o curses.c
+      echo -n "$CURSES "
+      echo '(detected) '
+    else
+      echo -n "$CURSES "
+      echo '(cached) '
+    fi
+
+    echo -n "Testing for the readline library: "
+    echo 'main(){readline();}' >rd.c
+    if ${CCC} $COPTS -m32 -o rd.out rd.c -lreadline >/dev/null 2>&1
+    then echo '          -lreadline (detected)'
+         READLINE="-DUSE_READLINE=1 -lreadline"
+    else if ${CCC} $COPTS -m32 -o rd.out rd.c -lreadline $CURSES >/dev/null 2>&1
+      then echo "          -lreadline $CURSES (detected)"
+         READLINE="-DUSE_READLINE=1 -lreadline $CURSES"
+      else echo '          no  (detected)'
+         READLINE=""
+      fi
+    fi
+    rm -f rd.c rd.out
+  fi
+
+  echo -n "Reading /usr/include/errno.h: "
+  if [ ! -d src/prelude/$MACHINE/NHC ]
+  then
+     mkdir src/prelude/$MACHINE src/prelude/$MACHINE/NHC
+     cp src/prelude/Makefile.machinedepend src/prelude/$MACHINE/NHC/Makefile
+     cp src/prelude/PreludeIO/Makefile.inc src/prelude/$MACHINE/Makefile.inc
+     cp src/prelude/PreludeIO/Makefile.inc src/prelude/$MACHINE/NHC/Makefile.inc
+     cp src/prelude/DErrNo.hs   src/prelude/$MACHINE/NHC
+     cp src/prelude/DErrNo.hc   src/prelude/$MACHINE/NHC
+     cp src/prelude/DErrNo.p.c  src/prelude/$MACHINE/NHC
+     cp src/prelude/DErrNo.z.c  src/prelude/$MACHINE/NHC
+  fi
+  $HOSTCCC $COPTS -o config-errno script/config-errno.c && \
+  ./config-errno >targets/$MACHINE/Errno.hs && rm -f ./config-errno$EXE
+  $HOSTCCC $COPTS -o errnogen script/errnogen.c && \
+  ./errnogen >DErrNo.hs && rm -f ./errnogen$EXE
+  if diff DErrNo.hs src/prelude/$MACHINE/NHC/DErrNo.hs >/dev/null
+  then
+    rm -f DErrNo.hs
+    echo '              no change'
+  else
+    mv DErrNo.hs src/prelude/$MACHINE/NHC/DErrNo.hs
+    echo '              updated DErrNo.hs'
+  fi
+
+  # Generate target-specific stuff for libraries.
+  echo "os   = \"`echo $MACHINE | cut -d'-' -f2`\"" >targets/$MACHINE/OSInfo.hs
+  echo "arch = \"`echo $MACHINE | cut -d'-' -f1`\"" >>targets/$MACHINE/OSInfo.hs
+  
+  # Look for FunnelWeb (to build src/runtime/LiterateKernel from scratch)
+  echo -n 'Testing for FunnelWeb: '
+  if [ "$FW" = "" ]
+  then
+    FW=`which fw 2>&1`
+    if [ -f "$FW" -a -x "$FW" ]
+    then
+      echo "                     $FW  (detected)"
+    else
+      echo '                     no  (detected)'
+      FW=""
+    fi
+  else
+    echo "                     $FW  (cached)"
+  fi
+
+else	# do the following only in binary distributions
+  if [ -f lib/$MACHINE/config ]
+  then
+    . lib/$MACHINE/config
+    echo "Your binary distribution of nhc98 was built by $BUILDWITH."
+  else
+    echo "ERROR: This nhc98 distribution apparently has no sources and no executables!"
+    exit 1
+  fi
+  # compiler detection deferred from earlier because of BUILDWITH variable
+  echo "--------"
+  script/confhc $BUILDWITH
+  echo "--------"
+fi
+
+echo -n "Default heap for compiled programs is: "
+if [ "$HEAP" != "$NEWHEAP" ]
+then cat >heap.c <<!!!
+main(int argc, char **argv)
+{
+  int prefix = 1;
+  int i = 0;
+  char *s;
+  if (argc!=2) {
+    puts("100000");
+    exit(1);
+  }
+  s = argv[1];
+  while(isdigit(*s)) {
+    i = i*10 + *s++ - '0';
+  }
+
+  switch(*s) {
+  case 'k': 
+  case 'K': prefix *= 1000;    s++; break;
+  case 'm':
+  case 'M': prefix *=  1000000; s++; break;
+  }
+
+  switch(*s) {
+    case 'b': case 'B': s++; i = i*prefix/sizeof(unsigned); break;
+    case 'w': case 'W': s++; i = i*prefix; break;
+    default: i = i*prefix/sizeof(unsigned); break;
+  }
+
+  printf("%d\n",i);
+  exit(0);
+}
+!!!
+  $CCC $COPTS -o heap heap.c
+  HEAP=`./heap $NEWHEAP`
+  rm -f heap$EXE heap.c
+  echo -n "$HEAP words "
+  echo '(calculated) '
+  sed -e "s|DefaultHeap|$HEAP words|" docs/limits.html.inst >docs/limits.html
+  if [ -d lib/$MACHINE ]
+  then
+    echo "Creating new lib/$MACHINE/nhc98heap ..."
+    sed -e "s|DefaultHeap|$HEAP|" script/nhc98heap.c >./nhc98heap.c
+    $CCC $COPTS -m32 -o lib/$MACHINE/nhc98heap$EXE nhc98heap.c
+    rm -f nhc98heap.c
+  else
+    echo "Creating new src/runtime/nhc98heap.c ..."
+    sed -e "s|DefaultHeap|$HEAP|" script/nhc98heap.c >src/runtime/nhc98heap.c
+  fi
+else
+  echo -n "$HEAP words "
+  echo '(cached) '
+fi
+
+echo
+
+
+if [ "$INSTALL" = "no" ]
+then
+  if [ -d src ]	# Don't overwrite config if unpacking binary distribution!
+  then
+    echo "Adding Makefile config script to"
+    echo "    $BUILDLIBDIR/$MACHINE..."
+    ( echo "MACHINE=$MACHINE";
+      echo "ENDIAN=$ENDIAN";
+      echo "BUILDWITH=$BUILDWITH";
+      echo "BUILDOPTS=\"$BUILDOPTS\"";
+      case $RTSFLAG in
+        no)  echo "USINGRTS=0" ;;
+        yes) echo "USINGRTS=1" ;;
+      esac;
+      echo "VERSIONNUM=$VERSIONNUM";
+      echo "INSTALLVER=\"$NHC98VERSION\"";
+      echo "INSTALLINFO=\"$INSTALLINFO\"";
+      echo "BUILDBASEDIR=$BUILDDIR";
+      echo "LIBCOMPAT=\"$LIBCOMPAT\"";
+      echo "READLINE=\"\"" ;		# GHC no longer supplies readline
+      echo "CURSES=\"$CURSES\"";
+      echo "EXE=$EXE";
+      echo "CC=$CCC";
+      echo "HOSTCCC=$HOSTCCC";
+      echo "HOSTCC=$HOSTCCC";
+      echo "STRIP=$STRIP" ;
+      echo "HOSTSTRIP=$HOSTSTRIP" ;
+      echo "CABALPARSE=$CABALPARSE" ;
+      echo "BACKCCOPTIONS=\"$BACKCCOPTIONS\"";
+      echo "BACKLDOPTIONS=\"$BACKLDOPTIONS\"";
+      echo "COPTS=\"$COPTS\"";
+      echo "GHCSYM=`cat targets/$MACHINE/ghcsym || true`";
+      echo "TRUE=$TRUE";
+      echo "FW=\"$FW\"";
+    ) >$BUILDLIBDIR/$MACHINE/config
+
+    echo "Adding build scripts to"
+    echo "    $BUILDBINDIR...    "
+    echo -n "    nhc98 "
+    sed -e "s|ExecutableDir|$BUILDLIBDIR|" script/nhc98.inst |\
+    ( if [ "$TARGET" != "" ]; \
+      then sed -e "s|\${CC-gcc}|$CCC|"; else cat; fi ) |\
+ 	sed -e "s|CompilerOpt|$BACKCCOPTIONS|" | \
+ 	sed -e "s|LinkerOpt|$BACKLDOPTIONS|" | \
+    ( if [ "$RTSFLAG" = "yes" ]; \
+      then sed -e "s|greencard-nhc98 -|greencard-nhc98|"; else cat; fi ) |\
+    sed -e "s|ScriptDir|$BUILDBINDIR|" |\
+    sed -e "s|IncludeDir|$BUILDINCDIR|" >$BUILDBINDIR/nhc98
+    echo -n "hmake "
+    sed -e "s|ExecutableDir|$BUILDLIBDIR|" script/hmake.inst |\
+    sed -e "s|ConfDir|$BUILDLIBDIR|" |\
+    sed -e "s|InstallVer|$HMAKEVERSION|" |\
+    sed -e "s|^BUILTBY=$|BUILTBY=${BUILDWITH}|" |\
+    sed -e "s|ScriptDir|$BUILDBINDIR|"   >$BUILDBINDIR/hmake
+    echo -n "hmake-config "
+    sed -e "s|ExecutableDir|$BUILDLIBDIR|" script/hmake-config.inst |\
+    sed -e "s|ConfDir|$BUILDLIBDIR|" |\
+    sed -e "s|InstallVer|$HMAKEVERSION|" |\
+    sed -e "s|ScriptDir|$BUILDBINDIR|"   >$BUILDBINDIR/hmake-config
+    echo -n "hi "
+    sed -e "s|ExecutableDir|$BUILDLIBDIR|" script/hi.inst |\
+    sed -e "s|ConfDir|$BUILDLIBDIR|" |\
+    sed -e "s|InstallVer|$HMAKEVERSION|" |\
+    sed -e "s|ScriptDir|$BUILDBINDIR|"   >$BUILDBINDIR/hi
+    echo -n "greencard "
+    sed -e "s|ExecutableDir|$BUILDLIBDIR|" script/greencard.inst |\
+    sed -e "s|ScriptDir|$BUILDBINDIR|" |\
+    sed -e "s|IncludeDir|$BUILDINCDIR|" >$BUILDBINDIR/greencard-nhc98
+    echo -n "nhc98-pkg "
+    sed -e "s|ExecutableDir|$BUILDLIBDIR|" script/nhc98-pkg.inst |\
+    sed -e "s|ScriptDir|$BUILDBINDIR|" |\
+    sed -e "s|IncludeDir|$BUILDINCDIR|" >$BUILDBINDIR/nhc98-pkg
+    echo -n "hsc2hs "
+    sed -e "s|ExecutableDir|$BUILDLIBDIR|" script/hsc2hs.inst |\
+#    ( if [ "$BACKCCOPTIONS" != "" ]; \
+#      then sed -e "s|CompilerFlag|--cflag=$BACKCCOPTIONS|"; else sed -e "s|CompilerFlag||"; fi ) |\
+#    ( if [ "$BACKLDOPTIONS" != "" ]; \
+#      then sed -e "s|LinkerFlag|--cflag=$BACKLDOPTIONS|"; else sed -e "s|LinkerFlag||"; fi ) |\
+    sed -e "s|ScriptDir|$BUILDBINDIR|" |\
+    sed -e "s|IncludeDir|$BUILDINCDIR|" >$BUILDBINDIR/hsc2hs
+    cp src/hsc2hs/template-hsc.h $BUILDBINDIR
+    echo -n "cpphs "
+    if [ ! -f $BUILDBINDIR/cpphs ]
+    then ln $BUILDBINDIR/greencard-nhc98 $BUILDBINDIR/cpphs
+    fi
+    #if [ ! -f $BUILDBINDIR/cabal-parse ]
+    #then ln $BUILDBINDIR/greencard-nhc98 $BUILDBINDIR/cabal-parse
+    #fi
+      if [ "$TARGET" != "" ]
+      then
+        echo '#!/bin/sh' > $BUILDBINDIR/cabal-parse
+		echo "exec" $CABALPARSE '"$@"' >> $BUILDBINDIR/cabal-parse
+      else
+      	if [ -f $BUILDBINDIR/cabal-parse ] ; then rm $BUILDBINDIR/cabal-parse ; fi
+	    ln $BUILDBINDIR/greencard-nhc98 $BUILDBINDIR/cabal-parse
+      fi
+    echo
+    chmod +x $BUILDBINDIR/nhc98 $BUILDBINDIR/greencard-nhc98
+    chmod +x $BUILDBINDIR/hmake $BUILDBINDIR/hi $BUILDBINDIR/hmake-config
+    chmod +x $BUILDBINDIR/hsc2hs $BUILDBINDIR/cpphs $BUILDBINDIR/cabal-parse
+    chmod +x $BUILDBINDIR/nhc98-pkg
+
+    echo "Creating src/runtime/nhc98heap.c ..."
+    sed -e "s|DefaultHeap|$HEAP|" script/nhc98heap.c >src/runtime/nhc98heap.c
+    echo "Configuring src/compiler98/Building.hs ..."
+    head -n 9 src/compiler98/Building.hs >targets/Building.hs
+    echo "compiler = Nhc98" >>targets/Building.hs
+    mv targets/Building.hs src/compiler98/Building.hs
+    echo "Updating targets/$MACHINE/hmake3.config..."
+    echo "$BUILDBINDIR/hmake-config $BUILDLIBDIR/$MACHINE/hmakerc \
+		add $BUILDBINDIR/nhc98" >>targets/$MACHINE/hmake3.config
+    if fullname ./script/nhc98	>/dev/null 2>&1   # cope with symbolic links in directory paths
+      then echo "$BUILDBINDIR/hmake-config $BUILDLIBDIR/$MACHINE/hmakerc \
+		add `fullname ./script/nhc98`" \
+					 >>targets/$MACHINE/hmake3.config
+    fi;
+    echo -n "$BUILDBINDIR/hmake-config $BUILDLIBDIR/$MACHINE/hmakerc \
+		default "		>>targets/$MACHINE/hmake3.config
+    case $BUILDWITH in
+      ghc*|hbc) echo "$BUILDWITH" >>targets/$MACHINE/hmake3.config ;;
+      *)        echo "$BUILDBINDIR/nhc98" >>targets/$MACHINE/hmake3.config ;;
+    esac
+  fi
+
+else	# [ "$INSTALL" = "yes" ]
+
+  if [ ! -d src ]	# hmake config for binary distribution only
+  then
+    echo "Setting up hmake configuration."
+    sed -e "s|ExecutableDir|$BUILDLIBDIR|" script/hmake-config.inst |\
+    sed -e "s|ScriptDir|$BUILDBINDIR|"   >$BUILDBINDIR/hmake-config
+    chmod +x $BUILDBINDIR/hmake-config
+    sh targets/$MACHINE/hmake3.config
+  fi
+
+  echo "Installation directories are now created/checked."
+  echo "Install directory root is:"
+  echo "    $DESTDIR$INSTALLDIR"
+
+  if [ "$INC" = "yes" ]
+  then
+    echo "Interface and include-files go into:"
+    echo -n "    $DESTDIR$INCDIR"
+    if [ ! -d $DESTDIR$INCDIR ]
+    then mkdir -p $DESTDIR$INCDIR;  echo ' (created)'
+    else echo ' (exists)'
+    fi
+    for file in $BUILDINCDIR/*
+    do
+      if [ -f $file ]
+      then echo "	`basename $file` "
+           cp $file $DESTDIR$INCDIR
+      fi
+    done
+    mkdir -p $DESTDIR$INCDIR/NHC
+    for file in $BUILDINCDIR/NHC/*
+    do
+      if [ -f $file ]
+      then echo "	NHC/`basename $file` "
+           cp $file $DESTDIR$INCDIR/NHC
+      fi
+    done
+    for pkg in `ls $BUILDINCDIR/packages`
+    do
+      if [ -d $BUILDINCDIR/packages/$pkg ]
+      then
+        echo "    package: $pkg"
+        mkdir -p $DESTDIR$INCDIR/packages/$pkg
+        ( cd $BUILDINCDIR/packages/$pkg; tar cf - . ) | \
+        ( cd $DESTDIR$INCDIR/packages/$pkg; tar xvf - )
+        cp $BUILDINCDIR/packages/$pkg.cabal $DESTDIR$INCDIR/packages
+      fi
+    done
+    echo
+  else
+    echo 'Not (re-)installing interface and include files'
+  fi
+
+  if [ "$BIN" = "yes" ]
+  then
+    echo "Scripts go into:"
+    echo -n "    $DESTDIR$BINDIR"
+    if [ ! -d $DESTDIR$BINDIR ]
+    then mkdir -p $DESTDIR$BINDIR;  echo ' (created)'
+    else echo ' (exists)'
+    fi
+    
+    echo "	harch"
+    if [ "$TARGET" != "" ]
+    then
+        echo '#!/bin/sh' > $DESTDIR$BINDIR/harch || exit 1
+        echo  >> $DESTDIR$BINDIR/harch
+        echo "echo \"$TARGET\"" >> $DESTDIR$BINDIR/harch
+        echo "exit 0" >> $DESTDIR$BINDIR/harch
+    else
+        cp script/harch.inst $DESTDIR$BINDIR/harch || exit 1
+    fi
+    
+    echo "	nhc98"
+    sed -e "s|ExecutableDir|$LIBDIR|" script/nhc98.inst |\
+    ( if [ "$TARGET" != "" ]; \
+      then sed -e "s|\${CC-gcc}|$CCC|"; else cat; fi ) |\
+    sed -e "s|CompilerOpt|$BACKCCOPTIONS|" | \
+    sed -e "s|LinkerOpt|$BACKLDOPTIONS|" | \
+    ( if [ "$RTSFLAG" = "yes" ]; \
+      then sed -e "s|greencard-nhc98 -|greencard-nhc98|"; else cat; fi ) |\
+    sed -e "s|ScriptDir|$BINDIR|" |\
+    sed -e "s|IncludeDir|$INCDIR|" >$DESTDIR$BINDIR/nhc98 \
+    
+    echo "	hmake"
+    sed -e "s|ExecutableDir|$HMAKELIBDIR|" script/hmake.inst |\
+    sed -e "s|ConfDir|$HMAKELIBDIR|" |\
+    sed -e "s|InstallVer|$HMAKEVERSION|" |\
+    sed -e "s|^BUILTBY=$|BUILTBY=${BUILDWITH}|" |\
+    sed -e "s|ScriptDir|$BINDIR|"  >$DESTDIR$BINDIR/hmake
+    
+    echo "	hmake-config"
+    sed -e "s|ExecutableDir|$HMAKELIBDIR|" script/hmake-config.inst |\
+    sed -e "s|ConfDir|$HMAKELIBDIR|" |\
+    sed -e "s|InstallVer|$HMAKEVERSION|" |\
+    sed -e "s|ScriptDir|$BINDIR|"  >$DESTDIR$BINDIR/hmake-config
+    
+    echo "	hi"
+    sed -e "s|ExecutableDir|$HMAKELIBDIR|" script/hi.inst |\
+    sed -e "s|ConfDir|$HMAKELIBDIR|" |\
+    sed -e "s|InstallVer|$HMAKEVERSION|" |\
+    sed -e "s|ScriptDir|$BINDIR|"  >$DESTDIR$BINDIR/hi
+    
+    echo "	hood"
+    sed -e "s|ExecutableDir|$LIBDIR|" script/hood.inst |\
+    sed -e "s|ScriptDir|$BINDIR|" |\
+    sed -e "s|IncludeDir|$INCDIR|" >$DESTDIR$BINDIR/hood
+    
+    echo "	nhc98-pkg"
+    sed -e "s|ExecutableDir|$LIBDIR|" script/nhc98-pkg.inst |\
+    sed -e "s|ScriptDir|$BUILDBINDIR|" |\
+    sed -e "s|IncludeDir|$INCDIR|" >$DESTDIR$BINDIR/nhc98-pkg
+    
+    echo "	greencard"
+    sed -e "s|ExecutableDir|$LIBDIR|" script/greencard.inst |\
+    sed -e "s|ScriptDir|$BINDIR|"  >$DESTDIR$BINDIR/greencard-nhc98
+    
+    echo "	tprofprel"
+    cp script/tprofprel $DESTDIR$BINDIR/tprofprel
+    echo "	hp2graph"
+    rm -f $DESTDIR$BINDIR/hp2graph;
+        ln $DESTDIR$BINDIR/greencard-nhc98 $DESTDIR$BINDIR/hp2graph
+    echo "	cpphs"
+    rm -f $DESTDIR$BINDIR/cpphs;
+        ln $DESTDIR$BINDIR/greencard-nhc98 $DESTDIR$BINDIR/cpphs
+    
+    echo "	cabal-parse"
+    rm -f $DESTDIR$BINDIR/cabal-parse;
+      if [ "$TARGET" != "" ]
+      then
+        echo '#!/bin/sh' > $DESTDIR$BINDIR/cabal-parse
+		echo "exec" $CABALPARSE '"$@"' >> $DESTDIR$BINDIR/cabal-parse
+      else
+	    ln $DESTDIR$BINDIR/greencard-nhc98 $DESTDIR$BINDIR/cabal-parse
+      fi
+    
+    echo
+    chmod a+rx $DESTDIR$BINDIR/nhc98 $DESTDIR$BINDIR/greencard-nhc98
+    chmod a+rx $DESTDIR$BINDIR/hp2graph $DESTDIR$BINDIR/harch
+    chmod a+rx $DESTDIR$BINDIR/hmake $DESTDIR$BINDIR/hi
+    chmod a+rx $DESTDIR$BINDIR/hmake-config $DESTDIR/$BINDIR/cpphs
+    chmod a+rx $DESTDIR$BINDIR/hood $DESTDIR$BINDIR/cabal-parse 
+    chmod a+rx $DESTDIR$BINDIR/nhc98-pkg
+  else
+    echo 'Not (re-)installing scripts'
+  fi
+
+  if [ "$LIB" = "yes" ]
+  then
+    echo "Executables and object lib files go into:"
+    echo -n "    $DESTDIR$LIBDIR/$MACHINE"
+    if [ ! -d $DESTDIR$LIBDIR/$MACHINE ]
+    then mkdir -p $DESTDIR$LIBDIR/$MACHINE;  echo ' (created)'
+    else echo ' (exists)'
+    fi
+    if [ $DESTDIR$LIBDIR != $DESTDIR$HMAKELIBDIR ]
+    then
+      echo -n "    $DESTDIR$HMAKELIBDIR/$MACHINE"
+      if [ ! -d $DESTDIR$HMAKELIBDIR/$MACHINE ]
+      then mkdir -p $DESTDIR$HMAKELIBDIR/$MACHINE;  echo ' (created)'
+      else echo ' (exists)'
+      fi
+    fi
+    { ( cd $BUILDLIBDIR/$MACHINE/; tar cvf - . ) |\
+      ( cd $DESTDIR$LIBDIR/$MACHINE; tar xf - ) ; } 2>&1 | sed -e 's/^/	/'
+    if [ $DESTDIR$HMAKELIBDIR != $DESTDIR$LIBDIR ]
+    then ( cd $DESTDIR$LIBDIR/$MACHINE;
+           mv MkProg$EXE Older$EXE hmakerc  $DESTDIR$HMAKELIBDIR/$MACHINE;
+           mv HInteractive$EXE MkConfig$EXE $DESTDIR$HMAKELIBDIR/$MACHINE;
+           mv runhs$EXE $DESTDIR$BINDIR )
+    fi
+    # can only change hmake's config if new compiler is in its final location
+    if [ -z "$DESTDIR" ]
+    then
+      echo "	Adjusting... hmakerc"
+      $BUILDBINDIR/hmake-config $HMAKELIBDIR/$MACHINE/hmakerc add $BINDIR/nhc98
+      $BUILDBINDIR/hmake-config $HMAKELIBDIR/$MACHINE/hmakerc add nhc98 ||\
+          echo "(This error message is harmless)"
+      $BUILDBINDIR/hmake-config $HMAKELIBDIR/$MACHINE/hmakerc \
+						default $BINDIR/nhc98
+      if [ -d src ]	# remove temporary build version of nhc98 from config
+      then $BUILDBINDIR/hmake-config $HMAKELIBDIR/$MACHINE/hmakerc \
+						delete $BUILDBINDIR/nhc98
+      fi
+    fi
+    echo "	hood.jar"
+    cp $BUILDLIBDIR/hood.jar $DESTDIR$LIBDIR
+    echo
+  else
+    echo 'Not (re-)installing executables and library files'
+  fi
+
+  if [ "$MAN" = "yes" ]
+  then
+    echo "Man pages go into:"
+    echo -n "    $DESTDIR$MANDIR"
+    if [ ! -d $DESTDIR$MANDIR ]
+    then mkdir -p $DESTDIR$MANDIR;  echo ' (created)'
+    else echo ' (exists)'
+    fi
+    for file in man/*
+    do
+      echo "	`basename $file` "
+      cp $file $DESTDIR$MANDIR
+    done
+    echo
+  else
+    echo 'Not (re-)installing man pages'
+  fi
+
+  if [ "$DOCS" = "yes" ]
+  then
+    echo "Html documents go into:"
+    echo -n "    $DESTDIR$DOCDIR"
+    if [ ! -d $DESTDIR$DOCDIR ]
+    then mkdir -p $DESTDIR$DOCDIR;  echo ' (created)'
+    else echo ' (exists)'
+    fi
+    ( cd docs; tar cf - . ) | ( cd $DESTDIR$DOCDIR; tar xf - )
+  else
+    echo 'Not (re-)installing html documents'
+  fi
+
+fi
+
+echo "Saving current configuration in targets/$MACHINE/config.cache"
+( echo "MACHINE=$MACHINE";
+  echo "INSTALLDIR=$INSTALLDIR" ;
+  if [ "$INCDIR" != "$INSTALLDIR/include/nhc98" ]; then echo "INCDIR=$INCDIR" ; fi;
+  if [ "$LIBDIR" != "$INSTALLDIR/lib/nhc98" ]; then echo "LIBDIR=$LIBDIR" ; fi;
+  if [ "$MANDIR" != "$INSTALLDIR/man/man1" ]; then echo "MANDIR=$MANDIR" ; fi;
+  if [ "$BINDIR" != "$INSTALLDIR/bin" ]; then echo "BINDIR=$BINDIR" ; fi;
+  echo "DOCDIR=$DOCDIR" ;
+# if [ "$HBCDIR" != "" ]; then echo "HBCDIR=$HBCDIR" ; fi;
+# if [ "$GHCDIR" != "" ]; then echo "GHCDIR=$GHCDIR" ; fi;
+  echo "BUILDWITH=$BUILDWITH" ;
+  echo "BUILDOPTS=\"$BUILDOPTS\"" ;
+  echo "BUILDDIR=$BUILDDIR" ;
+  echo "RTSFLAG=$RTSFLAG" ;
+  echo "CC=$CCC" ;
+  echo "HOSTCCC=$HOSTCCC";
+  echo "HOSTCC=$HOSTCCC" ;
+  echo "STRIP=$STRIP" ;
+  echo "HOSTSTRIP=$HOSTSTRIP" ;
+  echo "CABALPARSE=$CABALPARSE" ;
+  echo "COPTS=\"$COPTS\"";
+  echo "ENDIAN=$ENDIAN" ;
+  echo "BACKCCOPTIONS=\"$BACKCCOPTIONS\"";
+  echo "BACKLDOPTIONS=\"$BACKLDOPTIONS\"";
+  echo "HEAP=$HEAP" ;
+  echo "LIB=$LIB" ;
+  echo "BIN=$BIN" ;
+  echo "INC=$INC" ;
+  echo "MAN=$MAN" ;
+  echo "DOCS=$DOCS" ;
+  echo "EXE=$EXE" ;
+  echo "CURSES=\"$CURSES\"" ;
+  echo "READLINE=\"\"" ;		# GHC no longer supplies readline
+  echo "INSTALLVER=\"$NHC98VERSION\"" ;
+  echo "INSTALLINFO=\"$INSTALLINFO\"" ;
+  echo "FW=\"$FW\"" ;
+) >targets/$MACHINE/config.cache
+
+echo "Done."
+if [ "$INSTALL" = "yes" ]
+then
+  echo
+  echo "    Please ensure $BINDIR is in your PATH variable."
+fi
+echo
+exit 0

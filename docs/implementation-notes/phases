@@ -1,0 +1,52 @@
+I'd advise anyone *not* to start by reading Main.hs!
+
+The Main wrapper does lots of head-standing to try to ensure
+that things happen in the right order (due to lazy evaluation), that
+error messages get reported correctly, and to be as space-efficient as
+possible.  The basic thing you need to know from Main is that the
+compiler performs a sequence of transformations as follows:
+
+    Lex source code
+    Parse it
+    Perform "need" analysis (what imported entities are required?)
+    Parse interface files for imported modules
+    Rename identifiers (also patches fixity information)
+    Debugging source-to-source translation (data)  -- for tracing only
+    Derive class instances where required
+    Extract
+    Debugging source-to-source translation (functions)  -- for tracing only
+    Remove1.3  (translate list comprehensions, do notation, etc, to core)
+    Strongly Connected Component analysis
+    Type inference
+    Build interface file for this module and write it out
+    Fix syntax (small tweaks based on type information)
+    Case transformation (change all pattern matches to case expressions)
+    Expand primitives
+    Determine free variables
+    Do arity grouping on declarations
+    Lambda lift
+    Do arity grouping again
+    Pos Atom (not sure what this does!)
+    Dump zero-arity constructors to object file (as Gcode)
+    Generate Gcode for functions: for each declaration, do
+        STGGcode
+        GcodeFix
+        GcodeOpt1
+        GcodeMem
+        GcodeOpt2
+        GcodeRel
+    Dump Gcode to object file (as bytecode)
+
+Each step is defined in a separate module, with fairly obvious naming.
+There are also some supporting modules, such as the Tree234 data
+structure, which is used as the basic lookup table (known as AssocTree
+and Memo in different places); and very importantly, a state monad
+which uses the non-standard binding connectives >>> >>>= =>>> >=>.
+
+The source for the runtime interpreter which decodes the G machine
+bytecode is in src/runtime/Kernel/mutator.c.
+
+Niklas, the author of nhc, says he followed Simon Peyton Jones's book
+"The Implementation of Functional Programming Languages" pretty
+closely so I don't think there should be too many surprises.
+

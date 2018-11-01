@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Time profiling with nhc98</title>
+</head>
+<body bgcolor="#ffffff">
+
+<table border="0">
+<tr><td width="500">
+<center><h1>Time profiling with nhc98</h1></center>
+
+<hr />
+<p>
+Time profiling allows a programmer to see which of the functions in
+their program consume the most time, and how many times each is
+called.  The information is collected as the program is executing, so
+it is simple to try the analysis with various types of input data,
+viewing behaviour in "average" and "worst" cases.</p>
+<p>
+The profiles produced can be used to compare two different
+implementations, or can direct programmers to "hot spots" in a program
+that use a disproportionate amount of resources.  The effort to
+improve the program can then be focussed on these critical pieces,
+where it will be of most benefit.  The profile may also highlight
+functions that are being called more or less often than a programmer
+expects, indicating possible bugs that have been overlooked.</p>
+
+<h3>To obtain a time profile of a computation:</h3>
+
+<ol>
+<li>
+    <p>Compile all modules of the program with the <tt>-t</tt> option;
+    also specify <tt>-t</tt> at link-time.  Using
+    <tt>hmake&nbsp;-t</tt> does all the necessary compiling and
+    linking automatically.  eg. to compile <tt>MyProg.hs</tt> and
+    everything it depends on for time profiling simply use
+    <tt>hmake&nbsp;-t&nbsp;MyProg</tt></p></li>
+<li>
+    <p>Run the program with the additional runtime argument
+    <tt>-t</tt> eg.&nbsp;<tt>./MyProg&nbsp;+RTS&nbsp;-t&nbsp;-RTS</tt>
+    will output profiling data to the file <tt>MyProg.tp</tt></p></li>
+</ol>
+<br />
+
+<h3>Time profiling options</h3>
+<table border="0">
+<tr><td valign="top">
+  <tt>-t</tt>
+</td><td>
+  turn on time profiling
+</td></tr>
+<tr><td valign="top">
+  <tt>-t-<i>Module</i></tt>
+</td><td>
+  show only the total for all functions in <tt><i>Module</i></tt>
+</td></tr>
+<tr><td valign="top">
+  <tt>-t+<i>Module</i></tt>
+</td><td>
+  show all functions separately in <tt><i>Module</i></tt>
+</td></tr>
+<tr><td valign="top">
+  <tt>-t+all</tt>
+</td><td>
+  show all functions separately in all modules
+</td></tr>
+<tr><td valign="top">
+  <tt>-t-all</tt>
+</td><td>
+  show only total-per-module for all modules
+</td></tr>
+<tr><td valign="top">
+  <tt>-tt</tt>
+</td><td>
+  order results by time consumed per function
+</td></tr>
+<tr><td valign="top">
+  <tt>-tc</tt>
+</td><td>
+  order results by number of calls per function
+</td></tr>
+<tr><td valign="top">
+  <tt>-tm</tt>
+</td><td>
+  group results by module
+</td></tr>
+<tr><td valign="top">
+  <tt>-i<i>size</i></tt>
+</td><td>
+  set the profiling interval to <tt><i>size</i></tt>
+</td></tr>
+<tr><td></td><td>
+  (without unit in number of word allocations on heap
+  , with s or ms in seconds or milliseconds; default 100ms)
+</td></tr>
+</table>
+
+<p>
+The various single-letter flags can be aggregated together, e.g.
+<tt>-tmt</tt> which will order the functions by time within each
+module - this is the default if just <tt>-t</tt> is supplied.  You can
+give a list of module names separated by spaces using the shell
+quoting mechanism eg.&nbsp;<tt>-t"+Prelude&nbsp;-Main&nbsp;+IO"</tt>  The
+default is to show all functions written by the user separately but
+only show the total for library modules (Prelude, IO, etc.).</p>
+
+<h3>Example</h3>
+
+<p>The program used in this example is taken from the <a
+href="http://www.dcs.gla.ac.uk/fp/software/ghc/nofib.html">nofib
+Benchmark Suite</a>, and uses Peanno arithmetic to raise 3 to the
+power 8.</p>
+
+<blockquote><pre>
+data Peanno = Z | S Peanno
+
+add Z     y = y
+add (S x) y = S (add x y)
+
+mult x Z     = Z
+mult x (S y) = add (mult x y) x
+
+raise x Z     = S Z
+raise x (S y) = mult x (raise x y)
+
+intTOpeanno x = if x < 1 then Z else S (intTOpeanno (x-1))
+
+peannoTOint Z     = 0
+peannoTOint (S x) = 1 + peannoTOint x
+
+main = print (peannoTOint (raise (intTOpeanno 3) (intTOpeanno 8)))
+</pre></blockquote>
+<br />
+<p>
+The resulting profile is given below.  The listing, by module, gives
+the percentage of time consumed, and the number of calls, per function.
+The profile shows that most of the execution time (&gt;75%) is spent
+in the <tt>add</tt> function, and that there are far more calls made
+to this function than any other.</p>
+
+<blockquote><pre>
+JOB ./Peanno +RTS -t -RTS ;
+
+----------------------------------------------------------
+Main		  76.0% time	   8079493 calls
+----------------------------------------------------------
+ % time     # calls                                       
+   76.0     8069620   add
+    0.0        6562   peannoTOint
+    0.0        3288   mult
+    0.0          13   intTOpeanno
+    0.0           9   raise
+    0.0           1   main
+
+Prelude 	   0.5% time	     39752 calls
+
+GarbageCollect	  23.5% time	       416 calls
+
+Time figures based on 208 samples
+</pre></blockquote>
+<br />
+<p>
+Why are there so many applications of the <tt>add</tt> function?</p>
+<p>
+From the recursive definition, the evaluation of
+<tt>add&nbsp;x&nbsp;y</tt> leads to x more applications of
+<tt>add</tt>.  The evaluation of <tt>mult&nbsp;x&nbsp;y</tt> leads to
+y nested applications of <tt>add</tt> in the form
+<tt>(add&nbsp;(add&nbsp;(add&nbsp;x&nbsp;x)&nbsp;x)&nbsp;...&nbsp;)</tt>.
+The evaluation of the innermost of these leads to just x more
+applications of <tt>add</tt>, but then the evaluation of the next
+leads to twice as many, and so on.</p>
+<p>
+By altering the definition of <tt>mult</tt> to
+<tt>add&nbsp;x&nbsp;(mult&nbsp;x&nbsp;y)</tt>, the nested applications
+of <tt>add</tt> are in the form
+<tt>(add&nbsp;...&nbsp;(add&nbsp;x&nbsp;(add&nbsp;x&nbsp;x)))</tt>,
+and so each gives rise to just x <tt>add</tt> functions.  This change
+decreased the number of calls for <tt>add</tt> from 8069620 to 13120,
+and reduced the program's runtime by a factor of about 100.</p>
+<hr />
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.haskell.org/nhc98/">
+<tt>http://www.haskell.org/nhc98/</tt></a></p>
+<p>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a>
+</p>
+<!--</td></tr><tr><td align="right"><font size="-2"><a
+href="http://validator.w3.org/check/referer">Valid XHTML
+1.0</a></font>-->
+</td></tr></table>
+</body></html>
+

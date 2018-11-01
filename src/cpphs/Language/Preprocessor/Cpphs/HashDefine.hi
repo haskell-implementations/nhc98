@@ -1,0 +1,85 @@
+interface Language.Preprocessor.Cpphs.HashDefine where {
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show ArgOrText;
+
+{-# NEED #-}
+instance Prelude.Show HashDefine;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Eq ArgOrText;
+
+{-# NEED #-}
+instance Prelude.Eq HashDefine;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Language.Preprocessor.Cpphs.HashDefine
+{-# NEED parseHashDefine #-}
+parseHashDefine{-# 2 #-}::(Prelude.Bool -> ([Prelude.String] -> (Prelude.Maybe HashDefine)));
+
+{-# NEED expandMacro #-}
+expandMacro{-# 3 #-}::(HashDefine -> ([Prelude.String] -> (Prelude.Bool -> Prelude.String)));
+
+{-# NEED {HashDefine LineDrop name Pragma name AntiDefined name linebreaks SymbolReplacement name replacement linebreaks MacroExpansion name arguments expansion linebreaks} #-}
+data HashDefine
+  = LineDrop {name :: Prelude.String}
+  | Pragma {name :: Prelude.String}
+  | AntiDefined {name :: Prelude.String} {linebreaks :: Prelude.Int}
+  | SymbolReplacement {name :: Prelude.String} {replacement :: Prelude.String} {linebreaks :: Prelude.Int}
+  | MacroExpansion {name :: Prelude.String} {arguments :: [Prelude.String]} {expansion :: [(ArgOrText,Prelude.String)]} {linebreaks :: Prelude.Int};
+
+{-# NEED {ArgOrText Arg Text Str} #-}
+data ArgOrText
+  = Arg 
+  | Text 
+  | Str ;
+}

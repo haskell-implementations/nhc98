@@ -1,0 +1,109 @@
+#!/bin/bash
+# Run haskell test suites.
+
+if uname -a | grep -i CYGWIN >/dev/null
+then filepath() { cygpath -w "$1" | tr '\\\\' '/'; }
+else filepath() { echo "$1"; }
+fi
+
+PATH=../script:$PATH	export PATH
+HERE="`pwd`"
+BASEDIR="`dirname $HERE`"
+HC=`filepath "$BASEDIR/script/nhc98"`
+HMAKEOPTS="-98"
+RTSOPTS="+RTS -H64M -RTS"
+
+exists () {
+    ext=$1
+    fstfile=`echo *.$ext | cut -d' ' -f1`
+    if [ -f $fstfile ]
+    then echo $fstfile
+    else echo /dev/null
+    fi
+}
+
+mains=`find $HERE -name Main.hs -print`
+
+run () {
+  outok=0; outbad=0; errok=0; errbad=0;
+  compok=0; compbad=0; hmakeok=0; hmakebad=0;
+  for file in $mains
+  do
+    dir=`dirname $file`
+    cd $dir
+    echo $dir
+    $BASEDIR/script/hmake -HC=$HC $HMAKEOPTS Main 2>hmake.err &&
+      { compok=$(($compok+1))
+        input=`exists stdin`
+        output=`exists stdout`
+        errors=`exists stderr`
+        echo Running....
+        ./Main $RTSOPTS <$input >tmp.out 2>tmp.err || true
+        echo Comparing output....
+        if diff $output tmp.out
+        then outok=$(($outok+1))
+        else outbad=$(($outbad+1))
+             echo >&2 "Output differs: $dir"
+        fi
+        echo Comparing stderr....
+        if diff $errors tmp.err
+        then errok=$(($errok+1))
+        else errbad=$(($errbad+1))
+             echo >&2 "Error differs: $dir"
+        fi
+        echo ....................
+      } || {
+        compbad=$(($compbad+1))
+        echo Comparing hmake errors....
+        hmakeout=`exists hmakerr`
+        if fgrep -q -f $hmakeout hmake.err
+        then echo ".............Failed (ok)"
+             hmakeok=$(($hmakeok+1))
+        else diff $hmakeout hmake.err
+             echo ".............Failed (bad)"
+             echo >&2 "Unexpected build failure: $dir"
+             hmakebad=$(($hmakebad+1))
+        fi
+      }
+    cd $HERE
+  done
+  echo >&2 "$compok built ok      / $compbad builds failed"
+  echo >&2 "                  / of which $hmakeok known / $hmakebad bad"
+  echo >&2 "$outok outputs match / $outbad outputs differ"
+  echo >&2 "$errok errors  match / $errbad errors  differ"
+}
+
+clean () {
+  echo Cleaning....
+  for file in $mains
+  do
+    dir=`dirname $file`
+    echo $dir
+    (cd $dir && rm -f Main *.o *.hi tmp.out tmp.err hmake.err)
+  done
+}
+
+case $# in
+  0) mode=run ;;
+  1) mode=$1 ;;
+  *) mode=$1
+     shift
+     mains=
+     for i in $*
+     do
+       if [ ! -f $i/Main.hs ]
+       then
+         echo "`basename $0`: can't find $i/Main.hs, ignoring"
+       else
+         mains="$mains $i/Main.hs"
+       fi
+     done
+esac
+
+case $mode in
+  "run")      run ;;
+  "clean")    clean ;;
+  "cleanrun") clean; run ;;
+  *)          echo "Usage: `basename $0` [run|clean|cleanrun] [testdir...]"
+              exit 1 ;;
+esac

@@ -1,0 +1,14 @@
+module NHC.BinArray
+  ( getUBAFree
+  ) where
+
+import NHC.GreenCard
+import DUnboxedArray ({-type-}UnboxedArray(..))
+
+%-#include "cLowUnboxedArray.h"
+
+%fun getUBAFree :: UnboxedArray -> IO Int
+%call (unboxedArray uba)
+%code
+%result (int "uba->free")
+

@@ -1,0 +1,50 @@
+module NHC.Binary
+  ( compareBin
+  ) where
+
+import NHC.GreenCard
+import BinPtr
+import BinHandle
+
+%-#include "cLowBinary.h"
+%-#include <stdlib.h>
+    -- %-#include <stdio.h>
+ 
+%dis ordering x = <fromEnum/toEnum> (int x)
+
+%-#define LT 0
+%-#define EQ 1
+%-#define GT 2
+
+%fun compareBin :: Int -> Int -> BinHandle -> BinPtr -> BinHandle -> BinPtr -> Ordering
+%call (int sizex) (int sizey) (binHandle bhx) (binPtr x) (binHandle bhy) (binPtr y)
+%code
+%  /* size of x and y are not necessarily byte-aligned */
+%  /* but bits of x and y are guaranteed byte-aligned at both ends */
+%  int bytex = (sizex%8 ? (sizex/8)+1 : sizex/8);
+%  int bytey = (sizey%8 ? (sizey/8)+1 : sizey/8);
+%  int xptr, yptr;
+%  if ((bhx->mode != RO) || (bhy->mode != RO)) {
+%    fprintf(stderr,"Binary.compareBin: BinHandle is not Read-Only.");
+%    exit(1);
+%  }
+%  xptr = (x - forceCacheTo(bhx,x)) / 8;
+%  yptr = (y - forceCacheTo(bhy,y)) / 8;
+%  /* fprintf(stderr,"compareBin: sizex=%d sizey=%d xoffset=%d yoffset=%d\n",
+%                  sizex,sizey,x,y); */
+%  retval = EQ;
+%  while (bytex-- && bytey--) {
+%    if (bhx->cache[xptr] != bhy->cache[yptr]) {
+%      if (bhx->cache[xptr] < bhy->cache[yptr]) {
+%        retval = LT;
+%      } else {
+%        retval = GT;
+%      }
+%      break;
+%    }
+%    xptr++; yptr++;
+%    if (xptr==CACHESIZE) nextcache(bhx);
+%    if (yptr==CACHESIZE) nextcache(bhy);
+%  }
+%result (ordering retval)
+

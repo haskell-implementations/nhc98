@@ -1,0 +1,54 @@
+#!/bin/sh
+# Horrible mangler for keeping two forms of bytecode in sync.
+# Should be applied to "newbytecode.h" to give "bytecode_o.h"
+
+case $# in
+  0) input=
+     output= ;;
+  1) input=$1
+     output= ;;
+  2) input=$1
+     output=$2 ;;
+  *) echo "`basename $0`: too many arguments"
+     exit 1 ;;
+esac
+
+cat $input |\
+  tail +17  |\
+  sed -e "/^.*UNUSED_INSTRUCTIONS.*$/d" \
+      -e "/^.*Case.*/d"	\
+      -e "/^\\\\$/d" \
+      -e "/^[ 	]*$/d" \
+      -e "s/,[ 	]*\\\\$//" \
+      -e "s/ ins(/\#define /" \
+      -e "s/)//"	|\
+  awk "BEGIN {i = 0} { print \$0, i; i += 1 }" - |\
+  ( echo "#ifndef _BYTECODE_O_H_" ;
+    echo "#define _BYTECODE_O_H_" ;
+    echo '/* This file defines an obsolete form of the bytecode, used by the' ;
+    echo ' * non-ANSI-C (assembler) backend of the compiler.  This obsolete' ;
+    echo ' * form can be maintained in sync with the "real" bytecode (if the' ;
+    echo ' * "real" bytecode changes) by running the file  script/mangler.' ;
+    echo ' */' ;
+    echo; cat; echo;
+    echo "#endif" ) |\
+  ( if [ -z "$output" ]
+    then cat
+    else cat >$output
+    fi )
+
+# Explanation:
+#    remove lines upto #define INSTRUCTION_LIST (tail +4)
+#
+#    remove all of defn UNUSED_INSTRUCTIONS
+#    remove all blank lines with single trailing \
+#    remove trailing ,[\t]*\
+#
+#    for all remaining lines change ins() into #define
+#     and add numbering
+#
+#    finally add wrapper
+#      #ifndef _BYTECODE_O_H_
+#      #define _BYTECODE_O_H_
+#      ...
+#      #endif

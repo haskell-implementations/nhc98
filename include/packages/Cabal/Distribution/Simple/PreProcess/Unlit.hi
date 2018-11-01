@@ -1,0 +1,53 @@
+interface Distribution.Simple.PreProcess.Unlit where {
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+
+{-# NEED World #-}
+data World;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Distribution.Simple.PreProcess.Unlit
+{-# NEED unlit #-}
+unlit{-# 2 #-}::(Prelude.FilePath -> (Prelude.String -> (Prelude.Either Prelude.String Prelude.String)));
+
+{-# NEED plain #-}
+plain{-# 2 #-}::(Prelude.String -> (Prelude.String -> Prelude.String));
+}

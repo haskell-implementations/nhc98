@@ -1,0 +1,14 @@
+interface HatBuiltin where {
+interface ! HatBuiltin
+{-# NEED CStructure #-}
+data CStructure;
+
+{-# NEED NmType #-}
+data NmType;
+
+{-# NEED SR #-}
+data SR;
+
+{-# NEED FileTrace #-}
+data FileTrace;
+}

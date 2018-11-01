@@ -1,0 +1,88 @@
+MACHINE := $(shell script/harch)
+export MACHINE
+
+# This included config is only for the BUILDWITH variable.
+include targets/$(MACHINE)/config.cache
+#BUILDCOMP = $(shell echo ${BUILDWITH} | cut -c1-3)
+BUILDCOMPS := ghc nhc hbc gcc
+BUILDCOMP1 := $(shell echo $(notdir ${BUILDWITH}) | cut -c1-3)
+BUILDCOMP2 := $(if $(filter $(BUILDCOMP1), $(BUILDCOMPS)),$(BUILDCOMP1),$(shell ${BUILDWITH} 2>&1 | head -1 | cut -c1-3))
+BUILDCOMP := $(if $(filter $(BUILDCOMP2), $(BUILDCOMPS)),$(BUILDCOMP2),$(error Cannot find compiler type))
+
+
+HMAKE = src/hmake/Makefile* src/hmake/*.hs src/hmake/README* \
+	src/hmake/HISTORY src/hmake/Summary* \
+	src/interpreter/Makefile* src/interpreter/*.hs \
+	src/cpphs/*.hs
+
+LIBDIR  = lib
+TARGDIR = targets
+TARGETS = hmake-nhc hmake-hbc hmake-ghc chmake hi-nhc hi-hbc hi-ghc chi
+
+
+##### compiler build + install scripts
+
+all:   all-${BUILDCOMP}
+hmake: hmake-${BUILDCOMP}
+hi:    hi-${BUILDCOMP}
+help:
+	@echo "Common targets include:        all install clean realclean config"
+	@echo "Common targets include:        hmake hi"
+	@echo "For a specific build-compiler: all-hbc  all-ghc  all-nhc98 all-gcc"
+
+config:
+	./configure --config
+install: all
+	./configure --install
+
+all-hbc: hmake-hbc hi-hbc
+all-ghc: hmake-ghc hi-ghc
+all-gcc: chmake chi
+all-nhc: hmake-nhc hi-nhc
+
+
+$(TARGETS): % : $(TARGDIR)/$(MACHINE)/%
+
+
+$(TARGDIR)/$(MACHINE)/hmake-nhc: $(HMAKE)
+	cd src/hmake;          $(MAKE) HC=$(BUILDWITH) BUILDCOMP=$(BUILDCOMP) all config
+	touch $(TARGDIR)/$(MACHINE)/hmake-nhc
+$(TARGDIR)/$(MACHINE)/hmake-hbc: $(HMAKE)
+	cd src/hmake;          $(MAKE) HC=$(BUILDWITH) BUILDCOMP=$(BUILDCOMP) all config
+	touch $(TARGDIR)/$(MACHINE)/hmake-hbc
+$(TARGDIR)/$(MACHINE)/hmake-ghc: $(HMAKE)
+	cd src/hmake;          $(MAKE) HC=$(BUILDWITH) BUILDCOMP=$(BUILDCOMP) all config
+	touch $(TARGDIR)/$(MACHINE)/hmake-ghc
+$(TARGDIR)/$(MACHINE)/chmake: $(HMAKEC)
+	@echo "WARNING: hmake might not build correctly from C sources!"
+	cd src/hmake;          $(MAKE) HC=nhc98 BUILDCOMP=$(BUILDCOMP) fromC config
+	touch $(TARGDIR)/$(MACHINE)/chmake
+
+$(TARGDIR)/$(MACHINE)/hi-nhc: $(HMAKE) hmake-nhc
+	cd src/interpreter;    $(MAKE) HC=$(BUILDWITH) BUILDCOMP=$(BUILDCOMP) all
+	touch $(TARGDIR)/$(MACHINE)/hi-nhc98
+$(TARGDIR)/$(MACHINE)/hi-hbc: $(HMAKE) hmake-hbc
+	cd src/interpreter;    $(MAKE) HC=$(BUILDWITH) BUILDCOMP=$(BUILDCOMP) all
+	touch $(TARGDIR)/$(MACHINE)/hi-hbc
+$(TARGDIR)/$(MACHINE)/hi-ghc: $(HMAKE) hmake-ghc
+	cd src/interpreter;    $(MAKE) HC=$(BUILDWITH) BUILDCOMP=$(BUILDCOMP) all
+	touch $(TARGDIR)/$(MACHINE)/hi-ghc
+$(TARGDIR)/$(MACHINE)/chi: $(HMAKEC) chmake
+	@echo "WARNING: hi might not build correctly from C sources!"
+	cd src/interpreter;    $(MAKE) HC=nhc98 BUILDCOMP=$(BUILDCOMP) fromC
+	touch $(TARGDIR)/$(MACHINE)/chi
+
+
+##### cleanup
+
+clean:
+	cd src/hmake;          $(MAKE) clean
+	cd src/interpreter;    $(MAKE) clean
+
+realclean: clean
+	cd $(TARGDIR)/$(MACHINE);  rm -f $(TARGETS)
+	cd $(TARGDIR);  rm -f hmakeC
+	rm -f $(LIBDIR)/$(MACHINE)/*
+	rm -f $(TARGDIR)/$(MACHINE)/config.cache
+	rm -f $(LIBDIR)/$(MACHINE)/hmakerc
+	rm -f script/hmake script/hi script/hmake-config

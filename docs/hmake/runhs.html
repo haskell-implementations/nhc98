@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>The runhs script interpreter</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>The <em>runhs</em> script interpreter</h1></center>
+
+
+<hr>
+<p>
+<em>Runhs</em> is a tiny Haskell <tt>#!</tt> 'interpreter'
+for source scripts.  That is, if your source file starts with
+<tt>#!/path/to/runhs</tt>, you can execute it directly from your
+shell prompt.
+<p>
+Underneath, it uses <em><a href="index.html">hmake</a></em> to build
+a temporary copy of the program with your default Haskell compiler,
+then executes it.  The temporary copy is cached, so later executions
+will be faster if the script remains unchanged.
+
+<center><h3><a name="use">Usage</a></h3></center>
+<p>
+The basic option summary is:
+<pre>
+    Usage: runhs [-e] file [args...]
+</pre>
+
+The <tt>-e</tt> option does nothing - it it purely for compatibility
+with the shell.  The source <em>file</em> can have a .hs or .lhs
+extension, or no extension at all.  Further <em>args</em> are passed
+to the script program itself.
+
+<p>
+The recommended usage of <em>runhs</em> is to place a line like
+<pre>
+    #!/usr/local/bin/runhs
+</pre>
+at the beginning of your source script, also giving the file execute
+permission.  You can then run the source file directly by typing
+<tt>./filename</tt> in the shell.
+
+<hr>
+<p>
+The latest updates to this software are available on the WWW from
+<a href="http://www.haskell.org/hmake/">
+<tt>http://www.haskell.org/hmake/</tt></a>
+(<a href="http://www.cs.york.ac.uk/fp/hmake/">
+<tt>http://www.cs.york.ac.uk/fp/hmake/</tt></a>)
+
+<p>
+Information last updated: 17th May 2005<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+Malcolm.Wallace@cs.york.ac.uk
+
+</td></tr></table>
+</body></html>
+

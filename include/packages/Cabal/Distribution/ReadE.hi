@@ -1,0 +1,159 @@
+interface Distribution.ReadE where {
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Ratio.Ratio;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq Data.Typeable.TypeRep;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Typeable.TyCon;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Ordering;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Int;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Prelude.Maybe a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Integer;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Float;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Double;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable ();
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (Prelude.Either a b);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Data.Typeable.TypeRep;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Data.Typeable.TyCon;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Bool;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable [a];
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Char;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (a -> b);
+
+{-# NEED #-}
+instance Prelude.Show Data.Typeable.TypeRep;
+
+{-# NEED #-}
+instance Prelude.Show Data.Typeable.TyCon;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Functor ReadE;
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Functor (Distribution.Compat.ReadP.Parser a b);
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad (Distribution.Compat.ReadP.Parser a b);
+interface Data.Typeable
+{-# NEED Typeable #-}
+class Typeable a;
+
+{-# NEED TypeRep #-}
+data TypeRep;
+
+{-# NEED TyCon #-}
+data TyCon;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+
+{-# NEED World #-}
+data World;
+interface ! Distribution.ReadE
+{-# NEED readP_to_E #-}
+readP_to_E{-# 2 #-}::((Prelude.String -> ErrorMsg) -> ((Distribution.Compat.ReadP.ReadP a a) -> (ReadE a)));
+
+{-# NEED readEOrFail #-}
+readEOrFail{-# 1 #-}::((ReadE a) -> (Prelude.String -> a));
+
+{-# NEED parseReadE #-}
+parseReadE{-# 1 #-}::((ReadE a) -> (Distribution.Compat.ReadP.ReadP b a));
+interface Distribution.Compat.ReadP
+{-# NEED ReadP #-}
+type {-# 1 #-} ReadP a b = (Distribution.Compat.ReadP.Parser a Prelude.Char b);
+
+{-# NEED Parser #-}
+newtype {-#  #-} Parser a b c;
+interface ! Distribution.ReadE
+{-# NEED failReadE #-}
+failReadE{-# 0 #-}::(ErrorMsg -> (ReadE a));
+
+{-# NEED succeedReadE #-}
+succeedReadE{-# 1 #-}::((Prelude.String -> a) -> (ReadE a));
+
+{-# NEED {ReadE ReadE runReadE} #-}
+newtype {-#  #-} ReadE a
+  = ReadE {runReadE :: (Prelude.String -> (Prelude.Either ErrorMsg a))};
+interface Distribution.ReadE
+{-# NEED ErrorMsg #-}
+type {-# 2 #-} ErrorMsg = Prelude.String;
+}

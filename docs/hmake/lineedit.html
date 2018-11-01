@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>The hmake interactive line editor</title></head>
+<body bgcolor="#ffffff">
+<table><tr><td width=500>
+
+<center><h1>The <em>hmake interactive</em> line editor</h1></center>
+
+<hr>
+<p>
+<em>Hmake interactive</em> allows you to type expressions at the
+commandline, one expression per line.  If you have a long expression,
+you are likely to make a mistake somewhere.  Hence, we include a
+simple line editor to allow you to correct mistakes before pressing
+the <tt>return</tt> key.
+
+<p>
+Provided you have <em>readline</em> available on your system, and you
+build <em>hi</em> with <em>ghc</em>, you will get all the readline
+functionality built in to <em>hi</em> automatically.
+
+<p>
+However, if you don't have <em>readline</em>, or you didn't build with
+<em>ghc</em>, you get a very basic line editor instead.  This line
+editor does <b>not</b> provide the full functionality you would expect
+from the <em>readline</em> library, but is provided on the grounds
+that some basic editing is better than none at all.  (And of course,
+it is written fully in Haskell'98.  Hence, do feel free to change or
+add your own preferred keystrokes for editing.)  Since hmake-3.08,
+the line editor <em>does</em> have a history mechanism for retrieving
+earlier expressions or commands.
+
+
+
+<h3>Editing Keystrokes</h3>
+<p>
+A word of warning: the keystrokes noted in this table seem to be
+somewhat dependent on the terminal settings of the environment in
+which you run <em>hi</em>.  You might need to experiment a little
+to discover what works on your machine.
+<center>
+<table border=1 width="100%"><tr>
+<td><b>backspace</b><br>
+    <b>^H</b></td>
+    <td>delete one character to the left of the cursor</td>
+</tr><tr>
+<td><b>delete</b><br>
+    <b>^?</b></td>
+	<td>delete one character under the cursor (i.e. to the right)</td>
+</tr><tr>
+<td><b>right arrow</b><br>
+    <b>^L</b></td>
+    <td>move the cursor right by one character without changing anything</td>
+</tr><tr>
+<td><b>left arrow</b></td>
+    <td>move the cursor left by one character without changing anything</td>
+</tr><tr>
+<td><b>up arrow</b></td>
+    <td>retrieve the previous line from the history buffer</td>
+</tr><tr>
+<td><b>down arrow</b></td>
+    <td>retrieve the succeeding line from the history buffer</td>
+</tr><tr>
+<td><b>^K</b></td>
+    <td>kill the line (abandon it completely)</td>
+</tr><tr>
+<td><b>return</b><br>
+    <b>^J</b><br>
+    <b>^M</b></td>
+    <td>accept the whole line (regardless of cursor position)</td>
+</tr></table>
+</center>
+
+
+<hr>
+<p>
+The latest updates to this software are available on the WWW from
+<a href="http://www.haskell.org/hmake/">
+<tt>http://www.haskell.org/hmake/</tt></a>
+(<a href="http://www.cs.york.ac.uk/fp/hmake/">
+<tt>http://www.cs.york.ac.uk/fp/hmake/</tt></a>)
+
+<p>
+Information last updated: 2003-06-23<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+Malcolm.Wallace@cs.york.ac.uk
+
+</td></tr></table>
+</body></html>
+

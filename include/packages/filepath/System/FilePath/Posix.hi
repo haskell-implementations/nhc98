@@ -1,0 +1,217 @@
+interface System.FilePath.Posix where {
+infixr  5 </>;
+infixr  7 <.>;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! System.FilePath.Posix
+{-# NEED isAbsolute #-}
+isAbsolute{-# 0 #-}::(Prelude.FilePath -> Prelude.Bool);
+
+{-# NEED isRelative #-}
+isRelative{-# 0 #-}::(Prelude.FilePath -> Prelude.Bool);
+
+{-# NEED makeValid #-}
+makeValid{-# 1 #-}::(Prelude.FilePath -> Prelude.FilePath);
+
+{-# NEED isValid #-}
+isValid{-# 1 #-}::(Prelude.FilePath -> Prelude.Bool);
+
+{-# NEED normalise #-}
+normalise{-# 1 #-}::(Prelude.FilePath -> Prelude.FilePath);
+
+{-# NEED makeRelative #-}
+makeRelative{-# 2 #-}::(Prelude.FilePath -> (Prelude.FilePath -> Prelude.FilePath));
+
+{-# NEED equalFilePath #-}
+equalFilePath{-# 2 #-}::(Prelude.FilePath -> (Prelude.FilePath -> Prelude.Bool));
+
+{-# NEED joinPath #-}
+joinPath{-# 1 #-}::([Prelude.FilePath] -> Prelude.FilePath);
+
+{-# NEED splitDirectories #-}
+splitDirectories{-# 1 #-}::(Prelude.FilePath -> [Prelude.FilePath]);
+
+{-# NEED splitPath #-}
+splitPath{-# 1 #-}::(Prelude.FilePath -> [Prelude.FilePath]);
+
+{-# NEED (</>) #-}
+(</>){-# 0 #-}::(Prelude.FilePath -> (Prelude.FilePath -> Prelude.FilePath));
+
+{-# NEED combine #-}
+combine{-# 2 #-}::(Prelude.FilePath -> (Prelude.FilePath -> Prelude.FilePath));
+
+{-# NEED replaceDirectory #-}
+replaceDirectory{-# 2 #-}::(Prelude.FilePath -> (Prelude.String -> Prelude.FilePath));
+
+{-# NEED takeDirectory #-}
+takeDirectory{-# 1 #-}::(Prelude.FilePath -> Prelude.FilePath);
+
+{-# NEED dropTrailingPathSeparator #-}
+dropTrailingPathSeparator{-# 1 #-}::(Prelude.FilePath -> Prelude.FilePath);
+
+{-# NEED addTrailingPathSeparator #-}
+addTrailingPathSeparator{-# 1 #-}::(Prelude.FilePath -> Prelude.FilePath);
+
+{-# NEED hasTrailingPathSeparator #-}
+hasTrailingPathSeparator{-# 1 #-}::(Prelude.FilePath -> Prelude.Bool);
+
+{-# NEED replaceBaseName #-}
+replaceBaseName{-# 2 #-}::(Prelude.FilePath -> (Prelude.String -> Prelude.FilePath));
+
+{-# NEED takeBaseName #-}
+takeBaseName{-# 0 #-}::(Prelude.FilePath -> Prelude.String);
+
+{-# NEED takeFileName #-}
+takeFileName{-# 0 #-}::(Prelude.FilePath -> Prelude.FilePath);
+
+{-# NEED dropFileName #-}
+dropFileName{-# 0 #-}::(Prelude.FilePath -> Prelude.FilePath);
+
+{-# NEED replaceFileName #-}
+replaceFileName{-# 2 #-}::(Prelude.FilePath -> (Prelude.String -> Prelude.FilePath));
+
+{-# NEED splitFileName #-}
+splitFileName{-# 1 #-}::(Prelude.FilePath -> (Prelude.String,Prelude.String));
+
+{-# NEED isDrive #-}
+isDrive{-# 0 #-}::(Prelude.FilePath -> Prelude.Bool);
+
+{-# NEED hasDrive #-}
+hasDrive{-# 0 #-}::(Prelude.FilePath -> Prelude.Bool);
+
+{-# NEED dropDrive #-}
+dropDrive{-# 0 #-}::(Prelude.FilePath -> Prelude.FilePath);
+
+{-# NEED takeDrive #-}
+takeDrive{-# 0 #-}::(Prelude.FilePath -> Prelude.FilePath);
+
+{-# NEED joinDrive #-}
+joinDrive{-# 2 #-}::(Prelude.FilePath -> (Prelude.FilePath -> Prelude.FilePath));
+
+{-# NEED splitDrive #-}
+splitDrive{-# 1 #-}::(Prelude.FilePath -> (Prelude.FilePath,Prelude.FilePath));
+
+{-# NEED takeExtensions #-}
+takeExtensions{-# 0 #-}::(Prelude.FilePath -> Prelude.String);
+
+{-# NEED dropExtensions #-}
+dropExtensions{-# 0 #-}::(Prelude.FilePath -> Prelude.FilePath);
+
+{-# NEED splitExtensions #-}
+splitExtensions{-# 1 #-}::(Prelude.FilePath -> (Prelude.FilePath,Prelude.String));
+
+{-# NEED hasExtension #-}
+hasExtension{-# 0 #-}::(Prelude.FilePath -> Prelude.Bool);
+
+{-# NEED addExtension #-}
+addExtension{-# 2 #-}::(Prelude.FilePath -> (Prelude.String -> Prelude.FilePath));
+
+{-# NEED dropExtension #-}
+dropExtension{-# 0 #-}::(Prelude.FilePath -> Prelude.FilePath);
+
+{-# NEED (<.>) #-}
+(<.>){-# 0 #-}::(Prelude.FilePath -> (Prelude.String -> Prelude.FilePath));
+
+{-# NEED replaceExtension #-}
+replaceExtension{-# 2 #-}::(Prelude.FilePath -> (Prelude.String -> Prelude.FilePath));
+
+{-# NEED takeExtension #-}
+takeExtension{-# 0 #-}::(Prelude.FilePath -> Prelude.String);
+
+{-# NEED splitExtension #-}
+splitExtension{-# 1 #-}::(Prelude.FilePath -> (Prelude.String,Prelude.String));
+
+{-# NEED getSearchPath #-}
+getSearchPath{-# 0 #-}::(NHC.Internal.IO [Prelude.FilePath]);
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! System.FilePath.Posix
+{-# NEED splitSearchPath #-}
+splitSearchPath{-# 0 #-}::(Prelude.String -> [Prelude.FilePath]);
+
+{-# NEED isExtSeparator #-}
+isExtSeparator{-# 0 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED extSeparator #-}
+extSeparator{-# 0 #-}::Prelude.Char;
+
+{-# NEED isSearchPathSeparator #-}
+isSearchPathSeparator{-# 0 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED searchPathSeparator #-}
+searchPathSeparator{-# 0 #-}::Prelude.Char;
+
+{-# NEED isPathSeparator #-}
+isPathSeparator{-# 0 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED pathSeparators #-}
+pathSeparators{-# 0 #-}::[Prelude.Char];
+
+{-# NEED pathSeparator #-}
+pathSeparator{-# 0 #-}::Prelude.Char;
+interface ! Prelude
+{-# NEED FilePath #-}
+type {-# 2 #-} FilePath = String;
+}

@@ -1,0 +1,1051 @@
+interface Prelude where {
+infixr  5 ++;
+infix   4 `elem`;
+infix   4 `notElem`;
+infixl  9 !!;
+infixl  7 Ratio.%;
+infixr  0 $;
+infixr  2 ||;
+infixr  0 `seq`;
+infixr  0 $!;
+infixr  9 .;
+infixr  8 ^;
+infixr  8 ^^;
+infixr  3 &&;
+infixr  1 =<<;
+infixl  1 >>;
+infixl  1 >>=;
+infixr  8 **;
+infixl  7 /;
+infixl  7 `quot`;
+infixl  7 `rem`;
+infixl  7 `div`;
+infixl  7 `mod`;
+infix   4 <=;
+infix   4 <;
+infix   4 >=;
+infix   4 >;
+prefix negate 6 -;
+infixl  6 +;
+infixl  7 *;
+infix   4 ==;
+infix   4 /=;
+infixr  5 :;
+
+{-# NEED #-}
+instance Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Functor Maybe;
+
+{-# NEED #-}
+instance Functor [];
+
+{-# NEED #-}
+instance Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Monad Maybe;
+
+{-# NEED #-}
+instance Monad [];
+
+{-# NEED #-}
+instance Floating Float;
+
+{-# NEED #-}
+instance Floating Double;
+
+{-# NEED #-}
+instance RealFloat Float;
+
+{-# NEED #-}
+instance RealFloat Double;
+
+{-# NEED #-}
+instance Fractional Float;
+
+{-# NEED #-}
+instance Fractional Double;
+
+{-# NEED #-}
+instance RealFrac Float;
+
+{-# NEED #-}
+instance RealFrac Double;
+
+{-# NEED #-}
+instance (Read a) => Read (Maybe a);
+
+{-# NEED #-}
+instance (Read a,Read b) => Read (Either a b);
+
+{-# NEED #-}
+instance Read Integer;
+
+{-# NEED #-}
+instance Read Bool;
+
+{-# NEED #-}
+instance Read Float;
+
+{-# NEED #-}
+instance Read Double;
+
+{-# NEED #-}
+instance Read Int;
+
+{-# NEED #-}
+instance Read ();
+
+{-# NEED #-}
+instance (Read a) => Read [a];
+
+{-# NEED #-}
+instance Read Ordering;
+
+{-# NEED #-}
+instance Read Char;
+
+{-# NEED #-}
+instance Eq IOError;
+
+{-# NEED #-}
+instance (Eq a) => Eq (Maybe a);
+
+{-# NEED #-}
+instance (Eq a,Eq b) => Eq (Either a b);
+
+{-# NEED #-}
+instance Eq Integer;
+
+{-# NEED #-}
+instance Eq Bool;
+
+{-# NEED #-}
+instance Eq Float;
+
+{-# NEED #-}
+instance Eq Double;
+
+{-# NEED #-}
+instance Eq Int;
+
+{-# NEED #-}
+instance Eq ();
+
+{-# NEED #-}
+instance (Eq a) => Eq [a];
+
+{-# NEED #-}
+instance Eq Ordering;
+
+{-# NEED #-}
+instance Eq Char;
+
+{-# NEED #-}
+instance Num Integer;
+
+{-# NEED #-}
+instance Num Float;
+
+{-# NEED #-}
+instance Num Double;
+
+{-# NEED #-}
+instance Num Int;
+
+{-# NEED #-}
+instance (Ord a) => Ord (Maybe a);
+
+{-# NEED #-}
+instance (Ord a,Ord b) => Ord (Either a b);
+
+{-# NEED #-}
+instance Ord Integer;
+
+{-# NEED #-}
+instance Ord Bool;
+
+{-# NEED #-}
+instance Ord Float;
+
+{-# NEED #-}
+instance Ord Double;
+
+{-# NEED #-}
+instance Ord Int;
+
+{-# NEED #-}
+instance Ord ();
+
+{-# NEED #-}
+instance (Ord a) => Ord [a];
+
+{-# NEED #-}
+instance Ord Ordering;
+
+{-# NEED #-}
+instance Ord Char;
+
+{-# NEED #-}
+instance Integral Integer;
+
+{-# NEED #-}
+instance Integral Int;
+
+{-# NEED #-}
+instance Enum Integer;
+
+{-# NEED #-}
+instance Enum Bool;
+
+{-# NEED #-}
+instance Enum Float;
+
+{-# NEED #-}
+instance Enum Double;
+
+{-# NEED #-}
+instance Enum Int;
+
+{-# NEED #-}
+instance Enum ();
+
+{-# NEED #-}
+instance Enum Ordering;
+
+{-# NEED #-}
+instance Enum Char;
+
+{-# NEED #-}
+instance Real Integer;
+
+{-# NEED #-}
+instance Real Float;
+
+{-# NEED #-}
+instance Real Double;
+
+{-# NEED #-}
+instance Real Int;
+
+{-# NEED #-}
+instance (Show a) => Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Show IOError;
+
+{-# NEED #-}
+instance (Show a) => Show (Maybe a);
+
+{-# NEED #-}
+instance (Show a,Show b) => Show (Either a b);
+
+{-# NEED #-}
+instance Show Integer;
+
+{-# NEED #-}
+instance Show Bool;
+
+{-# NEED #-}
+instance Show Float;
+
+{-# NEED #-}
+instance Show Double;
+
+{-# NEED #-}
+instance Show Int;
+
+{-# NEED #-}
+instance Show ();
+
+{-# NEED #-}
+instance (Show a) => Show [a];
+
+{-# NEED #-}
+instance Show Ordering;
+
+{-# NEED #-}
+instance Show Char;
+
+{-# NEED #-}
+instance (Show a,Show b) => Show (a -> b);
+
+{-# NEED #-}
+instance Bounded Bool;
+
+{-# NEED #-}
+instance Bounded Int;
+
+{-# NEED #-}
+instance Bounded ();
+
+{-# NEED #-}
+instance Bounded Ordering;
+
+{-# NEED #-}
+instance Bounded Char;
+
+{-# NEED #-}
+instance (Integral a) => Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Integral a) => RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Integral a) => Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Integral a) => Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Integral a) => Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Integral a) => Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Integral a) => Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Integral a) => Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Read a,Integral a) => Read (Ratio.Ratio a);
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface IO
+{-# NEED SocketType #-}
+data SocketType;
+interface ! Prelude
+{-# NEED uncurry #-}
+uncurry{-# 2 #-}::((a -> (b -> c)) -> ((a,b) -> c));
+
+{-# NEED curry #-}
+curry{-# 3 #-}::(((a,b) -> c) -> (a -> (b -> c)));
+
+{-# NEED _enumIndex #-}
+_enumIndex{-# 3 #-}::(String -> ((a,a) -> (a -> Int)));
+
+{-# NEED _readCon0 #-}
+_readCon0{-# 3 #-}::(Bool -> (a -> (String -> (ReadS a))));
+
+{-# NEED read #-}
+read{-# 1 #-}::(Read a) => (String -> a);
+
+{-# NEED showType #-}
+showType{-# 1 #-}::(Show a) => (a -> String);
+
+{-# NEED showString #-}
+showString{-# 0 #-}::(String -> ShowS);
+
+{-# NEED _readConArg #-}
+_readConArg{-# 1 #-}::(Read a) => ((String -> [((a -> b),String)]) -> (ReadS b));
+
+{-# NEED _readFinal #-}
+_readFinal{-# 2 #-}::(String -> ((a -> [(b,String)]) -> (a -> [(b,String)])));
+
+{-# NEED _readField #-}
+_readField{-# 3 #-}::(Read a) => (String -> (String -> ((String -> [((a -> b),String)]) -> (ReadS b))));
+
+{-# NEED readParen #-}
+readParen{-# 2 #-}::(Bool -> ((ReadS a) -> (ReadS a)));
+
+{-# NEED showParen #-}
+showParen{-# 2 #-}::(Bool -> (ShowS -> ShowS));
+
+{-# NEED _readCon #-}
+_readCon{-# 2 #-}::(a -> (String -> (ReadS a)));
+
+{-# NEED showChar #-}
+showChar{-# 0 #-}::(Char -> ShowS);
+
+{-# NEED reads #-}
+reads{-# 0 #-}::(Read a) => (ReadS a);
+
+{-# NEED shows #-}
+shows{-# 0 #-}::(Show a) => (a -> ShowS);
+
+{-# NEED lex #-}
+lex{-# 1 #-}::(ReadS String);
+
+{-# NEED _readConInfix #-}
+_readConInfix{-# 6 #-}::(Read a,Read b) => (Int -> (Int -> (Int -> (Int -> ((a -> (b -> c)) -> (String -> (ReadS c)))))));
+
+{-# NEED const #-}
+const{-# 2 #-}::(a -> (b -> a));
+
+{-# NEED foldl1 #-}
+foldl1{-# 2 #-}::((a -> (a -> a)) -> ([a] -> a));
+
+{-# NEED scanl1 #-}
+scanl1{-# 2 #-}::((a -> (a -> a)) -> ([a] -> [a]));
+
+{-# NEED foldr1 #-}
+foldr1{-# 2 #-}::((a -> (a -> a)) -> ([a] -> a));
+
+{-# NEED scanr1 #-}
+scanr1{-# 2 #-}::((a -> (a -> a)) -> ([a] -> [a]));
+
+{-# NEED zipWith3 #-}
+zipWith3{-# 4 #-}::((a -> (b -> (c -> d))) -> ([a] -> ([b] -> ([c] -> [d]))));
+
+{-# NEED zip3 #-}
+zip3{-# 0 #-}::([a] -> ([b] -> ([c] -> [(a,b,c)])));
+
+{-# NEED unzip3 #-}
+unzip3{-# 0 #-}::([(a,b,c)] -> ([a],[b],[c]));
+
+{-# NEED head #-}
+head{-# 1 #-}::([a] -> a);
+
+{-# NEED and #-}
+and{-# 0 #-}::([Bool] -> Bool);
+
+{-# NEED (++) #-}
+(++){-# 2 #-}::([a] -> ([a] -> [a]));
+
+{-# NEED take #-}
+take{-# 2 #-}::(Int -> ([a] -> [a]));
+
+{-# NEED cycle #-}
+cycle{-# 1 #-}::([a] -> [a]);
+
+{-# NEED takeWhile #-}
+takeWhile{-# 2 #-}::((a -> Bool) -> ([a] -> [a]));
+
+{-# NEED dropWhile #-}
+dropWhile{-# 2 #-}::((a -> Bool) -> ([a] -> [a]));
+
+{-# NEED reverse #-}
+reverse{-# 0 #-}::([a] -> [a]);
+
+{-# NEED replicate #-}
+replicate{-# 2 #-}::(Int -> (a -> [a]));
+
+{-# NEED iterate #-}
+iterate{-# 2 #-}::((a -> a) -> (a -> [a]));
+
+{-# NEED length #-}
+length{-# 1 #-}::([a] -> Int);
+
+{-# NEED zipWith #-}
+zipWith{-# 3 #-}::((a -> (b -> c)) -> ([a] -> ([b] -> [c])));
+
+{-# NEED break #-}
+break{-# 1 #-}::((a -> Bool) -> ([a] -> ([a],[a])));
+
+{-# NEED foldl #-}
+foldl{-# 3 #-}::((a -> (b -> a)) -> (a -> ([b] -> a)));
+
+{-# NEED tail #-}
+tail{-# 1 #-}::([a] -> [a]);
+
+{-# NEED all #-}
+all{-# 1 #-}::((a -> Bool) -> ([a] -> Bool));
+
+{-# NEED null #-}
+null{-# 1 #-}::([a] -> Bool);
+
+{-# NEED scanl #-}
+scanl{-# 3 #-}::((a -> (b -> a)) -> (a -> ([b] -> [a])));
+
+{-# NEED elem #-}
+elem{-# 1 #-}::(Eq a) => (a -> ([a] -> Bool));
+
+{-# NEED notElem #-}
+notElem{-# 1 #-}::(Eq a) => (a -> ([a] -> Bool));
+
+{-# NEED sum #-}
+sum{-# 0 #-}::(Num a) => ([a] -> a);
+
+{-# NEED minimum #-}
+minimum{-# 1 #-}::(Ord a) => ([a] -> a);
+
+{-# NEED maximum #-}
+maximum{-# 1 #-}::(Ord a) => ([a] -> a);
+
+{-# NEED gcd #-}
+gcd{-# 2 #-}::(Integral a) => (a -> (a ->a));
+
+{-# NEED lcm #-}
+lcm{-# 2 #-}::(Integral a) => (a -> (a ->a));
+
+{-# NEED span #-}
+span{-# 2 #-}::((a -> Bool) -> ([a] -> ([a],[a])));
+
+{-# NEED map #-}
+map{-# 2 #-}::((a -> b) -> ([a] -> [b]));
+
+{-# NEED concatMap #-}
+concatMap{-# 1 #-}::((a -> [b]) -> ([a] -> [b]));
+
+{-# NEED zip #-}
+zip{-# 0 #-}::([a] -> ([b] -> [(a,b)]));
+
+{-# NEED unzip #-}
+unzip{-# 0 #-}::([(a,b)] -> ([a],[b]));
+
+{-# NEED drop #-}
+drop{-# 2 #-}::(Int -> ([a] -> [a]));
+
+{-# NEED lookup #-}
+lookup{-# 2 #-}::(Eq a) => (a -> ([(a,b)] -> (Maybe b)));
+
+{-# NEED or #-}
+or{-# 0 #-}::([Bool] -> Bool);
+
+{-# NEED foldr #-}
+foldr{-# 3 #-}::((a -> (b -> b)) -> (b -> ([a] -> b)));
+
+{-# NEED filter #-}
+filter{-# 2 #-}::((a -> Bool) -> ([a] -> [a]));
+
+{-# NEED scanr #-}
+scanr{-# 3 #-}::((a -> (b -> b)) -> (b -> ([a] -> [b])));
+
+{-# NEED words #-}
+words{-# 1 #-}::(String -> [String]);
+
+{-# NEED unwords #-}
+unwords{-# 1 #-}::([String] -> String);
+
+{-# NEED lines #-}
+lines{-# 1 #-}::(String -> [String]);
+
+{-# NEED unlines #-}
+unlines{-# 0 #-}::([String] -> String);
+
+{-# NEED splitAt #-}
+splitAt{-# 2 #-}::(Int -> ([a] -> ([a],[a])));
+
+{-# NEED concat #-}
+concat{-# 0 #-}::([[a]] -> [a]);
+
+{-# NEED repeat #-}
+repeat{-# 1 #-}::(a -> [a]);
+
+{-# NEED product #-}
+product{-# 0 #-}::(Num a) => ([a] -> a);
+
+{-# NEED init #-}
+init{-# 1 #-}::([a] -> [a]);
+
+{-# NEED last #-}
+last{-# 1 #-}::([a] -> a);
+
+{-# NEED (!!) #-}
+(!!){-# 2 #-}::([a] -> (Int -> a));
+
+{-# NEED any #-}
+any{-# 1 #-}::((a -> Bool) -> ([a] -> Bool));
+
+{-# NEED fst #-}
+fst{-# 1 #-}::((a,b) -> a);
+
+{-# NEED not #-}
+not{-# 1 #-}::(Bool -> Bool);
+
+{-# NEED subtract #-}
+subtract{-# 0 #-}::(Num a) => (a -> (a -> a));
+
+{-# NEED error #-}
+error{-# 1 #-}::(String -> a);
+
+{-# NEED _filter #-}
+_filter{-# 3 #-}::(Bool -> (([a] -> [a]) -> ([a] -> [a])));
+
+{-# NEED either #-}
+either{-# 3 #-}::((a -> b) -> ((c -> b) -> ((Either a c) -> b)));
+
+{-# NEED _foldr #-}
+_foldr{-# 3 #-}::((a -> (b -> b)) -> ([a] -> (b -> b)));
+
+{-# NEED ($) #-}
+($){-# 2 #-}::((a -> b) -> (a -> b));
+
+{-# NEED (||) #-}
+(||){-# 2 #-}::(Bool -> (Bool -> Bool));
+
+{-# NEED seq #-}
+seq{-# 2 #-}::(a -> (b -> b));
+
+{-# NEED flip #-}
+flip{-# 3 #-}::((a -> (b -> c)) -> (b -> (a -> c)));
+
+{-# NEED _enumFromThenTo #-}
+_enumFromThenTo{-# 3 #-}::(a -> (a -> (Int -> [a])));
+
+{-# NEED _enumFromTo #-}
+_enumFromTo{-# 2 #-}::(a -> (Int -> [a]));
+
+{-# NEED _enumFromTo' #-}
+_enumFromTo'{-# 2 #-}::(Int -> (Int -> [a]));
+
+{-# NEED _seq #-}
+_seq{-# 2 #-}::(a -> (b -> b));
+
+{-# NEED _hGetStr #-}
+_hGetStr{-# 1 #-}::(NHC.Internal.IO.Handle -> [Char]);
+
+{-# NEED _hGetChar #-}
+_hGetChar{-# 1 #-}::(NHC.Internal.IO.Handle -> Int);
+
+{-# NEED _hPutChar #-}
+_hPutChar{-# 2 #-}::(NHC.Internal.IO.Handle -> (Char -> (Either IOError ())));
+interface IO
+{-# NEED Handle #-}
+newtype {-# #-} Handle;
+interface ! Prelude
+{-# NEED _eqInteger #-}
+_eqInteger{-# 2 #-}::(Integer -> (Integer -> Bool));
+
+{-# NEED _eqFloat #-}
+_eqFloat{-# 2 #-}::(Float -> (Float -> Bool));
+
+{-# NEED _eqDouble #-}
+_eqDouble{-# 2 #-}::(Double -> (Double -> Bool));
+
+{-# NEED _leInteger #-}
+_leInteger{-# 2 #-}::(Integer -> (Integer -> Bool));
+
+{-# NEED _subInteger #-}
+_subInteger{-# 2 #-}::(Integer -> (Integer -> Integer));
+
+{-# NEED even #-}
+even{-# 1 #-}::(Integral a) => (a -> Bool);
+
+{-# NEED numericEnumFromThen #-}
+numericEnumFromThen{-# 2 #-}::(Fractional a) => (a -> (a -> [a]));
+
+{-# NEED numericEnumFromThenTo #-}
+numericEnumFromThenTo{-# 3 #-}::(Fractional a, Ord a) => (a -> (a -> (a -> [a])));
+
+{-# NEED _enumFromThen #-}
+_enumFromThen{-# 3 #-}::(a -> (a -> (Int -> [a])));
+
+{-# NEED _toEnum #-}
+_toEnum{-# 1 #-}::(Int -> a);
+
+{-# NEED _fromEnum #-}
+_fromEnum{-# 1 #-}::(a -> Int);
+
+{-# NEED numericEnumFrom #-}
+numericEnumFrom{-# 1 #-}::(Fractional a) => (a -> [a]);
+
+{-# NEED numericEnumFromTo #-}
+numericEnumFromTo{-# 2 #-}::(Fractional a, Ord a) => (a -> (a -> [a]));
+
+{-# NEED until #-}
+until{-# 3 #-}::((a -> Bool) -> ((a -> a) -> (a -> a)));
+
+{-# NEED fromIntegral #-}
+fromIntegral{-# 0 #-}::(Integral a,Num b) => (a -> b);
+
+{-# NEED ($!) #-}
+($!){-# 2 #-}::((a -> b) -> (a -> b));
+
+{-# NEED asTypeOf #-}
+asTypeOf{-# 0 #-}::(a -> (a -> a));
+
+{-# NEED (.) #-}
+(.){-# 2 #-}::((a -> b) -> ((c -> a) -> (c -> b)));
+
+{-# NEED otherwise #-}
+otherwise{-# 0 #-}::Bool;
+
+{-# NEED (^) #-}
+(^){-# 2 #-}::(Num a,Integral b) => (a -> (b -> a));
+
+{-# NEED (^^) #-}
+(^^){-# 2 #-}::(Fractional a,Integral b) => (a -> (b -> a));
+
+{-# NEED _enumInRange #-}
+_enumInRange{-# 2 #-}::((a,a) -> (a -> Bool));
+
+{-# NEED _enumRange #-}
+_enumRange{-# 1 #-}::((a,a) -> [a]);
+
+{-# NEED sequence #-}
+sequence{-# 0 #-}::(Monad a) => ([(a b)] -> (a [b]));
+
+{-# NEED maybe #-}
+maybe{-# 3 #-}::(a -> ((b -> a) -> ((Maybe b) -> a)));
+
+{-# NEED snd #-}
+snd{-# 1 #-}::((a,b) -> b);
+
+{-# NEED (&&) #-}
+(&&){-# 2 #-}::(Bool -> (Bool -> Bool));
+
+{-# NEED undefined #-}
+undefined{-# 0 #-}::a;
+
+{-# NEED odd #-}
+odd{-# 0 #-}::(Integral a) => (a -> Bool);
+
+{-# NEED id #-}
+id{-# 1 #-}::(a -> a);
+
+{-# NEED _id #-}
+_id{-# 1 #-}::(a -> a);
+
+{-# NEED _enumFromToInc #-}
+_enumFromToInc{-# 3 #-}::(Int -> (Int -> (Int -> [a])));
+
+{-# NEED _enumFromToDec #-}
+_enumFromToDec{-# 3 #-}::(Int -> (Int -> (Int -> [a])));
+
+{-# NEED realToFrac #-}
+realToFrac{-# 0 #-}::(Real a,Fractional b) => (a -> b);
+
+{-# NEED sequence_ #-}
+sequence_{-# 0 #-}::(Monad a) => ([(a b)] -> (a ()));
+
+{-# NEED mapM_ #-}
+mapM_{-# 2 #-}::(Monad b) => ((a -> (b c)) -> ([a] -> (b ())));
+
+{-# NEED readIO #-}
+readIO{-# 1 #-}::(Read a) => (String -> (NHC.Internal.IO a));
+
+{-# NEED readFile #-}
+readFile{-# 1 #-}::(FilePath -> (NHC.Internal.IO String));
+
+{-# NEED appendFile #-}
+appendFile{-# 2 #-}::(FilePath -> (String -> (NHC.Internal.IO ())));
+
+{-# NEED writeFile #-}
+writeFile{-# 2 #-}::(FilePath -> (String -> (NHC.Internal.IO ())));
+
+{-# NEED FilePath #-}
+type {-# 2 #-} FilePath = String;
+
+{-# NEED getLine #-}
+getLine{-# 0 #-}::(NHC.Internal.IO String);
+
+{-# NEED catch #-}
+catch{-# 2 #-}::((NHC.Internal.IO a) -> ((IOError -> (NHC.Internal.IO a)) -> (NHC.Internal.IO a)));
+
+{-# NEED readLn #-}
+readLn{-# 0 #-}::(Read a) => (NHC.Internal.IO a);
+
+{-# NEED putStrLn #-}
+putStrLn{-# 1 #-}::(String -> (NHC.Internal.IO ()));
+
+{-# NEED getChar #-}
+getChar{-# 0 #-}::(NHC.Internal.IO Char);
+
+{-# NEED putChar #-}
+putChar{-# 1 #-}::(Char -> (NHC.Internal.IO ()));
+
+{-# NEED userError #-}
+userError{-# 1 #-}::(String -> IOError);
+
+{-# NEED putStr #-}
+putStr{-# 0 #-}::(String -> (NHC.Internal.IO ()));
+
+{-# NEED getContents #-}
+getContents{-# 0 #-}::(NHC.Internal.IO [Char]);
+
+{-# NEED interact #-}
+interact{-# 1 #-}::((String -> String) -> (NHC.Internal.IO ()));
+
+{-# NEED print #-}
+print{-# 1 #-}::(Show a) => (a -> (NHC.Internal.IO ()));
+
+{-# NEED (=<<) #-}
+(=<<){-# 2 #-}::(Monad b) => ((a -> (b c)) -> ((b a) -> (b c)));
+
+{-# NEED ioError #-}
+ioError{-# 1 #-}::(IOError -> (NHC.Internal.IO a));
+
+{-# NEED mapM #-}
+mapM{-# 2 #-}::(Monad b) => ((a -> (b c)) -> ([a] -> (b [c])));
+
+{-# NEED {Functor fmap} #-}
+class Functor a where {
+  fmap{-# 2 #-}::((b -> c) -> ((a b) -> (a c)));
+};
+
+{-# NEED {Monad (>>) fail (>>=) return} #-}
+class Monad a where {
+  (>>){-# 2 #-}::((a b) -> ((a c) -> (a c)));
+  fail{-# 1 #-}::(String -> (a b));
+  (>>=){-# 2 #-}::((a b) -> ((b -> (a c)) -> (a c)));
+  return{-# 1 #-}::(b -> (a b));
+};
+interface ! NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface ! Prelude
+{-# NEED IOError #-}
+data IOError;
+
+{-# NEED {Maybe Nothing Just} #-}
+data Maybe a
+  = Nothing 
+  | Just a;
+
+{-# NEED {Either Left Right} #-}
+data Either a b
+  = Left a
+  | Right b;
+
+{-# NEED {(,,,,,,,,,,,,,,) (,,,,,,,,,,,,,,)} #-}
+data (,,,,,,,,,,,,,,) a b c d e f g h i j k l m n o
+ = (,,,,,,,,,,,,,,) a b c d e f g h i j k l m n o;
+
+{-# NEED {(,,,,,,,,,,,,,) (,,,,,,,,,,,,,)} #-}
+data (,,,,,,,,,,,,,) a b c d e f g h i j k l m n
+ = (,,,,,,,,,,,,,) a b c d e f g h i j k l m n;
+
+{-# NEED {(,,,,,,,,,,,,) (,,,,,,,,,,,,)} #-}
+data (,,,,,,,,,,,,) a b c d e f g h i j k l m
+ = (,,,,,,,,,,,,) a b c d e f g h i j k l m;
+
+{-# NEED {(,,,,,,,,,,,) (,,,,,,,,,,,)} #-}
+data (,,,,,,,,,,,) a b c d e f g h i j k l
+ = (,,,,,,,,,,,) a b c d e f g h i j k l;
+
+{-# NEED {(,,,,,,,,,,) (,,,,,,,,,,)} #-}
+data (,,,,,,,,,,) a b c d e f g h i j k
+ = (,,,,,,,,,,) a b c d e f g h i j k;
+
+{-# NEED {(,,,,,,,,,) (,,,,,,,,,)} #-}
+data (,,,,,,,,,) a b c d e f g h i j
+ = (,,,,,,,,,) a b c d e f g h i j;
+
+{-# NEED {(,,,,,,,,) (,,,,,,,,)} #-}
+data (,,,,,,,,) a b c d e f g h i
+ = (,,,,,,,,) a b c d e f g h i;
+
+{-# NEED {(,,,,,,,) (,,,,,,,)} #-}
+data (,,,,,,,) a b c d e f g h
+ = (,,,,,,,) a b c d e f g h;
+
+{-# NEED {(,,,,,,) (,,,,,,)} #-}
+data (,,,,,,) a b c d e f g
+ = (,,,,,,) a b c d e f g;
+
+{-# NEED {(,,,,,) (,,,,,)} #-}
+data (,,,,,) a b c d e f
+ = (,,,,,) a b c d e f;
+
+{-# NEED {(,,,,) (,,,,)} #-}
+data (,,,,) a b c d e
+ = (,,,,) a b c d e;
+
+{-# NEED {(,,,) (,,,)} #-}
+data (,,,) a b c d
+ = (,,,) a b c d;
+
+{-# NEED {(,,) (,,)} #-}
+data (,,) a b c
+ = (,,) a b c;
+
+{-# NEED {(,) (,)} #-}
+data (,) a b
+ = (,) a b;
+
+{-# NEED {() ()} #-}
+data ()
+ = ();
+interface ! NHC.Internal
+{-# NEED _apply4 #-}
+_apply4{-# 5 #-}::((a -> (b -> (c -> (d -> e)))) -> (a -> (b -> (c -> (d -> e)))));
+
+{-# NEED _apply3 #-}
+_apply3{-# 4 #-}::((a -> (b -> (c -> d))) -> (a -> (b -> (c -> d))));
+
+{-# NEED _apply2 #-}
+_apply2{-# 3 #-}::((a -> (b -> c)) -> (a -> (b -> c)));
+
+{-# NEED _apply1 #-}
+_apply1{-# 2 #-}::((a -> b) -> (a -> b));
+interface ! Prelude
+{-# NEED Float #-}
+data Float;
+
+{-# NEED {RealFloat exponent significand scaleFloat atan2 floatRadix floatDigits floatRange decodeFloat encodeFloat isNaN isInfinite isDenormalized isNegativeZero isIEEE} #-}
+class (RealFrac a,Floating a) => RealFloat a where {
+  exponent{-# 1 #-}::(a -> Int);
+  significand{-# 1 #-}::(a -> a);
+  scaleFloat{-# 2 #-}::(Int -> (a -> a));
+  atan2{-# 2 #-}::(a -> (a -> a));
+  floatRadix{-# 1 #-}::(a -> Integer);
+  floatDigits{-# 1 #-}::(a -> Int);
+  floatRange{-# 1 #-}::(a -> (Int,Int));
+  decodeFloat{-# 1 #-}::(a -> (Integer,Int));
+  encodeFloat{-# 2 #-}::(Integer -> (Int -> a));
+  isNaN{-# 1 #-}::(a -> Bool);
+  isInfinite{-# 1 #-}::(a -> Bool);
+  isDenormalized{-# 1 #-}::(a -> Bool);
+  isNegativeZero{-# 1 #-}::(a -> Bool);
+  isIEEE{-# 1 #-}::(a -> Bool);
+};
+
+{-# NEED {Floating (**) logBase sqrt tan tanh pi exp log sin cos asin acos atan sinh cosh asinh acosh atanh} #-}
+class (Fractional a) => Floating a where {
+  (**){-# 2 #-}::(a -> (a -> a));
+  logBase{-# 2 #-}::(a -> (a -> a));
+  sqrt{-# 1 #-}::(a -> a);
+  tan{-# 1 #-}::(a -> a);
+  tanh{-# 1 #-}::(a -> a);
+  pi{-# 0 #-}::a;
+  exp{-# 1 #-}::(a -> a);
+  log{-# 1 #-}::(a -> a);
+  sin{-# 1 #-}::(a -> a);
+  cos{-# 1 #-}::(a -> a);
+  asin{-# 1 #-}::(a -> a);
+  acos{-# 1 #-}::(a -> a);
+  atan{-# 1 #-}::(a -> a);
+  sinh{-# 1 #-}::(a -> a);
+  cosh{-# 1 #-}::(a -> a);
+  asinh{-# 1 #-}::(a -> a);
+  acosh{-# 1 #-}::(a -> a);
+  atanh{-# 1 #-}::(a -> a);
+};
+
+{-# NEED Double #-}
+data Double;
+
+{-# NEED {RealFrac truncate round ceiling floor properFraction} #-}
+class (Real a,Fractional a) => RealFrac a where {
+  truncate{-# 1 #-}::(Integral b) => (a -> b);
+  round{-# 1 #-}::(Integral b) => (a -> b);
+  ceiling{-# 1 #-}::(Integral b) => (a -> b);
+  floor{-# 1 #-}::(Integral b) => (a -> b);
+  properFraction{-# 1 #-}::(Integral b) => (a -> (b,a));
+};
+
+{-# NEED {Fractional (/) recip fromRational} #-}
+class (Num a) => Fractional a where {
+  (/){-# 2 #-}::(a -> (a -> a));
+  recip{-# 1 #-}::(a -> a);
+  fromRational{-# 1 #-}::(Ratio.Rational -> a);
+};
+
+{-# NEED {Read readsPrec readList} #-}
+class Read a where {
+  readsPrec{-# 1 #-}::(Int -> (ReadS a));
+  readList{-# 0 #-}::(ReadS [a]);
+};
+
+{-# NEED ReadS #-}
+type {-# 2 #-} ReadS a = (String -> [(a,String)]);
+
+{-# NEED {Integral quot rem div mod divMod quotRem toInteger} #-}
+class (Real a,Enum a) => Integral a where {
+  quot{-# 2 #-}::(a -> (a -> a));
+  rem{-# 2 #-}::(a -> (a -> a));
+  div{-# 2 #-}::(a -> (a -> a));
+  mod{-# 2 #-}::(a -> (a -> a));
+  divMod{-# 2 #-}::(a -> (a -> (a,a)));
+  quotRem{-# 2 #-}::(a -> (a -> (a,a)));
+  toInteger{-# 1 #-}::(a -> Integer);
+};
+
+{-# NEED {Enum pred succ toEnum fromEnum enumFrom enumFromThen enumFromTo enumFromThenTo} #-}
+class Enum a where {
+  pred{-# 1 #-}::(a -> a);
+  succ{-# 1 #-}::(a -> a);
+  toEnum{-# 1 #-}::(Int -> a);
+  fromEnum{-# 1 #-}::(a -> Int);
+  enumFrom{-# 1 #-}::(a -> [a]);
+  enumFromThen{-# 2 #-}::(a -> (a -> [a]));
+  enumFromTo{-# 2 #-}::(a -> (a -> [a]));
+  enumFromThenTo{-# 3 #-}::(a -> (a -> (a -> [a])));
+};
+
+{-# NEED {Real toRational} #-}
+class (Num a,Ord a) => Real a where {
+  toRational{-# 1 #-}::(a -> Ratio.Rational);
+};
+interface ! Ratio
+{-# NEED Rational #-}
+type {-# 1 #-} Rational = (Ratio Prelude.Integer);
+
+{-# NEED (%) #-}
+(%){-# 2 #-}::(Prelude.Integral a) => (a -> (a -> (Ratio a)));
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Prelude
+{-# NEED {Ord compare (<=) (<) (>=) (>) max min} #-}
+class (Eq a) => Ord a where {
+  compare{-# 2 #-}::(a -> (a -> Ordering));
+  (<=){-# 2 #-}::(a -> (a -> Bool));
+  (<){-# 2 #-}::(a -> (a -> Bool));
+  (>=){-# 2 #-}::(a -> (a -> Bool));
+  (>){-# 2 #-}::(a -> (a -> Bool));
+  max{-# 2 #-}::(a -> (a -> a));
+  min{-# 2 #-}::(a -> (a -> a));
+};
+
+{-# NEED {Ordering LT EQ GT} #-}
+data Ordering
+  = LT 
+  | EQ 
+  | GT ;
+
+{-# NEED {Num (-) (+) (*) negate abs signum fromInteger} #-}
+class (Eq a,Show a) => Num a where {
+  (-){-# 2 #-}::(a -> (a -> a));
+  (+){-# 2 #-}::(a -> (a -> a));
+  (*){-# 2 #-}::(a -> (a -> a));
+  negate{-# 1 #-}::(a -> a);
+  abs{-# 1 #-}::(a -> a);
+  signum{-# 1 #-}::(a -> a);
+  fromInteger{-# 1 #-}::(Integer -> a);
+};
+
+{-# NEED Integer #-}
+data Integer;
+
+{-# NEED {Eq (==) (/=)} #-}
+class Eq a where {
+  (==){-# 2 #-}::(a -> (a -> Bool));
+  (/=){-# 2 #-}::(a -> (a -> Bool));
+};
+
+{-# NEED {Bool False True} #-}
+data Bool
+  = False 
+  | True ;
+
+{-# NEED {Show showsPrec showList showsType show} #-}
+class Show a where {
+  showsPrec{-# 2 #-}::(Int -> (a -> ShowS));
+  showList{-# 1 #-}::([a] -> ShowS);
+  showsType{-# 1 #-}::(a -> ShowS);
+  show{-# 1 #-}::(a -> String);
+};
+
+{-# NEED ShowS #-}
+type {-# 2 #-} ShowS = (String -> String);
+
+{-# NEED String #-}
+type {-# 1 #-} String = [Char];
+
+{-# NEED Char #-}
+data Char;
+
+{-# NEED {[] [] (:)} #-}
+data [] a
+  = [] 
+  | (:) a [a];
+
+{-# NEED Int #-}
+data Int;
+
+{-# NEED (->) #-}
+data (->) a b;
+
+{-# NEED {Bounded minBound maxBound} #-}
+class Bounded a where {
+  minBound{-# 0 #-}::a;
+  maxBound{-# 0 #-}::a;
+};
+}

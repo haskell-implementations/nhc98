@@ -1,0 +1,15 @@
+module NHC.BinArray
+  ( getUBAEnd
+  ) where
+
+import NHC.GreenCard
+import DUnboxedArray ({-type-}UnboxedArray(..))
+import BinPtr        ({-type-}BinPtr(..))
+
+%-#include "cLowUnboxedArray.h"
+
+%fun getUBAEnd :: UnboxedArray -> IO BinPtr
+%call (unboxedArray uba)
+%code
+%result (binPtr "uba->end")
+

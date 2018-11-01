@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>hmake interactive commands</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>hmake interactive commands</h1></center>
+
+<hr>
+<p>
+Commands you can type to the <em>hmake interactive</em> prompt are
+very like those for Hugs.  There are just a few extra and a few
+missing.  Any command can be abbreviated to its shortest unique prefix.
+
+<p>
+<b>Commands that are identical in <em>hi</em> and Hugs:</b>
+<table><tr>
+<td><tt>expr</tt></td>
+    <td>evaluate the expression</td>
+</tr><tr>
+<td><tt>:?</tt></td>
+    <td>display help text</td>
+</tr><tr>
+<td><tt>:quit</tt></td>
+    <td>exit</td>
+</tr><tr>
+<td><tt>:load mod [mod...]</tt></td>
+    <td>load the named modules (note, not filenames!)</td>
+</tr><tr>
+<td><tt>:load</tt></td>
+    <td>remove all modules</td>
+</tr><tr>
+<td><tt>:reload</tt></td>
+    <td>repeat the last :load command</td>
+</tr><tr>
+<td><tt>:also mod [mod...]</tt></td>
+    <td>load additional modules</td>
+</tr><tr>
+<td><tt>:edit file</tt></td>
+    <td>edit filename</td>
+</tr><tr>
+<td><tt>:edit</tt></td>
+    <td>edit the current module</td>
+</tr><tr>
+<td><tt>:cd dir</tt></td>
+    <td>change the current directory</td>
+</tr><tr>
+<td><tt>:cd</tt></td>
+    <td>show the current directory</td>
+</tr><tr>
+<td><tt>:dir</tt></td>
+    <td>list the current directory</td>
+</tr><tr>
+<td><tt>:set options</tt></td>
+    <td>set hmake/compiler options</td>
+</tr><tr>
+<td><tt>:set</tt></td>
+    <td>show current hmake/compiler options</td>
+</tr><tr>
+<td><tt>:unset options</tt></td>
+    <td>unset hmake/compiler options</td>
+</tr><tr>
+<td><tt>:!command</tt></td>
+    <td>shell escape</td>
+</tr><tr>
+<td><tt>:version</tt></td>
+    <td>display version of hmake</td>
+</tr></table>
+
+<p>
+<b>Commands that are supported by <em>hi</em> (but not by Hugs):</b>
+<table><tr>
+<td><tt>:hc compiler</tt></td>
+    <td>change Haskell compiler</td>
+</tr><tr>
+<td valign=top><tt>:hc</tt></td>
+    <td valign=top>report current Haskell compiler,
+                   and show available compilers</td>
+</tr></table>
+
+<p>
+<b>Hugs commands which are not supported in <em>hi</em>:</b>
+<table><tr>
+<td><tt>:names pat</tt></td>
+    <td>list names currently in scope</td>
+</tr><tr>
+<td><tt>:info name</tt></td>
+    <td>describe the named object</td>
+</tr><tr>
+<td valign=top><tt>:find name</tt></td>
+    <td valign=top>edit the module containing the definition of name<br>
+        (suggestion: use
+        <tt>:!grep ^name *.hs</tt> to find the module)</td>
+</tr><tr>
+<td valign=top><tt>:project filename</tt></td>
+    <td valign=top>obsolete (project files were an alternative to the<br>
+                   Haskell module system)</td>
+</tr><tr>
+<td valign=top><tt>:gc</tt></td>
+    <td valign=top>force a garbage collection<br>
+        (only makes sense in a true interpreter)</td>
+</tr></table>
+
+
+<hr>
+<p>
+The latest updates to this software are available on the WWW from
+<a href="http://www.haskell.org/hmake/">
+<tt>http://www.haskell.org/hmake/</tt></a>
+(<a href="http://www.cs.york.ac.uk/fp/hmake/">
+<tt>http://www.cs.york.ac.uk/fp/hmake/</tt></a>)
+
+<p>
+Information last updated: 2002-01-21<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+Malcolm.Wallace@cs.york.ac.uk
+
+</td></tr></table>
+</body></html>
+

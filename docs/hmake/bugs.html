@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>hmake bugs</title></head>
+<body bgcolor=white text=black>
+<table><tr><td width=500>
+
+<center>
+<h1>Known bugs in <em>hmake</em></h1>
+</center>
+<hr>
+
+<ul>
+
+<li> <font color="red">(Fixed in 3.11)</font>
+     If an <em>import</em> statement has a leading open-brace on the same
+     line, due to explicit layout, it will not be recognised.
+
+<li> <font color="red">(Fixed in 3.10)</font>
+     If several <em>import</em> statements occur on the same line of
+     a source file (separated by semicolons), then hmake will only
+     recognise the first import on the line as a dependency.
+
+<li> <font color="red">(Fixed in 3.10)</font>
+     A Happy grammar (.y or .ly file) with a non-terminal
+     name <em>import</em> confuses hmake, which reports that
+     a <em>module ::</em> cannot be found.
+
+<li> Conflicting compiler options (e.g. both -fsomething and
+     -fno-something for ghc) may (rarely) be re-ordered by hmake,
+     such that the compiler treats the conflict in the opposite way to
+     your intention.  The exact circumstances in which any re-ordering
+     happens are not currently pinned down.
+
+<li> <font color="red">Fixed in 3.09.</font>
+     Complex CPP #ifs involving chains of boolean operators, with or
+     without parentheses, are occasionally parsed at the wrong
+     precedence.  Also, CPP line continuations are currently ignored.
+     Both of these problems will be fixed in the next release.
+
+</ul>
+
+
+<hr>
+<p>
+The latest updates to this software are available on the WWW from
+<a href="http://www.haskell.org/hmake/">
+<tt>http://www.haskell.org/hmake/</tt></a><br>
+<a href="http://www.cs.york.ac.uk/fp/hmake/">
+<tt>http://www.cs.york.ac.uk/fp/hmake/</tt></a>
+
+<p>
+Information last updated: 12th October 2005<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+Malcolm.Wallace@cs.york.ac.uk
+
+</td></tr></table>
+
+</body></html>

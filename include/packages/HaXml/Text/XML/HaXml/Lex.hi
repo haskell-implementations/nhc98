@@ -1,0 +1,147 @@
+interface Text.XML.HaXml.Lex where {
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq Section;
+
+{-# NEED #-}
+instance Prelude.Eq Special;
+
+{-# NEED #-}
+instance Prelude.Eq TokenT;
+
+{-# NEED #-}
+instance Prelude.Eq Where;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Posn.Posn;
+
+{-# NEED #-}
+instance Prelude.Show Section;
+
+{-# NEED #-}
+instance Prelude.Show Special;
+
+{-# NEED #-}
+instance Prelude.Show TokenT;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Posn.Posn;
+interface Text.XML.HaXml.Lex
+{-# NEED Where #-}
+data Where;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface ! Text.XML.HaXml.Lex
+{-# NEED reLexEntityValue #-}
+reLexEntityValue{-# 3 #-}::((Prelude.String -> (Prelude.Maybe Prelude.String)) -> (Text.XML.HaXml.Posn.Posn -> (Prelude.String -> [Token])));
+
+{-# NEED xmlReLex #-}
+xmlReLex{-# 2 #-}::(Text.XML.HaXml.Posn.Posn -> (Prelude.String -> [Token]));
+
+{-# NEED xmlLex #-}
+xmlLex{-# 1 #-}::(Prelude.String -> (Prelude.String -> [Token]));
+
+{-# NEED Token #-}
+type {-# 1 #-} Token = (Text.XML.HaXml.Posn.Posn,TokenT);
+
+{-# NEED {TokenT TokCommentOpen TokCommentClose TokPIOpen TokPIClose TokSectionOpen TokSectionClose TokSection TokSpecialOpen TokSpecial TokEndOpen TokEndClose TokAnyOpen TokAnyClose TokSqOpen TokSqClose TokEqual TokQuery TokStar TokPlus TokAmp TokSemi TokHash TokBraOpen TokBraClose TokPipe TokPercent TokComma TokQuote TokName TokFreeText TokNull TokError} #-}
+data TokenT
+  = TokCommentOpen 
+  | TokCommentClose 
+  | TokPIOpen 
+  | TokPIClose 
+  | TokSectionOpen 
+  | TokSectionClose 
+  | TokSection Section
+  | TokSpecialOpen 
+  | TokSpecial Special
+  | TokEndOpen 
+  | TokEndClose 
+  | TokAnyOpen 
+  | TokAnyClose 
+  | TokSqOpen 
+  | TokSqClose 
+  | TokEqual 
+  | TokQuery 
+  | TokStar 
+  | TokPlus 
+  | TokAmp 
+  | TokSemi 
+  | TokHash 
+  | TokBraOpen 
+  | TokBraClose 
+  | TokPipe 
+  | TokPercent 
+  | TokComma 
+  | TokQuote 
+  | TokName Prelude.String
+  | TokFreeText Prelude.String
+  | TokNull 
+  | TokError Prelude.String;
+
+{-# NEED {Special DOCTYPEx ELEMENTx ATTLISTx ENTITYx NOTATIONx} #-}
+data Special
+  = DOCTYPEx 
+  | ELEMENTx 
+  | ATTLISTx 
+  | ENTITYx 
+  | NOTATIONx ;
+
+{-# NEED {Section CDATAx INCLUDEx IGNOREx} #-}
+data Section
+  = CDATAx 
+  | INCLUDEx 
+  | IGNOREx ;
+interface Text.XML.HaXml.Posn
+{-# NEED Posn #-}
+data Posn;
+}

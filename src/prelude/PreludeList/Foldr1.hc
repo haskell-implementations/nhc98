@@ -1,0 +1,74 @@
+#include "newmacros.h"
+#include "runtime.h"
+
+#define v182	((void*)startLabel+22)
+#define v183	((void*)startLabel+29)
+#define v189	((void*)startLabel+40)
+#define v187	((void*)startLabel+44)
+#define v184	((void*)startLabel+48)
+#define CT_v190	((void*)startLabel+76)
+#define FN_LAMBDA178	((void*)startLabel+108)
+#define CT_v192	((void*)startLabel+128)
+#define CF_LAMBDA178	((void*)startLabel+136)
+#define ST_v191	((void*)startLabel+140)
+extern Node FN_Prelude_46error[];
+
+static Node startLabel[] = {
+  bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v190)
+,};
+Node FN_Prelude_46foldr1[] = {
+  bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I2,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,2,TOP(4),BOT(4))
+,	/* v182: (byte 2) */
+  bytes2word(TOP(11),BOT(11),POP_I1,HEAP_CVAL_I3)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I4,HEAP_OFF_N1,2)
+,	/* v183: (byte 1) */
+  bytes2word(RETURN_EVAL,UNPACK,2,PUSH_I1)
+, bytes2word(EVAL,NEEDHEAP_I32,TABLESWITCH,2)
+,	/* v189: (byte 4) */
+  bytes2word(TOP(8),BOT(8),TOP(4),BOT(4))
+,	/* v187: (byte 4) */
+  bytes2word(POP_I1,JUMP,6,0)
+,	/* v184: (byte 4) */
+  bytes2word(POP_I1,PUSH_P1,0,RETURN_EVAL)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I5,HEAP_ARG,1)
+, bytes2word(HEAP_I2,PUSH_P1,0,PUSH_P1)
+, bytes2word(2,PUSH_ZAP_ARG_I1,ZAP_STACK_P1,5)
+, bytes2word(ZAP_STACK_P1,4,ZAP_STACK_P1,3)
+, bytes2word(EVAL,NEEDHEAP_I32,APPLY,2)
+, bytes2word(RETURN_EVAL,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+,	/* CT_v190: (byte 0) */
+  HW(3,2)
+, 0
+,};
+Node F0_Prelude_46foldr1[] = {
+  CAPTAG(useLabel(FN_Prelude_46foldr1),2)
+, VAPTAG(useLabel(FN_LAMBDA178))
+, VAPTAG(useLabel(FN_Prelude_46error))
+, VAPTAG(useLabel(FN_Prelude_46foldr1))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v192)
+,	/* FN_LAMBDA178: (byte 0) */
+  bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,2,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v191)
+,	/* CT_v192: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA178: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA178))
+,	/* ST_v191: (byte 0) */
+  bytes2word(80,114,101,108)
+, bytes2word(117,100,101,76)
+, bytes2word(105,115,116,46)
+, bytes2word(102,111,108,100)
+, bytes2word(114,49,58,32)
+, bytes2word(101,109,112,116)
+, bytes2word(121,32,108,105)
+, bytes2word(115,116,0,0)
+,};

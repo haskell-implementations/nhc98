@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Using the NHC.BinArray library</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>Using the NHC.BinArray library</h1></center>
+
+<hr>
+This document describes the York BinArray library, a library for
+imperative binary arrays which, although it is implemented using the
+<a href="Binary.html">Binary</a> library, has an independent interface and
+can be used pretty-much without any knowledge of the Binary library at
+all.  We present this BinArray module as an example of the use of the
+Binary library to build higher-level facilities, and would encourage
+programmers to write and publish other useful libraries in a similar
+manner.
+
+
+<hr>
+<h3><a name=binarray>NHC.BinArray library</a></h3>
+<p>
+<pre>
+    module NHC.BinArray 
+      ( type  BinArray
+      , newBinArray
+      , intoBinArray
+      , fromBinArray
+      , putBinArray
+      , getBinArray
+      ) where
+
+    data BinArray a = ...
+
+    newBinArray   :: Binary a =&gt; Int -&gt; a -&gt; IO (BinArray a)
+
+    intoBinArray  :: Binary a =&gt; BinArray a -&gt; a   -&gt; IO Int
+    fromBinArray  :: Binary a =&gt; BinArray a -&gt; Int -&gt; IO a
+
+    putBinArray   :: Binary a =&gt; FilePath -&gt; BinArray a -&gt; IO ()
+    getBinArray   :: Binary a =&gt; FilePath -&gt; IO (BinArray a)
+</pre>
+
+<p>
+A <tt>BinArray a</tt> is an imperative (mutable) array that holds values
+of type <tt>a</tt> in binary representation.  It is implemented using
+the Binary library, but as you can see, this is largely hidden from
+the programmer.  A BinArray can only be written to sequentially.  If one
+attempts to read a value from an index position which has not yet been
+written to (or which is beyond the bounds of the array), a default value
+is returned.
+<p>
+A BinArray can be stored in a file between program runs.  Reading and
+writing BinArrays to disk is fast.  Once a BinArray has been read back
+from disk, it can be written to again in the usual way.
+
+<table><tr>
+  <td><tt>newBinArray n d</tt></td>
+  <td>gives you a fresh binary array of size <tt>n</tt>,
+      filled with default value <tt>d</tt>.  The binary values are
+      stored in memory.</td>
+</tr><tr>
+  <td><tt>intoBinArray ba x</tt></td>
+  <td>stuffs the value <tt>x</tt> into the array <tt>ba</tt>
+      using a binary representation</td>
+</tr><tr>
+  <td><tt>fromBinArray ba i</tt></td>
+  <td>gives you back the value at the <tt>i</tt>'th
+      position in the array <tt>ba</tt></td>
+</tr><tr>
+  <td><tt>putBinArray fn ba</tt></td>
+  <td>copies the whole array <tt>ba</tt> into a binary file whose name is
+      <tt>fn</tt></td>
+</tr><tr>
+  <td><tt>getBinArray fn</tt></td>
+  <td>gives you back a binary array read from the file named <tt>fn</tt></td>
+
+</tr></table>
+
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.cs.york.ac.uk/fp/nhc98/">
+<tt>http://www.cs.york.ac.uk/fp/nhc98/</tt></a>
+
+<p>
+1998.03.26<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+
+</td></tr></table>
+</body></html>
+

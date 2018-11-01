@@ -1,0 +1,1857 @@
+#include "newmacros.h"
+#include "runtime.h"
+
+#define FN_Text_46XML_46HaXml_46Escape_46listToFM	((void*)startLabel+12)
+#define CT_v953	((void*)startLabel+36)
+#define F0_Text_46XML_46HaXml_46Escape_46listToFM	((void*)startLabel+44)
+#define CT_v955	((void*)startLabel+128)
+#define FN_LAMBDA932	((void*)startLabel+172)
+#define CT_v960	((void*)startLabel+208)
+#define F0_LAMBDA932	((void*)startLabel+216)
+#define CT_v962	((void*)startLabel+340)
+#define FN_LAMBDA939	((void*)startLabel+388)
+#define CT_v964	((void*)startLabel+464)
+#define F0_LAMBDA939	((void*)startLabel+472)
+#define FN_LAMBDA938	((void*)startLabel+512)
+#define v974	((void*)startLabel+544)
+#define v968	((void*)startLabel+548)
+#define v969	((void*)startLabel+552)
+#define v970	((void*)startLabel+556)
+#define v971	((void*)startLabel+560)
+#define v972	((void*)startLabel+564)
+#define v965	((void*)startLabel+568)
+#define CT_v975	((void*)startLabel+596)
+#define F0_LAMBDA938	((void*)startLabel+604)
+#define FN_LAMBDA937	((void*)startLabel+616)
+#define CT_v978	((void*)startLabel+648)
+#define CF_LAMBDA937	((void*)startLabel+656)
+#define FN_LAMBDA936	((void*)startLabel+668)
+#define CT_v981	((void*)startLabel+700)
+#define CF_LAMBDA936	((void*)startLabel+708)
+#define FN_LAMBDA935	((void*)startLabel+720)
+#define CT_v984	((void*)startLabel+752)
+#define CF_LAMBDA935	((void*)startLabel+760)
+#define FN_LAMBDA934	((void*)startLabel+772)
+#define CT_v987	((void*)startLabel+804)
+#define CF_LAMBDA934	((void*)startLabel+812)
+#define FN_LAMBDA933	((void*)startLabel+824)
+#define CT_v990	((void*)startLabel+856)
+#define CF_LAMBDA933	((void*)startLabel+864)
+#define FN_Text_46XML_46HaXml_46Escape_46compressAttValue	((void*)startLabel+876)
+#define CT_v995	((void*)startLabel+920)
+#define F0_Text_46XML_46HaXml_46Escape_46compressAttValue	((void*)startLabel+928)
+#define FN_Text_46XML_46HaXml_46Escape_46Prelude_46431_46compress	((void*)startLabel+948)
+#define v997	((void*)startLabel+962)
+#define v998	((void*)startLabel+966)
+#define v1000	((void*)startLabel+978)
+#define v1013	((void*)startLabel+998)
+#define v1004	((void*)startLabel+1002)
+#define v1014	((void*)startLabel+1014)
+#define v1008	((void*)startLabel+1018)
+#define v1005	((void*)startLabel+1037)
+#define v1001	((void*)startLabel+1042)
+#define v1009	((void*)startLabel+1049)
+#define CT_v1015	((void*)startLabel+1100)
+#define F0_Text_46XML_46HaXml_46Escape_46Prelude_46431_46compress	((void*)startLabel+1108)
+#define FN_Text_46XML_46HaXml_46Escape_46compressAttributes	((void*)startLabel+1132)
+#define CT_v1017	((void*)startLabel+1160)
+#define F0_Text_46XML_46HaXml_46Escape_46compressAttributes	((void*)startLabel+1168)
+#define FN_LAMBDA940	((void*)startLabel+1188)
+#define CT_v1022	((void*)startLabel+1228)
+#define F0_LAMBDA940	((void*)startLabel+1236)
+#define FN_Text_46XML_46HaXml_46Escape_46compressElement	((void*)startLabel+1252)
+#define CT_v1027	((void*)startLabel+1296)
+#define F0_Text_46XML_46HaXml_46Escape_46compressElement	((void*)startLabel+1304)
+#define FN_Text_46XML_46HaXml_46Escape_46compressContent	((void*)startLabel+1324)
+#define v1029	((void*)startLabel+1338)
+#define v1030	((void*)startLabel+1342)
+#define v1048	((void*)startLabel+1358)
+#define v1034	((void*)startLabel+1362)
+#define v1035	((void*)startLabel+1383)
+#define v1049	((void*)startLabel+1400)
+#define v1039	((void*)startLabel+1404)
+#define v1050	((void*)startLabel+1420)
+#define v1043	((void*)startLabel+1424)
+#define v1044	((void*)startLabel+1457)
+#define v1040	((void*)startLabel+1462)
+#define v1036	((void*)startLabel+1467)
+#define v1031	((void*)startLabel+1474)
+#define CT_v1051	((void*)startLabel+1512)
+#define F0_Text_46XML_46HaXml_46Escape_46compressContent	((void*)startLabel+1520)
+#define FN_Text_46XML_46HaXml_46Escape_46lookupFM	((void*)startLabel+1548)
+#define CT_v1053	((void*)startLabel+1576)
+#define F0_Text_46XML_46HaXml_46Escape_46lookupFM	((void*)startLabel+1584)
+#define FN_Text_46XML_46HaXml_46Escape_46fromEscape	((void*)startLabel+1604)
+#define CT_v1055	((void*)startLabel+1628)
+#define F0_Text_46XML_46HaXml_46Escape_46fromEscape	((void*)startLabel+1636)
+#define FN_Text_46XML_46HaXml_46Escape_46unEscapeChar	((void*)startLabel+1652)
+#define v1057	((void*)startLabel+1666)
+#define v1058	((void*)startLabel+1689)
+#define CT_v1061	((void*)startLabel+1728)
+#define F0_Text_46XML_46HaXml_46Escape_46unEscapeChar	((void*)startLabel+1736)
+#define FN_Text_46XML_46HaXml_46Escape_46unEscapeAttValue	((void*)startLabel+1776)
+#define CT_v1066	((void*)startLabel+1820)
+#define F0_Text_46XML_46HaXml_46Escape_46unEscapeAttValue	((void*)startLabel+1828)
+#define FN_LAMBDA941	((void*)startLabel+1852)
+#define v1068	((void*)startLabel+1866)
+#define v1069	((void*)startLabel+1870)
+#define v1071	((void*)startLabel+1886)
+#define v1072	((void*)startLabel+1889)
+#define CT_v1076	((void*)startLabel+1936)
+#define F0_LAMBDA941	((void*)startLabel+1944)
+#define FN_Text_46XML_46HaXml_46Escape_46unEscapeAttributes	((void*)startLabel+1964)
+#define CT_v1078	((void*)startLabel+1992)
+#define F0_Text_46XML_46HaXml_46Escape_46unEscapeAttributes	((void*)startLabel+2000)
+#define FN_LAMBDA942	((void*)startLabel+2024)
+#define CT_v1083	((void*)startLabel+2068)
+#define F0_LAMBDA942	((void*)startLabel+2076)
+#define FN_Text_46XML_46HaXml_46Escape_46unEscapeElement	((void*)startLabel+2096)
+#define CT_v1088	((void*)startLabel+2144)
+#define F0_Text_46XML_46HaXml_46Escape_46unEscapeElement	((void*)startLabel+2152)
+#define FN_Text_46XML_46HaXml_46Escape_46unEscapeContent	((void*)startLabel+2176)
+#define CT_v1090	((void*)startLabel+2204)
+#define F0_Text_46XML_46HaXml_46Escape_46unEscapeContent	((void*)startLabel+2212)
+#define FN_LAMBDA943	((void*)startLabel+2236)
+#define v1100	((void*)startLabel+2254)
+#define v1094	((void*)startLabel+2258)
+#define v1095	((void*)startLabel+2271)
+#define v1097	((void*)startLabel+2288)
+#define v1098	((void*)startLabel+2291)
+#define v1091	((void*)startLabel+2313)
+#define CT_v1102	((void*)startLabel+2344)
+#define F0_LAMBDA943	((void*)startLabel+2352)
+#define CT_v1104	((void*)startLabel+2404)
+#define CT_v1106	((void*)startLabel+2464)
+#define FN_Text_46XML_46HaXml_46Escape_46mkEscape	((void*)startLabel+2496)
+#define v1110	((void*)startLabel+2528)
+#define v1111	((void*)startLabel+2541)
+#define CT_v1115	((void*)startLabel+2572)
+#define F0_Text_46XML_46HaXml_46Escape_46mkEscape	((void*)startLabel+2580)
+#define FN_Text_46XML_46HaXml_46Escape_46isEscape	((void*)startLabel+2608)
+#define CT_v1117	((void*)startLabel+2632)
+#define F0_Text_46XML_46HaXml_46Escape_46isEscape	((void*)startLabel+2640)
+#define FN_Text_46XML_46HaXml_46Escape_46escapeAttValue	((void*)startLabel+2656)
+#define CT_v1122	((void*)startLabel+2708)
+#define F0_Text_46XML_46HaXml_46Escape_46escapeAttValue	((void*)startLabel+2716)
+#define FN_LAMBDA945	((void*)startLabel+2748)
+#define v1124	((void*)startLabel+2762)
+#define v1125	((void*)startLabel+2773)
+#define CT_v1128	((void*)startLabel+2808)
+#define F0_LAMBDA945	((void*)startLabel+2816)
+#define FN_LAMBDA944	((void*)startLabel+2840)
+#define v1129	((void*)startLabel+2868)
+#define CT_v1132	((void*)startLabel+2912)
+#define F0_LAMBDA944	((void*)startLabel+2920)
+#define FN_Text_46XML_46HaXml_46Escape_46escapeAttributes	((void*)startLabel+2944)
+#define CT_v1134	((void*)startLabel+2972)
+#define F0_Text_46XML_46HaXml_46Escape_46escapeAttributes	((void*)startLabel+2980)
+#define FN_LAMBDA946	((void*)startLabel+3004)
+#define CT_v1139	((void*)startLabel+3048)
+#define F0_LAMBDA946	((void*)startLabel+3056)
+#define FN_Text_46XML_46HaXml_46Escape_46escapeElement	((void*)startLabel+3076)
+#define CT_v1144	((void*)startLabel+3124)
+#define F0_Text_46XML_46HaXml_46Escape_46escapeElement	((void*)startLabel+3132)
+#define FN_Text_46XML_46HaXml_46Escape_46escapeContent	((void*)startLabel+3156)
+#define CT_v1146	((void*)startLabel+3196)
+#define F0_Text_46XML_46HaXml_46Escape_46escapeContent	((void*)startLabel+3204)
+#define FN_LAMBDA948	((void*)startLabel+3232)
+#define v1153	((void*)startLabel+3250)
+#define v1150	((void*)startLabel+3254)
+#define v1151	((void*)startLabel+3275)
+#define v1147	((void*)startLabel+3289)
+#define CT_v1154	((void*)startLabel+3328)
+#define F0_LAMBDA948	((void*)startLabel+3336)
+#define FN_LAMBDA947	((void*)startLabel+3368)
+#define v1155	((void*)startLabel+3399)
+#define CT_v1158	((void*)startLabel+3448)
+#define F0_LAMBDA947	((void*)startLabel+3456)
+#define CT_v1160	((void*)startLabel+3508)
+#define CT_v1162	((void*)startLabel+3568)
+#define FN_Text_46XML_46HaXml_46Escape_46toEscape	((void*)startLabel+3596)
+#define CT_v1164	((void*)startLabel+3620)
+#define F0_Text_46XML_46HaXml_46Escape_46toEscape	((void*)startLabel+3628)
+#define ST_v951	((void*)startLabel+3632)
+#define ST_v993	((void*)startLabel+3654)
+#define ST_v1010	((void*)startLabel+3693)
+#define ST_v1016	((void*)startLabel+3745)
+#define ST_v1020	((void*)startLabel+3786)
+#define ST_v1046	((void*)startLabel+3840)
+#define ST_v1025	((void*)startLabel+3878)
+#define ST_v1120	((void*)startLabel+3916)
+#define ST_v1126	((void*)startLabel+3953)
+#define ST_v1131	((void*)startLabel+4004)
+#define ST_v1133	((void*)startLabel+4055)
+#define ST_v1137	((void*)startLabel+4094)
+#define ST_v1145	((void*)startLabel+4146)
+#define ST_v1152	((void*)startLabel+4182)
+#define ST_v1157	((void*)startLabel+4232)
+#define ST_v1142	((void*)startLabel+4282)
+#define ST_v1054	((void*)startLabel+4318)
+#define ST_v1116	((void*)startLabel+4351)
+#define ST_v952	((void*)startLabel+4382)
+#define ST_v1052	((void*)startLabel+4413)
+#define ST_v1112	((void*)startLabel+4444)
+#define ST_v954	((void*)startLabel+4475)
+#define ST_v958	((void*)startLabel+4510)
+#define ST_v961	((void*)startLabel+4559)
+#define ST_v988	((void*)startLabel+4595)
+#define ST_v985	((void*)startLabel+4645)
+#define ST_v982	((void*)startLabel+4695)
+#define ST_v979	((void*)startLabel+4745)
+#define ST_v976	((void*)startLabel+4795)
+#define ST_v963	((void*)startLabel+4845)
+#define ST_v973	((void*)startLabel+4894)
+#define ST_v1163	((void*)startLabel+4936)
+#define ST_v1064	((void*)startLabel+4967)
+#define ST_v1073	((void*)startLabel+5006)
+#define ST_v1077	((void*)startLabel+5059)
+#define ST_v1081	((void*)startLabel+5100)
+#define ST_v1059	((void*)startLabel+5154)
+#define ST_v1089	((void*)startLabel+5189)
+#define ST_v1099	((void*)startLabel+5227)
+#define ST_v1086	((void*)startLabel+5278)
+#define ST_v1161	((void*)startLabel+5316)
+#define ST_v1159	((void*)startLabel+5348)
+#define ST_v1105	((void*)startLabel+5387)
+#define ST_v1103	((void*)startLabel+5421)
+#define ST_v983	((void*)startLabel+5462)
+#define ST_v980	((void*)startLabel+5466)
+#define ST_v986	((void*)startLabel+5471)
+#define ST_v989	((void*)startLabel+5474)
+#define ST_v977	((void*)startLabel+5477)
+extern Node TM_Text_46XML_46HaXml_46Escape[];
+extern Node FN_Data_46Map_46fromList[];
+extern Node CF_Prelude_46Ord_46Prelude_46Char[];
+extern Node FN_NHC_46Internal_46_95apply1[];
+extern Node FN_Prelude_46Ord_46Prelude_46_91_93[];
+extern Node FN_Prelude_46map[];
+extern Node TMSUB_Text_46XML_46HaXml_46Escape[];
+extern Node FN_Char_46ord[];
+extern Node FN_Prelude_46Ord_46Prelude_46Int_46_60[];
+extern Node FN_Prelude_46_38_38[];
+extern Node FN_Prelude_46Ord_46Prelude_46Int_46_62_61[];
+extern Node FN_Prelude_46_124_124[];
+extern Node FN_Prelude_46_43_43[];
+extern Node FN_Prelude_46Eq_46Prelude_46Bool_46_61_61[];
+extern Node FN_Data_46Map_46lookup[];
+extern Node FN_Prelude_46flip[];
+extern Node FN_Char_46chr[];
+extern Node FN_Prelude_46concat[];
+
+static Node startLabel[] = {
+  42
+, bytes2word(1,0,0,1)
+, useLabel(CT_v953)
+,	/* FN_Text_46XML_46HaXml_46Escape_46listToFM: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,PUSH_HEAP,HEAP_CVAL_I3,HEAP_ARG)
+, bytes2word(1,RETURN,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, 670001
+, useLabel(ST_v952)
+,	/* CT_v953: (byte 0) */
+  HW(1,1)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46listToFM: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46listToFM),1)
+, CAPTAG(useLabel(FN_Data_46Map_46fromList),1)
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v955)
+,};
+Node FN_Text_46XML_46HaXml_46Escape_46mkXmlEscaper[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,HEAP_CVAL_I4,HEAP_CVAL_I5)
+, bytes2word(HEAP_OFF_N1,3,HEAP_ARG,1)
+, bytes2word(HEAP_CVAL_P1,6,HEAP_CVAL_I4,HEAP_CVAL_I3)
+, bytes2word(HEAP_OFF_N1,3,HEAP_CVAL_P1,7)
+, bytes2word(HEAP_CVAL_P1,8,HEAP_OFF_N1,2)
+, bytes2word(HEAP_ARG,1,HEAP_CVAL_I5,HEAP_OFF_N1)
+, bytes2word(7,HEAP_OFF_N1,5,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_IN3,HEAP_OFF_N1,15,HEAP_OFF_N1)
+, bytes2word(5,HEAP_ARG,2,RETURN)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,3,0)
+, 2850001
+, useLabel(ST_v954)
+,	/* CT_v955: (byte 0) */
+  HW(6,2)
+, 0
+,};
+Node F0_Text_46XML_46HaXml_46Escape_46mkXmlEscaper[] = {
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46mkXmlEscaper),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46listToFM))
+, useLabel(CF_Prelude_46Ord_46Prelude_46Char)
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95apply1))
+, VAPTAG(useLabel(FN_Prelude_46Ord_46Prelude_46_91_93))
+, CAPTAG(useLabel(FN_LAMBDA932),1)
+, VAPTAG(useLabel(FN_Prelude_46map))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v960)
+,	/* FN_LAMBDA932: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(UNPACK,2,PUSH_HEAP,HEAP_CVAL_IN3)
+, bytes2word(HEAP_I2,HEAP_I1,RETURN,ENDCODE)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,2,0)
+, 2880035
+, useLabel(ST_v958)
+,	/* CT_v960: (byte 0) */
+  HW(0,1)
+, 0
+,	/* F0_LAMBDA932: (byte 0) */
+  CAPTAG(useLabel(FN_LAMBDA932),1)
+, bytes2word(0,0,0,0)
+, useLabel(CT_v962)
+,};
+Node FN_Text_46XML_46HaXml_46Escape_46stdXmlEscaper[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_P1,41,HEAP_CVAL_I3,HEAP_CVAL_IN3)
+, bytes2word(HEAP_CHAR_P1,60,HEAP_OFF_N1,3)
+, bytes2word(HEAP_CVAL_I4,HEAP_CVAL_IN3,HEAP_CHAR_P1,62)
+, bytes2word(HEAP_OFF_N1,3,HEAP_CVAL_I5,HEAP_CVAL_IN3)
+, bytes2word(HEAP_CHAR_P1,38,HEAP_OFF_N1,3)
+, bytes2word(HEAP_CVAL_P1,6,HEAP_CVAL_IN3,HEAP_CHAR_P1)
+, bytes2word(39,HEAP_OFF_N1,3,HEAP_CVAL_P1)
+, bytes2word(7,HEAP_CVAL_IN3,HEAP_CHAR_P1,34)
+, bytes2word(HEAP_OFF_N1,3,HEAP_CVAL_N1,4)
+, bytes2word(HEAP_CVAL_N1,5,HEAP_OFF_N1,5)
+, bytes2word(HEAP_OFF_N1,3,HEAP_CVAL_N1,5)
+, bytes2word(HEAP_OFF_N1,12,HEAP_OFF_N1,5)
+, bytes2word(HEAP_CVAL_N1,5,HEAP_OFF_N1,19)
+, bytes2word(HEAP_OFF_N1,5,HEAP_CVAL_N1,5)
+, bytes2word(HEAP_OFF_N1,26,HEAP_OFF_N1,5)
+, bytes2word(HEAP_CVAL_N1,5,HEAP_OFF_N1,33)
+, bytes2word(HEAP_OFF_N1,5,HEAP_CVAL_P1,8)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_P1,9,HEAP_OFF_N1)
+, bytes2word(5,HEAP_OFF_N1,3,RETURN_EVAL)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(1,2,0)
+, CONSTR(0,0,0)
+, CONSTR(0,2,0)
+, 2670001
+, useLabel(ST_v961)
+,	/* CT_v962: (byte 0) */
+  HW(7,0)
+, 0
+,};
+Node CF_Text_46XML_46HaXml_46Escape_46stdXmlEscaper[] = {
+  VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46stdXmlEscaper))
+, VAPTAG(useLabel(FN_LAMBDA933))
+, VAPTAG(useLabel(FN_LAMBDA934))
+, VAPTAG(useLabel(FN_LAMBDA935))
+, VAPTAG(useLabel(FN_LAMBDA936))
+, VAPTAG(useLabel(FN_LAMBDA937))
+, CAPTAG(useLabel(FN_LAMBDA939),1)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46mkXmlEscaper))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v964)
+,	/* FN_LAMBDA939: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,PUSH_HEAP,HEAP_CVAL_I4)
+, bytes2word(HEAP_OFF_N1,2,HEAP_ARG,1)
+, bytes2word(HEAP_CVAL_I5,HEAP_P1,0,HEAP_INT_P1)
+, bytes2word(10,HEAP_CVAL_I5,HEAP_INT_P1,10)
+, bytes2word(HEAP_P1,0,HEAP_CVAL_I5,HEAP_P1)
+, bytes2word(0,HEAP_INT_P1,32,HEAP_CVAL_P1)
+, bytes2word(6,HEAP_OFF_N1,7,HEAP_OFF_N1)
+, bytes2word(5,HEAP_CVAL_P1,7,HEAP_P1)
+, bytes2word(0,HEAP_INT_P1,127,HEAP_CVAL_P1)
+, bytes2word(8,HEAP_ARG,1,HEAP_CVAL_P1)
+, bytes2word(9,HEAP_OFF_N1,6,HEAP_OFF_N1)
+, bytes2word(4,HEAP_CVAL_P1,9,HEAP_OFF_N1)
+, bytes2word(12,HEAP_OFF_N1,5,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_P1,9,HEAP_OFF_N1,24)
+, bytes2word(HEAP_OFF_N1,5,RETURN_EVAL,ENDCODE)
+, bytes2word(0,0,0,0)
+, 2690005
+, useLabel(ST_v963)
+,	/* CT_v964: (byte 0) */
+  HW(7,1)
+, 0
+,	/* F0_LAMBDA939: (byte 0) */
+  CAPTAG(useLabel(FN_LAMBDA939),1)
+, VAPTAG(useLabel(FN_Char_46ord))
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95apply1))
+, VAPTAG(useLabel(FN_Prelude_46Ord_46Prelude_46Int_46_60))
+, VAPTAG(useLabel(FN_Prelude_46_38_38))
+, VAPTAG(useLabel(FN_Prelude_46Ord_46Prelude_46Int_46_62_61))
+, VAPTAG(useLabel(FN_LAMBDA938))
+, VAPTAG(useLabel(FN_Prelude_46_124_124))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v975)
+,	/* FN_LAMBDA938: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(LOOKUPSWITCH,5,TOP(34),BOT(34))
+, bytes2word(TOP(26),BOT(26),TOP(38),BOT(38))
+, bytes2word(TOP(30),BOT(30),TOP(39),BOT(39))
+, bytes2word(TOP(34),BOT(34),TOP(60),BOT(60))
+, bytes2word(TOP(38),BOT(38),TOP(62),BOT(62))
+,	/* v974: (byte 4) */
+  bytes2word(TOP(42),BOT(42),TOP(22),BOT(22))
+,	/* v968: (byte 4) */
+  bytes2word(POP_I1,JUMP,22,0)
+,	/* v969: (byte 4) */
+  bytes2word(POP_I1,PUSH_HEAP,HEAP_CVAL_IN3,RETURN)
+,	/* v970: (byte 4) */
+  bytes2word(POP_I1,PUSH_HEAP,HEAP_CVAL_IN3,RETURN)
+,	/* v971: (byte 4) */
+  bytes2word(POP_I1,PUSH_HEAP,HEAP_CVAL_IN3,RETURN)
+,	/* v972: (byte 4) */
+  bytes2word(POP_I1,PUSH_HEAP,HEAP_CVAL_IN3,RETURN)
+,	/* v965: (byte 4) */
+  bytes2word(POP_I1,PUSH_HEAP,HEAP_CVAL_IN3,RETURN)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_N1,4,RETURN)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, CONSTR(0,0,0)
+, CONSTR(1,0,0)
+, 0
+, useLabel(ST_v973)
+,	/* CT_v975: (byte 0) */
+  HW(0,1)
+, 0
+,	/* F0_LAMBDA938: (byte 0) */
+  CAPTAG(useLabel(FN_LAMBDA938),1)
+, bytes2word(0,0,0,0)
+, useLabel(CT_v978)
+,	/* FN_LAMBDA937: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v977)
+, 2680067
+, useLabel(ST_v976)
+,	/* CT_v978: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA937: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA937))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v981)
+,	/* FN_LAMBDA936: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v980)
+, 2680052
+, useLabel(ST_v979)
+,	/* CT_v981: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA936: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA936))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v984)
+,	/* FN_LAMBDA935: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v983)
+, 2680038
+, useLabel(ST_v982)
+,	/* CT_v984: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA935: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA935))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v987)
+,	/* FN_LAMBDA934: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v986)
+, 2680025
+, useLabel(ST_v985)
+,	/* CT_v987: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA934: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA934))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v990)
+,	/* FN_LAMBDA933: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v989)
+, 2680012
+, useLabel(ST_v988)
+,	/* CT_v990: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA933: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA933))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v995)
+,	/* FN_Text_46XML_46HaXml_46Escape_46compressAttValue: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(UNPACK,1,HEAP_CVAL_I3,HEAP_CVAL_I4)
+, bytes2word(HEAP_OFF_N1,2,HEAP_P1,0)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_IN3,HEAP_OFF_N1,4)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,1,0)
+, 2390001
+, useLabel(ST_v993)
+,	/* CT_v995: (byte 0) */
+  HW(2,1)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46compressAttValue: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46compressAttValue),1)
+, CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46Prelude_46431_46compress),1)
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95apply1))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1015)
+,	/* FN_Text_46XML_46HaXml_46Escape_46Prelude_46431_46compress: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,2,TOP(4),BOT(4))
+,	/* v997: (byte 2) */
+  bytes2word(TOP(8),BOT(8),POP_I1,PUSH_HEAP)
+,	/* v998: (byte 2) */
+  bytes2word(HEAP_CVAL_IN3,RETURN,UNPACK,2)
+, bytes2word(PUSH_P1,0,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,2,TOP(4),BOT(4))
+,	/* v1000: (byte 2) */
+  bytes2word(TOP(75),BOT(75),UNPACK,1)
+, bytes2word(HEAP_CVAL_I3,PUSH_HEAP,HEAP_CVAL_I4,HEAP_OFF_N1)
+, bytes2word(2,HEAP_P1,3,PUSH_P1)
+, bytes2word(0,EVAL,NEEDHEAP_I32,TABLESWITCH)
+, bytes2word(2,NOP,TOP(4),BOT(4))
+,	/* v1013: (byte 2) */
+  bytes2word(TOP(8),BOT(8),POP_I1,JUMP)
+,	/* v1004: (byte 2) */
+  bytes2word(42,0,UNPACK,2)
+, bytes2word(PUSH_P1,0,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,2,TOP(8),BOT(8))
+,	/* v1014: (byte 2) */
+  bytes2word(TOP(4),BOT(4),POP_I1,JUMP)
+,	/* v1008: (byte 2) */
+  bytes2word(21,0,UNPACK,1)
+, bytes2word(HEAP_CVAL_I5,HEAP_P1,4,HEAP_P1)
+, bytes2word(0,HEAP_CVAL_N1,4,HEAP_OFF_N1)
+, bytes2word(4,PUSH_HEAP,HEAP_CVAL_N1,5)
+, bytes2word(HEAP_OFF_N1,3,HEAP_P1,3)
+,	/* v1005: (byte 1) */
+  bytes2word(RETURN,POP_P1,2,JUMP)
+,	/* v1001: (byte 2) */
+  bytes2word(2,0,PUSH_HEAP,HEAP_CVAL_N1)
+, bytes2word(5,HEAP_P1,3,HEAP_I1)
+,	/* v1009: (byte 1) */
+  bytes2word(RETURN,UNPACK,1,HEAP_CVAL_N1)
+, bytes2word(6,HEAP_P1,0,HEAP_CVAL_I3)
+, bytes2word(HEAP_CVAL_I4,HEAP_OFF_N1,2,HEAP_I2)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_N1,5,HEAP_OFF_N1)
+, bytes2word(7,HEAP_OFF_N1,5,RETURN)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, CONSTR(1,1,0)
+, CONSTR(1,2,0)
+, CONSTR(0,1,0)
+, CONSTR(0,0,0)
+, 2420007
+, useLabel(ST_v1010)
+,	/* CT_v1015: (byte 0) */
+  HW(3,1)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46Prelude_46431_46compress: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46Prelude_46431_46compress),1)
+, CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46Prelude_46431_46compress),1)
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95apply1))
+, VAPTAG(useLabel(FN_Prelude_46_43_43))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1017)
+,	/* FN_Text_46XML_46HaXml_46Escape_46compressAttributes: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,PUSH_HEAP,HEAP_CVAL_I4)
+, bytes2word(HEAP_OFF_N1,2,HEAP_ARG,1)
+, bytes2word(RETURN_EVAL,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, 2330001
+, useLabel(ST_v1016)
+,	/* CT_v1017: (byte 0) */
+  HW(2,1)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46compressAttributes: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46compressAttributes),1)
+, CAPTAG(useLabel(FN_LAMBDA940),1)
+, VAPTAG(useLabel(FN_Prelude_46map))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1022)
+,	/* FN_LAMBDA940: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(UNPACK,2,HEAP_CVAL_I3,HEAP_I1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_IN3,HEAP_I1,HEAP_OFF_N1)
+, bytes2word(4,RETURN,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,2,0)
+, 2350008
+, useLabel(ST_v1020)
+,	/* CT_v1022: (byte 0) */
+  HW(1,1)
+, 0
+,	/* F0_LAMBDA940: (byte 0) */
+  CAPTAG(useLabel(FN_LAMBDA940),1)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46compressAttValue))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1027)
+,	/* FN_Text_46XML_46HaXml_46Escape_46compressElement: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(UNPACK,3,HEAP_CVAL_I3,HEAP_I1)
+, bytes2word(HEAP_CVAL_I4,HEAP_I2,PUSH_HEAP,HEAP_CVAL_IN3)
+, bytes2word(HEAP_I1,HEAP_OFF_N1,6,HEAP_OFF_N1)
+, bytes2word(5,RETURN,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,3,0)
+, 2290001
+, useLabel(ST_v1025)
+,	/* CT_v1027: (byte 0) */
+  HW(2,1)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46compressElement: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46compressElement),1)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46compressAttributes))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46compressContent))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1051)
+,	/* FN_Text_46XML_46HaXml_46Escape_46compressContent: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,2,TOP(4),BOT(4))
+,	/* v1029: (byte 2) */
+  bytes2word(TOP(8),BOT(8),POP_I1,PUSH_HEAP)
+,	/* v1030: (byte 2) */
+  bytes2word(HEAP_CVAL_IN3,RETURN,UNPACK,2)
+, bytes2word(PUSH_P1,0,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,4,TOP(12),BOT(12))
+, bytes2word(TOP(33),BOT(33),TOP(8),BOT(8))
+,	/* v1048: (byte 2) */
+  bytes2word(TOP(8),BOT(8),POP_I1,JUMP)
+,	/* v1034: (byte 2) */
+  bytes2word(114,0,UNPACK,2)
+, bytes2word(HEAP_CVAL_I3,HEAP_P1,0,HEAP_CVAL_N1)
+, bytes2word(4,HEAP_OFF_N1,3,HEAP_I1)
+, bytes2word(HEAP_CVAL_I4,HEAP_P1,3,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_N1,5,HEAP_OFF_N1,6)
+,	/* v1035: (byte 3) */
+  bytes2word(HEAP_OFF_N1,4,RETURN,UNPACK)
+, bytes2word(3,PUSH_HEAP,HEAP_CVAL_I4,HEAP_P1)
+, bytes2word(5,PUSH_P1,0,EVAL)
+, bytes2word(NEEDHEAP_I32,TABLESWITCH,2,NOP)
+,	/* v1049: (byte 4) */
+  bytes2word(TOP(4),BOT(4),TOP(8),BOT(8))
+,	/* v1039: (byte 4) */
+  bytes2word(POP_I1,JUMP,65,0)
+, bytes2word(UNPACK,2,PUSH_P1,0)
+, bytes2word(EVAL,NEEDHEAP_I32,TABLESWITCH,4)
+, bytes2word(TOP(8),BOT(8),TOP(12),BOT(12))
+,	/* v1050: (byte 4) */
+  bytes2word(TOP(8),BOT(8),TOP(8),BOT(8))
+,	/* v1043: (byte 4) */
+  bytes2word(POP_I1,JUMP,40,0)
+, bytes2word(UNPACK,3,PUSH_HEAP,HEAP_CVAL_I5)
+, bytes2word(HEAP_P1,7,HEAP_I1,EVAL)
+, bytes2word(NEEDHEAP_I32,JUMPFALSE,23,0)
+, bytes2word(HEAP_CVAL_P1,6,HEAP_P1,7)
+, bytes2word(HEAP_I1,HEAP_CVAL_N1,6,HEAP_P1)
+, bytes2word(6,HEAP_OFF_N1,5,HEAP_P1)
+, bytes2word(8,PUSH_HEAP,HEAP_CVAL_N1,5)
+, bytes2word(HEAP_OFF_N1,5,HEAP_P1,5)
+,	/* v1044: (byte 1) */
+  bytes2word(RETURN,POP_P1,3,JUMP)
+,	/* v1040: (byte 2) */
+  bytes2word(2,0,POP_P1,2)
+,	/* v1036: (byte 3) */
+  bytes2word(JUMP,2,0,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_N1,5,HEAP_P1,5)
+,	/* v1031: (byte 2) */
+  bytes2word(HEAP_I1,RETURN,HEAP_CVAL_I4,HEAP_I1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_N1,5,HEAP_I1)
+, bytes2word(HEAP_OFF_N1,4,RETURN,ENDCODE)
+, bytes2word(0,0,0,0)
+, CONSTR(1,3,0)
+, CONSTR(1,2,0)
+, CONSTR(0,2,0)
+, CONSTR(0,0,0)
+, 2500001
+, useLabel(ST_v1046)
+,	/* CT_v1051: (byte 0) */
+  HW(4,1)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46compressContent: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46compressContent),1)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46compressElement))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46compressContent))
+, VAPTAG(useLabel(FN_Prelude_46Eq_46Prelude_46Bool_46_61_61))
+, VAPTAG(useLabel(FN_Prelude_46_43_43))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1053)
+,	/* FN_Text_46XML_46HaXml_46Escape_46lookupFM: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,HEAP_ARG,1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I4,HEAP_OFF_N1,3)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, 690001
+, useLabel(ST_v1052)
+,	/* CT_v1053: (byte 0) */
+  HW(2,1)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46lookupFM: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46lookupFM),1)
+, CAPTAG(useLabel(FN_Data_46Map_46lookup),2)
+, CAPTAG(useLabel(FN_Prelude_46flip),2)
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1055)
+,	/* FN_Text_46XML_46HaXml_46Escape_46fromEscape: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,SELECTOR_EVAL,SELECT,2)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, 890004
+, useLabel(ST_v1054)
+,	/* CT_v1055: (byte 0) */
+  HW(0,1)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46fromEscape: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46fromEscape),1)
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1061)
+,	/* FN_Text_46XML_46HaXml_46Escape_46unEscapeChar: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I2,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,2,TOP(4),BOT(4))
+,	/* v1057: (byte 2) */
+  bytes2word(TOP(27),BOT(27),UNPACK,1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I3,HEAP_ARG,1)
+, bytes2word(PUSH_I1,PUSH_I1,HEAP_CVAL_I4,HEAP_CVAL_I5)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_P1,6,HEAP_OFF_N1)
+, bytes2word(3,ZAP_ARG_I1,ZAP_STACK_P1,3)
+, bytes2word(EVAL,NEEDHEAP_I32,APPLY,2)
+,	/* v1058: (byte 1) */
+  bytes2word(RETURN_EVAL,UNPACK,1,HEAP_CVAL_P1)
+, bytes2word(7,HEAP_CVAL_P1,8,HEAP_OFF_N1)
+, bytes2word(2,HEAP_P1,0,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_IN3,HEAP_OFF_N1,4,RETURN)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(1,1,0)
+, 2180001
+, useLabel(ST_v1059)
+,	/* CT_v1061: (byte 0) */
+  HW(6,2)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46unEscapeChar: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46unEscapeChar),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46fromEscape))
+, VAPTAG(useLabel(FN_Prelude_46Ord_46Prelude_46_91_93))
+, useLabel(CF_Prelude_46Ord_46Prelude_46Char)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46lookupFM))
+, VAPTAG(useLabel(FN_Char_46chr))
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95apply1))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1066)
+,	/* FN_Text_46XML_46HaXml_46Escape_46unEscapeAttValue: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I2,EVAL,NEEDHEAP_I32)
+, bytes2word(UNPACK,1,HEAP_CVAL_I3,HEAP_ARG)
+, bytes2word(1,HEAP_CVAL_I4,HEAP_OFF_N1,3)
+, bytes2word(HEAP_P1,0,PUSH_HEAP,HEAP_CVAL_IN3)
+, bytes2word(HEAP_OFF_N1,4,RETURN,ENDCODE)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,1,0)
+, 1930001
+, useLabel(ST_v1064)
+,	/* CT_v1066: (byte 0) */
+  HW(2,2)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46unEscapeAttValue: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46unEscapeAttValue),2)
+, CAPTAG(useLabel(FN_LAMBDA941),1)
+, VAPTAG(useLabel(FN_Prelude_46map))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1076)
+,	/* FN_LAMBDA941: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ARG_I2,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,2,TOP(4),BOT(4))
+,	/* v1068: (byte 2) */
+  bytes2word(TOP(8),BOT(8),UNPACK,1)
+,	/* v1069: (byte 2) */
+  bytes2word(PUSH_ARG_I2,RETURN,UNPACK,1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I3,HEAP_ARG,1)
+, bytes2word(HEAP_I1,ZAP_ARG_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,2,TOP(4),BOT(4))
+,	/* v1071: (byte 2) */
+  bytes2word(TOP(7),BOT(7),POP_I1,PUSH_ARG_I2)
+,	/* v1072: (byte 1) */
+  bytes2word(RETURN,UNPACK,1,HEAP_CVAL_IN3)
+, bytes2word(HEAP_CVAL_N1,4,HEAP_P1,0)
+, bytes2word(HEAP_OFF_N1,3,PUSH_HEAP,HEAP_CVAL_N1)
+, bytes2word(5,HEAP_OFF_N1,4,RETURN)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,1,0)
+, CONSTR(1,2,0)
+, CONSTR(0,0,0)
+, 1960011
+, useLabel(ST_v1073)
+,	/* CT_v1076: (byte 0) */
+  HW(1,2)
+, 0
+,	/* F0_LAMBDA941: (byte 0) */
+  CAPTAG(useLabel(FN_LAMBDA941),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46unEscapeChar))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1078)
+,	/* FN_Text_46XML_46HaXml_46Escape_46unEscapeAttributes: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,HEAP_ARG,1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I4,HEAP_OFF_N1,3)
+, bytes2word(HEAP_ARG,2,RETURN_EVAL,ENDCODE)
+, bytes2word(0,0,0,0)
+, 1870001
+, useLabel(ST_v1077)
+,	/* CT_v1078: (byte 0) */
+  HW(2,2)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46unEscapeAttributes: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46unEscapeAttributes),2)
+, CAPTAG(useLabel(FN_LAMBDA942),1)
+, VAPTAG(useLabel(FN_Prelude_46map))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1083)
+,	/* FN_LAMBDA942: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I2,EVAL,NEEDHEAP_I32)
+, bytes2word(UNPACK,2,HEAP_CVAL_I3,HEAP_ARG)
+, bytes2word(1,HEAP_I1,PUSH_HEAP,HEAP_CVAL_IN3)
+, bytes2word(HEAP_I1,HEAP_OFF_N1,5,RETURN)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,2,0)
+, 1890008
+, useLabel(ST_v1081)
+,	/* CT_v1083: (byte 0) */
+  HW(1,2)
+, 0
+,	/* F0_LAMBDA942: (byte 0) */
+  CAPTAG(useLabel(FN_LAMBDA942),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46unEscapeAttValue))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1088)
+,	/* FN_Text_46XML_46HaXml_46Escape_46unEscapeElement: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I2,EVAL,NEEDHEAP_I32)
+, bytes2word(UNPACK,3,HEAP_CVAL_I3,HEAP_ARG)
+, bytes2word(1,HEAP_I1,HEAP_CVAL_I4,HEAP_ARG)
+, bytes2word(1,HEAP_I2,PUSH_HEAP,HEAP_CVAL_IN3)
+, bytes2word(HEAP_I1,HEAP_OFF_N1,8,HEAP_OFF_N1)
+, bytes2word(6,RETURN,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,3,0)
+, 1820001
+, useLabel(ST_v1086)
+,	/* CT_v1088: (byte 0) */
+  HW(2,2)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46unEscapeElement: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46unEscapeElement),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46unEscapeAttributes))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46unEscapeContent))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1090)
+,	/* FN_Text_46XML_46HaXml_46Escape_46unEscapeContent: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,HEAP_ARG,1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I4,HEAP_OFF_N1,3)
+, bytes2word(HEAP_ARG,2,RETURN_EVAL,ENDCODE)
+, bytes2word(0,0,0,0)
+, 2060001
+, useLabel(ST_v1089)
+,	/* CT_v1090: (byte 0) */
+  HW(2,2)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46unEscapeContent: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46unEscapeContent),2)
+, CAPTAG(useLabel(FN_LAMBDA943),1)
+, VAPTAG(useLabel(FN_Prelude_46map))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1102)
+,	/* FN_LAMBDA943: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ARG_I2,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,4,TOP(12),BOT(12))
+, bytes2word(TOP(8),BOT(8),TOP(25),BOT(25))
+,	/* v1100: (byte 2) */
+  bytes2word(TOP(8),BOT(8),POP_I1,JUMP)
+,	/* v1094: (byte 2) */
+  bytes2word(57,0,UNPACK,2)
+, bytes2word(HEAP_CVAL_I3,HEAP_ARG,1,HEAP_P1)
+, bytes2word(0,PUSH_HEAP,HEAP_CVAL_IN3,HEAP_OFF_N1)
+,	/* v1095: (byte 3) */
+  bytes2word(4,HEAP_I2,RETURN,UNPACK)
+, bytes2word(2,PUSH_HEAP,HEAP_CVAL_I4,HEAP_ARG)
+, bytes2word(1,HEAP_I1,ZAP_ARG_I1,EVAL)
+, bytes2word(NEEDHEAP_I32,TABLESWITCH,2,NOP)
+,	/* v1097: (byte 4) */
+  bytes2word(TOP(4),BOT(4),TOP(7),BOT(7))
+,	/* v1098: (byte 3) */
+  bytes2word(POP_I1,PUSH_ARG_I2,RETURN,UNPACK)
+, bytes2word(1,HEAP_CVAL_N1,4,HEAP_CVAL_N1)
+, bytes2word(4,HEAP_CVAL_N1,5,HEAP_P1)
+, bytes2word(0,HEAP_OFF_N1,3,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_N1,6,HEAP_OFF_N1,6)
+, bytes2word(HEAP_OFF_N1,5,HEAP_P1,3)
+,	/* v1091: (byte 1) */
+  bytes2word(RETURN,PUSH_ARG_I2,RETURN,ENDCODE)
+, bytes2word(0,0,0,0)
+, CONSTR(1,3,0)
+, CONSTR(1,2,0)
+, CONSTR(0,0,0)
+, CONSTR(0,2,0)
+, 2080008
+, useLabel(ST_v1099)
+,	/* CT_v1102: (byte 0) */
+  HW(2,2)
+, 0
+,	/* F0_LAMBDA943: (byte 0) */
+  CAPTAG(useLabel(FN_LAMBDA943),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46unEscapeElement))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46unEscapeChar))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1104)
+,};
+Node FN_Text_46XML_46HaXml_46Escape_46xmlUnEscapeContent[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,HEAP_ARG_ARG,1)
+, bytes2word(2,PUSH_HEAP,HEAP_CVAL_I4,HEAP_OFF_N1)
+, bytes2word(4,RETURN_EVAL,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, 1780001
+, useLabel(ST_v1103)
+,	/* CT_v1104: (byte 0) */
+  HW(2,2)
+, 0
+,};
+Node F0_Text_46XML_46HaXml_46Escape_46xmlUnEscapeContent[] = {
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46xmlUnEscapeContent),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46unEscapeContent))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46compressContent))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1106)
+,};
+Node FN_Text_46XML_46HaXml_46Escape_46xmlUnEscape[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,HEAP_ARG_ARG,1)
+, bytes2word(2,PUSH_HEAP,HEAP_CVAL_I4,HEAP_OFF_N1)
+, bytes2word(4,RETURN_EVAL,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, 1740001
+, useLabel(ST_v1105)
+,	/* CT_v1106: (byte 0) */
+  HW(2,2)
+, 0
+,};
+Node F0_Text_46XML_46HaXml_46Escape_46xmlUnEscape[] = {
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46xmlUnEscape),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46unEscapeElement))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46compressElement))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1115)
+,	/* FN_Text_46XML_46HaXml_46Escape_46mkEscape: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(UNPACK,3,PUSH_ARG_I2,PUSH_I1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I3,HEAP_CVAL_I4,ZAP_STACK_P1)
+, bytes2word(5,ZAP_STACK_P1,4,EVAL)
+, bytes2word(NEEDHEAP_I32,APPLY,2,EVAL)
+, bytes2word(NEEDHEAP_I32,TABLESWITCH,2,NOP)
+,	/* v1110: (byte 4) */
+  bytes2word(TOP(4),BOT(4),TOP(17),BOT(17))
+, bytes2word(POP_I1,HEAP_CVAL_I5,HEAP_CVAL_P1,6)
+, bytes2word(HEAP_OFF_N1,2,HEAP_ARG,2)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_IN3,HEAP_OFF_N1,4)
+,	/* v1111: (byte 1) */
+  bytes2word(RETURN,UNPACK,1,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_N1,4,HEAP_I1,RETURN)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, CONSTR(0,1,0)
+, CONSTR(1,1,0)
+, 1610001
+, useLabel(ST_v1112)
+,	/* CT_v1115: (byte 0) */
+  HW(4,2)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46mkEscape: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46mkEscape),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46lookupFM))
+, useLabel(CF_Prelude_46Ord_46Prelude_46Char)
+, VAPTAG(useLabel(FN_Char_46ord))
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95apply1))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1117)
+,	/* FN_Text_46XML_46HaXml_46Escape_46isEscape: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,SELECTOR_EVAL,SELECT,3)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, 900004
+, useLabel(ST_v1116)
+,	/* CT_v1117: (byte 0) */
+  HW(0,1)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46isEscape: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46isEscape),1)
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1122)
+,	/* FN_Text_46XML_46HaXml_46Escape_46escapeAttValue: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I2,EVAL,NEEDHEAP_I32)
+, bytes2word(UNPACK,1,HEAP_CVAL_I3,HEAP_CVAL_I4)
+, bytes2word(HEAP_ARG,1,HEAP_CVAL_I5,HEAP_OFF_N1)
+, bytes2word(3,HEAP_P1,0,HEAP_CVAL_P1)
+, bytes2word(6,HEAP_OFF_N1,7,HEAP_OFF_N1)
+, bytes2word(5,PUSH_HEAP,HEAP_CVAL_IN3,HEAP_OFF_N1)
+, bytes2word(4,RETURN,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,1,0)
+, 1200001
+, useLabel(ST_v1120)
+,	/* CT_v1122: (byte 0) */
+  HW(4,2)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46escapeAttValue: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46escapeAttValue),2)
+, VAPTAG(useLabel(FN_Prelude_46concat))
+, CAPTAG(useLabel(FN_LAMBDA945),1)
+, VAPTAG(useLabel(FN_Prelude_46map))
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95apply1))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1128)
+,	/* FN_LAMBDA945: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ARG_I2,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,2,TOP(4),BOT(4))
+,	/* v1124: (byte 2) */
+  bytes2word(TOP(15),BOT(15),UNPACK,1)
+, bytes2word(HEAP_CVAL_I3,HEAP_ARG,1,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_I4,HEAP_OFF_N1,3,HEAP_I1)
+,	/* v1125: (byte 1) */
+  bytes2word(RETURN_EVAL,UNPACK,1,HEAP_CVAL_IN3)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_N1,4,HEAP_ARG)
+, bytes2word(2,HEAP_OFF_N1,3,RETURN)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, CONSTR(1,2,0)
+, CONSTR(0,0,0)
+, 1240014
+, useLabel(ST_v1126)
+,	/* CT_v1128: (byte 0) */
+  HW(2,2)
+, 0
+,	/* F0_LAMBDA945: (byte 0) */
+  CAPTAG(useLabel(FN_LAMBDA945),2)
+, CAPTAG(useLabel(FN_LAMBDA944),1)
+, VAPTAG(useLabel(FN_Prelude_46map))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1132)
+,	/* FN_LAMBDA944: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,PUSH_ARG_I2,PUSH_HEAP,HEAP_CVAL_I3)
+, bytes2word(HEAP_ARG,1,EVAL,NEEDHEAP_I32)
+, bytes2word(APPLY,1,EVAL,NEEDHEAP_I32)
+, bytes2word(JUMPFALSE,11,0,HEAP_CVAL_I4)
+, bytes2word(HEAP_ARG_ARG,1,2,PUSH_HEAP)
+,	/* v1129: (byte 4) */
+  bytes2word(HEAP_CVAL_IN3,HEAP_OFF_N1,4,RETURN)
+, bytes2word(HEAP_CVAL_N1,4,HEAP_CVAL_N1,5)
+, bytes2word(HEAP_ARG,2,HEAP_OFF_N1,3)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_N1,6,HEAP_OFF_N1)
+, bytes2word(4,RETURN,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, CONSTR(0,1,0)
+, CONSTR(1,2,0)
+, CONSTR(0,0,0)
+, CONSTR(1,1,0)
+, 1280023
+, useLabel(ST_v1131)
+,	/* CT_v1132: (byte 0) */
+  HW(2,2)
+, 0
+,	/* F0_LAMBDA944: (byte 0) */
+  CAPTAG(useLabel(FN_LAMBDA944),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46isEscape))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46mkEscape))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1134)
+,	/* FN_Text_46XML_46HaXml_46Escape_46escapeAttributes: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,HEAP_ARG,1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I4,HEAP_OFF_N1,3)
+, bytes2word(HEAP_ARG,2,RETURN_EVAL,ENDCODE)
+, bytes2word(0,0,0,0)
+, 1140001
+, useLabel(ST_v1133)
+,	/* CT_v1134: (byte 0) */
+  HW(2,2)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46escapeAttributes: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46escapeAttributes),2)
+, CAPTAG(useLabel(FN_LAMBDA946),1)
+, VAPTAG(useLabel(FN_Prelude_46map))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1139)
+,	/* FN_LAMBDA946: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I2,EVAL,NEEDHEAP_I32)
+, bytes2word(UNPACK,2,HEAP_CVAL_I3,HEAP_ARG)
+, bytes2word(1,HEAP_I1,PUSH_HEAP,HEAP_CVAL_IN3)
+, bytes2word(HEAP_I1,HEAP_OFF_N1,5,RETURN)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,2,0)
+, 1160008
+, useLabel(ST_v1137)
+,	/* CT_v1139: (byte 0) */
+  HW(1,2)
+, 0
+,	/* F0_LAMBDA946: (byte 0) */
+  CAPTAG(useLabel(FN_LAMBDA946),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46escapeAttValue))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1144)
+,	/* FN_Text_46XML_46HaXml_46Escape_46escapeElement: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I2,EVAL,NEEDHEAP_I32)
+, bytes2word(UNPACK,3,HEAP_CVAL_I3,HEAP_ARG)
+, bytes2word(1,HEAP_I1,HEAP_CVAL_I4,HEAP_ARG)
+, bytes2word(1,HEAP_I2,PUSH_HEAP,HEAP_CVAL_IN3)
+, bytes2word(HEAP_I1,HEAP_OFF_N1,8,HEAP_OFF_N1)
+, bytes2word(6,RETURN,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,3,0)
+, 1090001
+, useLabel(ST_v1142)
+,	/* CT_v1144: (byte 0) */
+  HW(2,2)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46escapeElement: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46escapeElement),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46escapeAttributes))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46escapeContent))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1146)
+,	/* FN_Text_46XML_46HaXml_46Escape_46escapeContent: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,HEAP_ARG,1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I4,HEAP_OFF_N1,3)
+, bytes2word(HEAP_ARG,2,PUSH_P1,0)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I5,ZAP_ARG_I1,ZAP_ARG_I2)
+, bytes2word(ZAP_STACK_P1,2,EVAL,NEEDHEAP_I32)
+, bytes2word(APPLY,1,RETURN_EVAL,ENDCODE)
+, bytes2word(0,0,0,0)
+, 1410001
+, useLabel(ST_v1145)
+,	/* CT_v1146: (byte 0) */
+  HW(3,2)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46escapeContent: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46escapeContent),2)
+, CAPTAG(useLabel(FN_LAMBDA948),1)
+, VAPTAG(useLabel(FN_Prelude_46map))
+, VAPTAG(useLabel(FN_Prelude_46concat))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1154)
+,	/* FN_LAMBDA948: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,PUSH_ARG_I2,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,4,TOP(12),BOT(12))
+, bytes2word(TOP(33),BOT(33),TOP(8),BOT(8))
+,	/* v1153: (byte 2) */
+  bytes2word(TOP(8),BOT(8),POP_I1,JUMP)
+,	/* v1150: (byte 2) */
+  bytes2word(37,0,UNPACK,2)
+, bytes2word(HEAP_CVAL_I3,HEAP_ARG,1,HEAP_P1)
+, bytes2word(0,HEAP_CVAL_IN3,HEAP_OFF_N1,4)
+, bytes2word(HEAP_I1,HEAP_CVAL_N1,4,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_N1,5,HEAP_OFF_N1,5)
+,	/* v1151: (byte 3) */
+  bytes2word(HEAP_OFF_N1,3,RETURN,UNPACK)
+, bytes2word(3,HEAP_CVAL_I4,HEAP_ARG,1)
+, bytes2word(HEAP_P1,0,HEAP_I2,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_I5,HEAP_OFF_N1,5,HEAP_I2)
+,	/* v1147: (byte 1) */
+  bytes2word(RETURN_EVAL,HEAP_CVAL_N1,4,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_N1,5,HEAP_ARG,2)
+, bytes2word(HEAP_OFF_N1,3,RETURN_EVAL,ENDCODE)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(1,2,0)
+, CONSTR(0,0,0)
+, CONSTR(0,2,0)
+, 1440012
+, useLabel(ST_v1152)
+,	/* CT_v1154: (byte 0) */
+  HW(3,2)
+, 0
+,	/* F0_LAMBDA948: (byte 0) */
+  CAPTAG(useLabel(FN_LAMBDA948),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46escapeElement))
+, CAPTAG(useLabel(FN_LAMBDA947),1)
+, VAPTAG(useLabel(FN_Prelude_46map))
+, bytes2word(0,0,4,0)
+, bytes2word(3,1,2,2)
+, bytes2word(1,3,0,4)
+, useLabel(CT_v1158)
+,	/* FN_LAMBDA947: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,PUSH_ARG,4,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_I3,HEAP_ARG,1,EVAL)
+, bytes2word(NEEDHEAP_I32,APPLY,1,EVAL)
+, bytes2word(NEEDHEAP_I32,JUMPFALSE,13,0)
+, bytes2word(HEAP_CVAL_I4,HEAP_ARG_ARG,1,4)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_IN3,HEAP_OFF_N1,4)
+,	/* v1155: (byte 3) */
+  bytes2word(HEAP_ARG,3,RETURN,HEAP_CVAL_N1)
+, bytes2word(4,HEAP_CVAL_N1,5,HEAP_ARG)
+, bytes2word(4,HEAP_OFF_N1,3,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_N1,6,HEAP_ARG,2)
+, bytes2word(HEAP_OFF_N1,5,HEAP_ARG,3)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTR(1,3,0)
+, CONSTR(1,2,0)
+, CONSTR(0,0,0)
+, CONSTR(2,2,0)
+, 1470021
+, useLabel(ST_v1157)
+,	/* CT_v1158: (byte 0) */
+  HW(2,4)
+, 0
+,	/* F0_LAMBDA947: (byte 0) */
+  CAPTAG(useLabel(FN_LAMBDA947),4)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46isEscape))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46mkEscape))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1160)
+,};
+Node FN_Text_46XML_46HaXml_46Escape_46xmlEscapeContent[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,HEAP_ARG_ARG,1)
+, bytes2word(2,PUSH_HEAP,HEAP_CVAL_I4,HEAP_OFF_N1)
+, bytes2word(4,RETURN_EVAL,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, 1050001
+, useLabel(ST_v1159)
+,	/* CT_v1160: (byte 0) */
+  HW(2,2)
+, 0
+,};
+Node F0_Text_46XML_46HaXml_46Escape_46xmlEscapeContent[] = {
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46xmlEscapeContent),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46escapeContent))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46compressContent))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1162)
+,};
+Node FN_Text_46XML_46HaXml_46Escape_46xmlEscape[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,HEAP_ARG_ARG,1)
+, bytes2word(2,PUSH_HEAP,HEAP_CVAL_I4,HEAP_OFF_N1)
+, bytes2word(4,RETURN_EVAL,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, 1010001
+, useLabel(ST_v1161)
+,	/* CT_v1162: (byte 0) */
+  HW(2,2)
+, 0
+,};
+Node F0_Text_46XML_46HaXml_46Escape_46xmlEscape[] = {
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46xmlEscape),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46escapeElement))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46compressElement))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1164)
+,	/* FN_Text_46XML_46HaXml_46Escape_46toEscape: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Escape)
+, bytes2word(NEEDSTACK_I16,SELECTOR_EVAL,SELECT,1)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, 880004
+, useLabel(ST_v1163)
+,	/* CT_v1164: (byte 0) */
+  HW(0,1)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Escape_46toEscape: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Escape_46toEscape),1)
+,};
+Node PM_Text_46XML_46HaXml_46Escape[] = {
+ 	/* ST_v951: (byte 0) */
+  bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,69)
+, bytes2word(115,99,97,112)
+,	/* ST_v993: (byte 2) */
+  bytes2word(101,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,69,115,99)
+, bytes2word(97,112,101,46)
+, bytes2word(99,111,109,112)
+, bytes2word(114,101,115,115)
+, bytes2word(65,116,116,86)
+, bytes2word(97,108,117,101)
+,	/* ST_v1010: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(69,115,99,97)
+, bytes2word(112,101,46,99)
+, bytes2word(111,109,112,114)
+, bytes2word(101,115,115,65)
+, bytes2word(116,116,86,97)
+, bytes2word(108,117,101,58)
+, bytes2word(50,52,50,58)
+, bytes2word(55,45,50,52)
+, bytes2word(55,58,50,55)
+,	/* ST_v1016: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(69,115,99,97)
+, bytes2word(112,101,46,99)
+, bytes2word(111,109,112,114)
+, bytes2word(101,115,115,65)
+, bytes2word(116,116,114,105)
+, bytes2word(98,117,116,101)
+,	/* ST_v1020: (byte 2) */
+  bytes2word(115,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,69,115,99)
+, bytes2word(97,112,101,46)
+, bytes2word(99,111,109,112)
+, bytes2word(114,101,115,115)
+, bytes2word(65,116,116,114)
+, bytes2word(105,98,117,116)
+, bytes2word(101,115,58,50)
+, bytes2word(51,53,58,56)
+, bytes2word(45,50,51,53)
+,	/* ST_v1046: (byte 4) */
+  bytes2word(58,52,56,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,69)
+, bytes2word(115,99,97,112)
+, bytes2word(101,46,99,111)
+, bytes2word(109,112,114,101)
+, bytes2word(115,115,67,111)
+, bytes2word(110,116,101,110)
+,	/* ST_v1025: (byte 2) */
+  bytes2word(116,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,69,115,99)
+, bytes2word(97,112,101,46)
+, bytes2word(99,111,109,112)
+, bytes2word(114,101,115,115)
+, bytes2word(69,108,101,109)
+,	/* ST_v1120: (byte 4) */
+  bytes2word(101,110,116,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,69)
+, bytes2word(115,99,97,112)
+, bytes2word(101,46,101,115)
+, bytes2word(99,97,112,101)
+, bytes2word(65,116,116,86)
+, bytes2word(97,108,117,101)
+,	/* ST_v1126: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(69,115,99,97)
+, bytes2word(112,101,46,101)
+, bytes2word(115,99,97,112)
+, bytes2word(101,65,116,116)
+, bytes2word(86,97,108,117)
+, bytes2word(101,58,49,50)
+, bytes2word(52,58,49,52)
+, bytes2word(45,49,51,52)
+,	/* ST_v1131: (byte 4) */
+  bytes2word(58,50,50,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,69)
+, bytes2word(115,99,97,112)
+, bytes2word(101,46,101,115)
+, bytes2word(99,97,112,101)
+, bytes2word(65,116,116,86)
+, bytes2word(97,108,117,101)
+, bytes2word(58,49,50,56)
+, bytes2word(58,50,51,45)
+, bytes2word(49,51,50,58)
+,	/* ST_v1133: (byte 3) */
+  bytes2word(51,53,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,69,115)
+, bytes2word(99,97,112,101)
+, bytes2word(46,101,115,99)
+, bytes2word(97,112,101,65)
+, bytes2word(116,116,114,105)
+, bytes2word(98,117,116,101)
+,	/* ST_v1137: (byte 2) */
+  bytes2word(115,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,69,115,99)
+, bytes2word(97,112,101,46)
+, bytes2word(101,115,99,97)
+, bytes2word(112,101,65,116)
+, bytes2word(116,114,105,98)
+, bytes2word(117,116,101,115)
+, bytes2word(58,49,49,54)
+, bytes2word(58,56,45,49)
+, bytes2word(49,54,58,53)
+,	/* ST_v1145: (byte 2) */
+  bytes2word(55,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,69,115,99)
+, bytes2word(97,112,101,46)
+, bytes2word(101,115,99,97)
+, bytes2word(112,101,67,111)
+, bytes2word(110,116,101,110)
+,	/* ST_v1152: (byte 2) */
+  bytes2word(116,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,69,115,99)
+, bytes2word(97,112,101,46)
+, bytes2word(101,115,99,97)
+, bytes2word(112,101,67,111)
+, bytes2word(110,116,101,110)
+, bytes2word(116,58,49,52)
+, bytes2word(52,58,49,50)
+, bytes2word(45,49,53,53)
+,	/* ST_v1157: (byte 4) */
+  bytes2word(58,50,55,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,69)
+, bytes2word(115,99,97,112)
+, bytes2word(101,46,101,115)
+, bytes2word(99,97,112,101)
+, bytes2word(67,111,110,116)
+, bytes2word(101,110,116,58)
+, bytes2word(49,52,55,58)
+, bytes2word(50,49,45,49)
+, bytes2word(53,49,58,52)
+,	/* ST_v1142: (byte 2) */
+  bytes2word(48,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,69,115,99)
+, bytes2word(97,112,101,46)
+, bytes2word(101,115,99,97)
+, bytes2word(112,101,69,108)
+, bytes2word(101,109,101,110)
+,	/* ST_v1054: (byte 2) */
+  bytes2word(116,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,69,115,99)
+, bytes2word(97,112,101,46)
+, bytes2word(102,114,111,109)
+, bytes2word(69,115,99,97)
+,	/* ST_v1116: (byte 3) */
+  bytes2word(112,101,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,69,115)
+, bytes2word(99,97,112,101)
+, bytes2word(46,105,115,69)
+, bytes2word(115,99,97,112)
+,	/* ST_v952: (byte 2) */
+  bytes2word(101,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,69,115,99)
+, bytes2word(97,112,101,46)
+, bytes2word(108,105,115,116)
+, bytes2word(84,111,70,77)
+,	/* ST_v1052: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(69,115,99,97)
+, bytes2word(112,101,46,108)
+, bytes2word(111,111,107,117)
+,	/* ST_v1112: (byte 4) */
+  bytes2word(112,70,77,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,69)
+, bytes2word(115,99,97,112)
+, bytes2word(101,46,109,107)
+, bytes2word(69,115,99,97)
+,	/* ST_v954: (byte 3) */
+  bytes2word(112,101,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,69,115)
+, bytes2word(99,97,112,101)
+, bytes2word(46,109,107,88)
+, bytes2word(109,108,69,115)
+, bytes2word(99,97,112,101)
+,	/* ST_v958: (byte 2) */
+  bytes2word(114,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,69,115,99)
+, bytes2word(97,112,101,46)
+, bytes2word(109,107,88,109)
+, bytes2word(108,69,115,99)
+, bytes2word(97,112,101,114)
+, bytes2word(58,50,56,56)
+, bytes2word(58,51,53,45)
+, bytes2word(50,56,56,58)
+,	/* ST_v961: (byte 3) */
+  bytes2word(53,52,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,69,115)
+, bytes2word(99,97,112,101)
+, bytes2word(46,115,116,100)
+, bytes2word(88,109,108,69)
+, bytes2word(115,99,97,112)
+,	/* ST_v988: (byte 3) */
+  bytes2word(101,114,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,69,115)
+, bytes2word(99,97,112,101)
+, bytes2word(46,115,116,100)
+, bytes2word(88,109,108,69)
+, bytes2word(115,99,97,112)
+, bytes2word(101,114,58,50)
+, bytes2word(54,56,58,49)
+, bytes2word(50,45,50,54)
+, bytes2word(56,58,49,53)
+,	/* ST_v985: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(69,115,99,97)
+, bytes2word(112,101,46,115)
+, bytes2word(116,100,88,109)
+, bytes2word(108,69,115,99)
+, bytes2word(97,112,101,114)
+, bytes2word(58,50,54,56)
+, bytes2word(58,50,53,45)
+, bytes2word(50,54,56,58)
+,	/* ST_v982: (byte 3) */
+  bytes2word(50,56,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,69,115)
+, bytes2word(99,97,112,101)
+, bytes2word(46,115,116,100)
+, bytes2word(88,109,108,69)
+, bytes2word(115,99,97,112)
+, bytes2word(101,114,58,50)
+, bytes2word(54,56,58,51)
+, bytes2word(56,45,50,54)
+, bytes2word(56,58,52,50)
+,	/* ST_v979: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(69,115,99,97)
+, bytes2word(112,101,46,115)
+, bytes2word(116,100,88,109)
+, bytes2word(108,69,115,99)
+, bytes2word(97,112,101,114)
+, bytes2word(58,50,54,56)
+, bytes2word(58,53,50,45)
+, bytes2word(50,54,56,58)
+,	/* ST_v976: (byte 3) */
+  bytes2word(53,55,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,69,115)
+, bytes2word(99,97,112,101)
+, bytes2word(46,115,116,100)
+, bytes2word(88,109,108,69)
+, bytes2word(115,99,97,112)
+, bytes2word(101,114,58,50)
+, bytes2word(54,56,58,54)
+, bytes2word(55,45,50,54)
+, bytes2word(56,58,55,50)
+,	/* ST_v963: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(69,115,99,97)
+, bytes2word(112,101,46,115)
+, bytes2word(116,100,88,109)
+, bytes2word(108,69,115,99)
+, bytes2word(97,112,101,114)
+, bytes2word(58,50,54,57)
+, bytes2word(58,53,45,50)
+, bytes2word(56,48,58,50)
+,	/* ST_v973: (byte 2) */
+  bytes2word(53,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,69,115,99)
+, bytes2word(97,112,101,46)
+, bytes2word(115,116,100,88)
+, bytes2word(109,108,69,115)
+, bytes2word(99,97,112,101)
+, bytes2word(114,58,110,111)
+,	/* ST_v1163: (byte 4) */
+  bytes2word(112,111,115,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,69)
+, bytes2word(115,99,97,112)
+, bytes2word(101,46,116,111)
+, bytes2word(69,115,99,97)
+,	/* ST_v1064: (byte 3) */
+  bytes2word(112,101,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,69,115)
+, bytes2word(99,97,112,101)
+, bytes2word(46,117,110,69)
+, bytes2word(115,99,97,112)
+, bytes2word(101,65,116,116)
+, bytes2word(86,97,108,117)
+,	/* ST_v1073: (byte 2) */
+  bytes2word(101,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,69,115,99)
+, bytes2word(97,112,101,46)
+, bytes2word(117,110,69,115)
+, bytes2word(99,97,112,101)
+, bytes2word(65,116,116,86)
+, bytes2word(97,108,117,101)
+, bytes2word(58,49,57,54)
+, bytes2word(58,49,49,45)
+, bytes2word(50,48,48,58)
+,	/* ST_v1077: (byte 3) */
+  bytes2word(50,56,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,69,115)
+, bytes2word(99,97,112,101)
+, bytes2word(46,117,110,69)
+, bytes2word(115,99,97,112)
+, bytes2word(101,65,116,116)
+, bytes2word(114,105,98,117)
+,	/* ST_v1081: (byte 4) */
+  bytes2word(116,101,115,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,69)
+, bytes2word(115,99,97,112)
+, bytes2word(101,46,117,110)
+, bytes2word(69,115,99,97)
+, bytes2word(112,101,65,116)
+, bytes2word(116,114,105,98)
+, bytes2word(117,116,101,115)
+, bytes2word(58,49,56,57)
+, bytes2word(58,56,45,49)
+, bytes2word(56,57,58,53)
+,	/* ST_v1059: (byte 2) */
+  bytes2word(57,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,69,115,99)
+, bytes2word(97,112,101,46)
+, bytes2word(117,110,69,115)
+, bytes2word(99,97,112,101)
+, bytes2word(67,104,97,114)
+,	/* ST_v1089: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(69,115,99,97)
+, bytes2word(112,101,46,117)
+, bytes2word(110,69,115,99)
+, bytes2word(97,112,101,67)
+, bytes2word(111,110,116,101)
+,	/* ST_v1099: (byte 3) */
+  bytes2word(110,116,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,69,115)
+, bytes2word(99,97,112,101)
+, bytes2word(46,117,110,69)
+, bytes2word(115,99,97,112)
+, bytes2word(101,67,111,110)
+, bytes2word(116,101,110,116)
+, bytes2word(58,50,48,56)
+, bytes2word(58,56,45,50)
+, bytes2word(49,51,58,49)
+,	/* ST_v1086: (byte 2) */
+  bytes2word(57,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,69,115,99)
+, bytes2word(97,112,101,46)
+, bytes2word(117,110,69,115)
+, bytes2word(99,97,112,101)
+, bytes2word(69,108,101,109)
+,	/* ST_v1161: (byte 4) */
+  bytes2word(101,110,116,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,69)
+, bytes2word(115,99,97,112)
+, bytes2word(101,46,120,109)
+, bytes2word(108,69,115,99)
+,	/* ST_v1159: (byte 4) */
+  bytes2word(97,112,101,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,69)
+, bytes2word(115,99,97,112)
+, bytes2word(101,46,120,109)
+, bytes2word(108,69,115,99)
+, bytes2word(97,112,101,67)
+, bytes2word(111,110,116,101)
+,	/* ST_v1105: (byte 3) */
+  bytes2word(110,116,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,69,115)
+, bytes2word(99,97,112,101)
+, bytes2word(46,120,109,108)
+, bytes2word(85,110,69,115)
+, bytes2word(99,97,112,101)
+,	/* ST_v1103: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(69,115,99,97)
+, bytes2word(112,101,46,120)
+, bytes2word(109,108,85,110)
+, bytes2word(69,115,99,97)
+, bytes2word(112,101,67,111)
+, bytes2word(110,116,101,110)
+,	/* ST_v983: (byte 2) */
+  bytes2word(116,0,97,109)
+,	/* ST_v980: (byte 2) */
+  bytes2word(112,0,97,112)
+,	/* ST_v986: (byte 3) */
+  bytes2word(111,115,0,103)
+,	/* ST_v989: (byte 2) */
+  bytes2word(116,0,108,116)
+,	/* ST_v977: (byte 1) */
+  bytes2word(0,113,117,111)
+, bytes2word(116,0,0,0)
+,};

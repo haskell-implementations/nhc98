@@ -1,0 +1,75 @@
+interface Prelude where {
+
+{-# NEED #-}
+instance Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Integral a) => Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Integral a) => RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Integral a) => Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Integral a) => Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Integral a) => Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Read a,Integral a) => Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Integral a) => Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Integral a) => Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Eq IO.Handle;
+
+{-# NEED #-}
+instance (Show a) => Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Integral a) => Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Show IO.Handle;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+
+{-# NEED World #-}
+data World;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Prelude
+{-# NEED {IOError IOError EOFError PatternError UserError} #-}
+data IOError
+  = IOError String (Maybe String) (Maybe IO.Handle) NHC.DErrNo.ErrNo
+  | EOFError String IO.Handle
+  | PatternError String
+  | UserError String String;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+}

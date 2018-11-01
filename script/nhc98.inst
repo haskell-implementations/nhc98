@@ -1,0 +1,819 @@
+#! /bin/sh
+#
+#       nhc98 script for any architecture
+#       uses byte code back-end
+#
+# NHC98BINDIR is where to find driver scripts,
+# NHC98LIBDIR is where to find executable programs and libraries,
+# NHC98INCDIR is where to find the hi files for the standard prelude,
+# MACHINE is used to choose which architecture's binaries and
+#               libraries to use.
+
+
+NHC98BINDIR=${NHC98BINDIR-ScriptDir}
+NHC98LIBDIR=${NHC98LIBDIR-ExecutableDir}
+NHC98INCDIR=${NHC98INCDIR-IncludeDir}
+MACHINE=${MACHINE-"`$NHC98BINDIR/harch`"}
+
+if [ ! -d $NHC98LIBDIR/$MACHINE ]
+then
+  echo "`basename $0` is not installed/configured for $MACHINE."
+  echo "  (Tried directory $NHC98LIBDIR)"
+  echo "  See your system administrator, or install it yourself from"
+  echo "  http://www.haskell.org/nhc98/"
+  exit 1
+fi
+
+# Fix a broken 'mv' command on Cygwin.
+mv () { { cp $1 $2 && rm $1; } || echo "Warning: can't move $1 to $2"; }
+
+# Fix an absolute Cygwin path to an absolute native Windows path.
+# (Also copes with options like -I/path etc.)
+# This routine is only strictly required when the compiler proper
+# was built with GHC/mingw32.
+if echo $MACHINE | grep -i CYGWIN >/dev/null
+then filepath() { case $1 in
+                    -?/*) dir=`echo $1 | cut -c3-`
+                          dir=`cygpath -w "$dir" | tr '\\\\' '/'`
+                          echo `echo $1 | cut-c1-2`$dir ;;
+                    /*)   cygpath -w "$1" | tr '\\' '/';;
+                    *)    echo $1;;
+                  esac; }
+else filepath() { echo $1; }
+fi
+
+# If USINGRTS is non-zero then flags to the runtime is enclosed in
+#     +RTS runtimeflags -RTS,
+# otherwise only a - is inserted after the runtime flags.
+# (0 = nhc98 compiled with hbc; 1 = nhc98 compiled with nhc98)
+
+#USINGRTS=
+#ENDIAN=
+# (These flags are now sourced from machine-specific configuration)
+. $NHC98LIBDIR/$MACHINE/config
+
+
+COMP=${NHC98COMP-"$NHC98LIBDIR/$MACHINE/nhc98comp"}
+PRAGMA=$NHC98LIBDIR/$MACHINE/hmake-PRAGMA
+COMPFILES=""
+COMPFLAGS="-P$NHC98INCDIR/packages/base"
+RUNFLAGS=""
+EXTRALIB=""
+CINCDIRS=""
+HINCDIRS=""
+CPPFLAGS=${CPPFLAGS-""}
+#OBJDIR=
+#HIDIR=
+HISUFFIX="hi"
+OSUFFIX="o"
+CSUFFIX="hc"
+
+MAINROUTINE=$NHC98LIBDIR/$MACHINE/main
+
+CC=${CC-gcc}" CompilerOpt -D__NHC__=$VERSIONNUM"
+CPPHS="$NHC98LIBDIR/$MACHINE/cpphs"
+if test $USINGRTS -eq 0 ; then
+  CPPHS="$CPPHS -"
+fi
+CPPHS="$CPPHS -D__NHC__=$VERSIONNUM"
+
+#CPPDEFAULT="${CC} -D__HASKELL__=98 -D__HASKELL_98__ -D__HASKELL98__ -x c -E -traditional"
+CPPDEFAULT="$CPPHS -D__HASKELL__=98 -D__HASKELL_98__ -D__HASKELL98__"
+
+CPPPRE=${CPP-"${CPPDEFAULT}"}
+CPPAS="${CC} -x c -S"
+CPPASFLAGS=" -I${NHC98INCDIR}/ "
+#CPPASFLAGS=" -I- -I${NHC98INCDIR}/ "
+
+GREENCARD="$NHC98LIBDIR/$MACHINE/greencard-nhc98"
+if test $USINGRTS -eq 0 ; then
+  GREENCARD="$GREENCARD -"
+fi
+GREENCARDOPTS=${GREENCARDOPTS}" -tnhc98"
+GRCC="${CC} -I${NHC98INCDIR}/"
+HSC2HS="$NHC98BINDIR/hsc2hs"	# hsc2hs script handles USINGRTS
+
+PACKAGES=
+
+VFLAG=0 
+MFLAG=0 
+TPFLAG=0
+KEEPS=0
+KEEPC=0
+AS="${CC} -c"
+ASFLAGS=""
+
+PROF=
+TPROF=
+TRACE=
+ 
+NOLINK=0
+PRECPP=0
+LD="$CC"
+LDFLAGS=""
+LDFILES=
+LDFIRST=""
+LDLAST="-lm"
+
+HEAP=
+AOUT=a.out
+TMP=`filepath ${TEMP-/tmp}`
+
+# Define a routine for getting OPTIONS pragmas out of source files.
+checkPragmas () {
+  if test $VFLAG -eq 1;
+    then LOCAL_OPTS=`grep $1 $2 | $PRAGMA`;
+         if test -n "$LOCAL_OPTS";
+           then echo 1>&2 "Found additional $1: $LOCAL_OPTS";
+                echo $LOCAL_OPTS
+         fi;
+    else grep $1 $2 | $PRAGMA;
+  fi;
+}
+
+# Define a function for processing command-line arguments.  It will
+# also be used for dealing with {-# OPTIONS_NHC98 #-} pragmas on
+# a per-file basis.
+processArgs () {
+  while test "'$1'" != "''" 
+  do
+    case $1 in
+    --version) echo "$0: $INSTALLVER"
+               echo '  [' $INSTALLINFO ']'
+               exit 0;;
+    --numeric-version) echo $VERSIONNUM
+                       exit 0;;
+    --print-libdir) echo $NHC98LIBDIR/$MACHINE
+                    exit 0;;
+    --print-incdir) echo $NHC98INCDIR
+                    exit 0;;
+    -o-suffix=*)  OSUFFIX=`echo $1 | cut -c11-` ;;
+    -hc-suffix=*) CSUFFIX=`echo $1 | cut -c12-` ;;
+    -hi-suffix=*) HISUFFIX=`echo $1 | cut -c12-` ;;
+    -osuf ) shift; OSUFFIX=$1;;
+    -hcsuf) shift; CSUFFIX=$1;;
+    -hisuf) shift; HISUFFIX=$1;;
+    -p    ) PROF=p
+            COMPFLAGS=$COMPFLAGS" --profile"
+            GRCC=$GRCC" -DPROFILE"
+            CPPASFLAGS=$CPPASFLAGS" -DPROFILE"
+            OSUFFIX="p.o"
+            CSUFFIX="p.c"
+            ;;
+    -S    ) KEEPS=1;;
+    -C    ) KEEPC=1;;
+    -v    ) VFLAG=1;;
+    -M    ) MFLAG=1;;
+    -cpp  ) PRECPP=1;;
+    -c    ) NOLINK=1;;
+    -T)     TRACE=T
+            COMPFLAGS=$COMPFLAGS" -dbgtrans -hi-suffix=T.hi"
+            LDLAST=$LDLAST$LIBCOMPAT
+            HISUFFIX="T.hi"
+            OSUFFIX="T.o"
+            CSUFFIX="T.c"
+            ;;
+    -t|-z)  TPROF=z
+            TPFLAG=1
+            COMPFLAGS=$COMPFLAGS" -z"
+            GRCC=$GRCC" -DTPROF"
+            CPPASFLAGS=$CPPASFLAGS" -DTPROF "
+            OSUFFIX="z.o"
+            CSUFFIX="z.c"
+            ;;
+    -98|+98)COMPFLAGS=$COMPFLAGS" --nkpat --underscore --nopuns";;
+#    +rts  ) USINGRTS=1;;
+#    -rts  ) USINGRTS=0;;
+    +RTS  ) shift
+	    while  test "'$1'" != "''" 
+	    do 
+	      case $1 in
+                -RTS ) break;;
+                *    ) RUNFLAGS=$RUNFLAGS" "$1;;
+	      esac
+	      shift
+	    done;;
+    +CTS  ) shift
+            while  test "'$1'" != "''" 
+	    do 
+	      case $1 in
+                -CTS ) break;;
+                -H*  ) HEAP=`echo $1 | cut -c3-` ;;
+                *    ) COMPFLAGS=$COMPFLAGS" "$1;;
+	      esac
+	      shift
+	    done;;
+    -o    ) shift; AOUT=$1;;
+    -d    ) shift; OBJDIR=$1;;
+    -odir ) shift; OBJDIR=$1;;
+    -hidir) shift; HIDIR=$1;;
+    -o-dir=*)   OBJDIR=`echo $1 | cut -c8-` ;;
+    -hi-dir=*)  HIDIR=`echo $1 | cut -c9-` ;;
+    -bigEnd)    ENDIAN="-DHIGH_BYTE_FIRST" ;;
+    -littleEnd) ENDIAN="-DLOW_BYTE_FIRST"  ;;
+    -nomain)    MAINROUTINE="" ;;
+    -noansiC)   CPPAS=${CPPDEFAULT}
+                COMPFLAGS=$COMPFLAGS" -"$1;;
+#   -newlibs)   NHC98LIBDIR=$NHC98LIBDIR/libraries	# not needed
+#               NHC98INCDIR=$NHC98INCDIR/libraries	# not needed
+#               COMPFLAGS=$COMPFLAGS" "$1;;
+    -package)   shift; package=$1;
+                PACKAGES=$PACKAGES" $package"
+                if [ -d $NHC98INCDIR/packages/$package ]
+                then
+                  COMPFLAGS=$COMPFLAGS" -P$NHC98INCDIR/packages/$package"
+                  CINCDIRS=$CINCDIRS" "-I$NHC98INCDIR/packages/$package
+                else
+                  echo >&2 "Warning: -package $package interfaces not found."
+                fi
+                ;;
+    -H*   ) HEAP=`echo $1 | cut -c3-` ;;
+    -[Ll]*) EXTRALIB=$EXTRALIB" "$1;;
+    -Wl,*)  LDFLAGS=$LDFLAGS" "$1;;
+    -i*   ) CINCDIRS=$CINCDIRS" -I"`echo $1 | cut -c3-`
+            HINCDIRS=$HINCDIRS" -I"`echo $1 | cut -c3-` ;;
+    -I*   ) CINCDIRS=$CINCDIRS" "$1
+            HINCDIRS=$HINCDIRS" "`filepath $1` ;;
+#           HINCDIRS=$HINCDIRS" "$1 ;;
+    -s    ) LDFLAGS=$LDFLAGS" "$1;;
+    -static) LDFLAGS=$LDFLAGS" "$1;;
+    -P*   ) GREENCARDOPTS=$GREENCARDOPTS" "`filepath $1`
+            COMPFLAGS=$COMPFLAGS" "`filepath $1`;;
+#   -P*   ) GREENCARDOPTS=$GREENCARDOPTS" "$1
+#           COMPFLAGS=$COMPFLAGS" "$1;;
+    -D*   ) CPPFLAGS=$CPPFLAGS" "$1;;
+    -U*   ) CPPFLAGS=$CPPFLAGS" "$1;;
+    -*    ) COMPFLAGS=$COMPFLAGS" "$1;;
+    *.s   ) COMPFILES=$COMPFILES" "$1;;
+    *.hc  ) COMPFILES=$COMPFILES" "$1;;
+    *.c   ) COMPFILES=$COMPFILES" "$1;;
+    *.hs  ) COMPFILES=$COMPFILES" "$1;;
+    *.lhs ) COMPFILES=$COMPFILES" "$1;;
+    *.hsc ) HSCFILES=$HSCFILES" "$1;;
+    *.gc  ) GRFILES=$GRFILES" "$1;;
+    *     ) LDFILES=$LDFILES" "$1;; 
+    esac
+    if test "'$1'" != "''" 
+    then
+      shift
+    fi
+  done
+}
+
+# Now actually do the command-line args.
+processArgs "$@"
+
+BASENAME=
+DIRNAME=
+UNLIT=
+TMPCPPPREFILE=
+ASFILE=
+TMPASFILE=
+HIFILE=
+TMPHIFILE=
+HSFILE=
+
+# Fix OSUFFIX for tprof _and_ tracing
+if test $TPFLAG -eq 1
+then OSUFFIX=$TRACE$TPROF".o"
+fi
+
+
+# Define a function for deciding where to place object/.hi files.
+findDir () {
+    dirname=$1
+    default=$2
+    if [ -z "$default" ]
+    then echo $dirname
+    else case $dirname in
+           /*)   echo $default;;
+           ../*) echo $default;;
+           ./*)  echo $default;;
+           *)    echo $default/$dirname;;
+         esac
+    fi
+}
+
+
+# Start processing files here, beginning with GreenCard preprocessor.
+case $GRFILES in
+""   ) ;;
+*    )
+  set $GRFILES
+  GREENCARDOPTS=$GREENCARDOPTS" --c-suffix $CSUFFIX"
+  while test $1
+  do
+    case $1 in
+    *.gc  ) BASENAME=`basename $1 .gc` ;;
+    esac
+    DIRNAME=`dirname $1`
+    objdir=`findDir "$DIRNAME" "$OBJDIR"`
+
+    GRFILE=$DIRNAME/$BASENAME.gc
+    HSFILE=$DIRNAME/${BASENAME}_.hs
+    GRCFILE=$DIRNAME/${BASENAME}_.$CSUFFIX
+    GROFILE=$objdir/${BASENAME}_.o
+
+    if test $MFLAG -eq 1
+    then
+      echo "`basename $GRFILE .gc`: " \
+      `grep '^import' $GRFILE | awk '{ print $2 }' | awk -F '(' '{ print $1 }'`
+      shift
+      continue
+    fi
+    if test $VFLAG -eq 1
+    then
+      echo `basename $GREENCARD` $GREENCARDOPTS -P$NHC98INCDIR $GRFILE
+    fi
+    $GREENCARD $GREENCARDOPTS -P$NHC98INCDIR $GRFILE
+    if test $? -ne 0
+    then
+      echo "`basename $GREENCARD` failed on $GRFILE"
+      exit 1
+    fi
+
+    #if test `cat $HSFILE | wc -c` -lt `cat $GRFILE | wc -c`
+    #then
+    #  echo `basename $GREENCARD`: Parse error in $GRFILE
+    #  exit 1
+    #fi
+
+    if test `cat $GRCFILE | wc -l` -eq 1
+    then
+      if test $VFLAG -eq 1
+      then
+        echo `basename $GREENCARD` produced empty .$CSUFFIX file
+      fi
+      rm $GRCFILE
+      COMPFILES=$COMPFILES" "${HSFILE}"_"
+    else
+      if test $KEEPC -ne 1
+      then
+        if test $VFLAG -eq 1
+        then
+          echo $GRCC $ENDIAN $CPPFLAGS $CINCDIRS -c -x c -o $GROFILE $GRCFILE
+        fi
+        $GRCC $ENDIAN $CPPFLAGS $CINCDIRS -c -x c -o $GROFILE $GRCFILE
+        if test $? -ne 0
+        then
+          echo C compilation failed on ${BASENAME}_.$CSUFFIX after `basename $GREENCARD`
+          exit 1
+        fi
+      fi
+      COMPFILES=$COMPFILES" "$GRFILE
+    fi
+
+    shift
+  done;;
+esac
+
+# Now for the hsc2hs preprocessor.
+case $HSCFILES in
+""   ) ;;
+*    )
+  set $HSCFILES
+  while test $1
+  do
+    case $1 in
+    *.hsc  ) BASENAME=`basename $1 .hsc` ;;
+    esac
+    DIRNAME=`dirname $1`
+    objdir=`findDir "$DIRNAME" "$OBJDIR"`
+
+    HSCFILE=$DIRNAME/$BASENAME.hsc
+    HSFILE=$DIRNAME/$BASENAME.hs
+
+    if test $MFLAG -eq 1
+    then
+      echo "`basename $HSCFILE .hsc`: " \
+      `grep '^import' $HSCFILE | awk '{ print $2 }' | awk -F '(' '{ print $1 }'`
+      shift
+      continue
+    fi
+    if test $VFLAG -eq 1
+    then
+      echo `basename $HSC2HS` $CINCDIRS $HSCFILE
+    fi
+    $HSC2HS $CINCDIRS $HSCFILE
+    if test $? -ne 0
+    then
+      echo "`basename $HSC2HS` failed on $HSCFILE"
+      exit 1
+    fi
+
+    COMPFILES=$COMPFILES" "${HSFILE}
+
+    shift
+  done;;
+esac
+
+HSRC=0
+CSRC=0
+SSRC=0
+GR=0
+case $COMPFILES in
+""   ) ;; 
+*    )
+  set $COMPFILES
+
+  while test $1 
+  do
+    CSUF=$CSUFFIX
+    case $1 in
+    *.s   ) UNLIT="";       HSRC=0; CSRC=0; SSRC=1; GR=0;
+                              BASENAME=`basename $1 .s`   ;;
+    *.hc  ) UNLIT="";       HSRC=0; CSRC=1; SSRC=0; GR=0;
+                              BASENAME=`basename $1 .hc`  CSUF=hc ;;
+    *.T.c ) UNLIT="";       HSRC=0; CSRC=1; SSRC=0; GR=0;
+                              BASENAME=`basename $1 .T.c` CSUF=T.c ;;
+    *.p.c ) UNLIT="";       HSRC=0; CSRC=1; SSRC=0; GR=0;
+                              BASENAME=`basename $1 .p.c` CSUF=p.c ;;
+    *.z.c ) UNLIT="";       HSRC=0; CSRC=1; SSRC=0; GR=0;
+                              BASENAME=`basename $1 .z.c` CSUF=z.c ;;
+    *.c   ) UNLIT="";       HSRC=0; CSRC=1; SSRC=0; GR=0;
+                              BASENAME=`basename $1 .c`   CSUF=c ;;
+    *.hs_ ) UNLIT="";       HSRC=1; CSRC=0; SSRC=0; GR=0;
+                              BASENAME=`basename $1 _.hs_` ;;
+    *.gc  ) UNLIT="";       HSRC=1; CSRC=0; SSRC=0; GR=1;
+                              BASENAME=`basename $1 .gc`  ;;
+    *.hs  ) UNLIT="";       HSRC=1; CSRC=0; SSRC=0; GR=0;
+                              BASENAME=`basename $1 .hs`  ;;
+    *.lhs ) UNLIT="--unlit"; HSRC=1; CSRC=0; SSRC=0; GR=0;
+                              BASENAME=`basename $1 .lhs` ;;
+    esac
+
+    DIRNAME=`dirname $1`
+    objdir=`findDir "$DIRNAME" "$OBJDIR"`
+    hidir=`findDir "$DIRNAME" "$HIDIR"`
+
+    if test $GR -eq 0
+    then
+      POSTGRFILE=${DIRNAME}/`basename $1 _`
+    else
+      POSTGRFILE=${DIRNAME}/${BASENAME}_.hs
+    fi
+
+    HIFILE=$hidir/$BASENAME.$HISUFFIX
+    TMPHIFILE=$TMP/$BASENAME.$$.$HISUFFIX
+
+    TMPCPPPREFILE=$TMP/$BASENAME.$$.hs
+
+    if [ "$CSUF" != "$CSUFFIX"  -a "$CSUF" != "c" ]
+    then
+      echo "Warning: compiling a .$CSUF file, but expected a .$CSUFFIX file"
+      echo "    Ensure compiler options match the intended build type:"
+      echo "        ordinary            .hc"
+      echo "        heap profiling  -p  .p.c"
+      echo "        time profiling  -t  .z.c"
+      echo "        tracing         -T  .T.c"
+    fi
+
+    CPPASFILE=$DIRNAME/$BASENAME.$CSUF
+    if test $CSRC -eq 0
+    then
+      TMPCPPASFILE=$TMP/$BASENAME.$$.$CSUF
+    else
+      TMPCPPASFILE=$CPPASFILE
+    fi
+
+    ASFILE=$DIRNAME/$BASENAME.s
+    if test $SSRC -eq 0
+    then
+      TMPASFILE=$TMP/$BASENAME.$$.s
+    else
+      TMPASFILE=$ASFILE
+    fi
+
+    OFILE=$objdir/$BASENAME.$OSUFFIX
+    if test $NOLINK -eq 1 -a "$AOUT" != "a.out"
+    then
+      OFILE=$AOUT
+    fi
+    if test $GR -eq 0
+    then
+      TMPOFILE=$OFILE
+    else
+      TMPOFILE=$TMP/$BASENAME.o
+    fi
+
+# It's a Haskell file
+
+    if test $HSRC -ne 0
+    then
+      # Grab any extra link options now, they will apply globally.
+      EXTRALIB=$EXTRALIB" "`checkPragmas OPTIONS_LINK $POSTGRFILE`
+    fi
+
+# Now all of the following section goes into a subshell, because the options
+# read from {-# OPTIONS_NHC98 #-} only apply to that individual file.
+    (
+
+    if test $HSRC -ne 0
+    then
+      # Grab any per-file options here, just before compiling.
+      SAVED_RUNFLAGS=$RUNFLAGS
+      processArgs `checkPragmas OPTIONS_COMPILE $POSTGRFILE` \
+                  `checkPragmas OPTIONS_NHC98 $POSTGRFILE`
+      if test $USINGRTS -ne 0
+      then
+	RUNFLAGS="+RTS "$RUNFLAGS" -RTS"
+      else
+	RUNFLAGS=$RUNFLAGS" -"
+      fi
+
+      if test $PRECPP -ne 0
+      then
+        if test $VFLAG -eq 1
+        then
+	  echo  $CPPPRE $CPPFLAGS $CINCDIRS $POSTGRFILE \> $TMPCPPPREFILE
+        fi
+        $CPPPRE $CPPFLAGS $CINCDIRS $POSTGRFILE > $TMPCPPPREFILE
+        HSFILE=$TMPCPPPREFILE
+      else
+        HSFILE=$POSTGRFILE
+      fi
+      export HSFILE
+
+      if test $MFLAG -eq 1
+      then
+        echo "`basename $HSFILE .hs`: " \
+        `grep '^import' $HSFILE | awk '{ print $2 }' | awk -F '(' '{ print $1 }'`
+        shift
+        continue
+      fi
+
+      if test $VFLAG -eq 1
+      then
+#       echo  $COMP $RUNFLAGS $COMPFLAGS $HINCDIRS -I. $UNLIT -P${NHC98INCDIR} `filepath $HSFILE` $POSTGRFILE $TMPHIFILE $TMPCPPASFILE
+        echo  $COMP $RUNFLAGS $COMPFLAGS $HINCDIRS -I. $UNLIT -P${NHC98INCDIR} $HSFILE $POSTGRFILE $TMPHIFILE $TMPCPPASFILE
+      fi
+#     $COMP $RUNFLAGS $COMPFLAGS $HINCDIRS $UNLIT -I. -P${NHC98INCDIR} `filepath $HSFILE` $POSTGRFILE $TMPHIFILE $TMPCPPASFILE
+      $COMP $RUNFLAGS $COMPFLAGS $HINCDIRS -I. $UNLIT -P${NHC98INCDIR} $HSFILE $POSTGRFILE $TMPHIFILE $TMPCPPASFILE
+
+      if test $? -ne 0
+      then
+	exit 1
+      fi
+
+      RUNFLAGS=$SAVED_RUNFLAGS
+
+      if test $PRECPP -ne 0
+      then
+        if test $VFLAG -eq 1
+	then
+	  echo rm $TMPCPPPREFILE
+	fi
+        rm $TMPCPPPREFILE
+      fi
+
+      if test -r $HIFILE
+      then
+	cmp -s $HIFILE $TMPHIFILE
+	if test $? -eq 0 
+	then
+          if test $VFLAG -eq 1
+          then
+	    echo rm $TMPHIFILE
+          fi
+	  rm $TMPHIFILE
+	else 
+          if test $VFLAG -eq 1
+          then
+	    echo mv $TMPHIFILE $HIFILE
+          fi
+	  mv $TMPHIFILE $HIFILE
+	fi 
+      else
+        if test $VFLAG -eq 1
+        then
+          echo mv $TMPHIFILE $HIFILE
+        fi
+        mv $TMPHIFILE $HIFILE
+      fi
+    fi
+
+
+    if test $KEEPC -ne 0                # stop here if -C
+    then 
+      if test $HSRC -ne 0
+      then
+	if test $VFLAG -eq 1
+        then
+	  echo mv $TMPCPPASFILE $CPPASFILE
+	fi
+        mv $TMPCPPASFILE $CPPASFILE
+      fi
+    else				# continue with postcpp
+      if test $HSRC -ne 0 -o $CSRC -ne 0
+      then
+        if test $VFLAG -eq 1
+        then
+          echo $CPPAS $ENDIAN $CPPASFLAGS $CINCDIRS $TMPCPPASFILE -o $TMPASFILE
+	fi
+	$CPPAS $ENDIAN $CPPASFLAGS $CINCDIRS $TMPCPPASFILE -o - |\
+	#	perl -e 'undef $/; $_ = <>; s/^ \s*\.local\s+startLabel\n \s*.comm\s+startLabel,0,4\n (\s*\.globa?l\s+[^\n]+)\n \s*\.data\n (\s*\.align\s*\d+)\n /"\t.data\n" ."$2\n" ."\t.type startLabel,STT_OBJECT\n" ."\t.size startLabel,0\n" ."startLabel:\n" ."$1\n" ."$2\n"/emx; print;' |\
+		sed -e '/.p2align 5/s/5/2/' |\
+		sed -e '/.align 5/s/5/2/' |\
+		sed -e '/.align 32/s/32/4/' >$TMPASFILE		# evil mangler!
+	if test $CSRC -eq 0
+        then
+          if test $VFLAG -eq 1
+	  then
+	    echo rm  $TMPCPPASFILE
+	  fi
+          rm  $TMPCPPASFILE
+	fi
+      fi
+
+      if test $KEEPS -ne 0   # Stop here if -S
+      then
+        if test $HSRC -ne 0 -o $CSRC -ne 0
+        then
+          if test $VFLAG -eq 1
+	  then
+	    echo mv $TMPASFILE $ASFILE
+	  fi
+          mv $TMPASFILE $ASFILE
+        fi
+      else				# continue with assembler
+	if test $VFLAG -eq 1
+	then
+	  echo  $AS $ASFLAGS -o $TMPOFILE $TMPASFILE
+	fi
+	$AS $ASFLAGS -o $TMPOFILE $TMPASFILE
+        if test $GR -eq 1
+        then
+          GROFILE=$objdir/${BASENAME}_.o
+	  if test $VFLAG -eq 1
+	  then
+            echo $LD -nostdlib -Wl,-r -o $OFILE $TMPOFILE $GROFILE
+          fi
+          $LD -nostdlib -Wl,-r -o $OFILE $TMPOFILE $GROFILE
+	  if test $VFLAG -eq 1
+	  then
+            echo rm $TMPOFILE $GROFILE
+          fi
+          rm $TMPOFILE $GROFILE
+        fi
+	LDFILES=$OFILE" "$LDFILES	# no longer works here - see below
+	if test $SSRC -eq 0
+        then
+          if test $VFLAG -eq 1
+	  then
+	    echo rm $TMPASFILE
+	  fi
+	  rm $TMPASFILE
+	fi
+      fi
+    fi
+    ) || exit 1;
+    if test $KEEPC -ne 1  -a  $KEEPS -ne 1
+    then LDFILES=$OFILE" "$LDFILES	# patch in from subshell - see above
+    fi
+    shift
+  done;;
+esac
+
+CFG=$PROF$TRACE$TPROF
+if test "${CFG}" != ""
+then
+  SUF="."${CFG}
+else
+  SUF=""
+fi
+
+if test "$TRACE" = "T"
+then TRACELIB=$NHC98LIBDIR/$MACHINE/libdebug$SUF.a
+else TRACELIB=
+fi
+
+if test -n "$MAINROUTINE"
+then
+  MAINROUTINE=$MAINROUTINE$SUF.o
+fi
+
+if test $TPFLAG -eq 0
+then
+
+if [ -x $NHC98LIBDIR/nhc98-pkg ]
+then
+  pkgdeporder=`$NHC98LIBDIR/nhc98-pkg $NHC98INCDIR/packages depends $PACKAGES`
+else
+  pkgdeporder=$PACKAGES
+fi
+for package in $pkgdeporder
+do
+  if [ -r $NHC98LIBDIR/$MACHINE/libHS$package$SUF.a ]
+  then
+    LDLIBS=$LDLIBS" "$NHC98LIBDIR/$MACHINE/libHS$package$SUF.a
+  else
+    echo >&2 "Warning: -package $package library $SUF not found."
+  fi
+done
+
+LDLIBS=$LDLIBS" "$MAINROUTINE" "$NHC98LIBDIR/$MACHINE/mutlib$SUF.o" "$NHC98LIBDIR/$MACHINE/mutator$SUF.o" "$NHC98LIBDIR/$MACHINE/Prelude$SUF.a" "$NHC98LIBDIR/$MACHINE/Runtime$SUF.a" "$NHC98LIBDIR/$MACHINE/Prelude$SUF.a" "$TRACELIB" "$NHC98LIBDIR/$MACHINE/Runtime$SUF.a" "$NHC98LIBDIR/$MACHINE/Prelude$SUF.a" "$NHC98LIBDIR/$MACHINE/Runtime$SUF.a
+fi
+
+#for LIBFLAG in $HINCDIRS
+#do
+#  LIBDIR=`echo $LIBFLAG | sed 's/-i//'`
+#  if test -r $LIBDIR/$MACHINE/lib$SUF.a
+#  then
+#    LDLIBS=$LIBDIR/$MACHINE/lib$SUF.a" "$LDLIBS
+#  else
+#    if test -r $LIBDIR/lib$SUF.a
+#    then
+#      LDLIBS=$LIBDIR/lib$SUF.a" "$LDLIBS
+#    else
+#      if test -r $NHC98LIBDIR/$MACHINE/$LIBDIR/lib$SUF.a
+#      then
+#        LDLIBS=$NHC98LIBDIR/$MACHINE/$LIBDIR/lib$SUF.a" "$LDLIBS
+#      #else
+#      fi
+#    fi
+#  fi
+#done
+
+if test $TPFLAG -eq 1
+then
+   LLPREL=`echo $NHC98LIBDIR/$MACHINE/*$SUF.a`
+   LLPREL=`echo $LLPREL | sed -e "s|$NHC98LIBDIR/$MACHINE/Runtime$SUF.a||"`
+   LLPREL=`echo $LLPREL | sed -e "s|$NHC98LIBDIR/$MACHINE/libdebug$SUF.a||"`
+   LDLIBS=$TMP/tprofusr$$.o" "$NHC98LIBDIR/$MACHINE/tprofprel1$SUF.o
+   LDLIBS=$LDLIBS" "$MAINROUTINE
+   LDLIBS=$LDLIBS" "$NHC98LIBDIR/$MACHINE/mutlib$SUF.o
+   LDLIBS=$LDLIBS" "$NHC98LIBDIR/$MACHINE/mutator$SUF.o
+   LDLIBS=$LDLIBS" "$LLPREL" "$NHC98LIBDIR/$MACHINE/Runtime$SUF.a
+   LDLIBS=$LDLIBS" "$NHC98LIBDIR/$MACHINE/tprofprel2$SUF.o
+   LDLIBS=$LDLIBS" "$TRACELIB
+   LDLIBS=$LDLIBS" "$LLPREL" "$NHC98LIBDIR/$MACHINE/Runtime$SUF.a
+   LDLIBS=$LDLIBS" "$NHC98LIBDIR/$MACHINE/tprofprel3$SUF.o
+   LDLIBS=$LDLIBS" "$LLPREL" "$NHC98LIBDIR/$MACHINE/Runtime$SUF.a
+fi
+
+# Create tprof usr labels
+tprof () {
+  LDFILES=""
+  TPL=""
+  if test $VFLAG -eq 1
+  then echo "Generating tprof labels";
+  fi
+  while test "'$1'" != "''" 
+  do
+    TPO=`basename $1 .$OSUFFIX`
+    TPHI=`dirname $1`"/"$TPO.$HISUFFIX
+    if test -e $TPHI
+    then
+      TPLAB=`head -n 1 $TPHI | cut -d' ' -f2 | sed "s/_/_95/g;s/'/_39/g"`
+      TPL=$TPL" "$TPLAB
+      LDFILES=$LDFILES" "$TMP/tpl$TPO.o" "$1
+      echo "int TMIP_$TPLAB[] = {0};" | cat > $TMP/tpl$TPO.c
+      $CC -x c -c -o $TMP/tpl$TPO.o $TMP/tpl$TPO.c
+      rm -f $TMP/tpl$TPO.c
+    else
+      LDFILES=$LDFILES" "$1
+    fi
+    if test "'$1'" != "''" 
+    then
+      shift
+    fi
+  done
+  ${NHC98BINDIR}/tprofprel 0 $TPL > $TMP/tprofusr$$.c
+  $CC -x c -c -o $TMP/tprofusr$$.o $TMP/tprofusr$$.c
+  rm -f $TMP/tprofusr$$.c
+}
+
+if test $KEEPS -eq 0 -a $KEEPC -eq 0 -a $NOLINK -eq 0 -a $MFLAG -eq 0
+then
+   case $LDFILES in
+   ""  ) echo "nhc98: error: no source, object or archive file specified"; 
+         exit 1;;
+   *   ) if test $TPFLAG -eq 1
+         then tprof $LDFILES
+         fi
+         if test $VFLAG -eq 1
+         then
+           echo "$NHC98LIBDIR/$MACHINE/nhc98heap $TRACE $HEAP | $CC -x c -c -o $TMP/nhc$$.o -";
+         fi
+         $NHC98LIBDIR/$MACHINE/nhc98heap $TRACE $HEAP >$TMP/nhc$$.c
+         $CC -x c -c -o $TMP/nhc$$.o $TMP/nhc$$.c
+         if test $VFLAG -eq 1
+         then
+           echo $LD -o $AOUT $LDFLAGS $LDFIRST $LDFILES $EXTRALIB $LDLIBS $TMP/nhc$$.o $LDLAST;
+         fi
+         $LD -o $AOUT $LDFLAGS $LDFIRST $LDFILES $EXTRALIB $LDLIBS $TMP/nhc$$.o $LDLAST
+         if test $VFLAG -eq 1
+         then echo rm -f $TMP/nhc$$.o $TMP/nhc$$.c
+         fi
+         rm -f $TMP/nhc$$.o $TMP/nhc$$.c
+         if test $TPFLAG -eq 1
+         then
+           if test $VFLAG -eq 1
+           then 
+             echo rm -f $TMP/tpl*$$.o $TMP/tprofusr$$.o
+           fi
+           rm -f $TMP/tpl*.o $TMP/tprofusr$$.o
+         fi
+   esac
+fi
+

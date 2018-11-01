@@ -1,0 +1,29 @@
+#!/bin/sh
+#	simple redirection script to find the correct executable
+#	for this machine architecture
+SCRIPTDIR=${SCRIPTDIR-ScriptDir}
+EXEDIR=${EXEDIR-ExecutableDir}
+INCDIR=${INCDIR-IncludeDir}
+MACHINE=${MACHINE-"`$SCRIPTDIR/harch`"}
+export MACHINE EXEDIR SCRIPTDIR
+
+if [ ! -d $EXEDIR/$MACHINE ]
+then
+  echo "`basename $0` is not installed/configured for $MACHINE."
+  echo "  See your system administrator."
+  exit 1
+fi
+
+# (Flags are sourced from machine-specific configuration)
+. $EXEDIR/$MACHINE/config
+
+HSC2HSOPTS="--cc=$HOSTCC --ld=$HOSTCC --cflag=-D__NHC__=$VERSIONNUM -I$INCDIR"
+#HSC2HSOPTS="--cc=$CC --ld=$CC --cflag=-D__NHC__=$VERSIONNUM --cflag=CompilerOptFlag --lflag=LinkerOpt -I$INCDIR"
+if test $USINGRTS -eq 0 ; then
+  HSC2HSOPTS="- $HSC2HSOPTS"
+fi
+
+TEMPLATE="--template=$SCRIPTDIR/template-hsc.h"
+
+# Now let's get started.
+exec $EXEDIR/$MACHINE/hsc2hs $HSC2HSOPTS $TEMPLATE $@

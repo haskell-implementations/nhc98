@@ -1,0 +1,175 @@
+interface NHC.Binary where {
+infixl  9 <<;
+
+{-# NEED #-}
+instance (Binary a,Binary b,Binary c) => Binary (a,b,c);
+
+{-# NEED #-}
+instance Binary Prelude.Char;
+
+{-# NEED #-}
+instance (Binary a) => Binary (Prelude.Maybe a);
+
+{-# NEED #-}
+instance (Binary a,Binary b) => Binary (Prelude.Either a b);
+
+{-# NEED #-}
+instance (Binary a) => Binary [a];
+
+{-# NEED #-}
+instance Binary ();
+
+{-# NEED #-}
+instance Binary Prelude.Bool;
+
+{-# NEED #-}
+instance (Binary a,Binary b) => Binary (a,b);
+
+{-# NEED #-}
+instance Binary BinPtr;
+
+{-# NEED #-}
+instance Binary Prelude.Int;
+
+{-# NEED #-}
+instance Prelude.Num BinPtr;
+
+{-# NEED #-}
+instance Prelude.Enum BinIOMode;
+
+{-# NEED #-}
+instance Prelude.Enum BinPtr;
+
+{-# NEED #-}
+instance Prelude.Ord BinIOMode;
+
+{-# NEED #-}
+instance Prelude.Ord BinPtr;
+
+{-# NEED #-}
+instance Prelude.Eq BinIOMode;
+
+{-# NEED #-}
+instance Prelude.Eq BinPtr;
+
+{-# NEED #-}
+instance Prelude.Show BinPtr;
+interface ! NHC.Binary
+{-# NEED (<<) #-}
+(<<){-# 2 #-}::(((a -> b),c) -> ((c -> (a,d)) -> (b,d)));
+
+{-# NEED putAt #-}
+putAt{-# 3 #-}::(Binary a) => (BinHandle -> ((Bin a) -> (a -> (NHC.Internal.IO ()))));
+
+{-# NEED getAt #-}
+getAt{-# 2 #-}::(Binary a) => (BinHandle -> ((Bin a) -> (NHC.Internal.IO a)));
+
+{-# NEED getFAt #-}
+getFAt{-# 2 #-}::(Binary a) => (BinHandle -> ((Bin a) -> a));
+
+{-# NEED copyBits #-}
+copyBits{-# 5 #-}::(BinHandle -> (BinPtr -> (BinHandle -> (BinPtr -> (Prelude.Int -> (NHC.Internal.IO ()))))));
+
+{-# NEED putBits #-}
+putBits{-# 3 #-}::(BinHandle -> (Prelude.Int -> (Prelude.Int -> (NHC.Internal.IO BinPtr))));
+
+{-# NEED getBits #-}
+getBits{-# 2 #-}::(BinHandle -> (Prelude.Int -> (NHC.Internal.IO Prelude.Int)));
+
+{-# NEED clearBits #-}
+clearBits{-# 2 #-}::(BinHandle -> (Prelude.Int -> (NHC.Internal.IO BinPtr)));
+
+{-# NEED skipBits #-}
+skipBits{-# 2 #-}::(BinHandle -> (Prelude.Int -> (NHC.Internal.IO ())));
+
+{-# NEED copyBytes #-}
+copyBytes{-# 3 #-}::(BinHandle -> (BinHandle -> (Prelude.Int -> (NHC.Internal.IO BinPtr))));
+
+{-# NEED unsafeShiftBinPtr #-}
+unsafeShiftBinPtr{-# 2 #-}::(Prelude.Int -> (BinPtr -> BinPtr));
+
+{-# NEED sizeofBinPtr #-}
+sizeofBinPtr{-# 0 #-}::Prelude.Int;
+
+{-# NEED incBinPtr #-}
+incBinPtr{-# 0 #-}::(BinPtr -> BinPtr);
+
+{-# NEED binPtr2Int #-}
+binPtr2Int{-# 1 #-}::(BinPtr -> Prelude.Int);
+
+{-# NEED int2BinPtr #-}
+int2BinPtr{-# 0 #-}::(Prelude.Int -> BinPtr);
+
+{-# NEED copyBin #-}
+copyBin{-# 2 #-}::(BinHandle -> (BinLocation -> (NHC.Internal.IO BinHandle)));
+
+{-# NEED equalsBin #-}
+equalsBin{-# 5 #-}::(Prelude.Int -> (BinHandle -> (BinPtr -> (BinHandle -> (BinPtr -> Prelude.Bool)))));
+
+{-# NEED alignBin #-}
+alignBin{-# 1 #-}::(BinHandle -> (NHC.Internal.IO ()));
+
+{-# NEED openBin #-}
+openBin{-# 1 #-}::(BinLocation -> (NHC.Internal.IO BinHandle));
+
+{-# NEED {BinLocation Memory File} #-}
+data BinLocation
+  = Memory 
+  | File Prelude.FilePath BinIOMode;
+
+{-# NEED tellBin #-}
+tellBin{-# 1 #-}::(BinHandle -> (NHC.Internal.IO BinPtr));
+
+{-# NEED seekBin #-}
+seekBin{-# 2 #-}::(BinHandle -> (BinPtr -> (NHC.Internal.IO ())));
+
+{-# NEED freezeBin #-}
+freezeBin{-# 1 #-}::(BinHandle -> (NHC.Internal.IO ()));
+
+{-# NEED closeBin #-}
+closeBin{-# 1 #-}::(BinHandle -> (NHC.Internal.IO ()));
+
+{-# NEED compareBin #-}
+compareBin{-# 6 #-}::(Prelude.Int -> (Prelude.Int -> (BinHandle -> (BinPtr -> (BinHandle -> (BinPtr -> Prelude.Ordering))))));
+
+{-# NEED endBin #-}
+endBin{-# 1 #-}::(BinHandle -> (NHC.Internal.IO BinPtr));
+
+{-# NEED isEOFBin #-}
+isEOFBin{-# 1 #-}::(BinHandle -> (NHC.Internal.IO Prelude.Bool));
+
+{-# NEED stdmem #-}
+stdmem{-# 0 #-}::BinHandle;
+
+{-# NEED putAtEnd #-}
+putAtEnd{-# 2 #-}::(Binary a) => (BinHandle -> (a -> (NHC.Internal.IO (Bin a))));
+
+{-# NEED {Binary put get getF sizeOf} #-}
+class Binary a where {
+  put{-# 2 #-}::(BinHandle -> (a -> (NHC.Internal.IO (Bin a))));
+  get{-# 1 #-}::(BinHandle -> (NHC.Internal.IO a));
+  getF{-# 2 #-}::(BinHandle -> ((Bin a) -> (a,(Bin b))));
+  sizeOf{-# 1 #-}::(a -> Prelude.Int);
+};
+
+{-# NEED Bin #-}
+type {-# 1 #-} Bin a = BinPtr;
+
+{-# NEED {BinIOMode RO WO RW} #-}
+data BinIOMode
+  = RO 
+  | WO 
+  | RW ;
+
+{-# NEED getBitsF #-}
+getBitsF{-# 3 #-}::(BinHandle -> (Prelude.Int -> (BinPtr -> (Prelude.Int,BinPtr))));
+
+{-# NEED BinPtr #-}
+newtype {-#  #-} BinPtr;
+
+{-# NEED BinHandle #-}
+newtype {-#  #-} BinHandle;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO;
+}

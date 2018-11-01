@@ -1,0 +1,35 @@
+interface Maybe where {
+
+interface ! Prelude
+{-# NEED maybe #-}
+maybe{-# 3 #-}::(a -> ((b -> a) -> ((Prelude.Maybe b) -> a)));
+interface ! Maybe
+{-# NEED isJust #-}
+isJust{-# 1 #-}::((Prelude.Maybe a) -> Prelude.Bool);
+
+{-# NEED fromJust #-}
+fromJust{-# 1 #-}::((Prelude.Maybe a) -> a);
+
+{-# NEED maybeToList #-}
+maybeToList{-# 1 #-}::((Prelude.Maybe a) -> [a]);
+
+{-# NEED catMaybes #-}
+catMaybes{-# 1 #-}::([(Prelude.Maybe a)] -> [a]);
+
+{-# NEED isNothing #-}
+isNothing{-# 1 #-}::((Prelude.Maybe a) -> Prelude.Bool);
+
+{-# NEED mapMaybe #-}
+mapMaybe{-# 1 #-}::((a -> (Prelude.Maybe b)) -> ([a] -> [b]));
+
+{-# NEED listToMaybe #-}
+listToMaybe{-# 1 #-}::([a] -> (Prelude.Maybe a));
+
+{-# NEED fromMaybe #-}
+fromMaybe{-# 2 #-}::(a -> ((Prelude.Maybe a) -> a));
+interface ! Prelude
+{-# NEED {Maybe Nothing Just} #-}
+data Maybe a
+  = Nothing 
+  | Just a;
+}

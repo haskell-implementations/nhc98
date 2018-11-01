@@ -1,0 +1,345 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>
+  polyparse: alternative parser combinator libraries
+</title>
+</head>
+
+<body bgcolor='#ffffff'>
+
+<center>
+<h1>polyparse</h1>
+<table><tr><td width=200 align=center>
+<a href="#what">What is polyparse?</a><br>
+<a href="#how">How do I use it?</a><br>
+<a href="#download">Downloads</a><br>
+</td><td width=200 align=center>
+<a href="#news">Recent news</a><br>
+<a href="#who">Contacts</a><br>
+<a href="#related">Related Work</a><br>
+</td></tr></table>
+</center>
+
+<hr>
+<center><h3><a name="what">What is polyparse?</a></h3></center>
+<p>
+<b>polyparse</b> is a collection of parser combinator libraries in
+Haskell.  It is distributed as a package, but you are likely to use only
+one of the included modules at any one time - they are generally
+alternatives to each other, as well as an alternative to other
+widely-used parser libraries available elsewhere.
+
+<ul>
+<li> <b>Text.Parse</b>  The Text.Read class from Haskell'98 is widely
+     recognised to have many problems.  It is inefficient.  If a read
+     fails, there is no indication of why.  Worst of all, a read failure
+     crashes your whole program!  Text.Parse is a proposed replacement
+     for the Read class.  It defines a new class, Parse, with methods
+     that return an explicit notification of errors, through the Either
+     type.  It also defines a number of useful helper functions to
+     enable the construction of parsers for textual representations of
+     Haskell data structures, e.g. named fields.  Unsurprisingly,
+     Text.Parse is really just a specialisation of the Poly combinators
+     for String input, and the entire Poly API is also re-exported.
+     The <a href="http://repetae.net/~john/computer/haskell/DrIFT">DrIFT</a>
+     tool can derive instances of the Parse class for you
+     automatically.  (Use the syntax <tt>{-! derive : Parse !-}</tt>)
+<li> <b>Text.Parse.ByteString</b>  is a variant of Text.Parse, where
+     the input is simply ByteString instead of String.
+<li> <b>Text.ParserCombinators.Poly</b>
+     Currently re-exports Text.ParserCombinators.Poly.Plain.
+     The name Poly comes from the arbitrary token type.  Thus, you can
+     write your own lexer if you wish, rather than needing to encode
+     lexical analysis within the parser itself.
+<li> <b>Text.ParserCombinators.Poly.Plain</b> This is a fresh
+     set of combinators, improving on the HuttonMeijer variety by
+     keeping only a single success, not a list of them.  This is
+     more space-efficient, whilst still permitting backtracking.
+     Error-handling is also much improved: there are essentially two
+     kinds of failure, soft and hard.  Soft failure just means that the
+     current parse did not work out, but another parse might be OK.
+     Hard failure means that no parse will succeed, because we have
+     already passed a point of commitment.  Thus you can give far more
+     accurate error messages to the user, including multi-layered
+     locations.
+<li> <b>Text.ParserCombinators.Poly.State</b>  is just like Poly, except it
+     adds an arbitrary running state parameter.
+<li> <b>Text.ParserCombinators.Poly.Lazy</b>  is just like Poly, except it
+     does not return explicit failures.  Instead, an exception is raised.
+     Thus, it can return a partial parse result, before a full parse is
+     complete.  The word partial indicates that, having committed to
+     return some outer data constructor, we might later discover some
+     parse error further inside, so the value will be partial, as in
+     incomplete: containing bottom.  However, if you are confident that
+     the input is error-free, then you will gain hugely in
+     space-efficiency - essentially you can stream-process your parsed
+     data-structure within very small constant space.  This is especially
+     useful for large structures like e.g. XML trees.
+<li> <b>Text.ParserCombinators.Poly.StateLazy</b>  combines Poly.State and
+     Poly.Lazy.
+<li> <b>Text.ParserCombinators.Poly.Base</b>
+     All of the Poly variations (Plain, Lazy, State, etc)
+     share a lot in common: many of the
+     combinators are indeed implemented identically.  To reduce code
+     duplication in the library, we provide a class-based interface
+     here.  The actual implementations for strict, lazy, and so on, are
+     instances of the class, defined in modules at the same level in the
+     hierarchy (e.g. T.P.Poly.Lazy etc).  Every individual variation
+     re-exports these base combinators, so there should be no need to
+     import this module directly.
+<li> <b>Text.ParserCombinators.Poly.ByteString</b>  is a specialised
+     version of the Poly parser for ByteString input only.
+<li> <b>Text.ParserCombinators.HuttonMeijer</b>  The most venerable of all
+     monadic parser combinator libraries, this version dates from 1996.
+     Originally distributed with Gofer, then Hugs, as ParseLib.  It uses
+     the idea of "failure as a list of successes" to give multiple
+     possible parses through backtracking.  (But in practice, almost
+     nobody wants any parse except the first complete one.)
+<li> <b>Text.ParserCombinators.HuttonMeijerWallace</b>  The
+     Hutton/Meijer combinators, extended to take an arbitrary token type
+     as input (not just characters), plus a running state (e.g. to
+     collect a symbol table, or macros), plus some facilities for
+     simple error-reporting.
+</ul>
+<p>
+All the <b>Poly*</b> variations share the same basic API, so it is easy
+to switch from one set to another, when you discover you need an extra
+facility, just by changing a single import.
+
+<hr>
+<center><h3><a name="how">How do I use it?</a></h3></center>
+<p>
+<a href="haddock/index.html">Detailed documentation of the polyparse APIs</a>
+is generated automatically by Haddock directly from the source code.
+
+<p>
+In general, you can just add an import of the relevant module to your
+source code, and everything should just compile OK.  However, if the
+package is not 'exposed' (in ghc-pkg terminology), then you might need
+to use a command-line option <tt>--package polyparse</tt> at compile
+time.
+
+<p>
+The original Hutton/Meijer combinators are described in a very nice
+tutorial tech report:
+<a href="http://eprints.nottingham.ac.uk/archive/00000237/">NOTTCS-TR-96-4</a>
+
+<p>
+I wrote some motivation for <tt>Text.Parse</tt> (including simple examples)
+on my blog a while back. <a href="http://nhc98.blogspot.com/2005/11/replacement-for-read-class.html">Here is the posting.</a>
+
+<p>
+If you are familiar with the Parsec library, then the key insight for
+using PolyParse is that the two libraries' approach to backtracking are
+the duals of each another.  In Parsec, you must explicitly add a
+<tt>try</tt> combinator at any location where backtracking might be
+necessary.  Users often find this a bit of a black art.  In PolyParse
+by contrast, all parsers are backtracking unless you explicitly add a
+<tt>commit</tt> (or one of its variations).  It is easy to tell where to
+add a commit point, because you have already parsed enough of a data
+structure to know that only one outcome is possible.  For instance, if
+you are parsing a Haskell value produced by 'show', then as soon as you
+have parsed the initial constructor, you know that no other constructor
+of that datatype is possible, so you can commit to returning it.
+
+<p>
+User-contributed documentation for polyparse is on the Haskell wiki at:
+<a href="http://haskell.org/haskellwiki/Polyparse">http://haskell.org/haskellwiki/Polyparse</a>
+Please edit the wiki if you discover any nice tricks!
+
+<p>
+<b>Known problems:</b>
+<ul>
+<li> No problems currently known.
+<li> Report bugs to <tt>Malcolm.Wallace@cs.york.ac.uk</tt>
+<li> Even better, fix any bugs you find, and then <tt>darcs send</tt> a patch.
+</ul>
+
+<hr>
+<center><h3><a name="download">Downloads</a></h3></center>
+<p>
+<b>Development version:</b><br>
+<br><tt><a href="http://darcs.net/">darcs</a> get
+    http://www.cs.york.ac.uk/fp/darcs/polyparse</tt>
+
+<p>
+<b>Current released version:</b><br>
+polyparse-1.4.1, release date 2010.05.29<br>
+By HTTP:
+<a href="http://www.cs.york.ac.uk/fp/polyparse/polyparse-1.4.1.tar.gz">.tar.gz</a>,
+<a href="http://www.cs.york.ac.uk/fp/polyparse/polyparse-1.4.1.zip">.zip</a>.
+<br>
+By FTP: 
+<a href="ftp://ftp.cs.york.ac.uk/pub/haskell/polyparse/">
+ftp://ftp.cs.york.ac.uk/pub/haskell/polyparse/</a>
+
+<p>
+<b>Older versions:</b><br>
+polyparse-1.4, release date 2009.12.10<br>
+By HTTP:
+<a href="http://www.cs.york.ac.uk/fp/polyparse/polyparse-1.4.tar.gz">.tar.gz</a>,
+<a href="http://www.cs.york.ac.uk/fp/polyparse/polyparse-1.4.zip">.zip</a>.
+<br>
+polyparse-1.3, release date 2009.03.09<br>
+By HTTP:
+<a href="http://www.cs.york.ac.uk/fp/polyparse/polyparse-1.3.tar.gz">.tar.gz</a>,
+<a href="http://www.cs.york.ac.uk/fp/polyparse/polyparse-1.3.zip">.zip</a>.
+<br>
+polyparse-1.2, release date 2009.03.04<br>
+By HTTP:
+<a href="http://www.cs.york.ac.uk/fp/polyparse/polyparse-1.2.tar.gz">.tar.gz</a>,
+<a href="http://www.cs.york.ac.uk/fp/polyparse/polyparse-1.2.zip">.zip</a>.
+<br>
+polyparse-1.1, release date 2007.10.23<br>
+By HTTP:
+<a href="http://www.cs.york.ac.uk/fp/polyparse/polyparse-1.1.tar.gz">.tar.gz</a>,
+<a href="http://www.cs.york.ac.uk/fp/polyparse/polyparse-1.1.zip">.zip</a>.
+<br>
+polyparse-1.0, release date 2007.01.26<br>
+By HTTP:
+<a href="http://www.cs.york.ac.uk/fp/polyparse/polyparse-1.0.tar.gz">.tar.gz</a>,
+<a href="http://www.cs.york.ac.uk/fp/polyparse/polyparse-1.0.zip">.zip</a>.
+<br>
+All older versions by FTP: 
+<a href="ftp://ftp.cs.york.ac.uk/pub/haskell/polyparse/">
+ftp://ftp.cs.york.ac.uk/pub/haskell/polyparse/</a>
+
+
+<hr>
+<center><h3><a name="install">Installation</a></h3></center>
+<p>
+To install polyparse, you must have a Haskell compiler: <em>ghc-6.2</em>
+or later, and/or <em>nhc98-1.16/hmake-3.06</em> or later, and/or
+<em>Hugs98 (Sept 2003)</em> or later.  For more recent compilers,
+use the standard Cabal method of installation:
+<pre>
+    cabal install polyparse
+</pre>
+or
+<pre>
+    runhaskell Setup.hs configure [--prefix=...] [--buildwith=...]
+    runhaskell Setup.hs build
+    runhaskell Setup.hs install
+</pre>
+
+For older compilers, use:
+<pre>
+    sh configure [--prefix=...] [--buildwith=...]
+    make
+    make install
+</pre>
+to configure, build, and install polyparse as a package for your
+compiler(s).  If you don't use the --prefix option, you may need write
+permission on the library installation directories of your compiler(s).
+Afterwards, to gain access to the polyparse libraries, you only need to
+add the option <tt>-package polyparse</tt> to your compiler commandline
+(no option required for Hugs).
+
+<hr>
+<center><h3><a name="news">Recent news</a></h3></center>
+
+<p>
+Version 1.4.1 has two minor bugfixes: for `discard`, especially in the Lazy
+variant, and for 'optionalParens' in Text.Parse.
+
+<p>
+Version 1.4 has several bugfixes, improvements, and API additions.  See
+the <a href="changelog.html">complete changelog</a><br> for fuller
+details.  The main headline is new ByteString functionality.
+
+<p>
+Version 1.3 has a single bugfix: Text.Parse.parseFloat now accepts
+ordinary floating point notation, in addition to scientific (exponent)
+notation.
+
+<p>
+Version 1.2 improves the Text.Parse implementation significantly.  Where
+previously all the parsers for builtin basic datatype (Int,Float,Char)
+were just thin wrappers over the H'98 Read instances, now they are all
+proper parsers, therefore they should (a) be faster; (b) give better
+error messages.
+
+<p>
+Version 1.1 much improves the laziness characteristics of the Poly*
+combinators.  There are also a lot of new implementations of the Poly*
+parser types, all of which attempt to preserve exactly the same
+combinator interface, so it is easy to switch between them.
+
+<p>
+Version 1.00 is the first release of polyparse as a separate package.
+It was previously part of the HaXml suite.  HaXml continues to use
+polyparse, but polyparse will be useful more widely.  If you are looking
+for examples of the usage of polyparse, the implementations of
+Text.XML.HaXml.Parse, Text.XML.HaXml.ParseLazy, and
+Text.XML.HaXml.XmlContent are good places to look.
+
+<br>
+<a href="changelog.html">Complete Changelog</a><br>
+
+<hr>
+<center><h3><a name="who">Contacts</a></h3></center>
+<p>
+We are interested in hearing your feedback on these parser combinators -
+suggestions for improvements, comments, criticisms, bug reports.  Please mail
+<ul>
+<li>    <a href="mailto:Malcolm.Wallace@cs.york.ac.uk">
+        Malcolm.Wallace@cs.york.ac.uk</a>
+</ul>
+
+<p>
+
+<p><b>Licence:</b> The library is Free and Open Source Software,
+i.e., the bits we wrote are copyright to us, but freely licensed
+for your use, modification, and re-distribution, provided you don't
+restrict anyone else's use of it.  The polyparse library is distributed
+under the GNU Lesser General Public Licence (LGPL) - see file
+<a href="LICENCE-LGPL">LICENCE-LGPL</a> for more details.  We allow one
+special exception to the LGPL - see <a href="COPYRIGHT">COPYRIGHT</a>.
+(If you don't like any of these licensing conditions, please contact us
+to discuss your requirements.)
+
+<hr>
+<p>
+<center><h3><a name="related">Related work</a></h3></center>
+<ul>
+<li>
+Parser combinators have a long history in Haskell.  The first(?) monadic
+combinator tutorial was introduced by
+<a href="http://eprints.nottingham.ac.uk/archive/00000237/">Hutton and
+Meijer</a> in 1996, and the accompanying library was distributed with
+Gofer (a precursor to Hugs), and known simply as ParseLib.  That library
+lives on here as Text.ParserCombinators.HuttonMeijer.
+
+<li>
+<a href="http://www.cs.chalmers.se/~rojemo/thesis.html">Niklas Rojemo's
+combinators.</a> The parser combinators developed and used in the
+implementation of the nhc98 compiler are monadic and space-efficient.
+However, they do not use the standard do-notation, because in fact they
+are more general than the standard monad category.
+
+<li>
+<a href="http://research.microsoft.com/~emeijer/Papers/Parsec.pdf">
+Daan Leijen's parsec.</a> The parsec library is widely used, since it is
+distributed with ghc.  Its combinators are fairly robust, but you need
+to place explicit backtracking into your parsers, using the <tt>try</tt>
+operator.  This can be tricky.
+
+<li><a href="http://www.cs.uu.nl/wiki/HUT/ParserCombinators">Doaitse
+Swierstra's UU_Parse.</a>
+An all-singing, all-dancing parsing library.  Deeply sophisticated.
+Allows on-line results, which is closely related to lazy parsing.
+
+<li><a href="http://cvs.haskell.org/Hugs/pages/libraries/base/Text-ParserCombinators-ReadP.html">Koen Claessen's ReadP.</a>
+This is a different proposed replacement for the standard Haskell'98
+Read class.  It is a whole lot more efficient that Read, but because it
+is also API-compatible with Read, that unfortunately means it suffers
+from not giving good error messages.  Also, it requires rank-2 types,
+which is a non-Haskell'98 extension.
+
+</ul>
+
+<hr>
+
+</body>
+</html>

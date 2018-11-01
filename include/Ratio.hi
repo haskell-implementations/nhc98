@@ -1,0 +1,48 @@
+interface Ratio where {
+infixl  7 %;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio a);
+interface ! Ratio
+{-# NEED numerator #-}
+numerator{-# 1 #-}::(Prelude.Integral a) => ((Ratio a) -> a);
+
+{-# NEED denominator #-}
+denominator{-# 1 #-}::(Prelude.Integral a) => ((Ratio a) -> a);
+
+{-# NEED (%) #-}
+(%){-# 2 #-}::(Prelude.Integral a) => (a -> (a -> (Ratio a)));
+
+{-# NEED approxRational #-}
+approxRational{-# 2 #-}::(Prelude.RealFrac a) => (a -> (a -> Rational));
+
+{-# NEED Rational #-}
+type {-# 1 #-} Rational = (Ratio Prelude.Integer);
+
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+}

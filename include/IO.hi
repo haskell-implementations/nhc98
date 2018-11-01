@@ -1,0 +1,307 @@
+interface IO where {
+
+{-# NEED #-}
+instance Prelude.Enum DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Enum SeekMode;
+
+{-# NEED #-}
+instance Prelude.Enum IOMode;
+
+{-# NEED #-}
+instance Prelude.Bounded SeekMode;
+
+{-# NEED #-}
+instance Prelude.Bounded IOMode;
+
+{-# NEED #-}
+instance Prelude.Eq HandlePosn;
+
+{-# NEED #-}
+instance Prelude.Eq DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Eq BufferMode;
+
+{-# NEED #-}
+instance Prelude.Eq SeekMode;
+
+{-# NEED #-}
+instance Prelude.Eq IOMode;
+
+{-# NEED #-}
+instance Prelude.Eq Handle;
+
+{-# NEED #-}
+instance Prelude.Show HandlePosn;
+
+{-# NEED #-}
+instance Prelude.Show DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Show BufferMode;
+
+{-# NEED #-}
+instance Prelude.Show SeekMode;
+
+{-# NEED #-}
+instance Prelude.Show IOMode;
+
+{-# NEED #-}
+instance Prelude.Show Handle;
+
+{-# NEED #-}
+instance Prelude.Read BufferMode;
+
+{-# NEED #-}
+instance Prelude.Read SeekMode;
+
+{-# NEED #-}
+instance Prelude.Read IOMode;
+
+{-# NEED #-}
+instance Prelude.Ord BufferMode;
+
+{-# NEED #-}
+instance Prelude.Ord SeekMode;
+
+{-# NEED #-}
+instance Prelude.Ord IOMode;
+
+{-# NEED #-}
+instance Ix.Ix SeekMode;
+
+{-# NEED #-}
+instance Ix.Ix IOMode;
+
+interface DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface Ix
+{-# NEED Ix #-}
+class (Prelude.Ord a) => Ix a;
+interface ! Prelude
+{-# NEED ioError #-}
+ioError{-# 1 #-}::(Prelude.IOError -> (NHC.Internal.IO a));
+
+{-# NEED print #-}
+print{-# 1 #-}::(Prelude.Show a) => (a -> (NHC.Internal.IO ()));
+
+{-# NEED interact #-}
+interact{-# 1 #-}::((Prelude.String -> Prelude.String) -> (NHC.Internal.IO ()));
+
+{-# NEED getContents #-}
+getContents{-# 0 #-}::(NHC.Internal.IO [Prelude.Char]);
+
+{-# NEED putStr #-}
+putStr{-# 0 #-}::(Prelude.String -> (NHC.Internal.IO ()));
+
+{-# NEED userError #-}
+userError{-# 1 #-}::(Prelude.String -> Prelude.IOError);
+
+{-# NEED putChar #-}
+putChar{-# 1 #-}::(Prelude.Char -> (NHC.Internal.IO ()));
+
+{-# NEED getChar #-}
+getChar{-# 0 #-}::(NHC.Internal.IO Prelude.Char);
+
+{-# NEED putStrLn #-}
+putStrLn{-# 1 #-}::(Prelude.String -> (NHC.Internal.IO ()));
+
+{-# NEED readLn #-}
+readLn{-# 0 #-}::(Prelude.Read a) => (NHC.Internal.IO a);
+
+{-# NEED catch #-}
+catch{-# 2 #-}::((NHC.Internal.IO a) -> ((Prelude.IOError -> (NHC.Internal.IO a)) -> (NHC.Internal.IO a)));
+
+{-# NEED getLine #-}
+getLine{-# 0 #-}::(NHC.Internal.IO Prelude.String);
+
+{-# NEED writeFile #-}
+writeFile{-# 2 #-}::(Prelude.FilePath -> (Prelude.String -> (NHC.Internal.IO ())));
+
+{-# NEED appendFile #-}
+appendFile{-# 2 #-}::(Prelude.FilePath -> (Prelude.String -> (NHC.Internal.IO ())));
+
+{-# NEED readFile #-}
+readFile{-# 1 #-}::(Prelude.FilePath -> (NHC.Internal.IO Prelude.String));
+
+{-# NEED readIO #-}
+readIO{-# 1 #-}::(Prelude.Read a) => (Prelude.String -> (NHC.Internal.IO a));
+interface ! IO
+{-# NEED try #-}
+try{-# 1 #-}::((NHC.Internal.IO a) -> (NHC.Internal.IO (Prelude.Either Prelude.IOError a)));
+
+{-# NEED hPrint #-}
+hPrint{-# 2 #-}::(Prelude.Show a) => (Handle -> (a -> (NHC.Internal.IO ())));
+
+{-# NEED openSocket #-}
+openSocket{-# 3 #-}::(Prelude.String -> (Prelude.Int -> (SocketType -> (NHC.Internal.IO Handle))));
+
+{-# NEED {SocketType SocketStream SocketDatagram SocketRaw} #-}
+data SocketType
+  = SocketStream 
+  | SocketDatagram 
+  | SocketRaw ;
+
+{-# NEED bracket #-}
+bracket{-# 3 #-}::((NHC.Internal.IO a) -> ((a -> (NHC.Internal.IO b)) -> ((a -> (NHC.Internal.IO c)) -> (NHC.Internal.IO c))));
+
+{-# NEED hWaitForInput #-}
+hWaitForInput{-# 2 #-}::(Handle -> (Prelude.Int -> (NHC.Internal.IO Prelude.Bool)));
+
+{-# NEED hReady #-}
+hReady{-# 1 #-}::(Handle -> (NHC.Internal.IO Prelude.Bool));
+
+{-# NEED hLookAhead #-}
+hLookAhead{-# 1 #-}::(Handle -> (NHC.Internal.IO Prelude.Char));
+
+{-# NEED hIsOpen #-}
+hIsOpen{-# 1 #-}::(Handle -> (NHC.Internal.IO Prelude.Bool));
+
+{-# NEED hIsClosed #-}
+hIsClosed{-# 1 #-}::(Handle -> (NHC.Internal.IO Prelude.Bool));
+
+{-# NEED hIsReadable #-}
+hIsReadable{-# 1 #-}::(Handle -> (NHC.Internal.IO Prelude.Bool));
+
+{-# NEED hIsWritable #-}
+hIsWritable{-# 1 #-}::(Handle -> (NHC.Internal.IO Prelude.Bool));
+
+{-# NEED hIsSeekable #-}
+hIsSeekable{-# 1 #-}::(Handle -> (NHC.Internal.IO Prelude.Bool));
+
+{-# NEED hGetContents #-}
+hGetContents{-# 1 #-}::(Handle -> (NHC.Internal.IO Prelude.String));
+
+{-# NEED isAlreadyExistsError #-}
+isAlreadyExistsError{-# 1 #-}::(Prelude.IOError -> Prelude.Bool);
+
+{-# NEED isDoesNotExistError #-}
+isDoesNotExistError{-# 1 #-}::(Prelude.IOError -> Prelude.Bool);
+
+{-# NEED isAlreadyInUseError #-}
+isAlreadyInUseError{-# 1 #-}::(Prelude.IOError -> Prelude.Bool);
+
+{-# NEED isFullError #-}
+isFullError{-# 1 #-}::(Prelude.IOError -> Prelude.Bool);
+
+{-# NEED isIllegalOperation #-}
+isIllegalOperation{-# 1 #-}::(Prelude.IOError -> Prelude.Bool);
+
+{-# NEED isPermissionError #-}
+isPermissionError{-# 1 #-}::(Prelude.IOError -> Prelude.Bool);
+
+{-# NEED hPutStr #-}
+hPutStr{-# 2 #-}::(Handle -> (Prelude.String -> (NHC.Internal.IO ())));
+
+{-# NEED isUserError #-}
+isUserError{-# 1 #-}::(Prelude.IOError -> Prelude.Bool);
+
+{-# NEED isEOFError #-}
+isEOFError{-# 1 #-}::(Prelude.IOError -> Prelude.Bool);
+
+{-# NEED hPutChar #-}
+hPutChar{-# 2 #-}::(Handle -> (Prelude.Char -> (NHC.Internal.IO ())));
+
+{-# NEED hGetChar #-}
+hGetChar{-# 1 #-}::(Handle -> (NHC.Internal.IO Prelude.Char));
+
+{-# NEED hSetPosn #-}
+hSetPosn{-# 1 #-}::(HandlePosn -> (NHC.Internal.IO ()));
+
+{-# NEED hGetPosn #-}
+hGetPosn{-# 1 #-}::(Handle -> (NHC.Internal.IO HandlePosn));
+
+{-# NEED HandlePosn #-}
+data HandlePosn;
+
+{-# NEED stderr #-}
+stderr{-# 0 #-}::Handle;
+
+{-# NEED stdin #-}
+stdin{-# 0 #-}::Handle;
+
+{-# NEED stdout #-}
+stdout{-# 0 #-}::Handle;
+
+{-# NEED hPutStrLn #-}
+hPutStrLn{-# 2 #-}::(Handle -> (Prelude.String -> (NHC.Internal.IO ())));
+
+{-# NEED hSeek #-}
+hSeek{-# 3 #-}::(Handle -> (SeekMode -> (Prelude.Integer -> (NHC.Internal.IO ()))));
+
+{-# NEED hFlush #-}
+hFlush{-# 1 #-}::(Handle -> (NHC.Internal.IO ()));
+
+{-# NEED ioeGetErrorString #-}
+ioeGetErrorString{-# 1 #-}::(Prelude.IOError -> Prelude.String);
+
+{-# NEED hSetBuffering #-}
+hSetBuffering{-# 2 #-}::(Handle -> (BufferMode -> (NHC.Internal.IO ())));
+
+{-# NEED hGetBuffering #-}
+hGetBuffering{-# 0 #-}::(Handle -> (NHC.Internal.IO BufferMode));
+
+{-# NEED hFileSize #-}
+hFileSize{-# 1 #-}::(Handle -> (NHC.Internal.IO Prelude.Integer));
+
+{-# NEED hClose #-}
+hClose{-# 1 #-}::(Handle -> (NHC.Internal.IO ()));
+
+{-# NEED hGetLine #-}
+hGetLine{-# 1 #-}::(Handle -> (NHC.Internal.IO Prelude.String));
+
+{-# NEED hGetFileName #-}
+hGetFileName{-# 1 #-}::(Handle -> (Prelude.Maybe Prelude.String));
+
+{-# NEED ioeGetFileName #-}
+ioeGetFileName{-# 1 #-}::(Prelude.IOError -> (Prelude.Maybe Prelude.FilePath));
+
+{-# NEED openFile #-}
+openFile{-# 2 #-}::(Prelude.FilePath -> (IOMode -> (NHC.Internal.IO Handle)));
+interface ! Prelude
+{-# NEED FilePath #-}
+type {-# 2 #-} FilePath = String;
+interface ! IO
+{-# NEED ioeGetHandle #-}
+ioeGetHandle{-# 1 #-}::(Prelude.IOError -> (Prelude.Maybe Handle));
+interface ! Prelude
+{-# NEED IOError #-}
+data IOError;
+interface ! IO
+{-# NEED {BufferMode NoBuffering LineBuffering BlockBuffering} #-}
+data BufferMode
+  = NoBuffering 
+  | LineBuffering 
+  | BlockBuffering (Prelude.Maybe Prelude.Int);
+
+{-# NEED {SeekMode AbsoluteSeek RelativeSeek SeekFromEnd} #-}
+data SeekMode
+  = AbsoluteSeek 
+  | RelativeSeek 
+  | SeekFromEnd ;
+
+{-# NEED {IOMode ReadMode WriteMode AppendMode ReadWriteMode} #-}
+data IOMode
+  = ReadMode 
+  | WriteMode 
+  | AppendMode 
+  | ReadWriteMode ;
+
+{-# NEED bracket_ #-}
+bracket_{-# 3 #-}::((NHC.Internal.IO a) -> ((a -> (NHC.Internal.IO b)) -> ((NHC.Internal.IO c) -> (NHC.Internal.IO c))));
+
+{-# NEED hIsEOF #-}
+hIsEOF{-# 1 #-}::(Handle -> (NHC.Internal.IO Prelude.Bool));
+
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+
+{-# NEED isEOF #-}
+isEOF{-# 0 #-}::(NHC.Internal.IO Prelude.Bool);
+interface ! NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+}

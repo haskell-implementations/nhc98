@@ -1,0 +1,184 @@
+.TH HMAKE 1 local
+.SH NAME
+hmake \- a tool for automated compilation of Haskell programs
+.SH SYNOPSIS
+.B hmake
+[ options ]
+.I target ...
+.SH DESCRIPTION
+.I hmake
+is a
+.I make(1)
+like command for compiling Haskell programs.
+Dependencies are automatically extracted from the source files;
+there is no need to construct or maintain a Makefile.
+
+The
+.I target
+arguments determine what to compile. If
+.I target
+is the name of an executable (i.e. it has no extension), then one of
+.I target.hs
+or
+.I target.gc
+or
+.I target.lhs
+is assumed to contain the main module of a program.
+All modules it depends on are compiled (if necessary)
+and linked to an executable.
+If
+.I target
+is the name of a source module (i.e it ends in .hs or .gc or .lhs)
+then the object file for that module is generated.
+
+.I hmake
+allows several programs to reside in the same directory.  Modules can be
+shared between several programs.  Modules can also reside in different
+directories.  Directories to search for modules can be specified with
+the -I or -i flag, in the same way as for Haskell compilers.
+
+.I hmake
+correctly handles the fact that Haskell compilers generate two files,
+an object file and an interface file, for each module compiled.  It also
+handles GreenCard sourcefiles (.gc) transparently, and sourcefiles which
+contain C preprocessor directives.  It calls any of the widely
+available Haskell compilers - nhc98, hbc, or ghc.  (Note: hbc does not
+yet implement GreenCard.)
+
+.SH OPTIONS
+.TP
+.B \-n
+No execution mode. Print commands but do not execute them.
+.TP
+.B \-q
+Quiet mode. Do not print commands before executing them.
+.TP
+.B \-g
+Output the module dependency graph on the standard output.
+.TP
+.B \-M
+Output module dependencies on stdout in the standard Makefile format.
+.TP
+.B \-Md
+Like -M, but treats the -d option specially.
+.TP
+.BI \-d "objdir"
+This option sets the search path for object files - it also arranges for
+objects and the final executable to be placed in this directory by the
+compiler.  Only one -d is allowed.
+.TP
+.BI \-I "dir"
+.BI \-i "dir"
+This option adds directory
+.I dir
+to the search path for source modules.  Modules needed from that directory 
+are compiled (and linked).  If more than one 
+.I \-I
+or
+.I \-i
+is specified, the directories are searched in order.
+.TP
+.BI \-P "dir"
+This option adds directory
+.I dir
+to the search path for prelude/stdlib modules.  Only interface files
+in that directory are checked - it is assumed that the modules are already
+compiled.  If more than one
+.I \-P
+is specified, the directories are searched in order.  Modules found in these
+directories are not added to any linking step.
+.TP
+.B \-keepPrelude
+Calculate dependencies also for Prelude modules that are explicitly imported.
+.TP
+.BI \-N "module"
+Ignore dependencies with respect to the named module.
+.TP
+.B \-nhc98
+Use the York/Chalmers nhc98 Haskell compiler.
+.TP
+.B \-hbc
+Use the Chalmers hbc Haskell compiler.
+.TP
+.B \-ghc
+Use the Glasgow ghc Haskell compiler.
+.PP
+Most other flags are assumed to be compiler options and are
+passed to the compiler when compiling and linking.  Some of these
+compiler flags are `noticed' by hmake as well as being passed through.
+One to note in particular is:
+.TP
+.BI \-D "symbol"
+.TP
+.BI \-D "symbol=value"
+Define the preprocessor symbol.  Preprocessor directives are often used to
+modify module dependencies in source files.
+
+.SH COMPILER OPTIONS
+The command line used to compile a module is
+
+	$(HC) $(HFLAGS) -c file.hs
+
+and to link an executable
+
+	$(HC) $(HFLAGS) -o executable file.o ... 
+
+where HC is your chosen Haskell compiler (default is the compiler
+you built hmake with).  The commands
+are then augmented with any compiler/linker options given when invoking
+.I hmake.
+.SH ENVIRONMENT
+.TP
+.B HC
+if set, it is used as the name of the Haskell compiler. The default is
+the compiler you used to build hmake with.
+.TP
+.B HFLAGS
+if set, is used as extra arguments to the Haskell compiler. The default is
+empty.
+.TP
+.B MKPROG
+if set, it is used as the location of the main program, instead of the
+default /usr/local/lib/hmake/$MACHINE/MkProg.
+.TP
+.B OLDER
+if set, it is used as the location of the help program `Older',
+instead of the default /usr/local/lib/hmake/$MACHINE/Older.
+.TP
+.B NHC98INCDIR
+if set, it is used as the location of the directory containing
+interface files for the Prelude and standard libraries (for nhc98 only).
+The default is /usr/local/include/nhc98/.
+.TP
+.B LMLDIR
+if set, is used as the base location of the hbc compiler.
+.TP
+.B HBCINCPATH
+if set, is interpreted as a colon-separated list of directories to search
+for interface files for the Prelude and standard libraries (for hbc only).
+The default is $LMLDIR/hlib1.3/:$LMLDIR/hbc_library1.3/.
+.TP
+.B GHCINCDIR
+if set, is used as the base location for ghc include files.  The default
+is /usr/local/lib/ghc-4.02/lib/imports.
+.TP
+.B GHCINCPATH
+if set, is interpreted as a colon-separated list of directories to search
+for interface files for the Prelude and standard libraries (for ghc only).
+The default is $GHCINCDIR/std:$GHCINCDIR/exts.
+.SH FILES
+.B /usr/local/lib/hmake/$(MACHINE)/MkProg
+the main program
+.PP
+.B /usr/local/lib/hmake/$(MACHINE)/Older
+help program to determine if a target is out of date.
+.SH SEE ALSO
+nhc98(1), hbc(1), ghc(1), lmlmake(1), make(1)
+.SH BUGS
+Please report any bugs or enhancement suggestions to the author.
+.SH AUTHOR
+Malcolm Wallace Malcolm.Wallace@cs.york.ac.uk;
+
+based on nhcmake by Niklas R\[:o]jemo rojemo@cs.chalmers.se;
+
+based on hbcmake/lmlmake by Thomas Hallgren, hallgren@cs.chalmers.se

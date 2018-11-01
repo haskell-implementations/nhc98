@@ -1,0 +1,1159 @@
+interface Foreign.C.Types where {
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Data.Bits.Bits Prelude.Integer;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Data.Bits.Bits Prelude.Int;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Floating NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.Floating NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Floating NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.RealFloat NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.RealFloat NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.RealFloat NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Fractional NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.Fractional NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Fractional NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.RealFrac NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.RealFrac NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.RealFrac NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CTime;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CClock;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CTime;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CClock;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CTime;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CClock;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Eq (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CTime;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CClock;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Ord (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CTime;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CClock;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Enum (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CTime;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CClock;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance Prelude.Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CChar;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Show (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CTime;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CClock;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Bool;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Char;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CChar;
+
+{-# NEED #-}
+instance NHC.FFI.Storable (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Int8;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Word8;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Int16;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CShort;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Word16;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Int32;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CLong;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CULong;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Int64;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Word64;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Float;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Double;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Word32;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CTime;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CClock;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Int;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CSize;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CInt;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CPtrdiff;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface NHC.FFI
+{-# NEED Ptr #-}
+data Ptr a;
+interface ! NHC.FFI
+{-# NEED {CChar CChar} #-}
+newtype {-#  #-} CChar
+  = CChar NHC.FFI.Int8;
+
+{-# NEED {CSChar CSChar} #-}
+newtype {-#  #-} CSChar
+  = CSChar NHC.FFI.Int8;
+interface NHC.FFI
+{-# NEED Int8 #-}
+data Int8;
+interface ! NHC.FFI
+{-# NEED {CUChar CUChar} #-}
+newtype {-#  #-} CUChar
+  = CUChar NHC.FFI.Word8;
+interface NHC.FFI
+{-# NEED Word8 #-}
+data Word8;
+interface ! NHC.FFI
+{-# NEED {CShort CShort} #-}
+newtype {-#  #-} CShort
+  = CShort NHC.FFI.Int16;
+interface NHC.FFI
+{-# NEED Int16 #-}
+data Int16;
+interface ! NHC.FFI
+{-# NEED {CUShort CUShort} #-}
+newtype {-#  #-} CUShort
+  = CUShort NHC.FFI.Word16;
+interface NHC.FFI
+{-# NEED Word16 #-}
+data Word16;
+interface ! NHC.FFI
+{-# NEED {CLong CLong} #-}
+newtype {-#  #-} CLong
+  = CLong NHC.FFI.Int32;
+interface NHC.FFI
+{-# NEED Int32 #-}
+data Int32;
+interface ! NHC.FFI
+{-# NEED {CULong CULong} #-}
+newtype {-#  #-} CULong
+  = CULong NHC.FFI.Word32;
+
+{-# NEED {CLLong CLLong} #-}
+newtype {-#  #-} CLLong
+  = CLLong NHC.FFI.Int64;
+interface NHC.FFI
+{-# NEED Int64 #-}
+data Int64;
+interface ! NHC.FFI
+{-# NEED {CULLong CULLong} #-}
+newtype {-#  #-} CULLong
+  = CULLong NHC.FFI.Word64;
+interface NHC.FFI
+{-# NEED Word64 #-}
+data Word64;
+interface ! NHC.FFI
+{-# NEED {CFloat CFloat} #-}
+newtype {-#  #-} CFloat
+  = CFloat Prelude.Float;
+
+{-# NEED {CDouble CDouble} #-}
+newtype {-#  #-} CDouble
+  = CDouble Prelude.Double;
+
+{-# NEED {CLDouble CLDouble} #-}
+newtype {-#  #-} CLDouble
+  = CLDouble Prelude.Double;
+
+{-# NEED CJmpBuf #-}
+data CJmpBuf;
+
+{-# NEED CFpos #-}
+data CFpos;
+
+{-# NEED CFile #-}
+data CFile;
+
+{-# NEED {CTime CTime} #-}
+newtype {-#  #-} CTime
+  = CTime NHC.FFI.CUInt;
+
+{-# NEED {CClock CClock} #-}
+newtype {-#  #-} CClock
+  = CClock NHC.FFI.CUInt;
+
+{-# NEED {CUInt CUInt} #-}
+newtype {-#  #-} CUInt
+  = CUInt NHC.FFI.Word32;
+interface NHC.FFI
+{-# NEED Word32 #-}
+data Word32;
+interface ! NHC.FFI
+{-# NEED {CSize CSize} #-}
+newtype {-#  #-} CSize
+  = CSize NHC.FFI.CInt;
+
+{-# NEED {CSigAtomic CSigAtomic} #-}
+newtype {-#  #-} CSigAtomic
+  = CSigAtomic NHC.FFI.CInt;
+
+{-# NEED {CWchar CWchar} #-}
+newtype {-#  #-} CWchar
+  = CWchar NHC.FFI.CInt;
+
+{-# NEED {CPtrdiff CPtrdiff} #-}
+newtype {-#  #-} CPtrdiff
+  = CPtrdiff NHC.FFI.CInt;
+
+{-# NEED {CInt CInt} #-}
+newtype {-#  #-} CInt
+  = CInt Prelude.Int;
+}

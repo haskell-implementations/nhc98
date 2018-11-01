@@ -1,0 +1,81 @@
+interface Text.XML.HaXml.Xtract.Lex where {
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq TokenT;
+
+{-# NEED #-}
+instance Prelude.Eq Posn;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show TokenT;
+
+{-# NEED #-}
+instance Prelude.Show Posn;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Text.XML.HaXml.Xtract.Lex
+{-# NEED lexXtract #-}
+lexXtract{-# 1 #-}::((Prelude.String -> Prelude.String) -> (Prelude.String -> [Token]));
+
+{-# NEED Token #-}
+type {-# 2 #-} Token = (Prelude.Either Prelude.String (Posn,TokenT));
+
+{-# NEED {TokenT Symbol TokString TokNum} #-}
+data TokenT
+  = Symbol Prelude.String
+  | TokString Prelude.String
+  | TokNum Prelude.Integer;
+
+{-# NEED {Posn Pn} #-}
+data Posn
+  = Pn Prelude.Int;
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>nhc98 libraries</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center>
+  <h1>nhc98 libraries</h1>
+</center>
+<hr>
+
+<p>
+In addition to the official Haskell'98 standard libraries (defined
+in the <a href="http://www.haskell.org/onlinelibrary/_._.html">
+<em>Haskell '98 Library Report</em></a>, <b>nhc98</b> is released
+with many extra useful libraries.
+
+<p>
+In order to accommodate a large number of libraries whilst avoiding
+name-clashes, <b>nhc98</b> permits a small extension to the lexical
+syntax of module names.  We allow a <em>hierarchical namespace</em>,
+with elements separated by dots, rather like in the Java language.
+The syntax of qualified identifiers is extended likewise.  Each element
+of the module name begins with a capital letter, and the hierarchy is
+assumed to map onto a directory file structure.  So for instance,
+the module named <tt>Data.Structures.BTree</tt> is expected to
+reside in the file <em>Data/Structures/BTree.hs</em>.
+
+<p>
+The full hierarchy included with <b>nhc98</b> is listed below.
+Most of these modules have been plucked from the WWW - they are by
+various authors, and have various copyrights and licensing conditions.
+Please examine these licensing conditions in the source tree before
+you use a library.
+
+<p>
+Documentation for these libraries is generated automatically from
+the sources using <em>HDoc</em>, a tool written by
+<a href="mailto:groessli@fmi.uni-passau.de">Armin Groesslinger</a>
+
+<p>
+You can develop your own personal tree of libraries for <b>nhc98</b>
+as well.  Just give the location of the root of your tree to <b>hmake</b>
+and/or <b>nhc98</b> on the commandline, with the <em><b>-I</b>dir</em>
+option.
+
+<p>
+<center>
+<table width=450 border=1 cellspacing=0 cellpadding=2><tr>
+<th>library name</th><th>description</th>
+</tr><tr>
+<td><a href="BinArray.html">NHC.BinArray</a></td> <td>imperative binary arrays</td>
+</tr><tr>
+<td><a href="Binary.html">NHC.Binary</a></td> <td>binary I/O and binary representations of values</td>
+</tr><tr>
+<td><a href="Bit.html">NHC.Bit</a></td> <td>bit-twiddling operations, e.g. and, or, xor</td>
+</tr><tr>
+<td><a href="FFI.html">NHC.FFI</a></td> <td>foreign function interface</td>
+</tr><tr>
+<td>NHC.GreenCard</td> <td>just the standard <tt>%dis</tt> definitions and
+                       constructors you need in order to write your own
+                       GreenCard files</td>
+</tr><tr>
+<td><a href="IOExtras.html">NHC.IOExtras</a></td> <td>like GHC's IOExts</td>
+</tr><tr>
+<td>NonStdTrace</td> <td>the common side-effecting <tt>trace</tt> function</td>
+</tr><tr>
+<td><a href="PackedString.html">NHC.PackedString</a></td> <td>an efficient representation of strings</td>
+</tr><tr>
+<td>Text</td> <td>obsolete</td>
+
+</tr></table>
+</center>
+
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.cs.york.ac.uk/fp/nhc98/">
+<tt>http://www.cs.york.ac.uk/fp/nhc98/</tt></a>
+
+<p>
+2002.10.07<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+
+</td></tr></table>
+</body></html>
+

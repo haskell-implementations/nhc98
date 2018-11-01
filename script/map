@@ -1,0 +1,15 @@
+#!/bin/sh
+#	map f:		takes a list of items on stdin, and applies the given
+#			transformation to each of them.
+case $# in
+  1) ;;
+  *) echo "$0: expected one cmdline argument" >&2
+     exit 1 ;;
+esac
+transform=$1
+read line
+until [ -z "$line" ]
+do
+  $transform $line
+  read line
+done

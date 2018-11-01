@@ -1,0 +1,19 @@
+module Directory (getModificationTime) where
+
+import NHC.GreenCard
+import PatchIOError
+import DClockTime ({-type-}ClockTime(..))
+
+%-#include <sys/stat.h>
+%-#include <unistd.h>
+
+%fun primGetModTime :: FilePath -> IO (Int,ClockTime)
+%call (filePath fp)
+%code
+%  struct stat st;
+%  err = stat(fp,&st);
+%result (int err, clockTime "st.st_mtime")
+
+getModificationTime :: FilePath -> IO ClockTime
+getModificationTime fp = patchIOErrorFVal "getModificationTime" fp primGetModTime
+

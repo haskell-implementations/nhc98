@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>hmake-config</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>The <em>hmake-config</em> utility</h1></center>
+<center>
+<a href="#usage">Usage</a><br>
+<a href="#view">Viewing the compiler database</a><br>
+<a href="#update">Updating the compiler database</a>
+</center>
+
+<hr>
+<p>
+<em>Hmake-config</em> is a small utility for managing your <em>hmake</em>
+compiler database.  It can show a summary of which compilers are known,
+or it can update the database (held in an <em>hmakerc</em> file)
+by adding or deleting knowledge about a particular Haskell compiler,
+or changing the default compiler.
+
+<h3><a name="usage">Usage</a></h3>
+<p>
+The basic option summary is:
+<pre>
+    Usage: hmake-config [cfgfile] new
+           hmake-config [cfgfile] list [compiler]
+           hmake-config [cfgfile] [add|delete|default] compiler
+</pre>
+The optional <em>cfgfile</em> is your chosen location of the database
+of known compilers, should you happen not to wish to use the default
+locations.  (See section <a href="#database">About the compiler
+database</a> below.)
+
+
+<h3><a name="view">Viewing the compiler database</a></h3>
+<p>
+<center>
+<table border=1 width=400><tr>
+<td><b>list</b><br></td>
+	<td>A summary of all compilers known by <em>hmake</em> is listed, one
+	 compiler per line.  The default compiler is also reported.
+        </td>
+</tr><tr>
+<td><b>list</b>&nbsp;<em>comp</em><br></td>
+	<td>Full details for the compiler <em>comp</em> are shown.
+        </td>
+</tr></table>
+</center>
+<p>
+For instance:
+<pre>
+    $ <em>hmake-config list</em>
+    Global config file is:
+        /usr/local/lib/hmake/ix86-Linux/hmakerc
+    Personal config file is:
+        ~/.hmakerc/ix86-Linux
+    Known compilers:
+        nhc98	(v1.14)
+        hbc	(0.9999.5b,)
+        ghc-4.08.2	(4.08.2)
+        ghc-5.02.3	(5.02.3)
+        ghc	(5.02.3)
+        /usr/local/bin/nhc98	(v1.14)
+        /usr/local/bin/hbc	(0.9999.5b,)
+        /usr/local/bin/ghc	(5.04.2)
+    Default compiler:
+        nhc98
+
+    $ <em>hmake-config list /usr/local/bin/ghc</em>
+    CompilerConfig
+      { compilerStyle = ghc
+      , compilerPath = "/usr/local/bin/ghc"
+      , compilerVersion = "5.04.2"
+      , includePaths = ["/usr/local/lib/ghc-5.04.2/imports/base"
+                       ,"/usr/local/lib/ghc-5.04.2/imports/haskell98"
+                       ]
+      , cppSymbols = ["__GLASGOW_HASKELL__=504"]
+      , extraCompilerFlags = []
+      , isHaskell98 = True
+      }
+</pre>
+
+
+<p>
+<h3><a name="update">Updating the compiler database</a></h3>
+<p>
+<b>Important:</b> the very first time you use <em>hmake-config</em>
+to update the compiler database, you must create your own personal
+config, using the <em>new</em> option (see details in the table below).
+
+<p>
+To update your compiler database, one of the actions <em>add</em>,
+<em>delete</em>, or <em>default</em> is applied to the
+<em>compiler</em> given on the commandline.  (If no action is given,
+<em>add</em> is assumed.)  The <em>compiler</em> can be specified
+either as a simple name which resolves to an executable command name
+via the normal <tt>$PATH</tt> mechanism, or as an absolute pathname
+to the compiler (these are treated as different database entries), e.g.
+
+<pre>
+    $ hmake-config add ghc		# takes the first ghc in the $PATH
+    $ hmake-config add /usr/bin/ghc	# takes a specific version
+</pre>
+
+<center>
+<table border=1 width=400><tr>
+<td><b>new</b></td>
+	<td>Start a completely fresh hmakerc configuration file.  If
+            the file already existed, it is overwritten.  (If no hmakerc
+            file was explicitly specified, the default "personal" location
+            within your home directory is assumed.)
+            </td>
+</tr><tr>
+<td><b>add</b>&nbsp;<em>comp</em><br></td>
+	<td>The specified compiler is probed for various pieces of
+            information, including its version, and the paths to
+            directories holding interface files for standard libraries.
+            If everything is OK, that compiler's configuration is added
+            to the hmakerc file, or if it was already known, the
+            configuration is updated.</td>
+</tr><tr>
+<td><b>add-dyn</b>&nbsp;<em>comp</em><br></td>
+	<td>The specified compiler is added to the hmakerc file, but
+            it is probed for its version/interface information dynamically
+            every time it is used, instead of only once statically right now.
+            This option is especially useful if you frequently change
+            the compiler that appears first in your PATH variable and don't
+            want to be bothered to have to tell hmake about those changes
+            every time.
+	</td>
+</tr><tr>
+<td><b>delete</b>&nbsp;<em>comp</em></td>
+	<td>All configuration information for the specified compiler is
+            removed from the hmakerc file.</td>
+</tr><tr>
+<td><b>default</b>&nbsp;<em>comp</em></td>
+	<td>Provided the specified compiler is already known in the
+            hmakerc file, it is made the default compiler.  If it is not
+            known, the default remains unchanged and an error is reported.
+            </td>
+</tr></table>
+</center>
+
+<p>
+<h3><a name="database">About the compiler database</a></h3>
+<p>
+The <em>hmakerc</em> file manipulated by <em>hmake-config</em> is
+written in plain text, as a structured Haskell value.  You are free
+to read it, and edit it by hand if you wish.  (Be aware however that
+a later use of <em>hmake-config add</em> may override any changes
+you make.)
+
+<p>
+In fact, there are potentially two <em>hmakerc</em> files that might
+be involved in any transaction with <em>hmake-config</em>.  Firstly,
+there is the "global" config file, normally created at the time
+<em>hmake</em> is installed: it resides in the system directories
+(usually at <tt>/usr/local/lib/hmake/$MACHINE/hmakerc</tt>), and cannot
+be changed except by the system administrator.  Then, there may be a
+"personal" config file, residing in the user's home directory (always
+at <tt>$HOME/.hmakerc/$MACHINE</tt>): it permits an individual to
+override (point-wise) the system-wide configuration, for instance,
+if a different version of a compiler comes earlier in the user's PATH,
+or if the user prefers a different default compiler.
+
+<p>
+When an <em>hmake-config</em> command-line does not name a specific
+hmakerc file, it reads both the global and the personal files,
+but writes only to the personal file.
+
+<p>
+When an <em>hmake-config</em> command-line explicitly names an hmakerc
+file, the named file is used for all reading and writing, instead of
+the "global" and the "personal" files.  (The command <em>new</em> must
+be used to initialise the file before it can be used.)  Remember that
+if you use a non-standard location for your named hmakerc file,
+you will also need to tell <em>hmake</em> proper where it is on
+every invocation.
+
+
+<h3>Notes</h3>
+<p>
+To support users who may have access to heterogeneous machines on a
+network with a shared filespace, there is a separate <em>hmakerc</em>
+file for each machine architecture they use.  This is very important to
+avoid conflicts between versions of compilers.  (In the description
+above, <tt>$MACHINE</tt> represents the machine architecture as
+reported by <tt>`harch`</tt>, not the actual machine name.)
+
+<p>
+It is difficult to detect the exact directories in which
+<em>hbc</em> expects to find interface files for standard libraries.
+Thus <em>hmake-config</em> relies on the environment variables
+<tt>HBCDIR</tt> or <tt>LMLDIR</tt> for the correct location.
+
+<p>
+When the system administrator wishes to update the global config file,
+it is sufficient just to name it explicitly in an <em>hmake-config</em>
+command, assuming the file permissions are set appropriately.
+
+
+<hr>
+<p>
+The latest updates to this software are available on the WWW from
+<a href="http://www.haskell.org/hmake/">
+<tt>http://www.haskell.org/hmake/</tt></a>
+(<a href="http://www.cs.york.ac.uk/fp/hmake/">
+<tt>http://www.cs.york.ac.uk/fp/hmake/</tt></a>)
+
+<p>
+Information last updated: 1st Sept 2005<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+Malcolm.Wallace@cs.york.ac.uk
+
+</td></tr></table>
+</body></html>
+

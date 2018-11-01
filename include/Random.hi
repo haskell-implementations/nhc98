@@ -1,0 +1,97 @@
+interface Random where {
+
+{-# NEED #-}
+instance Random Prelude.Double;
+
+{-# NEED #-}
+instance Random Prelude.Float;
+
+{-# NEED #-}
+instance Random Prelude.Integer;
+
+{-# NEED #-}
+instance Random Prelude.Bool;
+
+{-# NEED #-}
+instance Random Prelude.Char;
+
+{-# NEED #-}
+instance Random Prelude.Int;
+
+{-# NEED #-}
+instance RandomGen StdGen;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read StdGen;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show StdGen;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Random
+{-# NEED getStdRandom #-}
+getStdRandom{-# 1 #-}::((StdGen -> (a,StdGen)) -> (NHC.Internal.IO a));
+
+{-# NEED newStdGen #-}
+newStdGen{-# 0 #-}::(NHC.Internal.IO StdGen);
+
+{-# NEED getStdGen #-}
+getStdGen{-# 0 #-}::(NHC.Internal.IO StdGen);
+
+{-# NEED setStdGen #-}
+setStdGen{-# 1 #-}::(StdGen -> (NHC.Internal.IO ()));
+
+{-# NEED {Random randoms randomRs randomIO randomRIO random randomR} #-}
+class Random a where {
+  randoms{-# 1 #-}::(RandomGen b) => (b -> [a]);
+  randomRs{-# 2 #-}::(RandomGen b) => ((a,a) -> (b -> [a]));
+  randomIO{-# 0 #-}::(NHC.Internal.IO a);
+  randomRIO{-# 1 #-}::((a,a) -> (NHC.Internal.IO a));
+  random{-# 1 #-}::(RandomGen b) => (b -> (a,b));
+  randomR{-# 2 #-}::(RandomGen b) => ((a,a) -> (b -> (a,b)));
+};
+
+{-# NEED mkStdGen #-}
+mkStdGen{-# 1 #-}::(Prelude.Int -> StdGen);
+
+{-# NEED StdGen #-}
+data StdGen;
+
+{-# NEED {RandomGen genRange next split} #-}
+class RandomGen a where {
+  genRange{-# 1 #-}::(a -> (Prelude.Int,Prelude.Int));
+  next{-# 1 #-}::(a -> (Prelude.Int,a));
+  split{-# 1 #-}::(a -> (a,a));
+};
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO;
+}

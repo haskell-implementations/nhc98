@@ -1,0 +1,84 @@
+.TH HP2GRAPH 1 local
+.SH NAME
+hp2graph \- convert a heap profile to a PostScript, MIF or Acorn Draw graph
+.SH SYNOPSIS
+.B hp2graph
+[flags] [file.hp] 
+.SH DESCRIPTION
+The program
+.B hp2graph
+converts a heap profile stored in
+.IR file.hp
+into a graph, default is PostScript with the result in
+.IR file.ps.
+ If 
+.IR file.hp
+is omitted, then the program behaves as a filter.
+.SH OPTIONS
+The flags are:
+.IP "\fB\-e\fP \fIfloat\fP[in|mm|pt]"
+Generate encapsulated PostScript suitable for inclusion in LaTeX documents.
+Usually, the PostScript graph is drawn in landscape mode in an area 
+9 inches wide by 6 inches high, and
+.B hp2graph
+arranges for this area to be approximately centered on a sheet of a4
+paper. This format is convenient of studying the graph in detail, but
+it is unsuitable for inclusion in LaTeX documents. The 
+.B \-e 
+option causes the graph to be drawn in portrait mode, with 
+.I float
+specifying the width in inches, millimetres or points (the default).
+The resulting PostScript file conforms to the  
+.I "Encapsulated Post Script"
+(EPS) convention, and it can be included in a LaTeX document using Rokicki's 
+dvi-to-PostScript converter
+.B dvips.
+.IP "\fB\-g\fP" 
+Create output suitable for the
+.B gs
+PostScript previewer (or similar). In this case the graph is printed in portrait
+mode without scaling. The output is unsuitable for a laser printer.
+.IP "\fB\-p[\fP \fIfile.aux\fP]"
+Use previous parameters. By default, the graph is automatically
+scaled both horizontally and vertically so that it fills the page.
+However, when preparing a series of graphs for use in a presentation, 
+it is often useful to draw a new graph using the same scale, shading and
+ordering as a previous one. The
+.B \-p "file.aux"
+flag causes the graph to be drawn using the parameters determined by
+a previous run of 
+.B hp2graph
+on
+.IR file.hp .
+.IP "\fB\-y\fP"
+Draw the graph in the traditional York style, ignoring marks.
+.IP "\fB\-0\fP"
+Draw the graph even if the sampling file contains to few samples for
+a nice graph.
+.IP "\fB\-v\fP"
+verbose.
+.IP "\fB\-t\fP \fIpercentage\fP"
+Ignore keys which contributes less than 
+.I percentage
+to the memory usage together. 
+.IP "\fB\-x\fP"
+Draw an exploded graph.
+.IP "\fB\-c\fP"
+Don't include profile comments.
+.IP "\fB\-m\fP"
+Don't include garbage collection marks.
+.IP "\fB\-f[ps|draw|mif]\fP"
+Produce the graph in PostScript, Acorn Draw or MIF format. 
+
+.SH "INPUT FORMAT"
+Take a look yourself, it's an ascii file. Note that different combinations of 
+heap-profile flags use different file formats.
+
+.Xe
+.SH "SEE ALSO"
+nhc98(1), nhc13(1)
+
+.SH AUTHOR
+N. Röjemo (rojemo@cs.chalmers.se), but a lot of the code is stolen from
+hp2ps by D. Wakeling (david@dcs.exeter.ac.uk).
+

@@ -1,0 +1,176 @@
+interface NHC.DErrNo where {
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! NHC.DErrNo
+{-# NEED nopermission #-}
+nopermission{-# 0 #-}::[ErrNo];
+
+{-# NEED illegalop #-}
+illegalop{-# 0 #-}::[ErrNo];
+
+{-# NEED full #-}
+full{-# 0 #-}::[ErrNo];
+
+{-# NEED alreadyinuse #-}
+alreadyinuse{-# 0 #-}::[ErrNo];
+
+{-# NEED doesnotexist #-}
+doesnotexist{-# 0 #-}::[ErrNo];
+
+{-# NEED alreadyexists #-}
+alreadyexists{-# 0 #-}::[ErrNo];
+
+{-# NEED eqErrNo #-}
+eqErrNo{-# 2 #-}::(ErrNo -> (ErrNo -> Prelude.Bool));
+
+{-# NEED {ErrNo Edummy EPERM ENOENT ESRCH EINTR EIO ENXIO E2BIG ENOEXEC EBADF ECHILD EDEADLK ENOMEM EACCES EFAULT ENOTBLK EBUSY EEXIST EXDEV ENODEV ENOTDIR EISDIR EINVAL ENFILE EMFILE ENOTTY ETXTBSY EFBIG ENOSPC ESPIPE EROFS EMLINK EPIPE EDOM ERANGE EAGAIN EINPROGRESS EALREADY ENOTSOCK EDESTADDRREQ EMSGSIZE EPROTOTYPE ENOPROTOOPT EPROTONOSUPPORT ESOCKTNOSUPPORT ENOTSUP EPFNOSUPPORT EAFNOSUPPORT EADDRINUSE EADDRNOTAVAIL ENETDOWN ENETUNREACH ENETRESET ECONNABORTED ECONNRESET ENOBUFS EISCONN ENOTCONN ESHUTDOWN ETOOMANYREFS ETIMEDOUT ECONNREFUSED ELOOP ENAMETOOLONG EHOSTDOWN EHOSTUNREACH ENOTEMPTY EPROCLIM EUSERS EDQUOT ESTALE EREMOTE EWOULDBLOCK ENOLCK ENOSYS EOVERFLOW ECANCELED EIDRM ENOMSG EILSEQ ENOATTR EBADMSG EMULTIHOP ENODATA ENOLINK ENOSR ENOSTR EPROTO ETIME EOPNOTSUPP} #-}
+data ErrNo
+  = Edummy 
+  | EPERM 
+  | ENOENT 
+  | ESRCH 
+  | EINTR 
+  | EIO 
+  | ENXIO 
+  | E2BIG 
+  | ENOEXEC 
+  | EBADF 
+  | ECHILD 
+  | EDEADLK 
+  | ENOMEM 
+  | EACCES 
+  | EFAULT 
+  | ENOTBLK 
+  | EBUSY 
+  | EEXIST 
+  | EXDEV 
+  | ENODEV 
+  | ENOTDIR 
+  | EISDIR 
+  | EINVAL 
+  | ENFILE 
+  | EMFILE 
+  | ENOTTY 
+  | ETXTBSY 
+  | EFBIG 
+  | ENOSPC 
+  | ESPIPE 
+  | EROFS 
+  | EMLINK 
+  | EPIPE 
+  | EDOM 
+  | ERANGE 
+  | EAGAIN 
+  | EINPROGRESS 
+  | EALREADY 
+  | ENOTSOCK 
+  | EDESTADDRREQ 
+  | EMSGSIZE 
+  | EPROTOTYPE 
+  | ENOPROTOOPT 
+  | EPROTONOSUPPORT 
+  | ESOCKTNOSUPPORT 
+  | ENOTSUP 
+  | EPFNOSUPPORT 
+  | EAFNOSUPPORT 
+  | EADDRINUSE 
+  | EADDRNOTAVAIL 
+  | ENETDOWN 
+  | ENETUNREACH 
+  | ENETRESET 
+  | ECONNABORTED 
+  | ECONNRESET 
+  | ENOBUFS 
+  | EISCONN 
+  | ENOTCONN 
+  | ESHUTDOWN 
+  | ETOOMANYREFS 
+  | ETIMEDOUT 
+  | ECONNREFUSED 
+  | ELOOP 
+  | ENAMETOOLONG 
+  | EHOSTDOWN 
+  | EHOSTUNREACH 
+  | ENOTEMPTY 
+  | EPROCLIM 
+  | EUSERS 
+  | EDQUOT 
+  | ESTALE 
+  | EREMOTE 
+  | EWOULDBLOCK 
+  | ENOLCK 
+  | ENOSYS 
+  | EOVERFLOW 
+  | ECANCELED 
+  | EIDRM 
+  | ENOMSG 
+  | EILSEQ 
+  | ENOATTR 
+  | EBADMSG 
+  | EMULTIHOP 
+  | ENODATA 
+  | ENOLINK 
+  | ENOSR 
+  | ENOSTR 
+  | EPROTO 
+  | ETIME 
+  | EOPNOTSUPP ;
+}

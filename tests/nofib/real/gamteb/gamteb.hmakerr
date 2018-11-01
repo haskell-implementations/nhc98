@@ -1,0 +1,8 @@
+
+====================================
+	Error after type deriving/checking:
+Context for Prelude.Num needed in left hand pattern at 21:13.
+Context for Prelude.Num needed in left hand pattern at 20:13.
+Context for Prelude.Num needed in left hand pattern at 19:13.
+Context for Prelude.Num needed in left hand pattern at 18:13.
+Context for Prelude.Num needed in left hand pattern at 17:13.

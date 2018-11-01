@@ -1,0 +1,9 @@
+Can't find module PrelBase in user directories
+	.
+  Or in installed libraries/packages at
+	/usr/malcolm/local/include/nhc98
+	/usr/malcolm/local/include/nhc98/packages/base
+  Asked for by: HappyParser.ly
+  Fix using the -I, -P, or -package flags.
+
+Stop - hmake dependency error.

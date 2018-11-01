@@ -1,0 +1,262 @@
+#!/bin/sh
+#	confhc -- detect installed Haskell compilers and versions
+#	author:   Malcolm.Wallace@cs.york.ac.uk, Sept 1999
+#			added "hmake interactive" config, May 2000
+#			removed support for nhc13, Nov 2001
+#			simplified for hmake3, Jan 2002
+
+MACHINE=${MACHINE-`script/harch`}
+PWD=`pwd`
+
+echo "Looking for already-installed Haskell compilers:"
+# Assume that we start out with a blank config.
+HBCKNOWN=
+GHCKNOWN=
+GHC2KNOWN=
+NHCKNOWN=
+NHC2KNOWN=
+CONFIGPATH="$PWD/lib/$MACHINE/hmakerc"
+
+# We need a working BSD-style `echo' command: at least Solaris may not have it.
+#   (The calling script must have already compiled our emulated 'echo'.)
+case `echo -n hello | wc -c | ( read n ; echo $n )` in
+    5) ;;
+    *) echo () { $PWD/script/echo "$@"; } ;;
+esac
+
+# We need a working `which' command: CYGWIN at least doesn't have it,
+#  and some installed 'which's behave badly, e.g. Solaris, OSF/1.
+#if which which >/dev/null 2>&1  && ( which which | grep -v Warning >/dev/null )
+#then
+#  echo -n ""
+#else
+#  echo "No builtin 'which' command - attempting to emulate it."
+  which () {
+    ( case $1 in
+        /*) if [ -f "$1" -a -x "$1" ]
+            then echo $1
+                 exit 0
+            fi;;
+        *) ;;
+      esac
+      for path in `echo \"$PATH\" | sed -e 's/:/\" \"/g'`
+      do
+        thefile=`echo $path | tr -d "\""`/$1
+        if [ -f "$thefile" -a -x "$thefile" ]
+        then echo $thefile
+             exit 0
+        fi
+      done; exit 1 )
+  }
+#fi
+
+# Report gcc version number
+echo "  Found C compiler:    "`which $CCC`
+echo "  C compiler version:  "`$CCC --version | head -n 1`
+GCCVERSION=`$CCC --version | head -n 1 | cut -d' ' -f 3`
+
+# Ok, so first look for HBC
+echo -n "  Looking for hbc...   "
+if which hbc >/dev/null 2>&1
+then
+  HBCKNOWN=`which hbc`
+  HBCVERSION=`hbc -v 2>&1 | cut -d' ' -f2`
+  case $HBCVERSION in
+    version) HBCVERSION=`hbc -v 2>&1 | cut -d' ' -f3` ;;
+    *)       HBCVERSION=`hbc -v 2>&1 | cut -d' ' -f4` ;;
+  esac
+fi
+if [ "$HBCKNOWN" = "" ]
+then
+  echo "(not found)"
+  echo "  Note: LMLDIR/HBCDIR variables must be set to enable detection of hbc."
+else
+  echo "found ${HBCVERSION}"
+fi
+  
+  
+# Now look for GHC.  Determining the version number here is due to Simon Marlow.
+ghcsym () {
+  echo "main = print __GLASGOW_HASKELL__" >ghcsym.hs;
+  $1 -cpp -o ghcsym.out ghcsym.hs
+  ./ghcsym.out >$2
+# $1 -E -cpp -optP-P ghcsym.hs -o ghcsym.out;
+# grep -v '^#' ghcsym.out | grep -v '^$' > $2;
+  rm -f ghcsym.hs ghcsym.out;
+}
+echo -n "  Looking for ghc...   "
+if which ghc >/dev/null 2>&1
+then
+  GHCKNOWN=`which ghc`
+  GHCVERSION=`${GHCKNOWN} --version 2>&1 | sed 's/^.*version[ ]*\([0-9.]*\).*/\1/'`
+  ghcsym ${GHCKNOWN} targets/$MACHINE/ghcsym;
+fi
+if [ "$GHCKNOWN" = "" ]
+then  echo "(not found)"
+else  echo "found ${GHCVERSION}"
+fi
+
+
+# There may be another version of ghc to look for.
+COMP=$1
+if [ -n "$COMP" ]
+then
+  if [ "`basename $COMP | cut -c1-3`" = "ghc" ]
+  then
+    VER=`basename $COMP | cut -c5-`
+    if [ -n "$VER" -a "$VER" != "$GHCVERSION" ]
+    then
+      echo -n "  Looking for $COMP...   "
+      if which $COMP >/dev/null 2>&1
+      then
+        GHC2KNOWN=`which $COMP`
+        GHC2VERSION=`${GHC2KNOWN} --version 2>&1 | sed 's/^.*version[ ]*\([0-9.]*\).*/\1/'`
+        ghcsym ${GHC2KNOWN} targets/$MACHINE/ghcsym;
+      fi
+      if [ "$GHC2KNOWN" = "" ]
+      then  echo "(not found)"
+      else  echo "found ${GHC2VERSION}"
+      fi
+    fi
+  fi
+fi
+  
+  
+# Finally, check for a previous installation of nhc98.
+echo -n "  Looking for nhc98... "
+if which nhc98 >/dev/null 2>&1
+then
+  NHCKNOWN=`which nhc98`
+  NHCVERSION=`${NHCKNOWN} --version | head -n 1 | cut -d' ' -f2`
+fi
+if [ "$NHCKNOWN" != "" ]
+then  echo "found ${NHCVERSION}"
+      NHCSYM=`echo $NHCVERSION | tr ".va" " " | ( read x y z; echo $x$y; )`
+      echo $NHCSYM >targets/$MACHINE/nhcsym;
+else  echo "(not found)"
+fi
+
+# There may be another version of nhc98 to look for.
+if [ -n "$COMP" ]
+then
+  if [ -n "$COMP" -a "`basename $COMP | cut -c1-5`" = "nhc98" ]
+  then
+    VER=`basename $COMP | cut -c7-`
+    if [ -n "$VER" -a "$VER" != "$NHCVERSION" ]
+    then
+      echo -n "  Looking for $COMP...   "
+      if which $COMP >/dev/null 2>&1
+      then
+        NHC2KNOWN=`which $COMP`
+        NHC2VERSION=`${NHC2KNOWN} --version | head -n 1 | cut -d' ' -f2`
+        NHC2SYM=`echo $NHC2VERSION | tr ".va" " " | ( read x y z; echo $x$y; )`
+        echo $NHC2SYM >targets/$MACHINE/nhcsym;
+      fi
+      if [ "$NHC2KNOWN" = "" ]
+      then  echo "(not found)"
+      else  echo "found ${NHC2VERSION}"
+      fi
+    fi
+  fi
+fi
+
+
+if [ "$1" = "" ]
+then
+  BUILDHMAKE=
+  echo -n "I am guessing that you want to use "
+  # in order of preference: ghc, then hbc, then gcc...
+  if [ "$HBCKNOWN" = "" ];
+  then
+    if [ "$GHCKNOWN" = "" ];
+    then
+      echo -n gcc
+      BUILDHMAKE=gcc
+    else
+      echo -n ghc
+      BUILDHMAKE=ghc
+    fi
+  else
+    if [ "$GHCKNOWN" = "" ];
+    then
+      echo -n hbc
+      BUILDHMAKE=hbc
+    else
+      echo -n "ghc (not hbc)"
+      BUILDHMAKE=ghc
+    fi
+  fi
+else
+  BUILDHMAKE=$1
+  echo -n "You said you want to use $BUILDHMAKE"
+fi
+echo " to build hmake."
+
+# mangle paths on CYGWIN
+case $MACHINE in
+  *CYGWIN*) if [ -n "$HBCKNOWN" ]
+            then HBCKNOWN=`cygpath -w "$HBCKNOWN" | tr '\\\\' '/'`
+            fi
+            if [ -n "$GHCKNOWN" ]
+            then GHCKNOWN=`cygpath -w "$GHCKNOWN" | tr '\\\\' '/'`
+            fi
+            if [ -n "$GHC2KNOWN" ]
+            then GHC2KNOWN=`cygpath -w "$GHC2KNOWN" | tr '\\\\' '/'`
+            fi
+            if [ -n "$NHCKNOWN" ]
+            then NHCKNOWN=`cygpath -w "$NHCKNOWN" | tr '\\\\' '/'`
+            fi
+            if [ -n "$NHC2KNOWN" ]
+            then NHC2KNOWN=`cygpath -w "$NHC2KNOWN" | tr '\\\\' '/'`
+            fi
+            CONFIGPATH=`cygpath -w "$CONFIGPATH" | tr '\\\\' '/'`
+     ;;
+  *) ;;
+esac
+
+# ---- ----
+export HBCKNOWN GHCKNOWN NHCKNOWN BUILDHMAKE GHC2KNOWN NHC2KNOWN
+echo "  Now I'm creating targets/$MACHINE/hmake3.config for your installation."
+INVOKE="$PWD/script/hmake-config $CONFIGPATH"
+if [ -z "$DEBIAN" ]
+then
+  { echo "$INVOKE new"
+    if [ "$HBCKNOWN" != "" ]
+    then echo "$INVOKE add hbc"
+         echo "$INVOKE add ${HBCKNOWN}"
+    fi;
+    if [ "$GHCKNOWN" != "" ]
+    then echo "$INVOKE add ghc"
+         echo "$INVOKE add ${GHCKNOWN}"
+         if which ghc-${GHCVERSION} >/dev/null 2>&1
+         then echo "$INVOKE add ghc-${GHCVERSION}"
+         fi
+         if which ${GHCKNOWN}-${GHCVERSION} >/dev/null 2>&1
+         then echo "$INVOKE add ${GHCKNOWN}-${GHCVERSION}"
+         fi
+    fi;
+    if [ "$GHC2KNOWN" != "" ]
+    then echo "$INVOKE add ${COMP}"
+         echo "$INVOKE add ${GHC2KNOWN}"
+    fi;
+    if [ "$NHCKNOWN" != "" ]
+    then echo "$INVOKE add nhc98"
+         echo "$INVOKE add ${NHCKNOWN}"
+    fi;
+    if [ "$NHC2KNOWN" != "" ]
+    then echo "$INVOKE add ${COMP}"
+         echo "$INVOKE add ${NHC2KNOWN}"
+    fi;
+  } >targets/$MACHINE/hmake3.config;
+else
+  { echo "$INVOKE new";
+    echo "$INVOKE add-dyn /usr/bin/haskell-compiler";
+    echo "$INVOKE default /usr/bin/haskell-compiler";
+  } >targets/$MACHINE/hmake3.config;
+fi
+echo $BUILDHMAKE >targets/$MACHINE/buildwith
+echo $GCCVERSION >targets/$MACHINE/gccversion
+
+echo "Done."
+exit 0
+

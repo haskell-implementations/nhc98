@@ -1,0 +1,128 @@
+interface Foreign.Marshal.Error where {
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Ratio.Ratio;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.Internal.IO;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.FFI.Ptr;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable IO.Handle;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance NHC.FFI.Storable (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Enum (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance Prelude.Eq (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Show (NHC.FFI.Ptr a);
+interface Data.Typeable
+{-# NEED #-}
+class Typeable a;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Foreign.Marshal.Error
+{-# NEED void #-}
+void{-# 1 #-}::((NHC.Internal.IO a) -> (NHC.Internal.IO ()));
+
+{-# NEED throwIfNull #-}
+throwIfNull{-# 0 #-}::(Prelude.String -> ((NHC.Internal.IO (NHC.FFI.Ptr a)) -> (NHC.Internal.IO (NHC.FFI.Ptr a))));
+interface NHC.FFI
+{-# NEED Ptr #-}
+data Ptr a;
+interface ! Foreign.Marshal.Error
+{-# NEED throwIfNeg_ #-}
+throwIfNeg_{-# 0 #-}::(Prelude.Ord a,Prelude.Num a) => ((a -> Prelude.String) -> ((NHC.Internal.IO a) -> (NHC.Internal.IO ())));
+
+{-# NEED throwIfNeg #-}
+throwIfNeg{-# 0 #-}::(Prelude.Ord a,Prelude.Num a) => ((a -> Prelude.String) -> ((NHC.Internal.IO a) -> (NHC.Internal.IO a)));
+
+{-# NEED throwIf_ #-}
+throwIf_{-# 3 #-}::((a -> Prelude.Bool) -> ((a -> Prelude.String) -> ((NHC.Internal.IO a) -> (NHC.Internal.IO ()))));
+
+{-# NEED throwIf #-}
+throwIf{-# 3 #-}::((a -> Prelude.Bool) -> ((a -> Prelude.String) -> ((NHC.Internal.IO a) -> (NHC.Internal.IO a))));
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+}

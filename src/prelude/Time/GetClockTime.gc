@@ -1,0 +1,13 @@
+module Time
+  ( getClockTime
+  ) where
+
+import NHC.GreenCard
+import DClockTime
+
+%-#include <time.h>
+
+%fun getClockTime :: IO ClockTime
+%code c = time(0);
+%result (clockTime c)
+

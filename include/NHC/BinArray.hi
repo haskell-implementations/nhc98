@@ -1,0 +1,105 @@
+interface NHC.BinArray where {
+
+{-# NEED #-}
+instance NHC.Binary.Binary (BinArrayFileHeader a);
+
+{-# NEED #-}
+instance (NHC.Binary.Binary a,NHC.Binary.Binary b) => NHC.Binary.Binary (a,b);
+
+{-# NEED #-}
+instance NHC.Binary.Binary Prelude.Bool;
+
+{-# NEED #-}
+instance NHC.Binary.Binary ();
+
+{-# NEED #-}
+instance (NHC.Binary.Binary a) => NHC.Binary.Binary [a];
+
+{-# NEED #-}
+instance (NHC.Binary.Binary a) => NHC.Binary.Binary (Prelude.Maybe a);
+
+{-# NEED #-}
+instance (NHC.Binary.Binary a,NHC.Binary.Binary b) => NHC.Binary.Binary (Prelude.Either a b);
+
+{-# NEED #-}
+instance NHC.Binary.Binary Prelude.Char;
+
+{-# NEED #-}
+instance (NHC.Binary.Binary a,NHC.Binary.Binary b,NHC.Binary.Binary c) => NHC.Binary.Binary (a,b,c);
+
+{-# NEED #-}
+instance NHC.Binary.Binary NHC.Binary.BinPtr;
+
+{-# NEED #-}
+instance NHC.Binary.Binary Prelude.Int;
+
+{-# NEED #-}
+instance NHC.Binary.Binary UnboxedArray;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.Binary.BinIOMode;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.Binary.BinPtr;
+
+{-# NEED #-}
+instance Prelude.Num NHC.Binary.BinPtr;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.Binary.BinIOMode;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.Binary.BinPtr;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.Binary.BinIOMode;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.Binary.BinPtr;
+
+{-# NEED #-}
+instance Prelude.Show NHC.Binary.BinPtr;
+interface NHC.BinArray
+{-# NEED BinArrayFileHeader #-}
+data BinArrayFileHeader a;
+interface NHC.Binary
+{-# NEED BinIOMode #-}
+data BinIOMode;
+interface ! NHC.BinArray
+{-# NEED getBinArray #-}
+getBinArray{-# 1 #-}::(NHC.Binary.Binary a) => (Prelude.FilePath -> (NHC.Internal.IO (BinArray a)));
+
+{-# NEED putBinArray #-}
+putBinArray{-# 2 #-}::(NHC.Binary.Binary a) => (Prelude.FilePath -> ((BinArray a) -> (NHC.Internal.IO ())));
+
+{-# NEED fromBinArray #-}
+fromBinArray{-# 2 #-}::(NHC.Binary.Binary a) => ((BinArray a) -> (Prelude.Int -> (NHC.Internal.IO a)));
+
+{-# NEED intoBinArray #-}
+intoBinArray{-# 2 #-}::(NHC.Binary.Binary a) => ((BinArray a) -> (a -> (NHC.Internal.IO Prelude.Int)));
+
+{-# NEED newBinArray #-}
+newBinArray{-# 2 #-}::(NHC.Binary.Binary a) => (Prelude.Int -> (a -> (NHC.Internal.IO (BinArray a))));
+interface NHC.Binary
+{-# NEED Binary #-}
+class Binary a;
+interface ! NHC.BinArray
+{-# NEED {BinArray BA baSize baHandle baDefault baArray} #-}
+data BinArray a
+  = BA {baSize :: Prelude.Int} {baHandle :: NHC.Binary.BinHandle} {baDefault :: (NHC.Binary.Bin a)} {baArray :: UnboxedArray};
+interface NHC.BinArray
+{-# NEED UnboxedArray #-}
+newtype {-#  #-} UnboxedArray;
+interface NHC.Binary
+{-# NEED Bin #-}
+type {-# 1 #-} Bin a = NHC.Binary.BinPtr;
+
+{-# NEED BinPtr #-}
+newtype {-#  #-} BinPtr;
+
+{-# NEED BinHandle #-}
+newtype {-#  #-} BinHandle;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO;
+}

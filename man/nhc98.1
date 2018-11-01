@@ -1,0 +1,209 @@
+.TH NHC98 1 local
+.SH NAME
+nhc98 \- a compiler for Haskell 98
+.SH SYNOPSIS
+.B nhc98
+[ option ] files
+.SH DESCRIPTION
+The syntax of
+.I nhc98
+programs is described in the Haskell 98 report.
+.PP
+This manual page is incomplete and probably somewhat out-of-date.  See
+the supplied html documentation (default location /usr/doc/nhc98) for
+full details of your local installation, or visit 
+.I http://www.cs.york.ac.uk/fp/nhc98/
+for the latest details.
+.PP
+.I nhc98
+accepts several types of arguments:
+.br
+Arguments whose names end in `.hs' are taken to be Haskell source,
+names ending in `.lhs' are taken to be literate Haskell source,
+names ending in `.gc' are taken to be GreenCard source,
+names ending in `.hc' are taken to be
+.I nhc98
+bytecode,
+names ending in `.c' are taken to be straight C code,
+names ending in `.s' are taken to be assembler programs
+and `.o' are object files.
+.PP
+The following options are interpreted by 
+.I nhc98
+.TP
+.B \-C
+Suppress the loading phase and force a bytecode file to be produced.
+.TP
+.B \-S
+Suppress the loading phase and force an assembler file to be produced.
+.TP
+.B \-c
+Suppress the loading phase and force an object file to be produced.
+.TP
+.BI \-o " output"
+Name the output file
+.IR output .
+.TP
+.BI \-I "path/"
+Prepend
+.I path
+to the list of paths used to locate interface files.  The 
+.I path
+should be a directory. Nhc98 will try to link with
+.I path/$MACHINE/lib.a, 
+or if it does not exist with
+.I path/lib.a
+(
+.I libp.a
+is used instead of
+.I lib.a
+when linking code for heap profiling, and likewise
+.I libt.a
+for time profiling, and
+.I libT.a
+for tracing).
+.TP
+.B \-[lL]*
+Extra libraries that are sent directly to the linker.
+.TP
+.B \-p
+Emit code that enables heap profiling.
+Additional flags (see below) are needed when the program is run.
+Use hp2graph to get a PostScript file.
+.TP
+.B \-t
+Emit code that enables time profiling.
+Additional run-time flags are needed to guide the profile.
+.TP
+.B \-T
+Emit code that enables tracing.
+Additional compile-time flags (see below) can be given to guide the
+progress of tracing.
+.TP
+.B \-cpp
+run the C preprocessor before compilation.
+.TP
+.B \-v
+be verbose.
+.TP
+.B \--version
+report which compiler version is installed.
+.TP
+.B \+RTS
+Interpret arguments as flags to the compilers runtime system, until
+.I \-RTS
+or all arguments are interpreted.
+.TP
+.B \+CTS
+Interpret arguments as flags to the compiler, until
+.I \-CTS
+or all arguments are interpreted. Useful to force arguments that
+starts with
+.I -l
+to the compiler instead of the linker.
+
+.PP
+When the program is run it interprets the following flags:
+
+.TP
+.B \+RTS
+Interpret arguments as flags to the runtime system until
+.I \-RTS
+or all arguments are interpreted.
+
+.PP
+The runtime flags are:
+
+.br
+.TP 10
+.BI \-Hsize
+set the heapsize to
+.IR size .
+Default is 400kbyte.
+.TP 10
+.BI \-Ksize
+set the stacksize to
+.IR size .
+Default is 80kbyte.
+.TP
+.B \-B
+makes the bell sound at each garbage collection.
+
+.PP
+If the program is compiled with 
+.I \-p
+then additional runtime flags are available. The first occurence of 
+.I \-p, \-m, \-c, \-r, \-b
+or
+.I \-l
+determines which kind of heap profile that should be produced. Only 
+.I \-r
+can take an argument in this case (the size when retainer sets should
+be approximated with everyone). Later occurrences restrict the profile to nodes
+that match the arguments.
+
+.TP
+\fB\-p[p1:...]\fP
+Heap profiling by
+.I producer
+(function).
+.TP
+\fB\-m[m1:...]\fP
+Heap profiling by
+.I module.
+.TP
+\fB\-c[c1:...]\fP
+Heap profiling by
+.I construction.
+.TP
+\fB\-r[r1:...]\fP
+Heap profiling by
+.I retainer.
+.TP
+\fB\-b[lag|use|drag|void]\fP
+.I Biographical
+heap profiling.
+.TP
+\fB\-l[[low]-[high]]\fP
+Heap profiling by
+.I lifetime.
+.TP
+.B \-@
+Count apply nodes as retainers.
+
+.PP
+There may be more flags (they multiply).
+
+.SH ENVIRONMENT
+The environment variables NHC98LIBDIR and NHC98INCDIR are used to find the
+various files used by the compiler.  The default values are
+/usr/local/lib/nhc98 and /usr/local/include/nhc98.  The variable $MACHINE
+is used to select the correct executables and libraries for your architecture.
+It is determined using the script
+.I harch
+.SH FILES
+.TP 25
+.B $NHC98LIBDIR/$MACHINE/nhc98comp
+the compiler.
+.TP
+.B $NHC98INCDIR/*.hi
+interface files.
+.TP
+.B $NHC98LIBDIR/$MACHINE/Runtime[ptT]?.o
+part of the runtime system.
+.TP
+.B $NHC98LIBDIR/$MACHINE/Runtime[ptT]?.a
+the rest of the runtime system.
+.TP
+.B $NHC98LIBDIR/$MACHINE/Prelude[ptT]?.a
+the standard prelude and libraries.
+.SH DIAGNOSTICS
+Could be better, could be worse.
+.SH "SEE ALSO"
+hmake(1), hp2graph(1), harch(1)
+.SH BUGS
+Probably.
+.br
+Make sure that the function called "main" in module Main has the type
+.I IO ()
+as the compiler won't tell you if you get it wrong!

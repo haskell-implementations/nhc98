@@ -1,0 +1,25 @@
+#!/bin/sh
+# fixcygwin:  a small script to patch up the hmake3.config script
+#	for hmake-config built by GHC/mingw32, but being run under Cygwin.
+
+case $# in
+  0) ;;
+  *) exit 1 ;;
+esac
+
+#cygpath () { echo c:$2 | tr '/' '\\'; }	# hack for testing on non-Cygwin
+convert () { echo `cygpath -w $1` | tr '\\\\' '/'; }
+
+hmakerc=`pwd`/lib/$MACHINE/hmakerc
+cygrc=`convert $hmakerc`
+
+nhc98=`pwd`/script/nhc98
+cyg98=`convert $nhc98`
+
+infile=targets/$MACHINE/hmake3.config
+outfile=targets/$MACHINE/hmake3.cygwin
+
+sed -e "s|$hmakerc|$cygrc|" $infile | sed -e "s|$nhc98|$cyg98|" >$outfile
+mv $outfile $infile
+
+exit 0

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Contribute to nhc98!</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center>
+  <h1>Contributing to nhc98</h1>
+</center>
+<hr>
+
+<p>
+The maintainers of <em>nhc98</em> would very much welcome the
+contributions of other developers towards this compiler.  Maybe you are
+a PhD student looking for a platform to do some experiments on a cool
+new compilation technique for functional languages, but you don't want
+to write a whole compiler from scratch.  Or maybe you are an application
+writer who has built up some useful support libraries that you would
+like to see others using too.  Maybe you just like hacking!
+
+<p>
+Our <a href="todo.html">To Do</a> list is really a wishlist, and
+contains some ideas for projects you might like to take on.  In
+addition:
+
+<p>
+<b>Libraries.</b>  A couple of the standard Haskell'98 libraries remain
+only partially implemented in <em>nhc98</em>.  If you have
+expertise in an appropriate area (e.g. random number generation), we'd
+love it if you could supply a good implementation.  If you have ideas
+for other useful libraries that you can contribute to the whole Haskell
+community, we'd like to see your code too.
+
+<p>
+<b>Runtime system.</b>  A contributor (Julian Seward, Hugs/ghc
+integration person) suggested some small changes to the
+the runtime system (in the bytecode interpretive loop) which
+yielded a 25% speedup for most programs.  Has anyone else got any
+good ideas?
+
+<p>
+<b>Native code generation.</b>  Nhc98 achieves portability by compiling
+to bytecode.  However, we sacrifice some speed advantages by doing this.
+It shouldn't be too difficult to add a native code generator for some
+particular machine.  We'd be really interested if you came up with
+a general scheme for native code generation, parameterised on
+the particular machine description, as this would enable support for
+new machines to be added very easily.
+
+<p>
+<b>Compiler.</b>  Although the compiler is currently not documented very
+well, we are gradually building up an
+<a href="implementation-notes/index.html">implementation map</a> which should
+help you get started.  In fact, the internals of <em>nhc98</em> are very
+straightforward, following textbook guidelines at most points.
+
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.haskell.org/nhc98/">
+<tt>http://www.haskell.org/nhc98/</tt></a>
+
+<p>
+This page last modified: 25 April 2001<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+
+</td></tr></table>
+</body></html>
+

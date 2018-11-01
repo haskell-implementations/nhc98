@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Language extensions in nhc98</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>Language extensions in nhc98</h1></center>
+
+<hr>
+
+<h3>What language extensions does <em>nhc98</em> support?</h3>
+<p>
+Extensions of the Haskell'98 language available in <em>nhc98</em> include:
+
+<ul>
+
+<li>
+  The standard <a href="ffi.html">primitive FFI</a> language addendum.
+
+<li>
+  Extended module namespaces, of the form Long.Hierarchical.Module.Name.
+
+<li>
+  Local forall quantification on datatypes.  (Also known as existential
+  types, not to be confused with rank-2 types.)
+
+<li>
+  Pattern guards (new in 1.20).
+
+<li>
+  Some common standard hierarchical libraries packages.  Use the
+  compiler option e.g. <tt>-package base</tt> to access them.
+
+<li>
+  The NHC.IOExtras library, containing IORefs, IOArrays, trace,
+  unsafePerformIO, etc.
+
+<li>
+  Andy Gill's Observe.lhs library, used for HOOD debugging.
+
+<li>
+  A <em>Binary</em> data representation library.
+  In summary, this library
+  module provides bit-stream operations and a new Binary class for which
+  the compiler fully supports "deriving" clauses.
+  Fuller details can be found in [1] and in
+  <a href="libs/Binary.html">this documentation</a>.
+
+</ul>
+
+
+<h4>References</h4>
+<p>
+[1] The Bits Between The Lambdas - Binary Data in a Lazy Functional Language,
+    Malcolm Wallace and Colin Runciman, Proceedings of the International
+    Symposium on Memory Management, Vancouver, Oct 1998.
+    [<a href="ftp://ftp.cs.york.ac.uk/pub/malcolm/ismm98.html">FTP site</a>]
+
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.haskell.org/nhc98/">
+<tt>http://www.haskell.org/nhc98/</tt></a>
+
+<p>
+23rd November 2007<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+
+</td></tr></table>
+</body></html>
+

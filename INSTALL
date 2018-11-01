@@ -1,0 +1,29 @@
+The short version is:
+
+  $ ./configure   [ --prefix=/my/installation ]
+  $ make
+  $ make install
+
+which provides you with the basic and tracing versions of the
+nhc98 compiler in /usr/local, [or in /my/installation if you used
+the --prefix= option].  If you want slightly more control, try
+
+  $ make help
+
+which will give you a list of other build targets.  The 'default'
+target gives you the standard compiler/libraries ('basic') plus the
+tracing variant and browsing tools ('tracer').  'make all' gives you,
+in addition,  heap profiling and time profiling variants.
+
+**********************************************************************
+**** Full details of the install process are in docs/install.html ****
+**********************************************************************
+
+System requirements:
+
+The build requires GNU make and a C compiler (usually gcc) with a 32-bit
+compatibility mode, together with the usual tools of the UNIX
+environment, such as sh, ar, sed, etc.  A java compiler is required to
+build the debugging browser 'hood'.  (If you don't have java, don't
+worry - the build will stop with an error, but everything else you need
+has already been built.)

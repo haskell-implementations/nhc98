@@ -1,0 +1,52 @@
+This test suite for nhc98 is far from comprehensive, and is nowhere
+near as clever as ghc's suite.  But it is better than nothing.
+
+Running tests
+-------------
+Use the provided script:
+
+    ./runtests clean >/dev/null		# clean up after a previous run
+    ./runtests >test.log 2>test.err	# run all the tests
+
+Stderr will contain a line for each failing test, telling you whether
+it failed at runtime or compile time.  The most useful information is the
+summary of numbers passing/failing (see below).
+
+Stdout will contain a log of the complete test run, showing the
+compilation commands executed by hmake, and diffs between expected
+compiletime/runtime output/errors and the actual output/errors.
+
+
+Expectations
+------------
+At the time of writing (Aug 2004), there are 134 test cases.
+Unfortunately, we don't have a very good way to distinguishing which
+cases are intended to fail and which are intended to succeed.  But
+the usual kind of result is something like this:
+
+111 built ok      / 23 builds failed
+                  / of which 23 known / 0 bad
+110 outputs match / 1 outputs differ
+110 errors  match / 1 errors  differ
+
+The best numbers for comparison are basically those on the right.
+We expect 23 build failures (23 known/0 bad), 1 output differing
+from expected, 1 error differing from expected.
+
+If nhc98 is built with hbc, then we get 24 build failures (1 bad).
+
+
+To add new tests
+----------------
+Each test occupies a separate directory containing (at least) a file
+called Main.hs.  This allows multiple-module tests to be created
+easily.  Choose a directory name that conveys something about what
+the test should accomplish, e.g. conformance98/layout/rightbrace.
+
+Aside from the Haskell code itself, you should provide a sample stdin,
+with corresponding stdout and stderr, in the files named *.stdin,
+*.stdout, *.stderr.  (You may omit any of these if they would only
+be empty.  Usually, the files are named in accordance with the
+testcase, e.g. rightbrace.stdin.)  If the build is expected to fail,
+you should provide a *.hmakerr file for comparison.
+

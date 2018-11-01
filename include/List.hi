@@ -1,0 +1,353 @@
+interface List where {
+infixl  9 Prelude.!!;
+infix   4 `Prelude.notElem`;
+infix   4 `Prelude.elem`;
+infixr  5 Prelude.++;
+infix   5 \\;
+infixr  5 Prelude.:;
+
+interface ! Prelude
+{-# NEED any #-}
+any{-# 1 #-}::((a -> Prelude.Bool) -> ([a] -> Prelude.Bool));
+
+{-# NEED (!!) #-}
+(!!){-# 2 #-}::([a] -> (Prelude.Int -> a));
+
+{-# NEED last #-}
+last{-# 1 #-}::([a] -> a);
+
+{-# NEED init #-}
+init{-# 1 #-}::([a] -> [a]);
+
+{-# NEED product #-}
+product{-# 0 #-}::(Prelude.Num a) => ([a] -> a);
+
+{-# NEED repeat #-}
+repeat{-# 1 #-}::(a -> [a]);
+
+{-# NEED concat #-}
+concat{-# 0 #-}::([[a]] -> [a]);
+
+{-# NEED splitAt #-}
+splitAt{-# 2 #-}::(Prelude.Int -> ([a] -> ([a],[a])));
+
+{-# NEED unlines #-}
+unlines{-# 0 #-}::([Prelude.String] -> Prelude.String);
+
+{-# NEED lines #-}
+lines{-# 1 #-}::(Prelude.String -> [Prelude.String]);
+
+{-# NEED unwords #-}
+unwords{-# 1 #-}::([Prelude.String] -> Prelude.String);
+
+{-# NEED words #-}
+words{-# 1 #-}::(Prelude.String -> [Prelude.String]);
+
+{-# NEED scanr #-}
+scanr{-# 3 #-}::((a -> (b -> b)) -> (b -> ([a] -> [b])));
+
+{-# NEED filter #-}
+filter{-# 2 #-}::((a -> Prelude.Bool) -> ([a] -> [a]));
+
+{-# NEED foldr #-}
+foldr{-# 3 #-}::((a -> (b -> b)) -> (b -> ([a] -> b)));
+
+{-# NEED or #-}
+or{-# 0 #-}::([Prelude.Bool] -> Prelude.Bool);
+
+{-# NEED lookup #-}
+lookup{-# 2 #-}::(Prelude.Eq a) => (a -> ([(a,b)] -> (Prelude.Maybe b)));
+
+{-# NEED drop #-}
+drop{-# 2 #-}::(Prelude.Int -> ([a] -> [a]));
+
+{-# NEED unzip #-}
+unzip{-# 0 #-}::([(a,b)] -> ([a],[b]));
+
+{-# NEED zip #-}
+zip{-# 0 #-}::([a] -> ([b] -> [(a,b)]));
+
+{-# NEED concatMap #-}
+concatMap{-# 1 #-}::((a -> [b]) -> ([a] -> [b]));
+
+{-# NEED map #-}
+map{-# 2 #-}::((a -> b) -> ([a] -> [b]));
+
+{-# NEED span #-}
+span{-# 2 #-}::((a -> Prelude.Bool) -> ([a] -> ([a],[a])));
+
+{-# NEED maximum #-}
+maximum{-# 1 #-}::(Prelude.Ord a) => ([a] -> a);
+
+{-# NEED minimum #-}
+minimum{-# 1 #-}::(Prelude.Ord a) => ([a] -> a);
+
+{-# NEED sum #-}
+sum{-# 0 #-}::(Prelude.Num a) => ([a] -> a);
+
+{-# NEED notElem #-}
+notElem{-# 1 #-}::(Prelude.Eq a) => (a -> ([a] -> Prelude.Bool));
+
+{-# NEED elem #-}
+elem{-# 1 #-}::(Prelude.Eq a) => (a -> ([a] -> Prelude.Bool));
+
+{-# NEED scanl #-}
+scanl{-# 3 #-}::((a -> (b -> a)) -> (a -> ([b] -> [a])));
+
+{-# NEED null #-}
+null{-# 1 #-}::([a] -> Prelude.Bool);
+
+{-# NEED all #-}
+all{-# 1 #-}::((a -> Prelude.Bool) -> ([a] -> Prelude.Bool));
+
+{-# NEED tail #-}
+tail{-# 1 #-}::([a] -> [a]);
+
+{-# NEED foldl #-}
+foldl{-# 3 #-}::((a -> (b -> a)) -> (a -> ([b] -> a)));
+
+{-# NEED break #-}
+break{-# 1 #-}::((a -> Prelude.Bool) -> ([a] -> ([a],[a])));
+
+{-# NEED zipWith #-}
+zipWith{-# 3 #-}::((a -> (b -> c)) -> ([a] -> ([b] -> [c])));
+
+{-# NEED length #-}
+length{-# 1 #-}::([a] -> Prelude.Int);
+
+{-# NEED iterate #-}
+iterate{-# 2 #-}::((a -> a) -> (a -> [a]));
+
+{-# NEED replicate #-}
+replicate{-# 2 #-}::(Prelude.Int -> (a -> [a]));
+
+{-# NEED reverse #-}
+reverse{-# 0 #-}::([a] -> [a]);
+
+{-# NEED dropWhile #-}
+dropWhile{-# 2 #-}::((a -> Prelude.Bool) -> ([a] -> [a]));
+
+{-# NEED takeWhile #-}
+takeWhile{-# 2 #-}::((a -> Prelude.Bool) -> ([a] -> [a]));
+
+{-# NEED cycle #-}
+cycle{-# 1 #-}::([a] -> [a]);
+
+{-# NEED take #-}
+take{-# 2 #-}::(Prelude.Int -> ([a] -> [a]));
+
+{-# NEED (++) #-}
+(++){-# 2 #-}::([a] -> ([a] -> [a]));
+
+{-# NEED and #-}
+and{-# 0 #-}::([Prelude.Bool] -> Prelude.Bool);
+
+{-# NEED head #-}
+head{-# 1 #-}::([a] -> a);
+
+{-# NEED unzip3 #-}
+unzip3{-# 0 #-}::([(a,b,c)] -> ([a],[b],[c]));
+
+{-# NEED zip3 #-}
+zip3{-# 0 #-}::([a] -> ([b] -> ([c] -> [(a,b,c)])));
+
+{-# NEED zipWith3 #-}
+zipWith3{-# 4 #-}::((a -> (b -> (c -> d))) -> ([a] -> ([b] -> ([c] -> [d]))));
+
+{-# NEED scanr1 #-}
+scanr1{-# 2 #-}::((a -> (a -> a)) -> ([a] -> [a]));
+
+{-# NEED foldr1 #-}
+foldr1{-# 2 #-}::((a -> (a -> a)) -> ([a] -> a));
+
+{-# NEED scanl1 #-}
+scanl1{-# 2 #-}::((a -> (a -> a)) -> ([a] -> [a]));
+
+{-# NEED foldl1 #-}
+foldl1{-# 2 #-}::((a -> (a -> a)) -> ([a] -> a));
+interface ! List
+{-# NEED elemIndexBy #-}
+elemIndexBy{-# 3 #-}::((a -> (a -> Prelude.Bool)) -> ([a] -> (a -> Prelude.Int)));
+
+{-# NEED sortBy #-}
+sortBy{-# 1 #-}::((a -> (a -> Prelude.Ordering)) -> ([a] -> [a]));
+
+{-# NEED insertBy #-}
+insertBy{-# 3 #-}::((a -> (a -> Prelude.Ordering)) -> (a -> ([a] -> [a])));
+
+{-# NEED intersectBy #-}
+intersectBy{-# 3 #-}::((a -> (a -> Prelude.Bool)) -> ([a] -> ([a] -> [a])));
+
+{-# NEED deleteFirstsBy #-}
+deleteFirstsBy{-# 1 #-}::((a -> (a -> Prelude.Bool)) -> ([a] -> ([a] -> [a])));
+
+{-# NEED groupBy #-}
+groupBy{-# 2 #-}::((a -> (a -> Prelude.Bool)) -> ([a] -> [[a]]));
+
+{-# NEED lookupBy #-}
+lookupBy{-# 3 #-}::((a -> (a -> Prelude.Bool)) -> (a -> ([(a,b)] -> (Prelude.Maybe b))));
+
+{-# NEED unionBy #-}
+unionBy{-# 3 #-}::((a -> (a -> Prelude.Bool)) -> ([a] -> ([a] -> [a])));
+
+{-# NEED maximumBy #-}
+maximumBy{-# 2 #-}::((a -> (a -> Prelude.Ordering)) -> ([a] -> a));
+
+{-# NEED minimumBy #-}
+minimumBy{-# 2 #-}::((a -> (a -> Prelude.Ordering)) -> ([a] -> a));
+
+{-# NEED notElemBy #-}
+notElemBy{-# 3 #-}::((a -> (a -> Prelude.Bool)) -> (a -> ([a] -> Prelude.Bool)));
+
+{-# NEED elemBy #-}
+elemBy{-# 3 #-}::((a -> (a -> Prelude.Bool)) -> (a -> ([a] -> Prelude.Bool)));
+
+{-# NEED deleteBy #-}
+deleteBy{-# 3 #-}::((a -> (a -> Prelude.Bool)) -> (a -> ([a] -> [a])));
+
+{-# NEED nubBy #-}
+nubBy{-# 2 #-}::((a -> (a -> Prelude.Bool)) -> ([a] -> [a]));
+
+{-# NEED elemIndex #-}
+elemIndex{-# 1 #-}::(Prelude.Eq a) => (a -> ([a] -> (Prelude.Maybe Prelude.Int)));
+
+{-# NEED findIndex #-}
+findIndex{-# 1 #-}::((a -> Prelude.Bool) -> ([a] -> (Prelude.Maybe Prelude.Int)));
+
+{-# NEED genericIndex #-}
+genericIndex{-# 2 #-}::(Prelude.Integral b) => ([a] -> (b -> a));
+
+{-# NEED sort #-}
+sort{-# 0 #-}::(Prelude.Ord a) => ([a] -> [a]);
+
+{-# NEED insert #-}
+insert{-# 0 #-}::(Prelude.Ord a) => (a -> ([a] -> [a]));
+
+{-# NEED intersect #-}
+intersect{-# 0 #-}::(Prelude.Eq a) => ([a] -> ([a] -> [a]));
+
+{-# NEED genericSplitAt #-}
+genericSplitAt{-# 2 #-}::(Prelude.Integral a) => (a -> ([b] -> ([b],[b])));
+
+{-# NEED deleteFirsts #-}
+deleteFirsts{-# 0 #-}::(Prelude.Eq a) => ([a] -> ([a] -> [a]));
+
+{-# NEED inits #-}
+inits{-# 1 #-}::([a] -> [[a]]);
+
+{-# NEED products #-}
+products{-# 0 #-}::(Prelude.Num a) => ([a] -> [a]);
+
+{-# NEED permutations #-}
+permutations{-# 1 #-}::([a] -> [[a]]);
+
+{-# NEED sums #-}
+sums{-# 0 #-}::(Prelude.Num a) => ([a] -> [a]);
+
+{-# NEED tails #-}
+tails{-# 1 #-}::([a] -> [[a]]);
+
+{-# NEED subsequences #-}
+subsequences{-# 1 #-}::([a] -> [[a]]);
+
+{-# NEED elemIndices #-}
+elemIndices{-# 1 #-}::(Prelude.Eq a) => (a -> ([a] -> [Prelude.Int]));
+
+{-# NEED findIndices #-}
+findIndices{-# 2 #-}::((a -> Prelude.Bool) -> ([a] -> [Prelude.Int]));
+
+{-# NEED unfoldr #-}
+unfoldr{-# 2 #-}::((a -> (Prelude.Maybe (b,a))) -> (a -> [b]));
+
+{-# NEED group #-}
+group{-# 0 #-}::(Prelude.Eq a) => ([a] -> [[a]]);
+
+{-# NEED genericDrop #-}
+genericDrop{-# 2 #-}::(Prelude.Integral a) => (a -> ([b] -> [b]));
+
+{-# NEED partition #-}
+partition{-# 2 #-}::((a -> Prelude.Bool) -> ([a] -> ([a],[a])));
+
+{-# NEED union #-}
+union{-# 0 #-}::(Prelude.Eq a) => ([a] -> ([a] -> [a]));
+
+{-# NEED genericLength #-}
+genericLength{-# 1 #-}::(Prelude.Integral b) => ([a] -> b);
+
+{-# NEED isSuffixOf #-}
+isSuffixOf{-# 2 #-}::(Prelude.Eq a) => ([a] -> ([a] -> Prelude.Bool));
+
+{-# NEED isPrefixOf #-}
+isPrefixOf{-# 2 #-}::(Prelude.Eq a) => ([a] -> ([a] -> Prelude.Bool));
+
+{-# NEED delete #-}
+delete{-# 0 #-}::(Prelude.Eq a) => (a -> ([a] -> [a]));
+
+{-# NEED genericReplicate #-}
+genericReplicate{-# 2 #-}::(Prelude.Integral a) => (a -> (b -> [b]));
+
+{-# NEED intersperse #-}
+intersperse{-# 2 #-}::(a -> ([a] -> [a]));
+
+{-# NEED transpose #-}
+transpose{-# 1 #-}::([[a]] -> [[a]]);
+
+{-# NEED genericTake #-}
+genericTake{-# 2 #-}::(Prelude.Integral a) => (a -> ([b] -> [b]));
+
+{-# NEED (\\) #-}
+(\\){-# 0 #-}::(Prelude.Eq a) => ([a] -> ([a] -> [a]));
+
+{-# NEED find #-}
+find{-# 1 #-}::((a -> Prelude.Bool) -> ([a] -> (Prelude.Maybe a)));
+
+{-# NEED nub #-}
+nub{-# 0 #-}::(Prelude.Eq a) => ([a] -> [a]);
+
+{-# NEED mapAccumR #-}
+mapAccumR{-# 3 #-}::((a -> (b -> (a,c))) -> (a -> ([b] -> (a,[c]))));
+
+{-# NEED mapAccumL #-}
+mapAccumL{-# 3 #-}::((a -> (b -> (a,c))) -> (a -> ([b] -> (a,[c]))));
+
+{-# NEED unzip7 #-}
+unzip7{-# 0 #-}::([(a,b,c,d,e,f,g)] -> ([a],[b],[c],[d],[e],[f],[g]));
+
+{-# NEED zip7 #-}
+zip7{-# 0 #-}::([a] -> ([b] -> ([c] -> ([d] -> ([e] -> ([f] -> ([g] -> [(a,b,c,d,e,f,g)])))))));
+
+{-# NEED zipWith7 #-}
+zipWith7{-# 8 #-}::((a -> (b -> (c -> (d -> (e -> (f -> (g -> h))))))) -> ([a] -> ([b] -> ([c] -> ([d] -> ([e] -> ([f] -> ([g] -> [h]))))))));
+
+{-# NEED unzip6 #-}
+unzip6{-# 0 #-}::([(a,b,c,d,e,f)] -> ([a],[b],[c],[d],[e],[f]));
+
+{-# NEED zip6 #-}
+zip6{-# 0 #-}::([a] -> ([b] -> ([c] -> ([d] -> ([e] -> ([f] -> [(a,b,c,d,e,f)]))))));
+
+{-# NEED zipWith6 #-}
+zipWith6{-# 7 #-}::((a -> (b -> (c -> (d -> (e -> (f -> g)))))) -> ([a] -> ([b] -> ([c] -> ([d] -> ([e] -> ([f] -> [g])))))));
+
+{-# NEED unzip5 #-}
+unzip5{-# 0 #-}::([(a,b,c,d,e)] -> ([a],[b],[c],[d],[e]));
+
+{-# NEED zip5 #-}
+zip5{-# 0 #-}::([a] -> ([b] -> ([c] -> ([d] -> ([e] -> [(a,b,c,d,e)])))));
+
+{-# NEED zipWith5 #-}
+zipWith5{-# 6 #-}::((a -> (b -> (c -> (d -> (e -> f))))) -> ([a] -> ([b] -> ([c] -> ([d] -> ([e] -> [f]))))));
+
+{-# NEED unzip4 #-}
+unzip4{-# 0 #-}::([(a,b,c,d)] -> ([a],[b],[c],[d]));
+
+{-# NEED zip4 #-}
+zip4{-# 0 #-}::([a] -> ([b] -> ([c] -> ([d] -> [(a,b,c,d)]))));
+
+{-# NEED zipWith4 #-}
+zipWith4{-# 5 #-}::((a -> (b -> (c -> (d -> e)))) -> ([a] -> ([b] -> ([c] -> ([d] -> [e])))));
+interface ! Prelude
+{-# NEED {[] [] (:)} #-}
+data [] a
+  = [] 
+  | (:) a [a];
+}

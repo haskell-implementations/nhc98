@@ -1,0 +1,348 @@
+#!/bin/sh
+# hmake - make for Haskell programs
+# Original Author (in tcsh): Thomas Hallgren, hallgren@cs.chalmers.se
+# hacked by Niklas Röjemo, rojemo@cs.chalmers.se
+# Current Author (in sh): (c) 1998-2002 Malcolm.Wallace@cs.york.ac.uk 
+
+INSTALLVER="InstallVer"
+SCRIPTDIR=${SCRIPTDIR-ScriptDir}
+MACHINE=${MACHINE-"`$SCRIPTDIR/harch`"}
+HMAKEDIR=${HMAKEDIR-ExecutableDir}
+HMAKECONFDIR=${HMAKECONFDIR-ConfDir}
+TMP=${TMP-/tmp}
+export HMAKEDIR HMAKECONFDIR	# to find location of global hmakerc file.
+
+MKPROG=${MKPROG-$HMAKEDIR/$MACHINE/MkProg}	# the real `hmake' program
+OLDER=${OLDER-$HMAKEDIR/$MACHINE/Older}		# a helper program
+
+if [ ! -d $HMAKEDIR/$MACHINE ]
+then
+  echo "`basename $0` is not installed/configured for $MACHINE."
+  echo "  See your system administrator, or install it yourself from"
+  echo "  http://www.cs.york.ac.uk/fp/hmake/"
+  exit 1
+fi
+
+usage() {
+  echo 'Usage: hmake [compiler] [options] (module|program)* [object...]'
+  echo '       compiler     choose -ghc, -hbc, -nhc98, or -hc=comp'
+  echo '       --version    show version information and quit'
+  echo '       -q           quiet (do not echo commands)'
+  echo '       -n           noexec (echo but do not execute commands)'
+  echo '       -g           show graph of dependencies (implies noexec)'
+  echo '       -gd          show graph plus extra info (implies noexec)'
+  echo '       -M           show Makefile format dependencies'
+  echo '       -Md          show Makefile format dependencies, wrt -d option'
+  echo '       -dobjdir     use objdir for object files'
+  echo '       -hidir dir   use dir for interface files'
+  echo '       -clean       just remove all relevant .o files'
+  echo '       -realclean   just remove all relevant .o and .hi files'
+  echo '       -*           other options are passed through to the compiler'
+  echo '       module       modules (.hs, .lhs, .gc) are compiled'
+  echo '       program      programs are compiled and linked'
+  echo '       object       objects (.o, .a) are linked into a program only'
+}
+
+# Fix an absolute Cygwin path to an absolute native Windows path.
+# (Also copes with options like -I/path etc.)
+# This routine is only strictly required when the MkProg executable
+# was built with GHC/mingw32.
+if echo $MACHINE | grep -i CYGWIN >/dev/null
+then filepath() { case $1 in
+                    -?/*) dir=`echo $1 | cut -c3-`
+                          dir=`cygpath -w "$dir" | tr '\\\\' '/'`
+                          echo `echo $1 | cut-c1-2`$dir ;;
+                    /*)   cygpath -w "$1" | tr '\\\\' '/';;
+                    *)    echo "$1";;
+                  esac; }
+else filepath() { echo "$1"; }
+fi
+
+BUILTBY=
+# USINGRTS decides how run-time system options should be passed to MkProg
+# itself (***Note: NOT to the compiler called by hmake).  Possible values
+# are:   rts       enclosed between +RTS -RTS
+#        minus     first on commandline, trailed by -
+# If you compiled hmake with ghc or nhc13/98, USINGRTS should be rts.
+# If you compiled hmake with hbc or xtc,      USINGRTS should be minus.
+case $BUILTBY in
+  ghc*|nhc*) USINGRTS=rts;;
+  hbc|xtc)   USINGRTS=minus;;
+  gcc*)      USINGRTS=rts; BUILTBY=nhc98 ;;
+esac
+
+
+# Now let's get started.
+
+exec="sh -e"
+modules=""
+flags=""	# compiler + hmake flags
+hmflags=""	# hmake flags only
+hcflags=""	# compiler flags only
+ctflags=""	# protected compiler flags
+rtflags=""	# protected compiler run-time flags
+hmrtflags=""	# hmake run-time flags
+	# 'portable Hat' flags (passed to hat-trans by MkProg)
+importflags=""  # -I, -i and -P flags (directories for Haskell imports)
+bigIflags=""	# -I flags for cpp includes
+cppflags=""	# -D (and -U ?) flags for cpp
+PROF=0
+TPROF=0
+TRACE=0
+CFILES=0
+
+
+# Also assume compiler/linker flags from the environment
+#    HFLAGS, LDFLAGS
+# 'portable Hat' flags (passed to hat-trans by MkProg)
+#    HATFLAGS
+
+while [ "$1" != "" ]
+do
+  case $1 in
+    --version) echo "$0: $INSTALLVER"
+               exit 0;;
+    --help)    usage
+               exit 0;;
+
+    # Flags to hmake itself
+    -clean)        hmflags=$hmflags" $1" ;;
+    -realclean)    hmflags=$hmflags" $1" ;;
+    -keepPrelude)  hmflags=$hmflags" $1" ;;
+    -watch)        hmflags=$hmflags" $1" ;;
+    -hat)          hmflags=$hmflags" $1" ;;
+    -n)  hmflags=$hmflags" -q"; exec="cat" ;;
+    -q)  hmflags=$hmflags" $1" ;;
+    -N*) hmflags=$hmflags" $1" ;;
+    -g)  hmflags=$hmflags" $1"; exec=cat ;;
+    -gd) hmflags=$hmflags" $1"; exec=cat ;;
+    -M*) hmflags=$hmflags" $1"; exec=cat ;;
+    -f)  shift; configfile=$1; hmflags=$hmflags" -f`filepath $1`" ;;
+    -d)  shift; objdir=$1;     hmflags=$hmflags" -d`filepath $1`" ;;
+    -d*) objdir=`echo $1 | cut -c3-`; hmflags=$hmflags" `filepath $1`" ;;
+#   -f)  shift; configfile=$1; hmflags=$hmflags" -f$1" ;;
+#   -d)  shift; objdir=$1;     hmflags=$hmflags" -d$1" ;;
+#   -d*) objdir=`echo $1 | cut -c3-`; hmflags=$hmflags" $1" ;;
+    -hbc)   COMP=hbc ;;
+    -ghc)   COMP=ghc ;;
+    -nhc98) COMP=nhc98 ;;
+    -nhc13) COMP=nhc13 ;;
+    -HC=*)  COMP=`echo $1 | cut -c5-` ;;
+    -hc=*)  COMP=`echo $1 | cut -c5-` ;;
+    -HC)    shift ; COMP=$1 ;;
+    -hc)    shift ; COMP=$1 ;;
+
+    # Flag to hmake + compiler:  note potential conflict with -h for heapsize
+    -hidir) hcflags=$hcflags" $1 $2";
+            hmflags=$hmflags" -hidir=$2";
+            importflags=$importflags" -I`filepath $2`";
+            shift;;
+
+    # Run-time flags to hmake itself
+    +RTS) shift
+          while [ -n "$1" -a "$1" != "-RTS" ]
+          do hmrtflags=$hmrtflags" $1"
+             shift
+          done ;;
+
+    # Run-time flags to the compiler
+    -H*)  rtflags=$rtflags" $1" ;;	# heapsize:  ghc, hbc, nhc98
+    -h*)  rtflags=$rtflags" $1" ;;	# heapsize:            nhc98
+    -A*)  rtflags=$rtflags" $1" ;;	# stacksize:      hbc
+    -V*)  rtflags=$rtflags" $1" ;;	# stacksize:           nhc98
+    -K*)  rtflags=$rtflags" $1" ;;	# stacksize: ghc       nhc98
+    -B*)  rtflags=$rtflags" $1" ;;	# GC stats:       hbc, nhc98
+    -S*)  rtflags=$rtflags" $1" ;;	# GC stats:       hbc
+   #-gc*) rtflags=$rtflags" $1" ;;	# GC flags:       hbc?
+
+    # Protected compiler flags
+    +CTS) shift
+          while [ "$1" != "-CTS" ]
+          do ctflags=$ctflags" $1"
+             shift
+          done ;;
+
+    # Cpp + import flags - need to translate later, based on haskell compiler
+    -P*) importflags=$importflags" `filepath $1`" ;;
+    -I*) importflags=$importflags" `filepath $1`";
+           bigIflags=$bigIflags" `filepath $1`" ;;
+    -i*) importflags=$importflags" `filepath $1`" ;;
+#   -P*) importflags=$importflags" $1" ;;
+#   -I*) importflags=$importflags" $1";
+#          bigIflags=$bigIflags" $1" ;;
+#   -i*) importflags=$importflags" $1" ;;
+    -D*) cppflags=$cppflags" $1"; ;;
+  # -U*) cppflags=$cppflags" $1"; ;;
+
+    # Link flags
+    -L*) LDFLAGS=$LDFLAGS" `filepath $1`" ;;
+    -l*) LDFLAGS=$LDFLAGS" $1" ;;
+
+    # tracing and profiling flags - mainly nhc98, some hat-trans
+    -T) hcflags=$hcflags" $1";
+        hmflags=$hmflags" -hi-suffix=T.hi -o-suffix=T.o";
+        TRACE=1 ;;
+    -p) hcflags=$hcflags" $1";
+        PROF=1;
+        if [ $CFILES -eq 1 ]
+        then hmflags=$hmflags" -o-suffix=p.c";
+        else hmflags=$hmflags" -o-suffix=p.o";
+        fi ;;
+    -t|-z) hcflags=$hcflags" $1";
+           TPROF=1;
+           if [ $CFILES -eq 1 ]
+           then hmflags=$hmflags" -o-suffix=z.c";
+           else hmflags=$hmflags" -o-suffix=z.o";
+           fi ;;
+    -C) hcflags=$hcflags" $1";
+        CFILES=1;
+        if [ $PROF -eq 1 ]
+        then hmflags=$hmflags" -o-suffix=p.c";
+        elif [ $TPROF -eq 1 ]
+        then hmflags=$hmflags" -o-suffix=z.c";
+        else hmflags=$hmflags" -o-suffix=hc";
+        fi ;;
+    -trusted) HATFLAGS=$HATFLAGS" $1" ;;
+    -prelude) HATFLAGS=$HATFLAGS" $1";
+              hcflags=$hcflags" $1" ;;
+
+    # package flags - ghc or nhc98
+    -package-name) hcflags=$hcflags" $1 $2";
+                   shift ;;
+    -package|-syslib) hcflags=$hcflags" $1 $2";
+                      hmflags=$hmflags" -package=$2";
+                      shift ;;
+
+    # Any other compiler flags
+    -*) hcflags=$hcflags" $1" ;;
+
+    # Objects and archives for linking
+    *.o)   LDFLAGS=$LDFLAGS" $1" ;;
+    *.a)   LDFLAGS=$LDFLAGS" $1" ;;
+
+    # Anything else must be a module name
+    *) modules=$modules" $1" ;;
+
+  esac
+  shift
+done
+
+# Fix o-suffix when time profiling _and_ tracing
+if test $TPROF -eq 1 -a $TRACE -eq 1	# relies on src/hmake/Argv.hs
+then hmflags=$hmflags" -o-suffix=Tz.o"	# using only the last o-suffix
+fi
+
+# Throw an error if there is nothing specified to compile.
+if [ "$modules" = "" ]
+then usage; exit 1
+fi
+
+# Ensure we know the default compiler to use if none was specified, by
+# checking (in this order)
+#   (1) a specified config file,
+#   (2) the user's personal config file
+#   (3) the system-wide config file
+#
+if [ -z "$COMP" ]
+then
+  if [ -f "$configfile" ]
+  then COMP=`grep defaultCompiler $configfile | cut -d'"' -f2`
+  else
+    if [ -f $HOME/.hmakerc/$MACHINE ]
+    then COMP=`grep defaultCompiler $HOME/.hmakerc/$MACHINE |cut -d'"' -f2`
+    else
+      if [ -f $HMAKECONFDIR/$MACHINE/hmakerc ]
+      then COMP=`grep defaultCompiler $HMAKECONFDIR/$MACHINE/hmakerc |cut -d'"' -f2`
+      else COMP=$BUILTBY	# a desparate fallback position
+      fi
+    fi
+  fi
+fi
+
+# This variable should be null - do not change it.
+OD=
+# Define the characteristics of each known compiler.
+compilerstyle () {
+  COMPILERSTYLE=`basename $1 | cut -c1-3`
+  case $COMPILERSTYLE in
+    ghc|hbc|nhc) ;;
+    *) COMPILERSTYLE=`$1 2>&1 | head -n 1 | cut -c1-3`;;
+  esac
+  case $COMPILERSTYLE in
+    hbc)   RTSOPTIONSTYLE=minus
+           CTSOPTIONSTYLE=none
+           IMPORTOPTIONSTYLE=minusi
+           export LMLDIR HBCDIR
+           ;;
+    nhc)   RTSOPTIONSTYLE=rts
+           CTSOPTIONSTYLE=cts
+           IMPORTOPTIONSTYLE=minusP
+           OD="-od"
+           ;;
+    ghc)   RTSOPTIONSTYLE=none
+           CTSOPTIONSTYLE=none
+           IMPORTOPTIONSTYLE=minusi
+           ;;
+    *)     echo "No compiler style found" >&2
+           exit 1
+           ;;
+  esac
+}
+
+# Select the right compiler-specific style in which to pass various options.
+compilerstyle $COMP
+case $RTSOPTIONSTYLE in
+  rts)     if [ "$rtflags" != "" ]
+           then rtflags=" +RTS$rtflags -RTS"
+           fi ;;
+  minus)   rtflags="$rtflags -" ;;
+  none)    ;;
+esac
+case $CTSOPTIONSTYLE in
+  cts)     if [ "$ctflags" != "" ]
+           then ctflags=" +CTS$ctflags -CTS"
+           fi ;;
+esac
+case $OD in
+  -od) if [ "$objdir" != "" ]
+       then #hcflags=$hcflags" -d $objdir"
+            hmflags="$hmflags $OD"
+       fi ;;
+esac
+case $USINGRTS in
+  minus) hmrtflags="$hmrtflags -" ;;
+  rts)   hmrtflags="+RTS $hmrtflags -RTS" ;;
+esac
+	# Note: cppflags are given only to hmake, not to the compiler,
+	#       because they are only needed if cpp is called, so to
+	#       reduce screen clutter, hmake controls their addition
+case $IMPORTOPTIONSTYLE in
+  minusi) hmflags="$hmflags $cppflags $importflags"
+          hcflags="$hcflags $bigIflags `echo \"$importflags\" | sed 's/ -[PI]/ -i/g'`"
+          ;;
+  minusP) hmflags="$hmflags $cppflags $importflags"
+          hcflags="$hcflags `echo \"$importflags\" | sed 's/ -i/ -I/g'`"
+          ;;
+esac
+
+# Get ready to build...
+HFLAGS="$rtflags$ctflags$hcflags$flags $HFLAGS"
+HATFLAGS="$HATFLAGS $importflags"
+
+export HC HFLAGS OLDER LDFLAGS	# MkProg expects these variables to be set.
+export HATFLAGS			# ditto
+export MACHINE			# nhc98 script is faster if this is set.
+
+# Here we go...
+#$MKPROG $hmrtflags -hc=`filepath $COMP` $hmflags $flags $modules >$TMP/hmake$$
+$MKPROG $hmrtflags -hc=$COMP $hmflags $flags $modules >$TMP/hmake$$
+CODE=$?
+case $CODE in
+  0) cat $TMP/hmake$$ | $exec
+     CODE=$?
+     rm $TMP/hmake$$
+     exit $CODE ;;
+  *) rm $TMP/hmake$$
+     echo >&2 "Stop - hmake dependency error."
+     exit $CODE ;;
+esac

@@ -1,0 +1,2282 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<!-- This HTML file has been created by texi2html 1.51
+     from green-card.texi on 21 March 1997
+
+     **** Modified by hand by Malcolm Wallace, Nov/Dec 1997 ****
+ -->
+
+<TITLE>Green card: a foreign-language interface for Haskell</TITLE>
+</HEAD>
+<BODY bgcolor='#ffffff'>
+<table width=500><tr><td>
+
+<hr>
+<H1>Green card: a foreign-language interface for Haskell</H1>
+<ADDRESS>Thomas Nordin, Simon Peyton Jones, Alastair Reid,
+         Malcolm Wallace</ADDRESS>
+
+<p>
+<b><em>**** Note that this document describes
+GreenCard as of November 1997 - in particular, it supersedes the Haskell
+Workshop 97 paper.  There are significant syntax changes, some
+simplifications, and some new features to extend the power of DISs.
+Note also that it differs from the current Glasgow version of this
+document, which failed to adopt some of the changes we agreed here.
+****
+</em></b>
+</P>
+<P>
+<P><HR><P>
+<H1>Table of Contents</H1>
+<UL>
+<LI><A NAME="TOC1" HREF="#SEC1">1  Motivation</A>
+<UL>
+<LI><A NAME="TOC2" HREF="#SEC2">1.1  Goals and non-goals</A>
+</UL>
+<LI><A NAME="TOC3" HREF="#SEC3">2  Foreign language interfaces are harder than they look</A>
+<LI><A NAME="TOC4" HREF="#SEC4">3  Overview of GreenCard</A>
+<LI><A NAME="TOC5" HREF="#SEC5">4  GreenCard directives</A>
+<LI><A NAME="TOC6" HREF="#SEC6">5  Procedure specifications</A>
+<UL>
+<LI><A NAME="TOC7" HREF="#SEC7">5.1  Type signature</A>
+<LI><A NAME="TOC8" HREF="#SEC8">5.2  Parameter marshalling</A>
+<LI><A NAME="TOC9" HREF="#SEC9">5.3  The body</A>
+<LI><A NAME="TOC10" HREF="#SEC10">5.4  Result marshalling</A>
+<UL>
+<LI><A NAME="TOC11" HREF="#SEC11">5.4.1  Pure functions</A>
+<LI><A NAME="TOC12" HREF="#SEC12">5.4.2  Arbitrary C results</A>
+<LI><A NAME="TOC13" HREF="#SEC13">5.4.3  Side effecting functions</A>
+</UL>
+<LI><A NAME="TOC14" HREF="#SEC14">5.5  Automatic fill-in</A>
+<LI><A NAME="TOC15" HREF="#SEC15">5.6  Constants</A>
+<LI><A NAME="TOC16" HREF="#SEC16">5.7  Prefixes</A>
+<LI><A NAME="TOC16.5" HREF="#SEC16.5">5.8  Arbitrary C inclusions</A>
+</UL>
+<LI><A NAME="TOC17" HREF="#SEC17">6  Data Interface Schemes</A>
+<UL>
+<LI><A NAME="TOC18" HREF="#SEC18">6.1  Forms of DISs</A>
+<LI><A NAME="TOC19" HREF="#SEC19">6.2  DIS macros</A>
+<ul>
+<LI><A NAME="TOC20" HREF="#SEC20">6.2.0  Marshalling complex structures</A>
+</ul>
+<LI><A NAME="TOC22" HREF="#SEC22">6.3  Semantics of DISs</A>
+</UL>
+<LI><A NAME="TOC23" HREF="#SEC23">7  Standard DISs</A>
+<UL>
+<LI><A NAME="TOC24" HREF="#SEC24">7.1  GHC extensions</A>
+<LI><A NAME="TOC25" HREF="#SEC25">7.2  Maybe</A>
+</UL>
+<LI><A NAME="TOC26" HREF="#SEC26">8  Imports</A>
+<LI><A NAME="TOC27" HREF="#SEC27">9  Invoking GreenCard</A>
+<LI><A NAME="TOC28" HREF="#SEC28">10  Related Work</A>
+<LI><A NAME="TOC29" HREF="#SEC29">11  Alternative design choices and avenues for improvement</A>
+</UL>
+<P><HR><P>
+
+
+<H2><A NAME="SEC1" HREF="#TOC1">1  Motivation</A></H2>
+
+<P>
+A foreign-language interface provides a way for software components written
+in a one language to interact with components written in another.
+Programming languages that lack foreign-language interfaces
+die a lingering death. 
+
+</P>
+<P>
+This document describes GreenCard, a foreign-language interface for
+the non-strict, purely functional language Haskell.  We assume some
+knowledge of Haskell and C.
+
+</P>
+
+
+<UL>
+<LI><A HREF="#SEC2">green-card_1.1</A>: Goals and non-goals.
+
+</UL>
+
+
+
+<H3><A NAME="SEC2" HREF="#TOC2">1.1  Goals and non-goals</A></H3>
+
+<P>
+Our goals are limited. We do not set out to solve the foreign-language
+interface in general; rather we intend to profit from others' work in 
+this area.  Specifically, we aim to provide the following, in priority order:
+
+<OL>
+<LI>
+
+A convenient way to call C procedures from Haskell.
+<LI>
+
+A convenient way to write COM<A NAME="DOCF1" HREF="#FOOT1">(1)</A>
+software components in Haskell, and to
+call COM components from Haskell.
+
+</OL>
+
+<P>
+The ability to call C from Haskell is
+an essential foundation. Through it we can access operating system
+services and mountains of other software libraries.
+
+</P>
+<P>
+In the other direction, should we be able to write a Haskell library
+that a C program can use?  Yes indeed, but this paper does not
+address the question directly.  (Some implementations of GreenCard,
+e.g. for nhc98, have provided a limited mechanism to allow this.)
+
+</P>
+<P>
+Should we support languages other than C?  The trite answer is that pretty much
+everything available as a library is available as a C library.  For
+other languages the right thing to do is to interface to a
+language-independent software component architecture, rather than to a
+raft of specific languages.  For the moment we choose COM, but CORBA<A NAME="DOCF2" HREF="#FOOT2">(2)</A>
+might be another sensible choice.  (Note also that there is some
+current research focussed on using IDL to specify generalised foreign
+language interfaces for Haskell.)
+
+</P>
+<P>
+While we do not here propose a mechanism to call Haskell from C, it
+does make sense to think of writing COM software components in Haskell
+that are used by clients.  For example, one might write an animated
+component that sits in a Web page.
+
+</P>
+<P>
+This document, however, describes only /1/, the C interface mechanism.
+
+</P>
+
+
+
+<H2><A NAME="SEC3" HREF="#TOC3">2  Foreign language interfaces are harder than they look</A></H2>
+
+<P>
+Even after the scope is restricted to designing a foreign-language
+interface from Haskell to C, the task remains surprisingly tricky.  At
+first, one might think that one could take the C header file
+describing a C procedure, and generate suitable interface code to make
+the procedure callable from Haskell.
+
+</P>
+<P>
+Alas, there are numerous tiresome details that are simply not expressed
+by the C procedure prototype in the header file.  For example,
+consider calling a C procedure that opens a file, passing a character
+string as argument.  The C prototype might look like this:
+
+</P>
+
+<PRE>
+  int open( char *filename )
+</PRE>
+
+<P>
+Our goal is to generate code that implements a
+Haskell procedure with type
+
+<PRE>
+  open :: String -&#62; IO FileDescriptor
+</PRE>
+
+
+<UL>
+<LI>
+
+First there is the question of data representation. One has to
+decide either to alter the Haskell language implementation, so that its
+string representation is identical to that of C, or to translate the
+string from one representation to another at run time.   This translation
+is conventionally called <EM>marshalling</EM>.
+
+Since Haskell is lazy, the second approach is required. (In general,
+it is tremendously constraining to try to keep common representations
+between two languages.  For example, precisely how are structures laid out
+in C?)
+
+<LI>
+
+Next come questions of allocation and lifetime.  Where should we
+put the translated string?  In a static piece of storage? (But how
+large a block should we allocate?  Is it safe to re-use the same block
+on the next call?)  Or in Haskell's heap?  (But what if the called
+procedure does something that triggers garbage collection, and the
+transformed string is moved?  Can the called procedure hold on to the
+string after it returns?)  Or in C's <SAMP>`malloc'</SAMP>'d heap?  (But how will
+it get deallocated?  And <SAMP>`malloc'</SAMP> is expensive.)
+
+<LI>
+
+C procedures often accept pointer parameters (such as strings)
+that can be <SAMP>`NULL'</SAMP>.  How is that to be reflected on the host-language
+side of the interface?  For example, if the documentation for <SAMP>`open'</SAMP> told
+us that it would do something sensible when called with a <SAMP>`NULL'</SAMP> string,
+we might like the Haskell type for <SAMP>`open'</SAMP> to be
+
+<PRE>
+  open :: Maybe String -&#62; IO FileDescriptor
+</PRE>
+
+so that we can model <SAMP>`NULL'</SAMP> by  <SAMP>`Nothing'</SAMP>.
+
+LI>
+
+The desired return type, <SAMP>`FileDescriptor'</SAMP>, will presumably have
+a Haskell definition such as this:
+
+<PRE>
+  newtype FileDescriptor = FD Int
+</PRE>
+
+The file descriptor returned by <SAMP>`open'</SAMP> is just an integer, but
+Haskell programmers often use <SAMP>`newtype'</SAMP> declarations create new distinct
+types isomorphic to existing ones.
+Now the type system will prevent, say, an attempt to add one to a <SAMP>`FileDescriptor'</SAMP>.
+
+Needless to say, the Haskell result type is not going to be described
+in the C header file.
+
+<LI>
+
+The file-open procedure might fail; sometimes details of the 
+failure are stored in some global variable, <SAMP>`errno'</SAMP>.  Somehow this
+failure and the details of what went wrong must be reflected into
+Haskell's <SAMP>`IO'</SAMP> monad.
+
+<LI>
+
+The <SAMP>`open'</SAMP> procedure causes a side effect, so it is
+appropriate for its type to be in Haskell's <SAMP>`IO'</SAMP> monad.
+Some C functions really are functions
+(that is, they have no side effects), and in this case it makes sense
+to give them a "pure" Haskell type.  For example, the C function
+<SAMP>`sin'</SAMP> should appear to the Haskell programmer as a
+function with type
+
+<PRE>
+  sin :: Float -&#62; Float
+</PRE>
+
+<LI>
+
+C procedure specifications are not explicit about which parameters are
+<SAMP>`in'</SAMP> parameters, which <SAMP>`out'</SAMP> and which
+<SAMP>`in out'</SAMP>. 
+</UL>
+
+<P>
+None of these details are mentioned in the C header file.  Instead,
+many of them are in the manual page for the procedure, while others
+(such as parameter lifetimes) may not even be written down at all.
+
+</P>
+
+
+
+<H2><A NAME="SEC4" HREF="#TOC4">3  Overview of GreenCard</A></H2>
+
+<P>
+The previous section bodes ill for an automatic system that attempts
+to take C header files and automatically generate the "right"
+Haskell functions; C header files simply do not contain enough information.
+
+</P>
+<P>
+The rest of this paper describes how we approach the problem.
+The general idea is to start from the <EM>Haskell</EM> type definition
+for the foreign function, rather than the <EM>C</EM> prototype.  The
+Haskell type contains quite a bit more information; indeed, it is 
+often enough to generate correct interface code.  Sometimes, however, it
+is not, in which case we provide a way for the programmer to express more details
+of the interface.  All of this is embodied in a program called "GreenCard".
+
+</P>
+<P>
+GreenCard is a Haskell pre-processor.  It takes a Haskell module
+as input, and scans it for GreenCard directives (which are lines prefixed
+by <SAMP>`%'</SAMP>).  It produces a new Haskell module as output, and (in
+some implementations) a C module as well.
+(<A HREF="#FIG1">Figure 1</A>).
+</p>
+
+<center>
+<a name=FIG1>
+<img src=fig1.gif alt="Figure 1"></a><br>
+Figure 1: The big picture
+</center>
+
+
+<P>
+GreenCard's output depends on the particular Haskell implementation
+that is going to compile it.  For the Glasgow Haskell Compiler (GHC),
+GreenCard generates Haskell code that uses GHC's primitive
+<SAMP>`ccall'</SAMP>/<SAMP>`casm'</SAMP> construct to call C.
+All of the argument marshalling is
+done in Haskell.  For Hugs, GreenCard generates a C module to do most
+of the argument marshalling, while the generated Haskell code uses
+Hugs's <SAMP>`prim'</SAMP> construct to access the generated C stubs.
+For nhc98, GreenCard generates a C module to do part of the argument
+marshalling, although the majority of it is done in the generated
+Haskell code.
+
+</P>
+<P>
+For example, consider the following Haskell module:
+
+<PRE>
+  module M where
+
+  %fun sin :: Float -&#62; Float
+
+  sin2 :: Float -&#62; Float
+  sin2 x = sin (sin x)
+</PRE>
+
+<P>
+Everything is standard Haskell except the <SAMP>`%fun'</SAMP> line, which asks
+GreenCard to generate an interface to a (pure) C function <SAMP>`sin'</SAMP>.
+After the GHC-targeted version of GreenCard processes the file, it looks
+like this<A NAME="DOCF3" HREF="#FOOT3">(3)</A>:
+(Only GHC aficionados will understand this code.  The whole point of
+GreenCard is that Joe Programmer should not have to learn how to write
+this stuff!)
+
+</P>
+
+<PRE>
+  module M where
+        
+  sin :: Float -&#62; Float
+  sin f = unsafePerformPrimIO (
+            case f of { F# f# -&#62;
+            _casm_ "%r = sin(%0)" f#  `thenPrimIO` \ r# -&#62;
+            returnPrimIO (F# r#)})
+
+  sin2 :: Float -&#62; Float
+  sin2 x = sin (sin x)
+</PRE>
+
+<P>
+The <SAMP>`%fun'</SAMP> line has been expanded to a blob of gruesome
+boilerplate, while the rest of the module comes through unchanged.
+
+</P>
+<P>
+If Hugs is the target, the Haskell source file remains unchanged,
+but the the Hugs variant of GreenCard generates
+output that uses Hugs's primitive mechanisms for calling C.
+For the nhc98 target, GreenCard generates something different again.
+Much of the GreenCard implementation is, however, shared
+between all variants.
+
+</P>
+
+
+
+<H2><A NAME="SEC5" HREF="#TOC5">4  GreenCard directives</A></H2>
+
+<P>
+GreenCard pays attention only to GreenCard directives, each of which
+starts with a <SAMP>`%'</SAMP> at the beginning of a line.  All other lines
+are passed through to the output Haskell file unchanged.
+
+</P>
+<P>
+The syntax of GreenCard directives is given in <A HREF="#FIG2">Figure 2</A>).
+The syntax for the <em>dis</em> production is given later
+(<A HREF="#FIG3">Figure 3</A>).
+</p>
+
+<center>
+<hr>
+<a name=FIG2></a>
+<table>
+  <tr>
+    <td align=left>
+      Program
+    </td><td align=right>
+      <em>idl</em>
+    </td><td align=center>
+      -&gt;
+    </td><td align=left>
+      <em>decl_1 ... decl_n</em>
+    </td><td align=left>
+      n &gt;= 1
+    </td>
+  </tr><tr>
+    <td align=left>
+      Declaration
+    </td><td align=right>
+      <em>decl</em>
+    </td><td align=center>
+      -&gt;
+    </td><td align=left>
+      <em>proc</em>
+    </td><td align=left>
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>%const</b></tt> <em>var</em>
+          <tt><b>[</b></tt><em>const_1</em><tt><b>,</b></tt> ...
+               <tt><b>,</b></tt><em>const_n</em><tt><b>]</b></tt>
+    </td><td align=left>
+      Constants, n >= 1
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>%dis</b></tt> <em>var var_1 ... var_n</em> <tt><b>=</b></tt> <em>dis</em>
+    </td><td align=left>
+      n >= 0
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>%prefix</b></tt> <em>var</em>
+    </td><td align=left>
+      Prefix to strip from Haskell function names
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>%C</b></tt> <em>var</em>
+    </td><td align=left>
+      entire line is passed (stripped) to C
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>%-</b></tt> <em>var</em>
+    </td><td align=left>
+      entire line is passed verbatim to C
+    </td>
+  </tr><tr>
+    <td align=left>
+      Procedure
+    </td><td align=right>
+      <em>proc</em>
+    </td><td align=center>
+      -&gt;
+    </td><td align=left>
+      <em>sig [call] [ccode] [result]</em>
+    </td><td align=left>
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      Signature
+    </td><td align=right>
+      <em>sig</em>
+    </td><td align=center>
+      -&gt;
+    </td><td align=left>
+      <tt><b>%fun</b></tt> <em>var</em> <tt><b>::</b></tt> <em>type</em>
+    </td><td align=left>
+      Name and type
+    </td>
+  </tr><tr>
+    <td align=left>
+      Type
+    </td><td align=right>
+      <em>type</em>
+    </td><td align=center>
+      -&gt;
+    </td><td align=left>
+      <em>var</em>
+    </td><td align=left>
+      simple type
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <em>var type</em>
+    </td><td align=left>
+      type application
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <em>type</em> <tt><b>-&gt;</b></tt> <em>type</em>
+    </td><td align=left> 
+      function type
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>(</b></tt><em>type_1</em><tt><b>,</b></tt> ...
+            <tt><b>,</b></tt><em>type_n</em><tt><b>)</b></tt>
+    </td><td align=left> 
+      tuple types, n >= 0
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>[</b></tt><em>type</em><tt><b>]</b></tt>
+    </td><td align=left> 
+      list type
+    </td>
+  </tr><tr>
+    <td align=left>
+      Call
+    </td><td align=right>
+      <em>call</em>
+    </td><td align=center>
+      -&gt;
+    </td><td align=left>
+      <tt><b>%call</b></tt> <em>dis_1 ... dis_n</em>
+    </td><td align=left> 
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      Result
+    </td><td align=right>
+      <em>result</em>
+    </td><td align=center>
+      -&gt;
+    </td><td align=left>
+      <tt><b>%fail</b></tt> <em>cexp cexp [result]</em>
+    </td><td align=left> 
+      In I/O monad
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>%result</b></tt> <em>dis</em>
+    </td><td align=left> 
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      Constant
+    </td><td align=right>
+      <em>const</em>
+    </td><td align=center>
+      -&gt;
+    </td><td align=left>
+      <em>cv</em>
+    </td><td align=left> 
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <em>var</em> <tt><b>=</b></tt> <em>cv</em>
+    </td><td align=left> 
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      C Expression
+    </td><td align=right>
+      <em>cexp</em>
+    </td><td align=center>
+      -&gt;
+    </td><td align=left>
+      <tt><b>"</b></tt> <em>var</em> <tt><b>"</b></tt>
+    </td><td align=left> 
+      string excludes " character
+    </td>
+  </tr><tr>
+    <td align=left>
+      C Code
+    </td><td align=right>
+      <em>ccode</em>
+    </td><td align=center>
+      -&gt;
+    </td><td align=left>
+      <tt><b>%code</b></tt> <em>var</em>
+    </td><td align=left> 
+      
+    </td>
+  </tr>
+</table>
+<br>
+Figure 2: Grammar for GreenCard
+<hr>
+</center>
+ 
+
+<P>
+A general principle we have followed is to define a single, explicit
+(and hence long-winded) general mechanism, that should deal with just
+about anything, and then define convenient abbreviations that save the
+programmer from writing out the general mechanism in many common
+cases.  We have erred on the conservative side in defining such
+abbreviations; that is, we have only defined an abbreviation where
+doing without it seemed unreasonably long-winded, and where there
+seemed to be a systematic way of defining an abbreviation.
+</p>
+
+<p>
+GreenCard understands the following directives:
+
+<UL>
+<LI>
+
+<SAMP>`%fun'</SAMP> begins a <EM>procedure specification</EM>, which describes
+the interface to a single C procedure (Section  <A HREF="#SEC6">5  Procedure specifications</A>).
+
+<LI>
+
+<SAMP>`%dis'</SAMP> allows the programmer to describe a new
+<EM>Data Interface Scheme</EM> (DIS).  A DIS describes how to translate,
+or marshall, data from Haskell to C and back again
+(Section  <A HREF="#SEC17">6  Data Interface Schemes</A>).
+
+<LI>
+
+<SAMP>`%const'</SAMP> makes it easy to generate a collection of new Haskell
+constants derived from C constants.  This can be done with
+<SAMP>`%fun'</SAMP>, but <SAMP>`%const'</SAMP> is much more concise
+(Section  <A HREF="#SEC15">5.6  Constants</A>).
+
+<LI>
+
+<SAMP>`%prefix'</SAMP> makes it easy to remove standard prefixes from
+the Haskell
+function name, those are usually not needed since Haskell allows qualified 
+imports (Section  <A HREF="#SEC16">5.7  Prefixes</A>).
+
+<LI>
+
+<SAMP>`%C'</SAMP> allows one to write fragments of C code which sit
+<em>outside</em> any procedure specifications.  (We shall see later 
+how to include fragments of C code <em>within</em> procedures.)  The
+entire line of text following this directive is simply copied verbatim
+to the generated C module.
+</UL>
+
+<p>
+Following a GreenCard directive, subsequent leading or trailing
+whitespace is in general ignored or trimmed.  This applies even to the
+<samp>`%C'</samp> directive.  Because there are occasions when
+it can be desirable to preserve whitespace in the C code, some
+implementations of GreenCard (currently only for <b>nhc98</b>)
+allow a special form <samp>`%-'</samp> which is exactly like
+<samp>`%C'</samp> except that it preserves all whitespace.
+</P>
+
+<P>
+All directives (except <samp>`%C'</samp> and <samp>`%-'</samp>)
+can span more than one line, but the continuation lines
+must each start with a <SAMP>`%'</SAMP> followed by some whitespace.
+Haskell-style comments are permitted in GreenCard directives
+(except, for obvious reasons, <samp>`%C'</samp> and <samp>`%-'</samp>).
+For example:
+</P>
+
+<PRE>
+  %fun draw :: Int              -- Length in pixels
+  %         -&#62; Maybe Int        -- Width in pixels
+  %         -&#62; IO ()
+</PRE>
+
+<p>
+In later sections, we shall encounter the specification of
+short fragments of literal C code (and indeed, literal Haskell code)
+deep within a GreenCard directive.  On such occasions, the 
+literal C code is enclosed within double-quote marks (and the literal
+Haskell code is also denoted syntactically).  However, within these
+fragments one sometimes wishes to make use of the <em>value</em> of a
+name bound by a GreenCard <em>DIS</em> macro, rather than the
+name itself.  Hence, a name used within double-quotes can be
+<em>escaped</em> by prefixing it with the <samp>`%'</samp> character.
+When the literal code is generated, these escaped names will be
+replaced by the value bound to that name in the current environment.
+See <a href="#SEC25">Section 7.2</a> for examples.
+
+
+<H2><A NAME="SEC6" HREF="#TOC6">5  Procedure specifications</A></H2>
+
+<P>
+The most common GreenCard directive is a procedure specification.
+It describes the interface to a C procedure.
+A procedure specification has four parts:
+<DL COMPACT>
+
+<DT>Type signature: <SAMP>`%fun'</SAMP>
+<DD>
+(Section  <A HREF="#SEC7">5.1  Type signature</A>).
+The <SAMP>`%fun'</SAMP> statement starts a new
+procedure specification, giving
+the name and Haskell type of the function.
+
+<DT>Parameter marshalling: <SAMP>`%call'</SAMP>
+<DD>
+(Section  <A HREF="#SEC8">5.2  Parameter marshalling</A>).
+The <SAMP>`%call'</SAMP> statement
+tells GreenCard how to translate the Haskell parameters into their
+C representations.
+
+<DT>The body: <SAMP>`%code'</SAMP>
+<DD>
+(Section  <A HREF="#SEC9">5.3  The body</A>).
+The <SAMP>`%code'</SAMP> statement gives the body and it can contain arbitrary C
+code. Sometimes
+the body consists of a simple procedure call, but it may
+also include variable declarations, multiple calls, loops, and so on.
+
+<DT>Result marshalling: <SAMP>`%result'</SAMP>, <SAMP>`%fail'</SAMP>
+<DD>
+(Section  <A HREF="#SEC10">5.4  Result marshalling</A>).
+The result-marshalling statements tell GreenCard how to translate the
+result(s) of the call back into Haskell values.
+</DL>
+<P>
+Any of these parts may be omitted except the type signature.  If any
+part is missing, GreenCard will fill in a suitable statement based on
+the type signature given in the <SAMP>`%fun'</SAMP> statement.  For example,
+consider this procedure specification:
+
+<PRE>
+  %fun sin :: Float -&#62; Float
+</PRE>
+
+<P>
+GreenCard fills in the missing statements like this<A NAME="DOCF4" HREF="#FOOT4">(4)</A>:
+
+<PRE>
+  %fun sin :: Float -&#62; Float
+  %call (float arg1)
+  %code res1 = sin(arg1);
+  %result (float res1)
+</PRE>
+
+<P>
+The rules that guide this automatic fill-in are described in Section  <A HREF="#SEC14">5.5  Automatic fill-in</A>.
+
+</P>
+<P>
+A procedure specification can define a procedure with no
+input parameter, or even a constant (a "procedure" with no
+input parameters and no side effects).   In the following example, <SAMP>`printBang'</SAMP>
+is an example of the former, while <SAMP>`grey'</SAMP> is an example of the latter<A NAME="DOCF5" HREF="#FOOT5">(5)</A>:
+
+<PRE>
+  %fun printBang :: IO ()
+  %code printf( "!" );
+
+  %fun grey :: Colour
+  %code r = GREY;
+  %result (colour r)
+</PRE>
+
+<P>
+All the C variables bound in the <SAMP>`%call'</SAMP> statement or mentioned in the <SAMP>`%result'</SAMP>
+statement, are declared by GreenCard and in scope throughout the body. In the
+examples above, GreenCard would have declared <SAMP>`arg1'</SAMP>,
+<SAMP>`res1'</SAMP> and <SAMP>`r'</SAMP>.
+
+</P>
+
+
+<UL>
+<LI><A HREF="#SEC7">green-card_5.1</A>: Type signature.
+<LI><A HREF="#SEC8">green-card_5.2</A>: Parameter marshalling.
+<LI><A HREF="#SEC9">green-card_5.3</A>: The body.
+<LI><A HREF="#SEC10">green-card_5.4</A>: Result marshalling.
+<LI><A HREF="#SEC14">green-card_5.5</A>: Automatic fill-in.
+<LI><A HREF="#SEC15">green-card_5.6</A>: Constants.
+<LI><A HREF="#SEC16">green-card_5.7</A>: Prefixes.
+
+</UL>
+
+
+
+<H3><A NAME="SEC7" HREF="#TOC7">5.1  Type signature</A></H3>
+
+<P>
+The <SAMP>`%fun'</SAMP> statement starts a new
+procedure specification.
+
+</P>
+<P>
+GreenCard supports two sorts of C procedures: ones that may cause
+side effects (including I/O), and ones that are guaranteed to be pure
+functions.  The two are distinguished by their type signatures.
+Side-effecting functions have the result type <SAMP>`IO t'</SAMP> for some type
+<SAMP>`t'</SAMP>.  If the programmer specifies
+any result type other than <SAMP>`IO t'</SAMP>,
+GreenCard takes this as a promise that the C function is indeed pure,
+and will generate code that assumes such.
+
+</P>
+<P>
+The procedure specification will expand to the definition of
+a Haskell function, whose name is that given in the
+<SAMP>`%fun'</SAMP> statement, with two changes: the longest matching
+prefix specified with a <SAMP>`%prefix'</SAMP>
+(Section  <A HREF="#SEC16">5.7  Prefixes</A> elaborates) statement is
+removed from the name and the first letter of the remaining
+function name is changed
+to lower case.  Haskell requires all function names to start
+with a lower-case letter (upper case would indicate a data constructor),
+but when the C procedure name begins with an upper case letter it is
+convenient to still be able to make use of GreenCard's automatic fill-in
+facilities.  For example:
+
+<PRE>
+  %fun OpenWindow :: Int -&#62; IO Window
+</PRE>
+
+<P>
+would expand to a Haskell function <SAMP>`openWindow'</SAMP>
+that is implemented by
+calling the C procedure <SAMP>`OpenWindow'</SAMP>.
+
+<PRE>
+  %prefix Win32
+  %fun Win32OpenWindow :: Int -&#62; IO Window
+</PRE>
+
+<P>
+would expand to a Haskell function <SAMP>`openWindow'</SAMP>
+that is implemented by
+calling the C procedure <SAMP>`Win32OpenWindow'</SAMP>.
+
+</P>
+
+
+
+<H3><A NAME="SEC8" HREF="#TOC8">5.2  Parameter marshalling</A></H3>
+
+<P>
+The <SAMP>`%call'</SAMP> statement tells GreenCard how to translate the
+Haskell parameters into C values.  Its syntax is designed to look rather
+like Haskell pattern matching, and consists of a sequence of
+zero or more Data Interface Schemes (DISs), one for each
+(curried) argument in the type signature.  For example:
+
+<PRE>
+  %fun foo :: Float -&#62; (Int,Int) -&#62; String -&#62; IO ()
+  %call (float x) (int y, int z) (string s)
+  ...
+</PRE>
+
+<P>
+This <SAMP>`%call'</SAMP> statement binds the C variables
+<SAMP>`x'</SAMP>, <SAMP>`y'</SAMP>, <SAMP>`z'</SAMP>, and <SAMP>`s'</SAMP>,
+in a similar way that Haskell's pattern-matching binds variables to
+(parts of) a function's arguments.
+These bindings are in scope throughout the body and result-marshalling
+statements.
+
+</P>
+<P>
+In the <SAMP>`%call'</SAMP> statement, <SAMP>`float'</SAMP>,
+<SAMP>`int'</SAMP>, and <SAMP>`string'</SAMP> are
+the names of the DISs that are used to translate between Haskell and
+C.  The names of these DISs are deliberately chosen to be the same as
+the corresponding Haskell types (apart from changing the initial
+letter to lower case) so that in many cases, including
+<SAMP>`foo'</SAMP> above,
+GreenCard can generate the <SAMP>`%call'</SAMP> line by itself
+(Section  <A HREF="#SEC14">5.5  Automatic fill-in</A>).
+In fact there is
+a fourth DIS hiding in this example, the <SAMP>`(_,_)'</SAMP> pairing
+DIS.  DISs are discussed in detail in
+Section  <A HREF="#SEC17">6  Data Interface Schemes</A>.
+
+</P>
+
+
+
+<H3><A NAME="SEC9" HREF="#TOC9">5.3  The body</A></H3>
+
+<P>
+The body consists of arbitrary C code, beginning with <SAMP>`%code'</SAMP>.  
+The reason for allowing arbitrary C is that C procedures sometimes have
+complicated interfaces.  They may return results through parameters
+passed by address, deposit error codes in global variables, require
+<SAMP>`#include'</SAMP>'d constants to be passed as parameters, and so on.
+The body of a GreenCard procedure specification allows the programmer to
+say exactly how to call the procedure, in its native language.
+
+</P>
+<P>
+The C code starts a block, and may thus start with declarations that
+create local variables. For example:
+
+<PRE>
+  %code int x, y;
+  %     x = foo( &#38;y, GREY );
+</PRE>
+
+<P>
+Here, <SAMP>`x'</SAMP> and <SAMP>`y'</SAMP> are declared as local
+variables. The local C
+variables declared at the start of the block scope over the rest of the
+body <EM>and</EM> the result-marshalling statements.
+
+</P>
+<P>
+(The C code may also mention values from included C header files, such as
+<SAMP>`GREY'</SAMP> above, or use global variables or structures declared
+earlier by GreenCard <SAMP>`%C'</SAMP> (or <samp>`%-'</samp>) directives.
+
+</P>
+
+
+
+<H3><A NAME="SEC10" HREF="#TOC10">5.4  Result marshalling</A></H3>
+
+<P>
+Functions return their results using a <SAMP>`%result'</SAMP> statement. 
+Side-effecting functions  --  ones whose result type is <SAMP>`IO t'</SAMP>  --  
+can also use <SAMP>`%fail'</SAMP> to specify the failure value.
+
+</P>
+
+
+<UL>
+<LI><A HREF="#SEC11">green-card_5.4.1</A>: Pure functions.
+<LI><A HREF="#SEC12">green-card_5.4.2</A>: Arbitrary C results.
+<LI><A HREF="#SEC13">green-card_5.4.3</A>: Side effecting functions.
+
+</UL>
+
+
+
+<H4><A NAME="SEC11" HREF="#TOC11">5.4.1  Pure functions</A></H4>
+
+<P>
+The <SAMP>`%result'</SAMP> statement takes a single DIS that describes how to translate
+one or more C values back into a single Haskell value.  For example:
+
+<PRE>
+  %fun sin :: Float -&#62; Float
+  %call (float x)
+  %code ans = sin(x);
+  %result (float ans)
+</PRE>
+
+<P>
+As in the case of the <SAMP>`%call'</SAMP> statement, the <SAMP>`float'</SAMP>
+in the <SAMP>`%result'</SAMP>
+statement is the name of a DIS, chosen as before to coincide with the
+name of the type.  A single DIS, <SAMP>`float'</SAMP>, is used to denote 
+both the translation
+from Haskell to C and that from C to Haskell, just as a data constructor
+can be used both to construct a value and to take one apart (in pattern matching).
+
+</P>
+<P>
+All the C variables bound in the <SAMP>`%call'</SAMP> statement, the
+<samp>`%result'</samp> statement, and all those 
+bound in declarations at the start of the body, scope over all
+the result-marshalling statements (i.e. <SAMP>`%result'</SAMP> and <SAMP>`%fail'</SAMP>).
+
+</P>
+
+
+
+<H4><A NAME="SEC12" HREF="#TOC12">5.4.2  Arbitrary C results</A></H4>
+
+<P>
+In a result-marshalling statement an almost arbitrary C expression, enclosed in 
+double quotes, can be used in place of a C variable name.  The above
+example could be 
+written more briefly
+like this<A NAME="DOCF6" HREF="#FOOT6">(6)</A>:
+</P>
+
+<PRE>
+  %fun sin :: Float -&#62; Float
+  %call (float x)
+  %result (float "sin(x)")
+</PRE>
+
+
+
+
+<H4><A NAME="SEC13" HREF="#TOC13">5.4.3  Side effecting functions</A></H4>
+
+<P>
+A side effecting function returns a result of type <SAMP>`IO t'</SAMP> for some type
+<SAMP>`t'</SAMP>.  The <SAMP>`IO'</SAMP> monad supports exceptions, so
+GreenCard allows them to be raised.
+
+</P>
+<P>
+The result-marshalling statements for a side-effecting call consists
+of zero or more <SAMP>`%fail'</SAMP> statements, each of which conditionally raise
+an exception in the <SAMP>`IO'</SAMP> monad, followed by a single <SAMP>`%result'</SAMP>
+statement that returns successfully in the <SAMP>`IO'</SAMP> monad.
+ 
+Just as in Section  <A HREF="#SEC10">5.4  Result marshalling</A>, the <SAMP>`%result'</SAMP> statement gives 
+a single DIS that describes how to construct
+the result Haskell value, following successful completion of a side-effecting 
+operation.  For example:
+
+<PRE>
+  %fun windowSize :: Window -&#62; IO (Int,Int)
+  %call (window w)
+  %code struct WindowInfo wi;
+  %     GetWindowInfo( w, &#38;wi );
+  %result (int "wi.x", int "wi.y")
+</PRE>
+
+<P>
+Here, a pairing DIS is used, with two <SAMP>`int'</SAMP> DISs inside it.  The
+arguments to the <SAMP>`int'</SAMP> DISs are C record selections, enclosed in
+double quotes; they extract the relevant information from the
+<SAMP>`WindowInfo'</SAMP> structure that was filled in by the <SAMP>`GetWindowInfo'</SAMP>
+call<A NAME="DOCF7" HREF="#FOOT7">(7)</A>.
+
+</P>
+<P>
+The <SAMP>`%fail'</SAMP> statement has two fields, each of which is either a C
+variable or a C expression, enclosed in double quotes.  The first field is a
+boolean-valued expression that indicates when the call should fail;
+the second is a <SAMP>`(char *)'</SAMP>-value that indicates what sort of failure
+occurred.  If the boolean is true (i.e. non zero) then the call fails
+with a <SAMP>`UserError'</SAMP> in the <SAMP>`IO'</SAMP> monad containing the specified string.
+
+</P>
+<P>
+For example:
+
+<PRE>
+  %fun fopen :: String -&#62; IO FileHandle
+  %call (string s)
+  %code f = fopen( s );
+  %fail "f == NULL" "errstring(errno)"
+  %result (fileHandle f)
+</PRE>
+
+<P>
+The assumption here is that <SAMP>`fopen'</SAMP> puts its error code in the global
+variable <SAMP>`errno'</SAMP>, and <SAMP>`errstring'</SAMP> converts that error number to a string.
+
+</P>
+<P>
+<SAMP>`UserError'</SAMP>s can be caught with <SAMP>`catch'</SAMP>, but exactly which error
+occurred must be encoded in the string, and parsed by the
+error-handling code.  This is rather slow, but errors are meant to be
+exceptional.
+
+</P>
+
+
+
+<H3><A NAME="SEC14" HREF="#TOC14">5.5  Automatic fill-in</A></H3>
+
+<P>
+Any or all of the parameter-marshalling, body, and result-marshalling
+statements may be omitted.  If they are omitted, GreenCard will
+"fill in" plausible statements instead, guided by the function's
+type signature.  The rules by which GreenCard does this filling in
+are as follows:
+
+<UL>
+<LI>
+
+A missing <SAMP>`%call'</SAMP> statement is filled in with a DIS for each
+curried argument.  Each DIS is constructed from the corresponding argument
+type as follows:
+
+<UL>
+<LI>
+
+A tuple argument type generates a tuple DIS, with the same algorithm applied to
+the components.
+<LI>
+
+All other types generate a DIS macro application
+(Section  <A HREF="#SEC18">6.1  Forms of DISs</A>).
+The DIS macro name is derived from
+the type of the corresponding argument, except that the first letter
+of the type is changed to lower case.  The DIS macro is applied to
+as many argument variables as required by the arity of the DIS
+macro.
+<LI>
+
+The automatically-generated argument variables are named
+left-to-right as <SAMP>`arg1'</SAMP>, <SAMP>`arg2'</SAMP>, <SAMP>`arg3'</SAMP>, and so on.
+</UL>
+
+<LI>
+
+If the body is missing, GreenCard fills in a body of the form:
+<pre>
+  r = f(a_1,a_2,...a_n);
+</pre>
+
+where 
+
+<UL>
+<LI>
+
+<samp>`f'</samp> is the function name given in the type signature.
+<LI>
+
+<samp>`a_1,...,a_n'</samp> are the argument names extracted from the
+<SAMP>`%call'</SAMP> statement.
+<LI>
+
+<samp>`r'</samp> is the variable name for the variable
+used in the <SAMP>`%result'</SAMP> statement.  (There should only
+be one such variable if the body is automatically filled in.)
+</UL>
+
+<LI>
+
+A missing <SAMP>`%result'</SAMP>
+statement is filled in by a <SAMP>`%result'</SAMP> with a DIS constructed from
+the result type in the same way
+as for a <SAMP>`%call'</SAMP>.  The result variables are named
+<SAMP>`res1'</SAMP>, <SAMP>`res2'</SAMP>, <SAMP>`res3'</SAMP>, and so on.
+
+<LI>
+
+GreenCard never fills in <SAMP>`%fail'</SAMP> statements.
+</UL>
+
+
+
+<H3><A NAME="SEC15" HREF="#TOC15">5.6  Constants</A></H3>
+
+<P>
+Some C header files define a large number of constants of a particular type.
+The <SAMP>`%const'</SAMP> statement provides a convenient abbreviation
+to allow these constants to be imported into Haskell.
+For example:
+
+<PRE>
+  %const PosixError [EACCES, ENOENT]
+</PRE>
+
+<P>
+This statement is equivalent to the following <SAMP>`%fun'</SAMP> statements:  
+
+<PRE>
+  %fun EACCES :: PosixError
+  %fun ENOENT :: PosixError
+</PRE>
+
+<P>
+After the automatic fill-in has taken place we would obtain:
+
+<PRE>
+  %fun EACCES :: PosixError
+  %result (posixError "EACCES")
+
+  %fun ENOENT :: PosixError
+  %result (posixError "ENOENT") 
+</PRE>
+
+<P>
+Each constant is made available as a Haskell value of the specified
+type, converted into Haskell by the DIS macro for that type.
+(It is up to the programmer to write a <SAMP>`%dis'</SAMP> definition for the 
+macro  --  see Section  <A HREF="#SEC19">6.2  DIS macros</A>.)
+
+<p>
+There are variant ways of declaring constants within the
+<samp>`%const'</samp> directive.  Firstly, the type-name can be replaced
+by a DIS-name if you wish.  Secondly, you may find the Haskell constant
+names <samp>`eACCES'</samp> and <samp>`eNOENT'</samp> somewhat ugly,
+so you may associate a different Haskell name with each C constant name.
+</P>
+
+<pre>
+  %const PosixError [
+  %   errAccess = "EACCES", 
+  %   errNoEnt  = "ENOENT"
+  % ]
+</pre>
+
+
+
+
+<H3><A NAME="SEC16" HREF="#TOC16">5.7  Prefixes</A></H3>
+
+<P>
+In C it is common practice to give all function names in a library the same
+prefix, to minimize the impact on the common namespace. In Haskell we use 
+qualified imports to achieve the same result. To simplify the conversion of
+C style namespace management to Haskell the
+<SAMP>`%prefix'</SAMP> statement specifies which
+prefixes to remove from the Haskell function names.
+
+</P>
+
+<PRE>
+  module OpenGL where
+  
+  %prefix OpenGL
+  %prefix gl
+
+  %fun OpenGLInit :: Int -&#62; IO Window
+  %fun glSphere :: Coord -&#62; Int -&#62; IO Object
+</PRE>
+
+<P>
+This would define the two procedures init and sphere which would be implemented
+by calling OpenGLInit and glSphere respectively.
+
+</P>
+
+
+<H3><A NAME="SEC16.5" HREF="#TOC16.5">5.8  Arbitrary C inclusions</A></H3>
+
+<p>
+It is often useful to be able to write arbitrary lines of C code outside
+any procedure specification, for instance to include a header file,
+define the layout of a C structure, or declare a C global variable.
+The <samp>`%C'</samp> directive
+(with its whitespace-preserving variant <samp>`%-'</samp>)
+is provided expressly for this purpose.
+</p>
+<p>
+For example, either of
+<pre>
+    %C   #include &#60;header.h>
+</pre>
+or
+<pre>
+    %-#include &#60;header.h>
+</pre>
+tells GreenCard to arrange that a specified
+C header file will be included by the C code it generates.
+
+<p>
+As another example, for simple convenience one might wish to add data or
+type declarations directly to the generated C module, rather than in a
+separate header file.  Thus:
+</p>
+<pre>
+    %-struct _iocb {
+    %-   int fd;
+    %-   void *buf;
+    %-   int pos;
+    %-   unsigned flags;
+    %-};
+    %-typedef struct _iocb *FILE
+</pre>
+
+<H2><A NAME="SEC17" HREF="#TOC17">6  Data Interface Schemes</A></H2>
+
+<P>
+A <EM>Data Interface Scheme</EM>, or DIS, tells GreenCard how to 
+translate from a Haskell data type to a C data type, and vice versa.
+
+</P>
+
+
+<UL>
+<LI><A HREF="#SEC18">green-card_6.1</A>: Forms of DISs.
+<LI><A HREF="#SEC19">green-card_6.2</A>: DIS macros.
+<LI><A HREF="#SEC22">green-card_6.3</A>: Semantics of DISs.
+
+</UL>
+
+<center>
+<hr>
+<a name=FIG3></a>
+<table>
+  <tr>
+    <td align=left>
+      DIS
+    </td><td align=right>
+      <em>dis</em>
+    </td><td align=center>
+      -&gt;
+    </td><td align=left>
+      <em>var arg_1 ... arg_n</em>
+    </td><td align=left>
+      Macro application
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>(</b></tt><em>dis_1</em><tt><b>,</b></tt> ... <tt><b>,</b></tt><em>dis_n</em><tt><b>)</b></tt>
+    </td><td align=left>
+      Tuple, n >= 0
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <em>Cons arg_1 ... arg_n</em>
+    </td><td align=left>
+      Constructor, n >= 0
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <em>Cons</em> <tt><b>{</b></tt>
+                    <em>field_1</em> <tt><b>=</b></tt> <em>arg_1</em>
+                    <tt><b>,</b></tt> ... <tt><b>,</b></tt>
+                    <em>field_n</em> <tt><b>=</b></tt> <em>arg_n</em>
+                    <tt><b>}</b></tt>
+    </td><td align=left>
+      Named fields, n >= 1
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>&#60;</b></tt><em>var</em><tt><b>/</b></tt><em>var</em><tt><b>&#62;</b></tt>
+      <em>arg_1 ... arg_n</em>
+    </td><td align=left>
+      User-defined functions, n >= 1
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>%%</b></tt><em>Var cv</em>
+    </td><td align=left>
+      Base DIS
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>declare</b></tt> <em>cexp cv</em> <tt><b>in</b></tt> <em>dis</em>
+    </td><td align=left>
+      Type-cast DIS
+    </td>
+  </tr><tr>
+    <td align=left>
+      Argument
+    </td><td align=right>
+      <em>arg</em>
+    </td><td align=center>
+      -&gt;
+    </td><td align=left>
+      <em>dis</em>
+    </td><td align=left>
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <em>cv</em>
+    </td><td align=left>
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      Variable / C Expression
+    </td><td align=right>
+      <em>cv</em>
+    </td><td align=center>
+      -&gt;
+    </td><td align=left>
+      <em>cexp</em>
+    </td><td align=left>
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <em>var</em>
+    </td><td align=left>
+      Variable bound in <tt><b>%dis</b></tt>
+    </td>
+  </tr>
+</table>
+<br>Figure 3: Grammar of DISs
+<hr>
+</center>
+
+
+<H3><A NAME="SEC18" HREF="#TOC18">6.1  Forms of DISs</A></H3>
+
+<P>
+The syntax of DISs is given in <A HREF="#FIG3">Figure 3</A>.  It is
+designed to be similar to the syntax of Haskell patterns.
+A DIS takes one of the following forms: 
+
+<OL>
+<LI>
+
+<EM>The application of a DIS macro to zero or more arguments.</EM>
+Like Haskell functions, a DIS macro starts with a lower-case
+letter.  DIS macros are described in
+Section  <A HREF="#SEC19">6.2  DIS macros</A>.
+Some standard DIS macros include <SAMP>`int'</SAMP>,
+<SAMP>`float'</SAMP>, <SAMP>`double'</SAMP>; the full set is given in
+Section  <A HREF="#SEC23">7  Standard DISs</A>.  For example:
+
+<PRE>
+  %fun foo :: This -&#62; Int -&#62; That
+  %call (this x y) (int z)
+  %code r = c_foo( x, y, z );
+  %result (that r)
+</PRE>
+
+In this example <SAMP>`this'</SAMP> and <SAMP>`that'</SAMP> are
+DIS macros defined elsewhere.
+
+<LI>
+
+<EM>The application of a Haskell data constructor to zero or more DISs.</EM> 
+ 
+For example:
+
+<PRE>
+  newtype Age = Age Int
+  %fun foo :: (Age,Age) -&#62; Age
+  %call (Age (int x), Age (int y))
+  %code r = foo(x,y);
+  %result (Age (int r))
+</PRE>
+
+As the <SAMP>`%call'</SAMP> line of this example illustrates, tuples
+are understood as data constructors,
+including their special syntax.  Haskell named-field syntax is also supported.
+For example:
+
+<PRE>
+  data Point = Point { px,py::Int }
+
+  %fun foo :: Point -&#62; Point
+  %call (Point { px = int x, py = int y })
+  ...
+</PRE>
+
+GreenCard does not attempt to perform type inference; it simply assumes
+that any DIS starting with an upper case letter is a data constructor,
+and that the number of argument DISs matches the arity of the constructor.
+
+<LI>
+
+<em>The application of a user function to one or more DISs.</em>
+This form allows one to use an arbitrary data transformation written in
+Haskell, usually to simplify a value of some complicated type down to a
+collection of values of types that C can understand.  Noting that
+DISs can be used bi-directionally, it is necessary to provide the names
+of <em>two</em> Haskell functions; one for marshalling, the other for
+unmarshalling.  For example:
+
+<PRE>
+  data T = Zero | Succ T
+  from_t :: T -&#62; Int
+  to_t   :: Int -&#62; T
+
+  %fun square :: T -&#62; T
+  %call (&#60;from_t/to_t&#62; (int x))
+  %code r = square( x );
+  %result (&#60;from_t/to_t&#62; (int r))
+</PRE>
+
+<P>
+Here, the function <samp>`from_t'</samp> is applied to
+<samp>`square'</samp>'s argument (converting it to an integer)
+before it crosses the fence into C.  Likewise, the result from C
+is converted back to type <samp>`T'</samp> by the function
+<samp>`to_t'</samp> after being returned to the Haskell world.
+(The reason for giving <em>both</em> function names in the
+<samp>`%call'</samp> and <samp>`%result'</samp> lines when only one
+will be used in either case, is that the DIS may be hidden inside a
+macro, and of course the same macro can be used in either position.)
+
+<p>
+The whole <samp>`&#60;../..&#62;'</samp> construct is treated
+by analogy to the two uses of constructors: on the one hand for
+pattern-matching (taking apart a value), and on the other for
+constructing a value.
+
+<P>
+The user functions can have any name at all: in fact, the
+<SAMP>`<../..>'</SAMP>"
+syntax simply encloses two fragments of arbitrary Haskell to be applied
+to the succeeding arguments.  One may specify a partially applied function,
+or anything else (excluding uses of the <samp>`/'</samp> and <samp>`>'</samp>
+symbols - so lambda abstractions are not possible unfortunately).  The
+user-defined DIS may of course also bind more than one parameter (in which
+case, to preserve symmetry of marshalling and unmarshalling, the functions
+are always treated as uncurried).  For example:
+
+<PRE>
+  data Polar = P Dist Vector
+  %dis polar a b = &#60;polar_to_cart/cart_to_polar&#62; (int a) (int b)
+
+  polar_to_cart :: Polar -&gt; (Int, Int)
+  cart_to_polar :: (Int, Int) -&gt; Polar
+</pre>
+
+<p>
+Notice that all the example marshalling functions
+have pure types (e.g. <SAMP>`from_t'</SAMP> has type
+<SAMP>`T -&#62; Int'</SAMP> rather than <SAMP>`T -&#62; IO Int'</SAMP>).
+Sometimes one wants to write a marshalling function that is internally
+stateful.  For example, it might pack a <SAMP>`[Char]'</SAMP> into a
+<SAMP>`ByteArray'</SAMP>, by allocating a <SAMP>`MutableByteArray'</SAMP>
+and filling it in with the characters one at a time.  This can be done using
+<SAMP>`runST'</SAMP>, or even <SAMP>`unsafePerformIO'</SAMP>.
+(This is a GHC-specific comment; so far as GreenCard is concerned it
+is simply up to the programmer to supply suitably-typed marshalling functions.)
+
+</P>
+
+<LI>
+<em>A C type cast.</em>  Occasionally one wishes to declare and use a
+C variable at a type which differs slightly from the type produced by
+a standard DIS, although it shares the same machine representation.  The
+<samp>`declare "ctype" var in dis'</samp> form of declaration can be used to
+perform the necessary type-conversion in C.  Examples:
+
+<PRE>
+  %fun foo :: Int -&#62; IO ()
+  %call (declare "unsigned" x in int x)
+  ...
+
+  data T = MkT Int
+  %fun baz :: T -&#62; IO ()
+  %call (declare "c_t" x in MkT (int x))
+  ...
+</PRE>
+
+
+<LI>
+<em>The application of a base DIS to exactly one variable.</em>
+This is the primitive form of a DIS - the way all values actually get passed
+across the Haskell-C boundary.  Base DISs denote a fixed set of
+primitive types known to both C and Haskell (such as <samp>`int'</samp> and
+<samp>`Int'</samp> respectively), and consist of the Haskell typename
+prefixed by <samp>`%%'</samp> (e.g. <samp>`%%Int'</samp>).
+Because the exact set of base
+DISs may vary slightly between compilers, it is recommended that programmers
+use the standard DIS macros listed in <a href="#SEC7">Section 7</a> in
+preference to the base DISs.  The base form is noted here primarily for
+completeness.
+
+<p>
+As an example, here is the fully expanded DIS for
+floats in GHC, which also deals with unboxing.  (Note that other compilers
+do not treat unboxing in this way, hence the recommendation to use the
+standard DIS.)
+
+<pre>
+  %fun sin :: Float -&gt; Float
+  %call (declare "float" x in (F# (%%Float x)))
+  %code r = sin(x);
+  %result (declare "float" r in (F# (%%Float r)))
+</pre>
+
+</OL>
+
+
+<H3><A NAME="SEC19" HREF="#TOC19">6.2  DIS macros</A></H3>
+
+<P>
+It would be unbearably tedious to have to write out complete DISs in
+every procedure specification, so GreenCard supports <EM>DIS
+macros</EM> in much the same way that Haskell provides functions.
+(The big difference is that DIS macros can be used in "patterns"  --
+such as <SAMP>`%call'</SAMP> statements -- whereas Haskell functions cannot.)
+
+</P>
+
+<P>
+DIS macros allow the programmer to define abbreviations for commonly-occurring
+DISs. For example:
+
+<PRE>
+  newtype This = MkThis Int (Float, Float)
+  %dis this x y z = MkThis (int x) (float y, float z)
+</PRE>
+
+<P>
+Along with the <SAMP>`newtype'</SAMP> declaration the programmer can
+write a <SAMP>`%dis'</SAMP> declaration that defines the DIS macro
+<SAMP>`this'</SAMP> in the obvious manner.
+
+</P>
+<P>
+DIS macros are simply expanded out by GreenCard before it generates code. 
+So for example, if we write:
+
+<PRE>
+  %fun f :: This -&#62; This
+  %call (this p q r)
+  ...
+</PRE>
+
+<P>
+GreenCard will expand the call to <SAMP>`this'</SAMP>:
+
+<PRE>
+  %fun f :: This -&#62; This
+  %call (MkThis (int p) (float q, float r))
+  ...
+</PRE>
+
+<P>
+(In fact, <SAMP>`int'</SAMP> and <SAMP>`float'</SAMP> are also DIS macros
+defined in GreenCard's standard prelude, 
+so the <SAMP>`%call'</SAMP> line is further
+expanded to something like:
+
+<PRE>
+  %fun f :: This -&#62; This
+  %call (MkThis ((declare "int" p in I# (%%Int p))
+  %              (declare "float" q in F# (%%Float q),
+  %               declare "float" r in F# (%%Float r))))
+  ...
+</PRE>
+
+<P>
+The fully expanded calls describe the marshalling code in full detail; you can
+see why it would be inconvenient to write them out literally on each occasion!)
+
+</P>
+<P>
+Notice that DIS macros are automatically bidirectional; that is,
+they can be used to convert Haskell values to C <EM>and vice versa</EM>.
+For example, we can write:
+
+<PRE>
+  %fun f :: This -&#62; This
+  %call (this p q r)
+  %code f( p, q, r, &#38;a, &#38;b, &#38;c);
+  %result (this a b c)
+</PRE>
+
+<P>
+The form of DIS macro definitions, given in
+<A HREF="#SEC16">Figure 3</A>, is very
+simple.  The formal parameters can only be variables (not patterns),
+and the right hand side is simply another DIS.  Only first-order DIS
+macros are permitted.
+
+<p>
+Note however that the quoting/escape mechanism for literal code
+enables one to use the <em>value</em> of a macro variable within
+a fragment of C code (or Haskell code).
+This feature is very powerful, as shown in Section
+<a href="#SEC20">6.2.0  Marshalling complex structures</a>.
+
+</P>
+
+<H3><A NAME="SEC20" HREF="#TOC20">6.2.0  Marshalling complex structures</A></h3>
+
+<p>
+The full power of DIS macros becomes apparent when one attempts to
+map between a structured Haskell type and a structured C type.  For
+example, let us study a Haskell <samp>`ColourPoint'</samp> type:
+<pre>
+  data ColourPoint = CP Int Int Colour
+  data Colour = Red | Green | Blue | ...
+</pre>
+for which we happen to want a representation in C as a
+<samp>`struct colourpoint'</samp>:
+<pre>
+  struct colourpoint {
+      int x;
+      int y;
+      enum colour c;
+  };
+</pre>
+It requires just two small DIS macros to capture the mapping:
+<pre>
+  %dis colourPoint cp =
+  %    declare "struct colourpoint" cp in
+  %    CP (int "%cp.x") (int "%cp.y") (colour "%cp.c")
+  %dis colour x =
+  %    declare "enum colour" x in
+  %    &#60;fromEnum/toEnum&#62; (int x)
+</pre>
+
+Using these, it is then very easy to implement the required interfaces
+to foreign functions which manipulate coloured points:
+
+<pre>
+  %fun translate :: Int -&gt; Int -&gt; ColourPoint -&gt; IO ColourPoint
+  %call (int xrel) (int yrel) (colourpoint p)
+  %code p.x += xrel;
+  %     p.y += yrel;
+  %     render(&amp;p);
+  %result (colourpoint "p")
+</pre>
+
+Note that in this example, the return value is actually the same
+structure as the argument value (destructively updated).  It is
+for this reason that the final <samp>`p'</samp> is quoted as a
+C literal - it prevents the <samp>`declare'</samp> clause of the
+DIS macro from generating a second (overlapping) declaration of the
+variable in C.  Here is a different example where it is more obvious
+that the literal-C argument to the <samp>`colourPoint'</samp> DIS
+should not generate a variable declaration:
+<pre>
+  %fun nullPoint :: ColourPoint
+  %result (colourPoint "{0,0,RED}")
+</pre>
+
+
+<H3><A NAME="SEC22" HREF="#TOC22">6.3  Semantics of DISs</A></H3>
+
+<P>
+How does GreenCard use these DISs to convert between Haskell values
+and C values?  We give an informal algorithm here, although most
+programmers should be able to manage without knowing the details.
+
+</P>
+<P>
+To convert from Haskell values to C values, guided by a DIS,
+GreenCard does the following:
+
+<UL>
+
+<LI>
+First, GreenCard recursively rewrites all DIS macro applications,
+replacing left hand side by right hand side, with actual variables
+substituted for formals.
+
+<LI>
+Next, GreenCard works from outside in, as follows:
+
+<UL>
+
+<LI>
+For a data-constructor DIS (in either positional or named-field form),
+GreenCard generates a Haskell pattern-match to take the value apart.
+
+<LI>
+For a user-defined DIS, GreenCard generates a call to the DIS's
+<SAMP>`from_t'</SAMP> function.
+
+<LI>
+For a type-cast DIS, GreenCard pushes the type declaration inwards
+towards the use of the variable it declares.
+
+<LI>
+For a base DIS, GreenCard does no translation.
+
+</UL>
+
+<LI>
+All variables remaining in the final expression must lie inside a base
+DIS.  If this is not the case, then an error has occurred (probably
+the omission of a macro definition).
+
+<LI>
+Finally, any variable used in the expanded DIS expression (and which
+has a C type-declaration clause attached) generates the appropriate
+declaration in C, and the variable is initialised with the value
+provided by Haskell.  (In GHC, the value is unboxed and available
+directly.  In Hugs or nhc98, the value is extracted from the stack.)
+
+</UL>
+
+<p>
+Much the same happens in the other direction, except that GreenCard calls
+the <SAMP>`to_t'</SAMP> function when inside a user-defined DIS, and builds
+a value with a data constructor, rather than taking it apart.  Again,
+C variables are declared of the appropriate types, although of course a
+literal C expression in a result does not generate a declaration.
+
+</P>
+
+
+
+<H2><A NAME="SEC23" HREF="#TOC23">7  Standard DISs</A></H2>
+
+<P>
+<A HREF="#FIG4">Figure  4</A> gives the DIS macros
+that GreenCard provides as a "standard prelude".
+</p>
+
+<UL>
+<LI><A HREF="#SEC24">green-card_7.1</A>: GHC extensions.
+<LI><A HREF="#SEC25">green-card_7.2</A>: Maybe.
+
+</UL>
+
+<center>
+<a name=FIG4></a>
+<table border=1 cellspacing=0 cellpadding=2>
+  <tr>
+    <th align=left>
+      standard DIS
+    </th><th align=left>
+      Haskell type
+    </th><th align=left>
+      C type
+    </th><th align=left>
+      comments
+    </th>
+  </tr><tr>
+    <td align=left>
+      int i
+    </td><td align=left>
+      Int
+    </td><td align=left>
+      <tt>int</tt>
+    </td><td align=left>
+      .
+    </td>
+  </tr><tr>
+    <td align=left>
+      char c
+    </td><td align=left>
+      Char
+    </td><td align=left>
+      <tt>char</tt>
+    </td><td align=left>
+      .
+    </td>
+  </tr><tr>
+    <td align=left>
+      bool b
+    </td><td align=left>
+      Bool
+    </td><td align=left>
+      <tt>int</tt>
+    </td><td align=left>
+      0 for False, 1 for True
+    </td>
+  </tr><tr>
+    <td align=left>
+      float f
+    </td><td align=left>
+      Float
+    </td><td align=left>
+      <tt>float</tt>
+    </td><td align=left>
+      .
+    </td>
+  </tr><tr>
+    <td align=left>
+      double d
+    </td><td align=left>
+      Double
+    </td><td align=left>
+      <tt>double</tt>
+    </td><td align=left>
+      .
+    </td>
+  </tr><tr>
+    <td align=left>
+      string s
+    </td><td align=left>
+      String
+    </td><td align=left>
+      <tt>char*</tt>
+    </td><td align=left>
+      Persistence not required in either direction
+    </td>
+  </tr><tr>
+    <td align=left>
+      addr a
+    </td><td align=left>
+      Addr
+    </td><td align=left>
+      <tt>void*</tt>
+    </td><td align=left>
+      An immovable C address
+    </td>
+  </tr><tr>
+    <td align=left>
+      foreign f r
+    </td><td align=left>
+      ForeignObj
+    </td><td align=left>
+      <tt>void*</tt>
+    </td><td align=left>
+      r is the finalisation routine
+    </td>
+  </tr><tr>
+    <td align=left>
+      stable s
+    </td><td align=left>
+      a
+    </td><td align=left>
+      <tt>int</tt>
+    </td><td align=left>
+      int is just an index into the stable pointer table.
+    </td>
+  </tr>
+</table>
+<br>Figure 4: Standard DISs
+<hr>
+</center>
+
+
+
+<H3><A NAME="SEC24" HREF="#TOC24">7.1  Haskell type extensions</A></H3>
+
+<P>
+Several of the provided DISs involve types that go beyond standard
+Haskell:
+
+<UL>
+<LI>
+
+<SAMP>`Addr'</SAMP> is a type large enough to contain a machine address.
+The Haskell garbage collector treats it as a non-pointer, however.
+
+<LI>
+
+<SAMP>`ForeignObj'</SAMP> is a type designed to contain a reference to
+a foreign resource of some kind: a <SAMP>`malloc'</SAMP>'d structure,
+a file descriptor, an X-windows
+graphic context, or some such.  The size of this reference is assumed
+to be that of a machine address.  When the Haskell garbage collector
+decides that a value of type <SAMP>`ForeignObj'</SAMP> is unreachable,
+it calls the object's finalisation routine, which was given as an
+address in the argument of the DIS. The finalisation routine is passed
+the object reference as its only argument.
+
+<LI>
+
+The <SAMP>`stable'</SAMP> DIS maps a value of any type onto a C
+<SAMP>`int'</SAMP>.  The <SAMP>`int'</SAMP> is
+actually an index into the <EM>stable pointer table</EM>, which is treated
+as a source of roots by the garbage collector.  Thus the C procedure can
+effectively get a reference into the Haskell heap.
+When <SAMP>`stable'</SAMP> is used
+to map from C to Haskell, the process is reversed.
+</UL>
+
+
+
+<H3><A NAME="SEC25" HREF="#TOC25">7.2  Maybe</A></H3>
+
+<P>
+Almost all DISs work on single-constructor data types.
+It is much less obvious how to translate values of multi-constructor
+data types to and from C.  In fact, the right way to do it is through
+user-defined DISs.  We illustrate how with a DIS for the
+<SAMP>`Maybe'</SAMP> type.
+
+</P>
+<P>
+The definition of a <SAMP>`maybe'</SAMP> DIS is:
+
+<PRE>
+  %dis maybeInt default x = &#60;fromMaybe %default/toMaybe %default&#62; (int x)
+  fromMaybe def (Nothing) = def
+  fromMaybe def (Just x)  = x
+  toMaybe def x
+    | def == x  = Nothing
+    | otherwise = Just x
+</PRE>
+
+<P>
+where <SAMP>`default'</SAMP> is a Haskell expression which represents
+the <SAMP>`Nothing'</SAMP> value.  Note how we use the <samp>`%'</samp>
+character to <em>unquote</em> the bound variable <samp>`default'</samp>
+within a context where it would otherwise be treated as literal Haskell.
+
+</P>
+<P>
+In the following example, the function <SAMP>`foo'</SAMP> takes an argument of type
+<SAMP>`Maybe Int'</SAMP>.  If the argument value is <SAMP>`Nothing'</SAMP> it will bind <SAMP>`x'</SAMP> to
+<SAMP>`0'</SAMP>; if it is <SAMP>`Just a'</SAMP> it will bind <SAMP>`x'</SAMP> to the value of <SAMP>`a'</SAMP>.  The
+return value will be <SAMP>`Just r'</SAMP> unless <SAMP>`r == -1'</SAMP> in which case it will
+be <SAMP>`Nothing'</SAMP>.
+
+<PRE>
+  %fun foo :: Maybe Int -&#62; Maybe Int
+  %call (maybeInt 0 x)
+  %code r = foo(x);
+  %result (maybeInt -1 r)
+</PRE>
+
+
+<H2><A NAME="SEC26" HREF="#TOC26">8  Imports</A></H2>
+
+<P>
+GreenCard "connects" with code in other modules in two ways:
+
+<UL>
+<LI>
+
+GreenCard reads the source code of any modules imported (recursively) by
+the module being processed.  It extracts <SAMP>`%dis'</SAMP> function
+definitions (only) from these modules. This provides an easy mechanism
+for GreenCard
+to import DIS macros defined elsewhere.  (Note however that GreenCard
+does not provide any namespace management, so it is up to the
+programmer to ensure that DIS macros from different modules do not share the
+same name.  Note also that if a DIS macro uses a data constructor,
+that constructor must be exported/imported correctly.)
+
+<LI>
+
+It is often important to arrange that a C header file is
+<SAMP>`#include'</SAMP>d
+when the C code fragments in GreenCard directives are compiled.
+The <SAMP>`%C'</SAMP> directive makes this possible.
+</UL>
+
+
+
+<H2><A NAME="SEC27" HREF="#TOC27">9  Invoking GreenCard</A></H2>
+
+<P>
+Most Haskell compilers invoke GreenCard automatically when they are
+given a source file with the extension <samp>`.gc'</samp>.
+However, the general syntax for invoking GreenCard as a stand-alone
+program is:
+</P>
+
+<pre>
+    greencard [options] [filename]
+</pre>
+
+<P>
+GreenCard reads from standard input if no filename is given. The options 
+can be any of these:
+<DL COMPACT>
+
+<DT><SAMP>-tTARGET</SAMP>
+<br><SAMP>--target TARGET</SAMP>
+<DD>
+     Generate code for a particular Haskell compiler.  Possible values of
+     TARGET are currently `ghc', `Hugs', and `nhc'.
+
+<DT><SAMP>--version</SAMP>
+<DD>
+     Print the version number, then exit successfully. 
+
+<DT><SAMP>-h</SAMP>
+<br><SAMP>--help</SAMP>
+<DD>
+     Print a usage message listing all available options, then exit successfully. 
+
+<DT><SAMP>-v</SAMP>
+<br><SAMP>--verbose</SAMP>
+<DD>
+     Print more information while processing the input.
+
+<DT><SAMP>-d</SAMP>
+<br><SAMP>--debug</SAMP>
+<DD>
+     Print even more information while processing the input.
+
+<DT><SAMP>-iDIRS</samp>
+<br><SAMP>-PDIRS</samp>
+<br><SAMP>--include-dir DIRS</SAMP>
+<DD>
+Search the directories named in the colon (<SAMP>`:'</SAMP>) separated
+list for imported files. The directories will be searched in a left to
+right order, after the current directory.
+
+<DT><SAMP>-g</SAMP>
+<br><SAMP>--fgc-safe</SAMP>
+<DD>
+     Generates code that can use callbacks to Haskell. This makes the
+     generated code slower.  (Only meaningful for GHC.)
+
+</DL>
+
+
+
+<H2><A NAME="SEC28" HREF="#TOC28">10  Related Work</A></H2>
+
+
+<UL>
+<LI>
+
+<EM>A Portable C Interface for Standard ML of New Jersey</EM>, by Lorenz
+Huelsbergen, describes the implementation of a general interface to C for SML/NJ.
+<LI>
+
+<EM>Simplified Wrapper and Interface Generator</EM> (SWIG) generate interfaces
+from (extended) ANSI C/C++ function and variable declarations. It can generate
+output for Tcl/Tk, Python, Perl5, Perl4 and Guile-iii. SWIG lives at  
+@url{http://www.cs.utah.edu/ beazley/SWIG/}
+<LI>
+
+<EM>Foreign Function Interface GENerator</EM> (FFIGEN) is a tool that parses
+C header files and presents an  intermediate data representation suitable for 
+writing backends. FFIGEN lives at 
+@url{http://www.cs.uoregon.edu/ lth/ffigen/}
+<LI>
+
+<EM>Header2Scheme</EM> is a program which reads C++ header files and compiles
+them into C++ code. This code implements the back end for a Scheme interface
+to the classes defined by these
+header files. Header2Scheme can be found at:
+
+@url{http://www-white.media.mit.edu/ kbrussel/Header2Scheme/}
+</UL>
+
+<P>
+ 
+ 
+
+</P>
+
+
+<H2><A NAME="SEC29" HREF="#TOC29">11  Alternative design choices and avenues for improvement</A></H2>
+
+<P>
+Here we summarise aspects of GreenCard that are less than ideal, and
+indicate possible improvements.
+
+</P>
+<DL COMPACT>
+
+<DT>Automatic DIS generation.
+<DD>
+Pretty much every <SAMP>`newtype'</SAMP> or single-constructor
+declaration that is involved in a foreign language call needs a
+corresponding <SAMP>`%dis'</SAMP> definition. Maybe this
+<SAMP>`%dis'</SAMP> definition should be automated.  On the other
+hand, there are many fewer data types than procedures, so perhaps
+it isn't too big a burden to define a <SAMP>`%dis'</SAMP> for each.
+
+<DT>Error handling.
+<DD>
+The error handling provided by <SAMP>`%fail'</SAMP> is fairly
+rudimentary.  It isn't obvious how to improve it in a systematic manner.
+
+</DL>
+
+
+
+<P><HR><P>
+<H1>Footnotes</H1>
+<H3><A NAME="FOOT1" HREF="#DOCF1">(1)</A></H3>
+<P>
+Microsoft's Common Object Model (COM)
+is a language-independent software component architecture.  It allows 
+objects written in one language to create objects written in another, and 
+to call their methods.  The two objects may be in the same address space,
+in different address spaces on the same machine, or on separate
+machines connected by
+a network.  OLE is a set of conventions for building components on top of COM.
+
+<H3><A NAME="FOOT2" HREF="#DOCF2">(2)</A></H3>
+<P>
+CORBA is a vendor-independent competitor of COM.
+<H3><A NAME="FOOT3" HREF="#DOCF3">(3)</A></H3>
+<P>
+Only GHC aficionados will understand this code.  The whole point of GreenCard
+is that Joe Programmer should not have to learn how to write this stuff.
+<H3><A NAME="FOOT4" HREF="#DOCF4">(4)</A></H3>
+<P>The details of
+the filled-in statements will make more sense after reading the rest 
+of Section  <A HREF="#SEC6">5  Procedure specifications</A>
+<H3><A NAME="FOOT5" HREF="#DOCF5">(5)</A></H3>
+<P>
+When there are no parameters, the
+<SAMP>`%call'</SAMP> line must be omitted.  The second
+example can also be shortened by writing a C expression in
+the <SAMP>`%result'</SAMP> statement; see Section  <A HREF="#SEC10">5.4  Result marshalling</A>.
+<H3><A NAME="FOOT6" HREF="#DOCF6">(6)</A></H3>
+<P>It can be written more briefly still
+by using automatic fill-in
+(Section  <A HREF="#SEC14">5.5  Automatic fill-in</A>).
+<H3><A NAME="FOOT7" HREF="#DOCF7">(7)</A></H3>
+<P> This example also shows one way to interface to C
+procedures that manipulate structures.
+<P><HR><P>
+This document was modified heavily by Malcolm Wallace Nov/Dec 1997, from
+an original document generated on 21 March 1997 using the
+<A HREF="http://wwwcn.cern.ch/dci/texi2html/">texi2html</A>
+translator version 1.51.
+</P>
+
+</td></tr></table>
+</BODY>
+</HTML>

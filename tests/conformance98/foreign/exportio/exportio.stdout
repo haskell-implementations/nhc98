@@ -1,0 +1,9 @@
+Here is the local test
+Here we are inside testIO
+testIO: 1
+About to leave testIO
+Here is the exported/re-imported test
+Here we are inside testIO
+testIO: 2
+About to leave testIO
+Done

@@ -1,0 +1,200 @@
+interface Text.ParserCombinators.ReadP where {
+infixr  5 <++;
+infixr  5 +++;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Functor (ReadPN a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus (ReadPN a);
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus P;
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus Prelude.Maybe;
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus Prelude.[];
+
+{-# NEED #-}
+instance Prelude.Monad (ReadPN a);
+
+{-# NEED #-}
+instance Prelude.Monad P;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! Text.ParserCombinators.ReadP
+{-# NEED readS_to_P #-}
+readS_to_P{-# 1 #-}::((Prelude.ReadS a) -> ((ReadPN b) a));
+
+{-# NEED readP_to_S #-}
+readP_to_S{-# 1 #-}::((ReadPN a a) -> (Prelude.ReadS a));
+
+{-# NEED manyTill #-}
+manyTill{-# 2 #-}::((ReadPN [a] a) -> ((ReadPN [a] b) -> (ReadPN [a] [a])));
+
+{-# NEED chainl1 #-}
+chainl1{-# 2 #-}::(((ReadPN a) b) -> (((ReadPN a) (b -> (b -> b))) -> ((ReadPN a) b)));
+
+{-# NEED chainr1 #-}
+chainr1{-# 2 #-}::(((ReadPN a) b) -> (((ReadPN a) (b -> (b -> b))) -> ((ReadPN a) b)));
+
+{-# NEED chainl #-}
+chainl{-# 3 #-}::(((ReadPN a) b) -> (((ReadPN a) (b -> (b -> b))) -> (b -> ((ReadPN a) b))));
+
+{-# NEED chainr #-}
+chainr{-# 3 #-}::(((ReadPN a) b) -> (((ReadPN a) (b -> (b -> b))) -> (b -> ((ReadPN a) b))));
+
+{-# NEED endBy1 #-}
+endBy1{-# 2 #-}::(((ReadPN a) b) -> (((ReadPN a) c) -> ((ReadPN a) [b])));
+
+{-# NEED endBy #-}
+endBy{-# 2 #-}::(((ReadPN a) b) -> (((ReadPN a) c) -> ((ReadPN a) [b])));
+
+{-# NEED sepBy1 #-}
+sepBy1{-# 2 #-}::(((ReadPN a) b) -> (((ReadPN a) c) -> ((ReadPN a) [b])));
+
+{-# NEED sepBy #-}
+sepBy{-# 2 #-}::(((ReadPN a) b) -> (((ReadPN a) c) -> ((ReadPN a) [b])));
+
+{-# NEED skipMany1 #-}
+skipMany1{-# 1 #-}::(((ReadPN a) b) -> ((ReadPN a) ()));
+
+{-# NEED skipMany #-}
+skipMany{-# 1 #-}::(((ReadPN a) b) -> ((ReadPN a) ()));
+
+{-# NEED many1 #-}
+many1{-# 1 #-}::(((ReadPN a) b) -> ((ReadPN a) [b]));
+
+{-# NEED many #-}
+many{-# 1 #-}::(((ReadPN a) b) -> ((ReadPN a) [b]));
+
+{-# NEED optional #-}
+optional{-# 1 #-}::(((ReadPN a) b) -> ((ReadPN a) ()));
+
+{-# NEED option #-}
+option{-# 2 #-}::(a -> (((ReadPN b) a) -> ((ReadPN b) a)));
+
+{-# NEED between #-}
+between{-# 3 #-}::(((ReadPN a) b) -> (((ReadPN a) c) -> (((ReadPN a) d) -> ((ReadPN a) d))));
+
+{-# NEED count #-}
+count{-# 2 #-}::(Prelude.Int -> (((ReadPN a) b) -> ((ReadPN a) [b])));
+
+{-# NEED skipSpaces #-}
+skipSpaces{-# 0 #-}::((ReadPN a) ());
+
+{-# NEED choice #-}
+choice{-# 1 #-}::([((ReadPN a) b)] -> ((ReadPN a) b));
+
+{-# NEED munch1 #-}
+munch1{-# 1 #-}::((Prelude.Char -> Prelude.Bool) -> ((ReadPN a) Prelude.String));
+
+{-# NEED munch #-}
+munch{-# 1 #-}::((Prelude.Char -> Prelude.Bool) -> ((ReadPN a) Prelude.String));
+
+{-# NEED string #-}
+string{-# 1 #-}::(Prelude.String -> ((ReadPN a) Prelude.String));
+
+{-# NEED eof #-}
+eof{-# 0 #-}::((ReadPN a) ());
+
+{-# NEED char #-}
+char{-# 1 #-}::(Prelude.Char -> ((ReadPN a) Prelude.Char));
+
+{-# NEED satisfy #-}
+satisfy{-# 1 #-}::((Prelude.Char -> Prelude.Bool) -> ((ReadPN a) Prelude.Char));
+
+{-# NEED gather #-}
+gather{-# 1 #-}::((ReadPN ([Prelude.Char] -> (P a)) b) -> (ReadPN a ([Prelude.Char],b)));
+
+{-# NEED (<++) #-}
+(<++){-# 2 #-}::((ReadPN a a) -> ((ReadPN a a) -> (ReadPN a a)));
+
+{-# NEED (+++) #-}
+(+++){-# 2 #-}::(((ReadPN a) b) -> (((ReadPN a) b) -> ((ReadPN a) b)));
+
+{-# NEED pfail #-}
+pfail{-# 0 #-}::((ReadPN a) b);
+
+{-# NEED look #-}
+look{-# 0 #-}::((ReadPN a) Prelude.String);
+
+{-# NEED get #-}
+get{-# 0 #-}::((ReadPN a) Prelude.Char);
+
+{-# NEED {ReadPN} #-}
+newtype {-#  #-} ReadPN a b
+  = R ((b -> (P a)) -> (P a));
+interface Text.ParserCombinators.ReadP
+{-# NEED P #-}
+data P a;
+interface ! Prelude
+{-# NEED ReadS #-}
+type {-# 2 #-} ReadS a = (String -> [(a,String)]);
+}

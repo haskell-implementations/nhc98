@@ -1,0 +1,759 @@
+interface Text.XML.HaXml.OneOfN where {
+
+{-# NEED #-}
+instance Control.Monad.Fix.MonadFix NHC.Internal.IO;
+
+{-# NEED #-}
+instance Control.Applicative.Applicative NHC.Internal.IO;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Ratio.Ratio;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable IO.Handle;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Text.XML.HaXml.Verbatim.Verbatim Text.XML.HaXml.Types.Reference;
+
+{-# NEED #-}
+instance Text.XML.HaXml.Verbatim.Verbatim (Text.XML.HaXml.Types.Element a);
+
+{-# NEED #-}
+instance Text.XML.HaXml.Verbatim.Verbatim (Text.XML.HaXml.Types.Content a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord Text.XML.HaXml.Types.QName;
+
+{-# NEED #-}
+instance Text.ParserCombinators.Poly.Base.PolyParse (Text.ParserCombinators.Poly.Plain.Parser a);
+
+{-# NEED #-}
+instance Text.ParserCombinators.Poly.Base.PolyParse Prelude.[];
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Functor Text.XML.HaXml.Types.Element;
+
+{-# NEED #-}
+instance Prelude.Functor (Text.ParserCombinators.Poly.Plain.Result a);
+
+{-# NEED #-}
+instance Prelude.Functor (Text.ParserCombinators.Poly.Plain.Parser a);
+
+{-# NEED #-}
+instance Prelude.Functor Text.XML.HaXml.Types.Content;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad (Text.ParserCombinators.Poly.Plain.Parser a);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d,Prelude.Eq e,Prelude.Eq f,Prelude.Eq g,Prelude.Eq h,Prelude.Eq i,Prelude.Eq j,Prelude.Eq k,Prelude.Eq l,Prelude.Eq m,Prelude.Eq n,Prelude.Eq o,Prelude.Eq p,Prelude.Eq q,Prelude.Eq r,Prelude.Eq s,Prelude.Eq t) => Prelude.Eq (OneOf20 a b c d e f g h i j k l m n o p q r s t);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d,Prelude.Eq e,Prelude.Eq f,Prelude.Eq g,Prelude.Eq h,Prelude.Eq i,Prelude.Eq j,Prelude.Eq k,Prelude.Eq l,Prelude.Eq m,Prelude.Eq n,Prelude.Eq o,Prelude.Eq p,Prelude.Eq q,Prelude.Eq r,Prelude.Eq s) => Prelude.Eq (OneOf19 a b c d e f g h i j k l m n o p q r s);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d,Prelude.Eq e,Prelude.Eq f,Prelude.Eq g,Prelude.Eq h,Prelude.Eq i,Prelude.Eq j,Prelude.Eq k,Prelude.Eq l,Prelude.Eq m,Prelude.Eq n,Prelude.Eq o,Prelude.Eq p,Prelude.Eq q,Prelude.Eq r) => Prelude.Eq (OneOf18 a b c d e f g h i j k l m n o p q r);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d,Prelude.Eq e,Prelude.Eq f,Prelude.Eq g,Prelude.Eq h,Prelude.Eq i,Prelude.Eq j,Prelude.Eq k,Prelude.Eq l,Prelude.Eq m,Prelude.Eq n,Prelude.Eq o,Prelude.Eq p,Prelude.Eq q) => Prelude.Eq (OneOf17 a b c d e f g h i j k l m n o p q);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d,Prelude.Eq e,Prelude.Eq f,Prelude.Eq g,Prelude.Eq h,Prelude.Eq i,Prelude.Eq j,Prelude.Eq k,Prelude.Eq l,Prelude.Eq m,Prelude.Eq n,Prelude.Eq o,Prelude.Eq p) => Prelude.Eq (OneOf16 a b c d e f g h i j k l m n o p);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d,Prelude.Eq e,Prelude.Eq f,Prelude.Eq g,Prelude.Eq h,Prelude.Eq i,Prelude.Eq j,Prelude.Eq k,Prelude.Eq l,Prelude.Eq m,Prelude.Eq n,Prelude.Eq o) => Prelude.Eq (OneOf15 a b c d e f g h i j k l m n o);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d,Prelude.Eq e,Prelude.Eq f,Prelude.Eq g,Prelude.Eq h,Prelude.Eq i,Prelude.Eq j,Prelude.Eq k,Prelude.Eq l,Prelude.Eq m,Prelude.Eq n) => Prelude.Eq (OneOf14 a b c d e f g h i j k l m n);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d,Prelude.Eq e,Prelude.Eq f,Prelude.Eq g,Prelude.Eq h,Prelude.Eq i,Prelude.Eq j,Prelude.Eq k,Prelude.Eq l,Prelude.Eq m) => Prelude.Eq (OneOf13 a b c d e f g h i j k l m);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d,Prelude.Eq e,Prelude.Eq f,Prelude.Eq g,Prelude.Eq h,Prelude.Eq i,Prelude.Eq j,Prelude.Eq k,Prelude.Eq l) => Prelude.Eq (OneOf12 a b c d e f g h i j k l);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d,Prelude.Eq e,Prelude.Eq f,Prelude.Eq g,Prelude.Eq h,Prelude.Eq i,Prelude.Eq j,Prelude.Eq k) => Prelude.Eq (OneOf11 a b c d e f g h i j k);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d,Prelude.Eq e,Prelude.Eq f,Prelude.Eq g,Prelude.Eq h,Prelude.Eq i,Prelude.Eq j) => Prelude.Eq (OneOf10 a b c d e f g h i j);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d,Prelude.Eq e,Prelude.Eq f,Prelude.Eq g,Prelude.Eq h,Prelude.Eq i) => Prelude.Eq (OneOf9 a b c d e f g h i);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d,Prelude.Eq e,Prelude.Eq f,Prelude.Eq g,Prelude.Eq h) => Prelude.Eq (OneOf8 a b c d e f g h);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d,Prelude.Eq e,Prelude.Eq f,Prelude.Eq g) => Prelude.Eq (OneOf7 a b c d e f g);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d,Prelude.Eq e,Prelude.Eq f) => Prelude.Eq (OneOf6 a b c d e f);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d,Prelude.Eq e) => Prelude.Eq (OneOf5 a b c d e);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c,Prelude.Eq d) => Prelude.Eq (OneOf4 a b c d);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b,Prelude.Eq c) => Prelude.Eq (OneOf3 a b c);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b) => Prelude.Eq (OneOf2 a b);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.AttValue;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.QName;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.Misc;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.Reference;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Text.XML.HaXml.Types.Element a);
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.TypeMapping.Constr;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.TypeMapping.HType;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Posn.Posn;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Text.XML.HaXml.Types.Content a);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d,Prelude.Show e,Prelude.Show f,Prelude.Show g,Prelude.Show h,Prelude.Show i,Prelude.Show j,Prelude.Show k,Prelude.Show l,Prelude.Show m,Prelude.Show n,Prelude.Show o,Prelude.Show p,Prelude.Show q,Prelude.Show r,Prelude.Show s,Prelude.Show t) => Prelude.Show (OneOf20 a b c d e f g h i j k l m n o p q r s t);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d,Prelude.Show e,Prelude.Show f,Prelude.Show g,Prelude.Show h,Prelude.Show i,Prelude.Show j,Prelude.Show k,Prelude.Show l,Prelude.Show m,Prelude.Show n,Prelude.Show o,Prelude.Show p,Prelude.Show q,Prelude.Show r,Prelude.Show s) => Prelude.Show (OneOf19 a b c d e f g h i j k l m n o p q r s);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d,Prelude.Show e,Prelude.Show f,Prelude.Show g,Prelude.Show h,Prelude.Show i,Prelude.Show j,Prelude.Show k,Prelude.Show l,Prelude.Show m,Prelude.Show n,Prelude.Show o,Prelude.Show p,Prelude.Show q,Prelude.Show r) => Prelude.Show (OneOf18 a b c d e f g h i j k l m n o p q r);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d,Prelude.Show e,Prelude.Show f,Prelude.Show g,Prelude.Show h,Prelude.Show i,Prelude.Show j,Prelude.Show k,Prelude.Show l,Prelude.Show m,Prelude.Show n,Prelude.Show o,Prelude.Show p,Prelude.Show q) => Prelude.Show (OneOf17 a b c d e f g h i j k l m n o p q);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d,Prelude.Show e,Prelude.Show f,Prelude.Show g,Prelude.Show h,Prelude.Show i,Prelude.Show j,Prelude.Show k,Prelude.Show l,Prelude.Show m,Prelude.Show n,Prelude.Show o,Prelude.Show p) => Prelude.Show (OneOf16 a b c d e f g h i j k l m n o p);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d,Prelude.Show e,Prelude.Show f,Prelude.Show g,Prelude.Show h,Prelude.Show i,Prelude.Show j,Prelude.Show k,Prelude.Show l,Prelude.Show m,Prelude.Show n,Prelude.Show o) => Prelude.Show (OneOf15 a b c d e f g h i j k l m n o);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d,Prelude.Show e,Prelude.Show f,Prelude.Show g,Prelude.Show h,Prelude.Show i,Prelude.Show j,Prelude.Show k,Prelude.Show l,Prelude.Show m,Prelude.Show n) => Prelude.Show (OneOf14 a b c d e f g h i j k l m n);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d,Prelude.Show e,Prelude.Show f,Prelude.Show g,Prelude.Show h,Prelude.Show i,Prelude.Show j,Prelude.Show k,Prelude.Show l,Prelude.Show m) => Prelude.Show (OneOf13 a b c d e f g h i j k l m);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d,Prelude.Show e,Prelude.Show f,Prelude.Show g,Prelude.Show h,Prelude.Show i,Prelude.Show j,Prelude.Show k,Prelude.Show l) => Prelude.Show (OneOf12 a b c d e f g h i j k l);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d,Prelude.Show e,Prelude.Show f,Prelude.Show g,Prelude.Show h,Prelude.Show i,Prelude.Show j,Prelude.Show k) => Prelude.Show (OneOf11 a b c d e f g h i j k);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d,Prelude.Show e,Prelude.Show f,Prelude.Show g,Prelude.Show h,Prelude.Show i,Prelude.Show j) => Prelude.Show (OneOf10 a b c d e f g h i j);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d,Prelude.Show e,Prelude.Show f,Prelude.Show g,Prelude.Show h,Prelude.Show i) => Prelude.Show (OneOf9 a b c d e f g h i);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d,Prelude.Show e,Prelude.Show f,Prelude.Show g,Prelude.Show h) => Prelude.Show (OneOf8 a b c d e f g h);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d,Prelude.Show e,Prelude.Show f,Prelude.Show g) => Prelude.Show (OneOf7 a b c d e f g);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d,Prelude.Show e,Prelude.Show f) => Prelude.Show (OneOf6 a b c d e f);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d,Prelude.Show e) => Prelude.Show (OneOf5 a b c d e);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c,Prelude.Show d) => Prelude.Show (OneOf4 a b c d);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c) => Prelude.Show (OneOf3 a b c);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b) => Prelude.Show (OneOf2 a b);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.AttValue;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.QName;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.Reference;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.TypeMapping.Constr;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.TypeMapping.HType;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Posn.Posn;
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j,Text.XML.HaXml.TypeMapping.HTypeable k,Text.XML.HaXml.TypeMapping.HTypeable l,Text.XML.HaXml.TypeMapping.HTypeable m,Text.XML.HaXml.TypeMapping.HTypeable n,Text.XML.HaXml.TypeMapping.HTypeable o,Text.XML.HaXml.TypeMapping.HTypeable p,Text.XML.HaXml.TypeMapping.HTypeable q,Text.XML.HaXml.TypeMapping.HTypeable r,Text.XML.HaXml.TypeMapping.HTypeable s,Text.XML.HaXml.TypeMapping.HTypeable t) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf20 a b c d e f g h i j k l m n o p q r s t);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j,Text.XML.HaXml.TypeMapping.HTypeable k,Text.XML.HaXml.TypeMapping.HTypeable l,Text.XML.HaXml.TypeMapping.HTypeable m,Text.XML.HaXml.TypeMapping.HTypeable n,Text.XML.HaXml.TypeMapping.HTypeable o,Text.XML.HaXml.TypeMapping.HTypeable p,Text.XML.HaXml.TypeMapping.HTypeable q,Text.XML.HaXml.TypeMapping.HTypeable r,Text.XML.HaXml.TypeMapping.HTypeable s) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf19 a b c d e f g h i j k l m n o p q r s);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j,Text.XML.HaXml.TypeMapping.HTypeable k,Text.XML.HaXml.TypeMapping.HTypeable l,Text.XML.HaXml.TypeMapping.HTypeable m,Text.XML.HaXml.TypeMapping.HTypeable n,Text.XML.HaXml.TypeMapping.HTypeable o,Text.XML.HaXml.TypeMapping.HTypeable p,Text.XML.HaXml.TypeMapping.HTypeable q,Text.XML.HaXml.TypeMapping.HTypeable r) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf18 a b c d e f g h i j k l m n o p q r);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j,Text.XML.HaXml.TypeMapping.HTypeable k,Text.XML.HaXml.TypeMapping.HTypeable l,Text.XML.HaXml.TypeMapping.HTypeable m,Text.XML.HaXml.TypeMapping.HTypeable n,Text.XML.HaXml.TypeMapping.HTypeable o,Text.XML.HaXml.TypeMapping.HTypeable p,Text.XML.HaXml.TypeMapping.HTypeable q) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf17 a b c d e f g h i j k l m n o p q);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j,Text.XML.HaXml.TypeMapping.HTypeable k,Text.XML.HaXml.TypeMapping.HTypeable l,Text.XML.HaXml.TypeMapping.HTypeable m,Text.XML.HaXml.TypeMapping.HTypeable n,Text.XML.HaXml.TypeMapping.HTypeable o,Text.XML.HaXml.TypeMapping.HTypeable p) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf16 a b c d e f g h i j k l m n o p);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j,Text.XML.HaXml.TypeMapping.HTypeable k,Text.XML.HaXml.TypeMapping.HTypeable l,Text.XML.HaXml.TypeMapping.HTypeable m,Text.XML.HaXml.TypeMapping.HTypeable n,Text.XML.HaXml.TypeMapping.HTypeable o) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf15 a b c d e f g h i j k l m n o);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j,Text.XML.HaXml.TypeMapping.HTypeable k,Text.XML.HaXml.TypeMapping.HTypeable l,Text.XML.HaXml.TypeMapping.HTypeable m,Text.XML.HaXml.TypeMapping.HTypeable n) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf14 a b c d e f g h i j k l m n);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j,Text.XML.HaXml.TypeMapping.HTypeable k,Text.XML.HaXml.TypeMapping.HTypeable l,Text.XML.HaXml.TypeMapping.HTypeable m) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf13 a b c d e f g h i j k l m);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j,Text.XML.HaXml.TypeMapping.HTypeable k,Text.XML.HaXml.TypeMapping.HTypeable l) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf12 a b c d e f g h i j k l);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j,Text.XML.HaXml.TypeMapping.HTypeable k) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf11 a b c d e f g h i j k);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf10 a b c d e f g h i j);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf9 a b c d e f g h i);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf8 a b c d e f g h);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf7 a b c d e f g);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf6 a b c d e f);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf5 a b c d e);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf4 a b c d);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf3 a b c);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b) => Text.XML.HaXml.TypeMapping.HTypeable (OneOf2 a b);
+
+{-# NEED #-}
+instance Text.XML.HaXml.TypeMapping.HTypeable Prelude.Integer;
+
+{-# NEED #-}
+instance Text.XML.HaXml.TypeMapping.HTypeable Prelude.Float;
+
+{-# NEED #-}
+instance Text.XML.HaXml.TypeMapping.HTypeable Prelude.Double;
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a) => Text.XML.HaXml.TypeMapping.HTypeable (Prelude.Maybe a);
+
+{-# NEED #-}
+instance Text.XML.HaXml.TypeMapping.HTypeable Prelude.Int;
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b) => Text.XML.HaXml.TypeMapping.HTypeable (Prelude.Either a b);
+
+{-# NEED #-}
+instance Text.XML.HaXml.TypeMapping.HTypeable Prelude.Bool;
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b) => Text.XML.HaXml.TypeMapping.HTypeable (a,b);
+
+{-# NEED #-}
+instance Text.XML.HaXml.TypeMapping.HTypeable ();
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a) => Text.XML.HaXml.TypeMapping.HTypeable [a];
+
+{-# NEED #-}
+instance Text.XML.HaXml.TypeMapping.HTypeable Prelude.Char;
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d,Text.XML.HaXml.XmlContent.Parser.XmlContent e,Text.XML.HaXml.XmlContent.Parser.XmlContent f,Text.XML.HaXml.XmlContent.Parser.XmlContent g,Text.XML.HaXml.XmlContent.Parser.XmlContent h,Text.XML.HaXml.XmlContent.Parser.XmlContent i,Text.XML.HaXml.XmlContent.Parser.XmlContent j,Text.XML.HaXml.XmlContent.Parser.XmlContent k,Text.XML.HaXml.XmlContent.Parser.XmlContent l,Text.XML.HaXml.XmlContent.Parser.XmlContent m,Text.XML.HaXml.XmlContent.Parser.XmlContent n,Text.XML.HaXml.XmlContent.Parser.XmlContent o,Text.XML.HaXml.XmlContent.Parser.XmlContent p,Text.XML.HaXml.XmlContent.Parser.XmlContent q,Text.XML.HaXml.XmlContent.Parser.XmlContent r,Text.XML.HaXml.XmlContent.Parser.XmlContent s,Text.XML.HaXml.XmlContent.Parser.XmlContent t) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf20 a b c d e f g h i j k l m n o p q r s t);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d,Text.XML.HaXml.XmlContent.Parser.XmlContent e,Text.XML.HaXml.XmlContent.Parser.XmlContent f,Text.XML.HaXml.XmlContent.Parser.XmlContent g,Text.XML.HaXml.XmlContent.Parser.XmlContent h,Text.XML.HaXml.XmlContent.Parser.XmlContent i,Text.XML.HaXml.XmlContent.Parser.XmlContent j,Text.XML.HaXml.XmlContent.Parser.XmlContent k,Text.XML.HaXml.XmlContent.Parser.XmlContent l,Text.XML.HaXml.XmlContent.Parser.XmlContent m,Text.XML.HaXml.XmlContent.Parser.XmlContent n,Text.XML.HaXml.XmlContent.Parser.XmlContent o,Text.XML.HaXml.XmlContent.Parser.XmlContent p,Text.XML.HaXml.XmlContent.Parser.XmlContent q,Text.XML.HaXml.XmlContent.Parser.XmlContent r,Text.XML.HaXml.XmlContent.Parser.XmlContent s) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf19 a b c d e f g h i j k l m n o p q r s);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d,Text.XML.HaXml.XmlContent.Parser.XmlContent e,Text.XML.HaXml.XmlContent.Parser.XmlContent f,Text.XML.HaXml.XmlContent.Parser.XmlContent g,Text.XML.HaXml.XmlContent.Parser.XmlContent h,Text.XML.HaXml.XmlContent.Parser.XmlContent i,Text.XML.HaXml.XmlContent.Parser.XmlContent j,Text.XML.HaXml.XmlContent.Parser.XmlContent k,Text.XML.HaXml.XmlContent.Parser.XmlContent l,Text.XML.HaXml.XmlContent.Parser.XmlContent m,Text.XML.HaXml.XmlContent.Parser.XmlContent n,Text.XML.HaXml.XmlContent.Parser.XmlContent o,Text.XML.HaXml.XmlContent.Parser.XmlContent p,Text.XML.HaXml.XmlContent.Parser.XmlContent q,Text.XML.HaXml.XmlContent.Parser.XmlContent r) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf18 a b c d e f g h i j k l m n o p q r);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d,Text.XML.HaXml.XmlContent.Parser.XmlContent e,Text.XML.HaXml.XmlContent.Parser.XmlContent f,Text.XML.HaXml.XmlContent.Parser.XmlContent g,Text.XML.HaXml.XmlContent.Parser.XmlContent h,Text.XML.HaXml.XmlContent.Parser.XmlContent i,Text.XML.HaXml.XmlContent.Parser.XmlContent j,Text.XML.HaXml.XmlContent.Parser.XmlContent k,Text.XML.HaXml.XmlContent.Parser.XmlContent l,Text.XML.HaXml.XmlContent.Parser.XmlContent m,Text.XML.HaXml.XmlContent.Parser.XmlContent n,Text.XML.HaXml.XmlContent.Parser.XmlContent o,Text.XML.HaXml.XmlContent.Parser.XmlContent p,Text.XML.HaXml.XmlContent.Parser.XmlContent q) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf17 a b c d e f g h i j k l m n o p q);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d,Text.XML.HaXml.XmlContent.Parser.XmlContent e,Text.XML.HaXml.XmlContent.Parser.XmlContent f,Text.XML.HaXml.XmlContent.Parser.XmlContent g,Text.XML.HaXml.XmlContent.Parser.XmlContent h,Text.XML.HaXml.XmlContent.Parser.XmlContent i,Text.XML.HaXml.XmlContent.Parser.XmlContent j,Text.XML.HaXml.XmlContent.Parser.XmlContent k,Text.XML.HaXml.XmlContent.Parser.XmlContent l,Text.XML.HaXml.XmlContent.Parser.XmlContent m,Text.XML.HaXml.XmlContent.Parser.XmlContent n,Text.XML.HaXml.XmlContent.Parser.XmlContent o,Text.XML.HaXml.XmlContent.Parser.XmlContent p) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf16 a b c d e f g h i j k l m n o p);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d,Text.XML.HaXml.XmlContent.Parser.XmlContent e,Text.XML.HaXml.XmlContent.Parser.XmlContent f,Text.XML.HaXml.XmlContent.Parser.XmlContent g,Text.XML.HaXml.XmlContent.Parser.XmlContent h,Text.XML.HaXml.XmlContent.Parser.XmlContent i,Text.XML.HaXml.XmlContent.Parser.XmlContent j,Text.XML.HaXml.XmlContent.Parser.XmlContent k,Text.XML.HaXml.XmlContent.Parser.XmlContent l,Text.XML.HaXml.XmlContent.Parser.XmlContent m,Text.XML.HaXml.XmlContent.Parser.XmlContent n,Text.XML.HaXml.XmlContent.Parser.XmlContent o) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf15 a b c d e f g h i j k l m n o);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d,Text.XML.HaXml.XmlContent.Parser.XmlContent e,Text.XML.HaXml.XmlContent.Parser.XmlContent f,Text.XML.HaXml.XmlContent.Parser.XmlContent g,Text.XML.HaXml.XmlContent.Parser.XmlContent h,Text.XML.HaXml.XmlContent.Parser.XmlContent i,Text.XML.HaXml.XmlContent.Parser.XmlContent j,Text.XML.HaXml.XmlContent.Parser.XmlContent k,Text.XML.HaXml.XmlContent.Parser.XmlContent l,Text.XML.HaXml.XmlContent.Parser.XmlContent m,Text.XML.HaXml.XmlContent.Parser.XmlContent n) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf14 a b c d e f g h i j k l m n);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d,Text.XML.HaXml.XmlContent.Parser.XmlContent e,Text.XML.HaXml.XmlContent.Parser.XmlContent f,Text.XML.HaXml.XmlContent.Parser.XmlContent g,Text.XML.HaXml.XmlContent.Parser.XmlContent h,Text.XML.HaXml.XmlContent.Parser.XmlContent i,Text.XML.HaXml.XmlContent.Parser.XmlContent j,Text.XML.HaXml.XmlContent.Parser.XmlContent k,Text.XML.HaXml.XmlContent.Parser.XmlContent l,Text.XML.HaXml.XmlContent.Parser.XmlContent m) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf13 a b c d e f g h i j k l m);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d,Text.XML.HaXml.XmlContent.Parser.XmlContent e,Text.XML.HaXml.XmlContent.Parser.XmlContent f,Text.XML.HaXml.XmlContent.Parser.XmlContent g,Text.XML.HaXml.XmlContent.Parser.XmlContent h,Text.XML.HaXml.XmlContent.Parser.XmlContent i,Text.XML.HaXml.XmlContent.Parser.XmlContent j,Text.XML.HaXml.XmlContent.Parser.XmlContent k,Text.XML.HaXml.XmlContent.Parser.XmlContent l) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf12 a b c d e f g h i j k l);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d,Text.XML.HaXml.XmlContent.Parser.XmlContent e,Text.XML.HaXml.XmlContent.Parser.XmlContent f,Text.XML.HaXml.XmlContent.Parser.XmlContent g,Text.XML.HaXml.XmlContent.Parser.XmlContent h,Text.XML.HaXml.XmlContent.Parser.XmlContent i,Text.XML.HaXml.XmlContent.Parser.XmlContent j,Text.XML.HaXml.XmlContent.Parser.XmlContent k) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf11 a b c d e f g h i j k);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d,Text.XML.HaXml.XmlContent.Parser.XmlContent e,Text.XML.HaXml.XmlContent.Parser.XmlContent f,Text.XML.HaXml.XmlContent.Parser.XmlContent g,Text.XML.HaXml.XmlContent.Parser.XmlContent h,Text.XML.HaXml.XmlContent.Parser.XmlContent i,Text.XML.HaXml.XmlContent.Parser.XmlContent j) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf10 a b c d e f g h i j);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d,Text.XML.HaXml.XmlContent.Parser.XmlContent e,Text.XML.HaXml.XmlContent.Parser.XmlContent f,Text.XML.HaXml.XmlContent.Parser.XmlContent g,Text.XML.HaXml.XmlContent.Parser.XmlContent h,Text.XML.HaXml.XmlContent.Parser.XmlContent i) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf9 a b c d e f g h i);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d,Text.XML.HaXml.XmlContent.Parser.XmlContent e,Text.XML.HaXml.XmlContent.Parser.XmlContent f,Text.XML.HaXml.XmlContent.Parser.XmlContent g,Text.XML.HaXml.XmlContent.Parser.XmlContent h) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf8 a b c d e f g h);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d,Text.XML.HaXml.XmlContent.Parser.XmlContent e,Text.XML.HaXml.XmlContent.Parser.XmlContent f,Text.XML.HaXml.XmlContent.Parser.XmlContent g) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf7 a b c d e f g);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d,Text.XML.HaXml.XmlContent.Parser.XmlContent e,Text.XML.HaXml.XmlContent.Parser.XmlContent f) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf6 a b c d e f);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d,Text.XML.HaXml.XmlContent.Parser.XmlContent e) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf5 a b c d e);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c,Text.XML.HaXml.XmlContent.Parser.XmlContent d) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf4 a b c d);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b,Text.XML.HaXml.XmlContent.Parser.XmlContent c) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf3 a b c);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b) => Text.XML.HaXml.XmlContent.Parser.XmlContent (OneOf2 a b);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a) => Text.XML.HaXml.XmlContent.Parser.XmlContent (Prelude.Maybe a);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a,Text.XML.HaXml.XmlContent.Parser.XmlContent b) => Text.XML.HaXml.XmlContent.Parser.XmlContent (a,b);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.XmlContent.Parser.XmlContent a) => Text.XML.HaXml.XmlContent.Parser.XmlContent [a];
+
+{-# NEED #-}
+instance Text.XML.HaXml.XmlContent.Parser.XmlContent Prelude.Char;
+interface Data.Typeable
+{-# NEED #-}
+class Typeable a;
+interface Text.ParserCombinators.Poly.Plain
+{-# NEED Parser #-}
+newtype {-#  #-} Parser a b;
+
+{-# NEED Result #-}
+data Result a b;
+interface Text.XML.HaXml.Types
+{-# NEED Content Element #-}
+data Content a;
+data Element a;
+
+{-# NEED Misc #-}
+data Misc;
+
+{-# NEED CharData #-}
+type {-# 20 #-} CharData = Prelude.String;
+
+{-# NEED Attribute #-}
+type {-# 8 #-} Attribute = (QName,AttValue);
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Text.XML.HaXml.Types
+{-# NEED AttValue #-}
+data AttValue;
+
+{-# NEED QName #-}
+data QName;
+
+{-# NEED Reference #-}
+data Reference;
+
+{-# NEED CharRef #-}
+type {-# 16 #-} CharRef = Prelude.Int;
+
+{-# NEED EntityRef #-}
+type {-# 15 #-} EntityRef = Name;
+
+{-# NEED Name #-}
+type {-# 9 #-} Name = Prelude.String;
+interface Text.XML.HaXml.TypeMapping
+{-# NEED HType Constr #-}
+data HType;
+data Constr;
+interface Text.XML.HaXml.Posn
+{-# NEED Posn #-}
+data Posn;
+interface Text.XML.HaXml.XmlContent.Parser
+{-# NEED XmlContent #-}
+class (Text.XML.HaXml.TypeMapping.HTypeable a) => XmlContent a;
+interface Text.XML.HaXml.TypeMapping
+{-# NEED HTypeable #-}
+class HTypeable a;
+interface ! Text.XML.HaXml.OneOfN
+{-# NEED {OneOf20 OneOf20 TwoOf20 ThreeOf20 FourOf20 FiveOf20 SixOf20 SevenOf20 EightOf20 NineOf20 TenOf20 ElevenOf20 TwelveOf20 ThirteenOf20 FourteenOf20 FifteenOf20 SixteenOf20 SeventeenOf20 EighteenOf20 NineteenOf20 TwentyOf20} #-}
+data OneOf20 a b c d e f g h i j k l m n o p q r s t
+  = OneOf20 a
+  | TwoOf20 b
+  | ThreeOf20 c
+  | FourOf20 d
+  | FiveOf20 e
+  | SixOf20 f
+  | SevenOf20 g
+  | EightOf20 h
+  | NineOf20 i
+  | TenOf20 j
+  | ElevenOf20 k
+  | TwelveOf20 l
+  | ThirteenOf20 m
+  | FourteenOf20 n
+  | FifteenOf20 o
+  | SixteenOf20 p
+  | SeventeenOf20 q
+  | EighteenOf20 r
+  | NineteenOf20 s
+  | TwentyOf20 t;
+
+{-# NEED {OneOf19 OneOf19 TwoOf19 ThreeOf19 FourOf19 FiveOf19 SixOf19 SevenOf19 EightOf19 NineOf19 TenOf19 ElevenOf19 TwelveOf19 ThirteenOf19 FourteenOf19 FifteenOf19 SixteenOf19 SeventeenOf19 EighteenOf19 NineteenOf19} #-}
+data OneOf19 a b c d e f g h i j k l m n o p q r s
+  = OneOf19 a
+  | TwoOf19 b
+  | ThreeOf19 c
+  | FourOf19 d
+  | FiveOf19 e
+  | SixOf19 f
+  | SevenOf19 g
+  | EightOf19 h
+  | NineOf19 i
+  | TenOf19 j
+  | ElevenOf19 k
+  | TwelveOf19 l
+  | ThirteenOf19 m
+  | FourteenOf19 n
+  | FifteenOf19 o
+  | SixteenOf19 p
+  | SeventeenOf19 q
+  | EighteenOf19 r
+  | NineteenOf19 s;
+
+{-# NEED {OneOf18 OneOf18 TwoOf18 ThreeOf18 FourOf18 FiveOf18 SixOf18 SevenOf18 EightOf18 NineOf18 TenOf18 ElevenOf18 TwelveOf18 ThirteenOf18 FourteenOf18 FifteenOf18 SixteenOf18 SeventeenOf18 EighteenOf18} #-}
+data OneOf18 a b c d e f g h i j k l m n o p q r
+  = OneOf18 a
+  | TwoOf18 b
+  | ThreeOf18 c
+  | FourOf18 d
+  | FiveOf18 e
+  | SixOf18 f
+  | SevenOf18 g
+  | EightOf18 h
+  | NineOf18 i
+  | TenOf18 j
+  | ElevenOf18 k
+  | TwelveOf18 l
+  | ThirteenOf18 m
+  | FourteenOf18 n
+  | FifteenOf18 o
+  | SixteenOf18 p
+  | SeventeenOf18 q
+  | EighteenOf18 r;
+
+{-# NEED {OneOf17 OneOf17 TwoOf17 ThreeOf17 FourOf17 FiveOf17 SixOf17 SevenOf17 EightOf17 NineOf17 TenOf17 ElevenOf17 TwelveOf17 ThirteenOf17 FourteenOf17 FifteenOf17 SixteenOf17 SeventeenOf17} #-}
+data OneOf17 a b c d e f g h i j k l m n o p q
+  = OneOf17 a
+  | TwoOf17 b
+  | ThreeOf17 c
+  | FourOf17 d
+  | FiveOf17 e
+  | SixOf17 f
+  | SevenOf17 g
+  | EightOf17 h
+  | NineOf17 i
+  | TenOf17 j
+  | ElevenOf17 k
+  | TwelveOf17 l
+  | ThirteenOf17 m
+  | FourteenOf17 n
+  | FifteenOf17 o
+  | SixteenOf17 p
+  | SeventeenOf17 q;
+
+{-# NEED {OneOf16 OneOf16 TwoOf16 ThreeOf16 FourOf16 FiveOf16 SixOf16 SevenOf16 EightOf16 NineOf16 TenOf16 ElevenOf16 TwelveOf16 ThirteenOf16 FourteenOf16 FifteenOf16 SixteenOf16} #-}
+data OneOf16 a b c d e f g h i j k l m n o p
+  = OneOf16 a
+  | TwoOf16 b
+  | ThreeOf16 c
+  | FourOf16 d
+  | FiveOf16 e
+  | SixOf16 f
+  | SevenOf16 g
+  | EightOf16 h
+  | NineOf16 i
+  | TenOf16 j
+  | ElevenOf16 k
+  | TwelveOf16 l
+  | ThirteenOf16 m
+  | FourteenOf16 n
+  | FifteenOf16 o
+  | SixteenOf16 p;
+
+{-# NEED {OneOf15 OneOf15 TwoOf15 ThreeOf15 FourOf15 FiveOf15 SixOf15 SevenOf15 EightOf15 NineOf15 TenOf15 ElevenOf15 TwelveOf15 ThirteenOf15 FourteenOf15 FifteenOf15} #-}
+data OneOf15 a b c d e f g h i j k l m n o
+  = OneOf15 a
+  | TwoOf15 b
+  | ThreeOf15 c
+  | FourOf15 d
+  | FiveOf15 e
+  | SixOf15 f
+  | SevenOf15 g
+  | EightOf15 h
+  | NineOf15 i
+  | TenOf15 j
+  | ElevenOf15 k
+  | TwelveOf15 l
+  | ThirteenOf15 m
+  | FourteenOf15 n
+  | FifteenOf15 o;
+
+{-# NEED {OneOf14 OneOf14 TwoOf14 ThreeOf14 FourOf14 FiveOf14 SixOf14 SevenOf14 EightOf14 NineOf14 TenOf14 ElevenOf14 TwelveOf14 ThirteenOf14 FourteenOf14} #-}
+data OneOf14 a b c d e f g h i j k l m n
+  = OneOf14 a
+  | TwoOf14 b
+  | ThreeOf14 c
+  | FourOf14 d
+  | FiveOf14 e
+  | SixOf14 f
+  | SevenOf14 g
+  | EightOf14 h
+  | NineOf14 i
+  | TenOf14 j
+  | ElevenOf14 k
+  | TwelveOf14 l
+  | ThirteenOf14 m
+  | FourteenOf14 n;
+
+{-# NEED {OneOf13 OneOf13 TwoOf13 ThreeOf13 FourOf13 FiveOf13 SixOf13 SevenOf13 EightOf13 NineOf13 TenOf13 ElevenOf13 TwelveOf13 ThirteenOf13} #-}
+data OneOf13 a b c d e f g h i j k l m
+  = OneOf13 a
+  | TwoOf13 b
+  | ThreeOf13 c
+  | FourOf13 d
+  | FiveOf13 e
+  | SixOf13 f
+  | SevenOf13 g
+  | EightOf13 h
+  | NineOf13 i
+  | TenOf13 j
+  | ElevenOf13 k
+  | TwelveOf13 l
+  | ThirteenOf13 m;
+
+{-# NEED {OneOf12 OneOf12 TwoOf12 ThreeOf12 FourOf12 FiveOf12 SixOf12 SevenOf12 EightOf12 NineOf12 TenOf12 ElevenOf12 TwelveOf12} #-}
+data OneOf12 a b c d e f g h i j k l
+  = OneOf12 a
+  | TwoOf12 b
+  | ThreeOf12 c
+  | FourOf12 d
+  | FiveOf12 e
+  | SixOf12 f
+  | SevenOf12 g
+  | EightOf12 h
+  | NineOf12 i
+  | TenOf12 j
+  | ElevenOf12 k
+  | TwelveOf12 l;
+
+{-# NEED {OneOf11 OneOf11 TwoOf11 ThreeOf11 FourOf11 FiveOf11 SixOf11 SevenOf11 EightOf11 NineOf11 TenOf11 ElevenOf11} #-}
+data OneOf11 a b c d e f g h i j k
+  = OneOf11 a
+  | TwoOf11 b
+  | ThreeOf11 c
+  | FourOf11 d
+  | FiveOf11 e
+  | SixOf11 f
+  | SevenOf11 g
+  | EightOf11 h
+  | NineOf11 i
+  | TenOf11 j
+  | ElevenOf11 k;
+
+{-# NEED {OneOf10 OneOf10 TwoOf10 ThreeOf10 FourOf10 FiveOf10 SixOf10 SevenOf10 EightOf10 NineOf10 TenOf10} #-}
+data OneOf10 a b c d e f g h i j
+  = OneOf10 a
+  | TwoOf10 b
+  | ThreeOf10 c
+  | FourOf10 d
+  | FiveOf10 e
+  | SixOf10 f
+  | SevenOf10 g
+  | EightOf10 h
+  | NineOf10 i
+  | TenOf10 j;
+
+{-# NEED {OneOf9 OneOf9 TwoOf9 ThreeOf9 FourOf9 FiveOf9 SixOf9 SevenOf9 EightOf9 NineOf9} #-}
+data OneOf9 a b c d e f g h i
+  = OneOf9 a
+  | TwoOf9 b
+  | ThreeOf9 c
+  | FourOf9 d
+  | FiveOf9 e
+  | SixOf9 f
+  | SevenOf9 g
+  | EightOf9 h
+  | NineOf9 i;
+
+{-# NEED {OneOf8 OneOf8 TwoOf8 ThreeOf8 FourOf8 FiveOf8 SixOf8 SevenOf8 EightOf8} #-}
+data OneOf8 a b c d e f g h
+  = OneOf8 a
+  | TwoOf8 b
+  | ThreeOf8 c
+  | FourOf8 d
+  | FiveOf8 e
+  | SixOf8 f
+  | SevenOf8 g
+  | EightOf8 h;
+
+{-# NEED {OneOf7 OneOf7 TwoOf7 ThreeOf7 FourOf7 FiveOf7 SixOf7 SevenOf7} #-}
+data OneOf7 a b c d e f g
+  = OneOf7 a
+  | TwoOf7 b
+  | ThreeOf7 c
+  | FourOf7 d
+  | FiveOf7 e
+  | SixOf7 f
+  | SevenOf7 g;
+
+{-# NEED {OneOf6 OneOf6 TwoOf6 ThreeOf6 FourOf6 FiveOf6 SixOf6} #-}
+data OneOf6 a b c d e f
+  = OneOf6 a
+  | TwoOf6 b
+  | ThreeOf6 c
+  | FourOf6 d
+  | FiveOf6 e
+  | SixOf6 f;
+
+{-# NEED {OneOf5 OneOf5 TwoOf5 ThreeOf5 FourOf5 FiveOf5} #-}
+data OneOf5 a b c d e
+  = OneOf5 a
+  | TwoOf5 b
+  | ThreeOf5 c
+  | FourOf5 d
+  | FiveOf5 e;
+
+{-# NEED {OneOf4 OneOf4 TwoOf4 ThreeOf4 FourOf4} #-}
+data OneOf4 a b c d
+  = OneOf4 a
+  | TwoOf4 b
+  | ThreeOf4 c
+  | FourOf4 d;
+
+{-# NEED {OneOf3 OneOf3 TwoOf3 ThreeOf3} #-}
+data OneOf3 a b c
+  = OneOf3 a
+  | TwoOf3 b
+  | ThreeOf3 c;
+
+{-# NEED {OneOf2 OneOf2 TwoOf2} #-}
+data OneOf2 a b
+  = OneOf2 a
+  | TwoOf2 b;
+}

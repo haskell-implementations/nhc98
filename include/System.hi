@@ -1,0 +1,40 @@
+interface System where {
+
+{-# NEED #-}
+instance Prelude.Ord ExitCode;
+
+{-# NEED #-}
+instance Prelude.Show ExitCode;
+
+{-# NEED #-}
+instance Prelude.Eq ExitCode;
+
+{-# NEED #-}
+instance Prelude.Read ExitCode;
+interface ! System
+{-# NEED getEnv #-}
+getEnv{-# 1 #-}::(Prelude.String -> (NHC.Internal.IO Prelude.String));
+
+{-# NEED getArgs #-}
+getArgs{-# 0 #-}::(NHC.Internal.IO [Prelude.String]);
+
+{-# NEED system #-}
+system{-# 1 #-}::(Prelude.String -> (NHC.Internal.IO ExitCode));
+
+{-# NEED exitWith #-}
+exitWith{-# 1 #-}::(ExitCode -> (NHC.Internal.IO a));
+
+{-# NEED exitFailure #-}
+exitFailure{-# 0 #-}::(NHC.Internal.IO a);
+
+{-# NEED getProgName #-}
+getProgName{-# 0 #-}::(NHC.Internal.IO Prelude.String);
+
+{-# NEED {ExitCode ExitSuccess ExitFailure} #-}
+data ExitCode
+  = ExitSuccess 
+  | ExitFailure Prelude.Int;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO;
+}

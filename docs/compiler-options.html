@@ -1,0 +1,540 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>nhc98 compile-time options</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  </head>
+  <body bgcolor="#ffffff">
+    <table>
+      <tbody>
+        <tr>
+          <td width=500>
+            <center><h1>nhc98 compile-time options</h1></center>
+            <hr>
+            <p>
+              <b>nhc98</b> is a driver script which calls (if necessary) in
+              turn, the C preprocessor, the GreenCard preprocessor, the compiler
+              proper, the C compiler, the assembler, and finally the linker.
+              You can control these stages using environment variables and
+              flags.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table width="500">
+      <tbody>
+        <tr>
+          <td valign="top">
+            <p>
+              <b>File arguments.</b>
+
+            <table width="250">
+              <tbody>
+                <tr>
+                  <td valign="top"><em>.hs</em></td>
+                  <td>Haskell source file</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em>.lhs</em></td>
+                  <td>literate Haskell source file</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em>.gc</em></td>
+                  <td>Haskell source file to be preprocessed with GreenCard</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em>.c</em></td>
+                  <td>nhc98 bytecode file</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em>.s</em></td>
+                  <td>assembler file</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em>.o</em></td>
+                  <td>object file</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              <b>Environment variables.</b>
+            <p>
+              No environment variables are required.  However, if you wish, you
+              can use some or all of the following variables to configure parts
+              of the driver script at compile-time.
+
+            <table width="250">
+              <tbody>
+                <tr>
+                  <td valign="top"><em>NHC98LIBDIR</em></td>
+                  <td>The full path (excluding final machine-specific part)
+                    to the nhc98 executables and libs</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em>NHC98INCDIR</em></td>
+                  <td>The full path to the nhc98 interface and include files.</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em>NHC98COMP</em></td>
+                  <td>The name/path of the nhc98 compiler proper</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em>GREENCARD</em></td>
+                  <td>The name/path of the GreenCard preprocessor</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em>GREENCARDOPTS</em></td>
+                  <td>Additional options to the GreenCard preprocessor</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em>TMP</em></td>
+                  <td>A temporary directory for intermediate files (default: /tmp)</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td valign="top">
+            <p>
+              <b>Flags.</b>
+            <table width="250">
+              <tbody>
+                <tr>
+                  <td valign="top"><em><b>--version</b></em></td>
+                  <td>display version information and quit</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-98</b></em></td>
+                  <td>ensure Haskell 98 compatibility</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-v</b></em></td>
+                  <td>verbose - echo commands before executing them</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-cpp</b></em></td>
+                  <td>run the C preprocessor over the source file first</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-p</b></em></td>
+                  <td>compile for heap profiling</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-t</b></em></td>
+                  <td>compile for time profiling</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-T</b></em></td>
+                  <td>compile for tracing</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-c</b></em></td>
+                  <td>compile only - do not link to a final executable</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-S</b></em></td>
+                  <td>stop after generating assembler file (.s)</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-C</b></em></td>
+                  <td>stop after generating bytecode file (.c)</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-o</b> file</em></td>
+                  <td>name the final object or executable <em>file</em></td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-d</b> objdir</em></td>
+                  <td>place intermediate object files in <em>objdir</em></td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-H</b>size</em></td>
+                  <td>set the default heap for the final executable to <em>size</em></td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-l</b>lib</em></td>
+                  <td>link against the library named <em>lib</em></td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-L</b>dir</em></td>
+                  <td>search <em>dir</em> when linking against libs</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-package</b> pkg</em></td>
+                  <td>use hierarchical modules from the package named <em>pkg</em>, e.g.
+                    base, HaXml, etc.</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-I</b>dir</em></td>
+                  <td>search directory <em>dir</em> for imported modules during compilation,
+                    and for <tt>#include</tt>'d C header files during compilation of the
+                    C-section of a <em>GreenCard</em> file</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-i</b>dir</em></td>
+                  <td>as for <em><b>-I</b></em> option, except also search <em>dir</em>
+                    and <em>dir/$MACHINE</em> for a library archive called <em>lib$CFG.a</em>
+                    at link stage, where $CFG is taken from the <em>-p</em>, <em>-t</em>,
+                    and <em>-T</em> flags, respectively indicating heap profiling, time
+                    profiling or tracing</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-P</b>dir</em></td>
+                  <td>search directory <em>dir</em> for prelude and stdlib modules during
+                    compilation</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-D</b>sym</em></td>
+                  <td>define <em>sym</em> when pre-processing, and when compiling the
+                    C-section of a <em>GreenCard</em> file</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-U</b>sym</em></td>
+                  <td>undefine <em>sym</em> when pre-processing, and when compiling the
+                    C-section of a <em>GreenCard</em> file</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>+RTS</b></em></td>
+                  <td>the following options (up to <em><b>-RTS</b></em>) should be passed only
+                    to the compiler's runtime system
+                    (for instance to set the compilation heap size)</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>+CTS</b></em></td>
+                  <td>the following options (up to <em><b>-CTS</b></em>) should be passed only
+                    to the compiler proper (as detailed below)</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>+rts</b></em></td>
+                  <td>runtime system options specified between <em>+RTS ... -RTS</em>
+                    delimiters should be passed on to the compiler proper using the
+                    nhc98/ghc syntax (i.e. when nhc98comp was compiled by nhc98 or ghc).
+                    You are unlikely to need this option, because a default setting of
+                    <em>+rts</em> or <em>-rts</em> is determined at config time</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-rts</b></em></td>
+                  <td>runtime system options specified between <em>+RTS ... -RTS</em>
+                    delimiters should be passed on to the compiler proper using the
+                    hbc syntax (i.e. when nhc98comp was compiled by hbc).
+                    You are unlikely to need this option, because a default setting of
+                    <em>+rts</em> or <em>-rts</em> is determined at config time</td>
+                </tr>
+              </tbody>
+            </table>
+      </tbody>
+    </table>
+    <table>
+      <tbody>
+        <tr>
+          <td width="500">
+            <hr>
+            <p>
+              The following flags can be passed to the nhc98 compiler proper.
+              Occasionally a compiler option-name may conflict with (for instance) a
+              linker option-name.  To be sure that compiler options are parsed
+              correctly, it is best to enclose them between <em>+CTS</em> and
+              <em>-CTS</em>.
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table width="500">
+      <tbody>
+        <tr>
+          <td valign="top">
+            <p>
+              <b>Options to change the usual compilation behaviour.</b>
+            <p>
+              In general, the default value of an option is "off" (except where
+              noted), and using the flag turns the option on.  Where the default
+              value is "on", an option can be turned off by prefixing the flag with
+              <em>no</em>:  for instance <em>-zap</em> is usually on by default, but
+              <em>-nozap</em> will turn it off.
+            <table width="250">
+              <tbody>
+                <tr>
+                  <td valign="top"><em><b>-redefine</b></em></td>
+                  <td>Don't complain if redefining an imported identifier</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-part</b></em></td>
+                  <td>Compiling part of a lib, so don't complain if module name differs from
+                    file name and don't create profiling information for this module</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-lib</b></em></td>
+                  <td>Compiling a lib, don't complain if importing modules with names
+                    that differ from their filenames</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-unix</b></em></td>
+                  <td>Use unix filenames (default=on) (off=RiscOS filenames)</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-unlit</b></em></td>
+                  <td>Unliterate the source code</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-nkpat</b></em></td>
+                  <td>Allow (n+k) patterns (default=off except in -98 compatibility mode)</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-underscore</b></em></td>
+                  <td>Treat underscores strictly as lowercase (default=off except in -98 compatibility mode)</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-puns</b></em></td>
+                  <td>Allow named field punning (default=on except in -98 compatibility mode)</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-ansiC</b></em></td>
+                  <td>Generate bytecode file as ANSI C (default=on) </td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-showtype</b></em></td>
+                  <td>Report type of main expression, but do not generate code</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-profile</b></em></td>
+                  <td>number of occurrences = amount of heap profiling information per node</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-tprof</b></em></td>
+                  <td>compile for time profiling</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-zap</b></em></td>
+                  <td>Generate code to zap unused arguments/stack positions (default=on)</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-prelude</b></em></td>
+                  <td>Keep prelude definitions in interface file</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-keepcase</b></em></td>
+                  <td>Don't lift case, we fix those later</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-dbgtrans</b></em></td>
+                  <td>perform tracing translation (for runtime tracer)</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-dbgprelude</b></em></td>
+                  <td>use the tracing prelude</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-trusted</b></em></td>
+                  <td>make this a "trusted" module (tracer)</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td valign="top">
+            <p>
+              <b>Options to examine the internal progress of the compiler, stage by stage.</b>
+            <table width="250">
+              <tbody>
+                <tr>
+                  <td valign="top"><em>-<b>showwidth=</b>w</em></td>
+                  <td>set width in characters of output of an intermediate syntax tree to <em>w</em>
+                    (default=80)</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em>-<b>showindent=</b>i</em></td>
+                  <td>set indentation in characters for nesting of output of an intermediate syntax tree to <em>i</em>
+                    (default=2)</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em>-<b>showqualified</b></em></td>
+                  <td>use qualified names in output of intermediate syntax tree
+                    (default=on)</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-lex</b></em></td>
+                  <td>show lexical input</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-parse</b></em></td>
+                  <td>show syntax tree after parser</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-need</b></em></td>
+                  <td>show need table before import</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-import</b></em></td>
+                  <td>print names of explicitly imported files</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-ilex</b></em></td>
+                  <td>show lexical input for interface files</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-iineed</b></em></td>
+                  <td>show need   table between all import files</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-iibound</b></em></td>
+                  <td>show symbol table between all import files</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-iirename</b></em></td>
+                  <td>show rename table between all import files</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-ineed</b></em></td>
+                  <td>show need   table after  import</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-ibound</b></em></td>
+                  <td>show symbol table after  import</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-irename</b></em></td>
+                  <td>show rename table after  import</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-rename</b></em></td>
+                  <td>show syntax tree  after   rename</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-rbound</b></em></td>
+                  <td>show symbol table after   rename</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-depend</b></em></td>
+                  <td>print imported identifiers that are used (not even alpha-tested yet)</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-derive</b></em></td>
+                  <td>show syntax tree  after   derive</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-dbound</b></em></td>
+                  <td>show symbol table after   derive</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-ebound</b></em></td>
+                  <td>show symbol table after extract</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-remove</b></em></td>
+                  <td>show syntax tree after fields are removed (translated into selectors)</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-scc</b></em></td>
+                  <td>show syntax tree  after splitting into strongly connected groups</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-type</b></em></td>
+                  <td>show syntax tree  after type check</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-tbound</b></em></td>
+                  <td>show symbol table after type check</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-report-imports</b></em></td>
+                  <td>display imports actually used</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-fixsyntax</b></em></td>
+                  <td>show syntax tree  after removing newtype constructors and fixing
+                    Class.Type.method</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-fsbound</b></em></td>
+                  <td>show symbol table after adding Class.Type.method info</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-case</b></em></td>
+                  <td>show stg tree after simplification of patterns</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-cbound</b></em></td>
+                  <td>show symbol table after simplification of pattern</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-prim</b></em></td>
+                  <td>show stg tree after inserting primitive functions</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-pbound</b></em></td>
+                  <td>show symbol table after inserting primitive functions</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-free</b></em></td>
+                  <td>show stg tree with explicit free variables</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-arity</b></em></td>
+                  <td>show stg tree  after arity grouping</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-lift</b></em></td>
+                  <td>show syntax tree  after lambda lifting</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-lbound</b></em></td>
+                  <td>show symbol table after lambda lifting</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-atom</b></em></td>
+                  <td>show stg tree after only atoms in applications</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-abound</b></em></td>
+                  <td>show symbol table after only atoms in applications</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-gcode</b></em></td>
+                  <td>show G code</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-gcodefix</b></em></td>
+                  <td>show G code after large constant fixed</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-gcodeopt1</b></em></td>
+                  <td>show G code optimisation</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-gcodemem</b></em></td>
+                  <td>show G code NEEDHEAP</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-gcodeopt2</b></em></td>
+                  <td>show G code optimisation</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-gcoderel</b></em></td>
+                  <td>show G code after offsets</td>
+                </tr>
+                <tr>
+                  <td valign="top"><em><b>-funnames</b></em></td>
+                  <td>insert position and name of functions in the code</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <tbody>
+        <tr>
+          <td width="500">
+            <hr>
+            <p>
+              The latest updates to these pages are available on the WWW from
+              <a href="http://www.haskell.org/nhc98/"><tt>http://www.haskell.org/nhc98/</tt></a>
+            <p>
+              4 July 2004<br>
+              <a href="http://www.cs.york.ac.uk/fp/">York Functional Programming Group</a><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

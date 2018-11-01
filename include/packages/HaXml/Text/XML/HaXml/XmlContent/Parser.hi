@@ -1,0 +1,937 @@
+interface Text.XML.HaXml.XmlContent.Parser where {
+infixl  3 `Text.ParserCombinators.Poly.Base.discard`;
+infixl  3 `Text.ParserCombinators.Poly.Base.apply`;
+infixl  6 `Text.ParserCombinators.Poly.Base.onFail`;
+
+{-# NEED #-}
+instance Control.Monad.Fix.MonadFix NHC.Internal.IO;
+
+{-# NEED #-}
+instance Control.Applicative.Applicative NHC.Internal.IO;
+
+{-# NEED #-}
+instance Data.Traversable.Traversable (Data.Map.Map a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable2 Data.Map.Map;
+
+{-# NEED #-}
+instance Data.Foldable.Foldable (Data.Map.Map a);
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Data.Monoid.Monoid (Data.Map.Map a b);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Ratio.Ratio;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable1 (Data.Map.Map a);
+
+{-# NEED #-}
+instance (XmlContent a) => XmlContent (List1 a);
+
+{-# NEED #-}
+instance XmlContent ANYContent;
+
+{-# NEED #-}
+instance (XmlContent a,XmlContent b,XmlContent c) => XmlContent (a,b,c);
+
+{-# NEED #-}
+instance (XmlContent a,XmlContent b,XmlContent c,XmlContent d) => XmlContent (a,b,c,d);
+
+{-# NEED #-}
+instance (XmlContent a,XmlContent b,XmlContent c,XmlContent d,XmlContent e) => XmlContent (a,b,c,d,e);
+
+{-# NEED #-}
+instance (XmlContent a,XmlContent b,XmlContent c,XmlContent d,XmlContent e,XmlContent f) => XmlContent (a,b,c,d,e,f);
+
+{-# NEED #-}
+instance (XmlContent a,XmlContent b,XmlContent c,XmlContent d,XmlContent e,XmlContent f,XmlContent g) => XmlContent (a,b,c,d,e,f,g);
+
+{-# NEED #-}
+instance (XmlContent a,XmlContent b,XmlContent c,XmlContent d,XmlContent e,XmlContent f,XmlContent g,XmlContent h) => XmlContent (a,b,c,d,e,f,g,h);
+
+{-# NEED #-}
+instance (XmlContent a,XmlContent b,XmlContent c,XmlContent d,XmlContent e,XmlContent f,XmlContent g,XmlContent h,XmlContent i) => XmlContent (a,b,c,d,e,f,g,h,i);
+
+{-# NEED #-}
+instance (XmlContent a,XmlContent b,XmlContent c,XmlContent d,XmlContent e,XmlContent f,XmlContent g,XmlContent h,XmlContent i,XmlContent j) => XmlContent (a,b,c,d,e,f,g,h,i,j);
+
+{-# NEED #-}
+instance (XmlContent a,XmlContent b,XmlContent c,XmlContent d,XmlContent e,XmlContent f,XmlContent g,XmlContent h,XmlContent i,XmlContent j,XmlContent k) => XmlContent (a,b,c,d,e,f,g,h,i,j,k);
+
+{-# NEED #-}
+instance (XmlContent a,XmlContent b,XmlContent c,XmlContent d,XmlContent e,XmlContent f,XmlContent g,XmlContent h,XmlContent i,XmlContent j,XmlContent k,XmlContent l) => XmlContent (a,b,c,d,e,f,g,h,i,j,k,l);
+
+{-# NEED #-}
+instance (XmlContent a,XmlContent b,XmlContent c,XmlContent d,XmlContent e,XmlContent f,XmlContent g,XmlContent h,XmlContent i,XmlContent j,XmlContent k,XmlContent l,XmlContent m) => XmlContent (a,b,c,d,e,f,g,h,i,j,k,l,m);
+
+{-# NEED #-}
+instance (XmlContent a,XmlContent b,XmlContent c,XmlContent d,XmlContent e,XmlContent f,XmlContent g,XmlContent h,XmlContent i,XmlContent j,XmlContent k,XmlContent l,XmlContent m,XmlContent n) => XmlContent (a,b,c,d,e,f,g,h,i,j,k,l,m,n);
+
+{-# NEED #-}
+instance (XmlContent a,XmlContent b,XmlContent c,XmlContent d,XmlContent e,XmlContent f,XmlContent g,XmlContent h,XmlContent i,XmlContent j,XmlContent k,XmlContent l,XmlContent m,XmlContent n,XmlContent o) => XmlContent (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o);
+
+{-# NEED #-}
+instance (XmlContent a,XmlContent b) => XmlContent (a,b);
+
+{-# NEED #-}
+instance Text.ParserCombinators.Poly.Base.PolyParse (Text.ParserCombinators.Poly.Plain.Parser a);
+
+{-# NEED #-}
+instance Text.ParserCombinators.Poly.Base.PolyParse Prelude.[];
+
+{-# NEED #-}
+instance (Text.XML.HaXml.Verbatim.Verbatim a,Text.XML.HaXml.Verbatim.Verbatim b) => Text.XML.HaXml.Verbatim.Verbatim (Prelude.Either a b);
+
+{-# NEED #-}
+instance Text.XML.HaXml.Verbatim.Verbatim Prelude.Char;
+
+{-# NEED #-}
+instance Text.XML.HaXml.Verbatim.Verbatim Text.XML.HaXml.Types.Reference;
+
+{-# NEED #-}
+instance Text.XML.HaXml.Verbatim.Verbatim (Text.XML.HaXml.Types.Element a);
+
+{-# NEED #-}
+instance Text.XML.HaXml.Verbatim.Verbatim (Text.XML.HaXml.Types.Content a);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.Verbatim.Verbatim a) => Text.XML.HaXml.Verbatim.Verbatim [a];
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a) => Text.XML.HaXml.TypeMapping.HTypeable (List1 a);
+
+{-# NEED #-}
+instance Text.XML.HaXml.TypeMapping.HTypeable ANYContent;
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c) => Text.XML.HaXml.TypeMapping.HTypeable (a,b,c);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d) => Text.XML.HaXml.TypeMapping.HTypeable (a,b,c,d);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e) => Text.XML.HaXml.TypeMapping.HTypeable (a,b,c,d,e);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f) => Text.XML.HaXml.TypeMapping.HTypeable (a,b,c,d,e,f);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g) => Text.XML.HaXml.TypeMapping.HTypeable (a,b,c,d,e,f,g);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h) => Text.XML.HaXml.TypeMapping.HTypeable (a,b,c,d,e,f,g,h);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i) => Text.XML.HaXml.TypeMapping.HTypeable (a,b,c,d,e,f,g,h,i);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j) => Text.XML.HaXml.TypeMapping.HTypeable (a,b,c,d,e,f,g,h,i,j);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j,Text.XML.HaXml.TypeMapping.HTypeable k) => Text.XML.HaXml.TypeMapping.HTypeable (a,b,c,d,e,f,g,h,i,j,k);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j,Text.XML.HaXml.TypeMapping.HTypeable k,Text.XML.HaXml.TypeMapping.HTypeable l) => Text.XML.HaXml.TypeMapping.HTypeable (a,b,c,d,e,f,g,h,i,j,k,l);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j,Text.XML.HaXml.TypeMapping.HTypeable k,Text.XML.HaXml.TypeMapping.HTypeable l,Text.XML.HaXml.TypeMapping.HTypeable m) => Text.XML.HaXml.TypeMapping.HTypeable (a,b,c,d,e,f,g,h,i,j,k,l,m);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j,Text.XML.HaXml.TypeMapping.HTypeable k,Text.XML.HaXml.TypeMapping.HTypeable l,Text.XML.HaXml.TypeMapping.HTypeable m,Text.XML.HaXml.TypeMapping.HTypeable n) => Text.XML.HaXml.TypeMapping.HTypeable (a,b,c,d,e,f,g,h,i,j,k,l,m,n);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b,Text.XML.HaXml.TypeMapping.HTypeable c,Text.XML.HaXml.TypeMapping.HTypeable d,Text.XML.HaXml.TypeMapping.HTypeable e,Text.XML.HaXml.TypeMapping.HTypeable f,Text.XML.HaXml.TypeMapping.HTypeable g,Text.XML.HaXml.TypeMapping.HTypeable h,Text.XML.HaXml.TypeMapping.HTypeable i,Text.XML.HaXml.TypeMapping.HTypeable j,Text.XML.HaXml.TypeMapping.HTypeable k,Text.XML.HaXml.TypeMapping.HTypeable l,Text.XML.HaXml.TypeMapping.HTypeable m,Text.XML.HaXml.TypeMapping.HTypeable n,Text.XML.HaXml.TypeMapping.HTypeable o) => Text.XML.HaXml.TypeMapping.HTypeable (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o);
+
+{-# NEED #-}
+instance Text.XML.HaXml.TypeMapping.HTypeable Prelude.Integer;
+
+{-# NEED #-}
+instance Text.XML.HaXml.TypeMapping.HTypeable Prelude.Float;
+
+{-# NEED #-}
+instance Text.XML.HaXml.TypeMapping.HTypeable Prelude.Double;
+
+{-# NEED #-}
+instance Text.XML.HaXml.TypeMapping.HTypeable ();
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b) => Text.XML.HaXml.TypeMapping.HTypeable (Prelude.Either a b);
+
+{-# NEED #-}
+instance Text.XML.HaXml.TypeMapping.HTypeable Prelude.Char;
+
+{-# NEED #-}
+instance Text.XML.HaXml.TypeMapping.HTypeable Prelude.Int;
+
+{-# NEED #-}
+instance Text.XML.HaXml.TypeMapping.HTypeable Prelude.Bool;
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a,Text.XML.HaXml.TypeMapping.HTypeable b) => Text.XML.HaXml.TypeMapping.HTypeable (a,b);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a) => Text.XML.HaXml.TypeMapping.HTypeable (Prelude.Maybe a);
+
+{-# NEED #-}
+instance (Text.XML.HaXml.TypeMapping.HTypeable a) => Text.XML.HaXml.TypeMapping.HTypeable [a];
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Monad (Text.ParserCombinators.Poly.Plain.Parser a);
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Ord a,Prelude.Read a,Prelude.Read b) => Prelude.Read (Data.Map.Map a b);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Ord a,Prelude.Ord b) => Prelude.Ord (Data.Map.Map a b);
+
+{-# NEED #-}
+instance Prelude.Ord Text.XML.HaXml.Types.QName;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (List1 a);
+
+{-# NEED #-}
+instance Prelude.Show ANYContent;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Defaultable a);
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Posn.Posn;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.TypeMapping.Constr;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.Namespace;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.SystemLiteral;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.PubidLiteral;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.ExternalID;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.Reference;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.EV;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.EntityValue;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.PEDef;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.TypeMapping.HType;
+
+{-# NEED #-}
+instance Prelude.Show Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance Prelude.Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b) => Prelude.Show (Data.Map.Map a b);
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.AttValue;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.QName;
+
+{-# NEED #-}
+instance Prelude.Functor (Text.ParserCombinators.Poly.Plain.Result a);
+
+{-# NEED #-}
+instance Prelude.Functor (Text.ParserCombinators.Poly.Plain.Parser a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Functor (Data.Map.Map a);
+
+{-# NEED #-}
+instance Prelude.Functor Text.XML.HaXml.Types.Element;
+
+{-# NEED #-}
+instance Prelude.Functor Text.XML.HaXml.Types.Content;
+
+{-# NEED #-}
+instance Prelude.Functor Text.XML.HaXml.Types.Document;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (List1 a);
+
+{-# NEED #-}
+instance Prelude.Eq ANYContent;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Defaultable a);
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Posn.Posn;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.TypeMapping.Constr;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.Namespace;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.SystemLiteral;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.PubidLiteral;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.ExternalID;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.Mixed;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.Modifier;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.CP;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.ContentSpec;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.ElementDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.TokenizedType;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.EnumeratedType;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.AttType;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.Reference;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.FIXED;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.DefaultDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.AttDef;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.AttListDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.EV;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.EntityValue;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.NDataDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.EntityDef;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.GEDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.PEDef;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.PEDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.EntityDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.PublicID;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.NotationDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.Misc;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.MarkupDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.DocTypeDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.TypeMapping.HType;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b) => Prelude.Eq (Data.Map.Map a b);
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.EncodingDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.TextDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.Ignore;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.IgnoreSectContents;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.ExtSubsetDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.ConditionalSect;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.ExtPE;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.AttValue;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.QName;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Text.XML.HaXml.Types.Element a);
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Text.XML.HaXml.Types.Content a);
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Text.XML.HaXml.Types.ExtParsedEnt a);
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.ElemTag;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.ExtSubset;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.XMLDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.Prolog;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Text.XML.HaXml.Types.Document a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable IO.Handle;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (Data.Map.Map a b);
+interface Text.XML.HaXml.Verbatim
+{-# NEED Verbatim #-}
+class Verbatim a;
+interface Text.PrettyPrint.HughesPJ
+{-# NEED Doc #-}
+data Doc;
+interface Text.XML.HaXml.Types
+{-# NEED ExtPE #-}
+data ExtPE;
+
+{-# NEED ExtParsedEnt #-}
+data ExtParsedEnt a;
+
+{-# NEED ExtSubset #-}
+data ExtSubset;
+
+{-# NEED ConditionalSect ExtSubsetDecl IncludeSect #-}
+data ConditionalSect;
+data ExtSubsetDecl;
+type {-# 13 #-} IncludeSect = [ExtSubsetDecl];
+
+{-# NEED IgnoreSect #-}
+type {-# 14 #-} IgnoreSect = [IgnoreSectContents];
+
+{-# NEED IgnoreSectContents #-}
+data IgnoreSectContents;
+
+{-# NEED Ignore #-}
+data Ignore;
+
+{-# NEED TextDecl #-}
+data TextDecl;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Data.Typeable
+{-# NEED Typeable #-}
+class Typeable a;
+interface Data.Map
+{-# NEED Map #-}
+data Map a b;
+interface ! Text.XML.HaXml.XmlContent.Parser
+{-# NEED {List1 NonEmpty} #-}
+data List1 a
+  = NonEmpty [a];
+
+{-# NEED {ANYContent ANYContent UnConverted} #-}
+data ANYContent
+  = forall a_fa . (XmlContent a_fa,Prelude.Show a_fa) => ANYContent a_fa
+  | UnConverted [(Text.XML.HaXml.Types.Content Text.XML.HaXml.Posn.Posn)];
+
+{-# NEED attr2str #-}
+attr2str{-# 1 #-}::(Text.XML.HaXml.Types.AttValue -> Prelude.String);
+
+{-# NEED str2attr #-}
+str2attr{-# 1 #-}::(Prelude.String -> Text.XML.HaXml.Types.AttValue);
+
+{-# NEED toAttrFrStr #-}
+toAttrFrStr{-# 2 #-}::(Prelude.String -> (Prelude.String -> (Prelude.Maybe Text.XML.HaXml.Types.Attribute)));
+
+{-# NEED fromAttrToStr #-}
+fromAttrToStr{-# 2 #-}::(Prelude.String -> (Text.XML.HaXml.Types.Attribute -> (Prelude.Maybe Prelude.String)));
+
+{-# NEED possibleA #-}
+possibleA{-# 3 #-}::((Prelude.String -> (Text.XML.HaXml.Types.Attribute -> (Prelude.Maybe a))) -> (Prelude.String -> ([Text.XML.HaXml.Types.Attribute] -> (Prelude.Maybe a))));
+
+{-# NEED defaultA #-}
+defaultA{-# 4 #-}::((Prelude.String -> (Text.XML.HaXml.Types.Attribute -> (Prelude.Maybe a))) -> (a -> (Prelude.String -> ([Text.XML.HaXml.Types.Attribute] -> (Defaultable a)))));
+
+{-# NEED definiteA #-}
+definiteA{-# 4 #-}::((Prelude.String -> (Text.XML.HaXml.Types.Attribute -> (Prelude.Maybe a))) -> (Prelude.String -> (Prelude.String -> ([Text.XML.HaXml.Types.Attribute] -> a))));
+
+{-# NEED defaultToAttr #-}
+defaultToAttr{-# 3 #-}::((Prelude.String -> (a -> (Prelude.Maybe Text.XML.HaXml.Types.Attribute))) -> (Prelude.String -> ((Defaultable a) -> (Prelude.Maybe Text.XML.HaXml.Types.Attribute))));
+
+{-# NEED maybeToAttr #-}
+maybeToAttr{-# 3 #-}::((Prelude.String -> (a -> (Prelude.Maybe Text.XML.HaXml.Types.Attribute))) -> (Prelude.String -> ((Prelude.Maybe a) -> (Prelude.Maybe Text.XML.HaXml.Types.Attribute))));
+
+{-# NEED {Defaultable Default NonDefault} #-}
+data Defaultable a
+  = Default a
+  | NonDefault a;
+
+{-# NEED {XmlAttrType fromAttrToTyp toAttrFrTyp} #-}
+class XmlAttrType a where {
+  fromAttrToTyp{-# 2 #-}::(Prelude.String -> (Text.XML.HaXml.Types.Attribute -> (Prelude.Maybe a)));
+  toAttrFrTyp{-# 2 #-}::(Prelude.String -> (a -> (Prelude.Maybe Text.XML.HaXml.Types.Attribute)));
+};
+
+{-# NEED definite #-}
+definite{-# 3 #-}::(XmlContent a) => ((XMLParser a) -> (Prelude.String -> (Prelude.String -> (XMLParser a))));
+
+{-# NEED choice #-}
+choice{-# 2 #-}::(XmlContent a) => ((a -> b) -> ((XMLParser b) -> (XMLParser b)));
+
+{-# NEED text #-}
+text{-# 0 #-}::(XMLParser Prelude.String);
+
+{-# NEED attributes #-}
+attributes{-# 1 #-}::(XmlAttributes a) => ((Text.XML.HaXml.Types.Element Text.XML.HaXml.Posn.Posn) -> (XMLParser a));
+
+{-# NEED {XmlAttributes fromAttrs toAttrs} #-}
+class XmlAttributes a where {
+  fromAttrs{-# 1 #-}::([Text.XML.HaXml.Types.Attribute] -> a);
+  toAttrs{-# 1 #-}::(a -> [Text.XML.HaXml.Types.Attribute]);
+};
+
+{-# NEED inElementWith #-}
+inElementWith{-# 3 #-}::((Prelude.String -> (Prelude.String -> Prelude.Bool)) -> (Prelude.String -> ((XMLParser a) -> (XMLParser a))));
+
+{-# NEED inElement #-}
+inElement{-# 2 #-}::(Prelude.String -> ((XMLParser a) -> (XMLParser a)));
+
+{-# NEED interior #-}
+interior{-# 2 #-}::((Text.XML.HaXml.Types.Element Text.XML.HaXml.Posn.Posn) -> ((XMLParser a) -> (XMLParser a)));
+
+{-# NEED elementWith #-}
+elementWith{-# 2 #-}::((Prelude.String -> (Prelude.String -> Prelude.Bool)) -> ([Prelude.String] -> (XMLParser (Text.XML.HaXml.Types.Element Text.XML.HaXml.Posn.Posn))));
+
+{-# NEED element #-}
+element{-# 1 #-}::([Prelude.String] -> (XMLParser (Text.XML.HaXml.Types.Element Text.XML.HaXml.Posn.Posn)));
+
+{-# NEED posnElement #-}
+posnElement{-# 0 #-}::([Prelude.String] -> (XMLParser (Text.XML.HaXml.Posn.Posn,(Text.XML.HaXml.Types.Element Text.XML.HaXml.Posn.Posn))));
+
+{-# NEED posnElementWith #-}
+posnElementWith{-# 2 #-}::((Prelude.String -> (Prelude.String -> Prelude.Bool)) -> ([Prelude.String] -> (XMLParser (Text.XML.HaXml.Posn.Posn,(Text.XML.HaXml.Types.Element Text.XML.HaXml.Posn.Posn)))));
+
+{-# NEED content #-}
+content{-# 1 #-}::(Prelude.String -> (XMLParser (Text.XML.HaXml.Types.Content Text.XML.HaXml.Posn.Posn)));
+
+{-# NEED toCData #-}
+toCData{-# 1 #-}::(Prelude.String -> [(Text.XML.HaXml.Types.Content ())]);
+
+{-# NEED toText #-}
+toText{-# 1 #-}::(Prelude.String -> [(Text.XML.HaXml.Types.Content ())]);
+
+{-# NEED mkElemC #-}
+mkElemC{-# 2 #-}::(Prelude.String -> ([(Text.XML.HaXml.Types.Content ())] -> (Text.XML.HaXml.Types.Content ())));
+
+{-# NEED mkElem #-}
+mkElem{-# 2 #-}::(XmlContent a) => (a -> ([(Text.XML.HaXml.Types.Content ())] -> (Text.XML.HaXml.Types.Content ())));
+
+{-# NEED {XmlContent xToChar xFromChar parseContents toContents} #-}
+class (Text.XML.HaXml.TypeMapping.HTypeable a) => XmlContent a where {
+  xToChar{-# 1 #-}::(a -> Prelude.Char);
+  xFromChar{-# 1 #-}::(Prelude.Char -> a);
+  parseContents{-# 0 #-}::(XMLParser a);
+  toContents{-# 1 #-}::(a -> [(Text.XML.HaXml.Types.Content ())]);
+};
+
+{-# NEED XMLParser #-}
+type {-# 1 #-} XMLParser a = (Text.ParserCombinators.Poly.Plain.Parser (Text.XML.HaXml.Types.Content Text.XML.HaXml.Posn.Posn) a);
+interface Text.XML.HaXml.Posn
+{-# NEED Posn #-}
+data Posn;
+interface ! Text.XML.HaXml.XmlContent.Parser
+{-# NEED mkAttr #-}
+mkAttr{-# 2 #-}::(Prelude.String -> (Prelude.String -> Text.XML.HaXml.Types.Attribute));
+
+{-# NEED attval #-}
+attval{-# 1 #-}::(Prelude.Read b) => ((Text.XML.HaXml.Types.Element a) -> b);
+interface ! Text.ParserCombinators.Poly.Plain
+{-# NEED reparse #-}
+reparse{-# 1 #-}::([a] -> (Text.ParserCombinators.Poly.Plain.Parser a ()));
+
+{-# NEED satisfy #-}
+satisfy{-# 1 #-}::((a -> Prelude.Bool) -> (Text.ParserCombinators.Poly.Plain.Parser a a));
+
+{-# NEED eof #-}
+eof{-# 0 #-}::(Text.ParserCombinators.Poly.Plain.Parser a ());
+
+{-# NEED next #-}
+next{-# 0 #-}::(Text.ParserCombinators.Poly.Plain.Parser a a);
+
+{-# NEED runParser #-}
+runParser{-# 1 #-}::((Text.ParserCombinators.Poly.Plain.Parser a b) -> ([a] -> ((Prelude.Either Prelude.String b),[a])));
+interface ! Text.ParserCombinators.Poly.Base
+{-# NEED failBad #-}
+failBad{-# 1 #-}::(Text.ParserCombinators.Poly.Base.PolyParse a) => (Prelude.String -> (a b));
+
+{-# NEED discard #-}
+discard{-# 2 #-}::(Text.ParserCombinators.Poly.Base.PolyParse a) => ((a b) -> ((a c) -> (a b)));
+
+{-# NEED adjustErrBad #-}
+adjustErrBad{-# 2 #-}::(Text.ParserCombinators.Poly.Base.PolyParse a) => ((a b) -> ((Prelude.String -> Prelude.String) -> (a b)));
+
+{-# NEED oneOf #-}
+oneOf{-# 1 #-}::(Text.ParserCombinators.Poly.Base.PolyParse a) => ([(a b)] -> (a b));
+
+{-# NEED indent #-}
+indent{-# 1 #-}::(Prelude.Int -> (Prelude.String -> Prelude.String));
+
+{-# NEED optional #-}
+optional{-# 1 #-}::(Text.ParserCombinators.Poly.Base.PolyParse a) => ((a b) -> (a (Prelude.Maybe b)));
+
+{-# NEED exactly #-}
+exactly{-# 2 #-}::(Text.ParserCombinators.Poly.Base.PolyParse a) => (Prelude.Int -> ((a b) -> (a [b])));
+
+{-# NEED many #-}
+many{-# 1 #-}::(Text.ParserCombinators.Poly.Base.PolyParse a) => ((a b) -> (a [b]));
+
+{-# NEED many1 #-}
+many1{-# 1 #-}::(Text.ParserCombinators.Poly.Base.PolyParse a) => ((a b) -> (a [b]));
+
+{-# NEED sepBy #-}
+sepBy{-# 2 #-}::(Text.ParserCombinators.Poly.Base.PolyParse a) => ((a b) -> ((a c) -> (a [b])));
+
+{-# NEED sepBy1 #-}
+sepBy1{-# 2 #-}::(Text.ParserCombinators.Poly.Base.PolyParse a) => ((a b) -> ((a c) -> (a [b])));
+
+{-# NEED bracketSep #-}
+bracketSep{-# 4 #-}::(Text.ParserCombinators.Poly.Base.PolyParse a) => ((a b) -> ((a c) -> ((a d) -> ((a e) -> (a [e])))));
+
+{-# NEED bracket #-}
+bracket{-# 3 #-}::(Text.ParserCombinators.Poly.Base.PolyParse a) => ((a b) -> ((a c) -> ((a d) -> (a d))));
+
+{-# NEED manyFinally #-}
+manyFinally{-# 2 #-}::(Text.ParserCombinators.Poly.Base.PolyParse a) => ((a b) -> ((a c) -> (a [b])));
+
+{-# NEED {PolyParse apply commit adjustErr onFail oneOf'} #-}
+class (Prelude.Functor a,Prelude.Monad a) => PolyParse a where {
+  apply{-# 2 #-}::((a (b -> c)) -> ((a b) -> (a c)));
+  commit{-# 1 #-}::((a b) -> (a b));
+  adjustErr{-# 2 #-}::((a b) -> ((Prelude.String -> Prelude.String) -> (a b)));
+  onFail{-# 2 #-}::((a b) -> ((a b) -> (a b)));
+  oneOf'{-# 1 #-}::([(Prelude.String,(a b))] -> (a b));
+};
+interface ! Text.ParserCombinators.Poly.Plain
+{-# NEED {Parser P} #-}
+newtype {-#  #-} Parser a b
+  = P ([a] -> (Text.ParserCombinators.Poly.Plain.Result [a] b));
+
+{-# NEED {Result Success Failure Committed} #-}
+data Result a b
+  = Success a b
+  | Failure a Prelude.String
+  | Committed (Text.ParserCombinators.Poly.Plain.Result a b);
+interface ! Text.XML.HaXml.TypeMapping
+{-# NEED {HTypeable toHType} #-}
+class HTypeable a where {
+  toHType{-# 1 #-}::(a -> Text.XML.HaXml.TypeMapping.HType);
+};
+
+{-# NEED showConstr #-}
+showConstr{-# 2 #-}::(Prelude.Int -> (Text.XML.HaXml.TypeMapping.HType -> Prelude.String));
+
+{-# NEED toDTD #-}
+toDTD{-# 1 #-}::(Text.XML.HaXml.TypeMapping.HType -> Text.XML.HaXml.Types.DocTypeDecl);
+
+{-# NEED showHType #-}
+showHType{-# 1 #-}::(Text.XML.HaXml.TypeMapping.HType -> Prelude.ShowS);
+
+{-# NEED {HType Maybe List Tuple Prim String Defined} {Constr Constr} #-}
+data HType
+  = Maybe Text.XML.HaXml.TypeMapping.HType
+  | List Text.XML.HaXml.TypeMapping.HType
+  | Tuple [Text.XML.HaXml.TypeMapping.HType]
+  | Prim Prelude.String Prelude.String
+  | String 
+  | Defined Prelude.String [Text.XML.HaXml.TypeMapping.HType] [Text.XML.HaXml.TypeMapping.Constr];
+data Constr
+  = Constr Prelude.String [Text.XML.HaXml.TypeMapping.HType] [Text.XML.HaXml.TypeMapping.HType];
+interface ! Text.XML.HaXml.Types
+{-# NEED {ElemTag ElemTag} #-}
+data ElemTag
+  = ElemTag Text.XML.HaXml.Types.QName [Text.XML.HaXml.Types.Attribute];
+
+{-# NEED {Document Document} #-}
+data Document a
+  = Document Text.XML.HaXml.Types.Prolog (Text.XML.HaXml.Types.SymTab Text.XML.HaXml.Types.EntityDef) (Text.XML.HaXml.Types.Element a) [Text.XML.HaXml.Types.Misc];
+
+{-# NEED {Content CElem CString CRef CMisc} {Element Elem} #-}
+data Content a
+  = CElem (Text.XML.HaXml.Types.Element a) a
+  | CString Prelude.Bool Text.XML.HaXml.Types.CharData a
+  | CRef Text.XML.HaXml.Types.Reference a
+  | CMisc Text.XML.HaXml.Types.Misc a;
+data Element a
+  = Elem Text.XML.HaXml.Types.QName [Text.XML.HaXml.Types.Attribute] [(Text.XML.HaXml.Types.Content a)];
+interface Text.XML.HaXml.Types
+{-# NEED CharData #-}
+type {-# 20 #-} CharData = Prelude.String;
+interface ! Text.XML.HaXml.Types
+{-# NEED Attribute #-}
+type {-# 8 #-} Attribute = (QName,AttValue);
+interface Text.XML.HaXml.Types
+{-# NEED SymTab #-}
+type {-# 2 #-} SymTab a = [(Prelude.String,a)];
+interface ! Text.XML.HaXml.Types
+{-# NEED {Prolog Prolog} #-}
+data Prolog
+  = Prolog (Prelude.Maybe Text.XML.HaXml.Types.XMLDecl) [Text.XML.HaXml.Types.Misc] (Prelude.Maybe Text.XML.HaXml.Types.DocTypeDecl) [Text.XML.HaXml.Types.Misc];
+interface Text.XML.HaXml.Types
+{-# NEED DocTypeDecl #-}
+data DocTypeDecl;
+
+{-# NEED MarkupDecl #-}
+data MarkupDecl;
+
+{-# NEED NotationDecl #-}
+data NotationDecl;
+
+{-# NEED PublicID #-}
+newtype {-#  #-} PublicID;
+
+{-# NEED EntityDecl #-}
+data EntityDecl;
+
+{-# NEED PEDecl #-}
+data PEDecl;
+
+{-# NEED PEDef #-}
+data PEDef;
+
+{-# NEED GEDecl #-}
+data GEDecl;
+
+{-# NEED EntityDef #-}
+data EntityDef;
+
+{-# NEED NDataDecl #-}
+newtype {-#  #-} NDataDecl;
+
+{-# NEED EntityValue #-}
+data EntityValue;
+
+{-# NEED EV #-}
+data EV;
+
+{-# NEED AttListDecl #-}
+data AttListDecl;
+
+{-# NEED AttDef #-}
+data AttDef;
+
+{-# NEED DefaultDecl #-}
+data DefaultDecl;
+
+{-# NEED FIXED #-}
+data FIXED;
+interface ! Text.XML.HaXml.Types
+{-# NEED {AttValue AttValue} #-}
+data AttValue
+  = AttValue [(Prelude.Either Prelude.String Text.XML.HaXml.Types.Reference)];
+
+{-# NEED {Reference RefEntity RefChar} #-}
+data Reference
+  = RefEntity Text.XML.HaXml.Types.EntityRef
+  | RefChar Text.XML.HaXml.Types.CharRef;
+interface Text.XML.HaXml.Types
+{-# NEED CharRef #-}
+type {-# 16 #-} CharRef = Prelude.Int;
+
+{-# NEED EntityRef #-}
+type {-# 15 #-} EntityRef = Name;
+
+{-# NEED AttType #-}
+data AttType;
+
+{-# NEED EnumeratedType #-}
+data EnumeratedType;
+
+{-# NEED Enumeration #-}
+type {-# 12 #-} Enumeration = [NmToken];
+
+{-# NEED NmToken #-}
+type {-# 11 #-} NmToken = Prelude.String;
+
+{-# NEED NotationType #-}
+type {-# 10 #-} NotationType = [Name];
+
+{-# NEED TokenizedType #-}
+data TokenizedType;
+
+{-# NEED ElementDecl #-}
+data ElementDecl;
+
+{-# NEED ContentSpec #-}
+data ContentSpec;
+
+{-# NEED CP #-}
+data CP;
+
+{-# NEED Modifier #-}
+data Modifier;
+
+{-# NEED Mixed #-}
+data Mixed;
+
+{-# NEED ExternalID #-}
+data ExternalID;
+
+{-# NEED PubidLiteral #-}
+newtype {-#  #-} PubidLiteral;
+
+{-# NEED SystemLiteral #-}
+newtype {-#  #-} SystemLiteral;
+
+{-# NEED QName #-}
+data QName;
+
+{-# NEED Namespace #-}
+data Namespace;
+
+{-# NEED Name #-}
+type {-# 9 #-} Name = Prelude.String;
+
+{-# NEED Misc #-}
+data Misc;
+
+{-# NEED ProcessingInstruction #-}
+type {-# 4 #-} ProcessingInstruction = (PITarget,Prelude.String);
+
+{-# NEED PITarget #-}
+type {-# 3 #-} PITarget = Prelude.String;
+
+{-# NEED Comment #-}
+type {-# 7 #-} Comment = Prelude.String;
+
+{-# NEED XMLDecl #-}
+data XMLDecl;
+
+{-# NEED SDDecl #-}
+type {-# 5 #-} SDDecl = Prelude.Bool;
+
+{-# NEED EncodingDecl #-}
+newtype {-#  #-} EncodingDecl;
+
+{-# NEED VersionInfo #-}
+type {-# 6 #-} VersionInfo = Prelude.String;
+interface ! Maybe
+{-# NEED catMaybes #-}
+catMaybes{-# 1 #-}::([(Prelude.Maybe a)] -> [a]);
+}

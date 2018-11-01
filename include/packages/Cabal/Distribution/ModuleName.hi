@@ -1,0 +1,408 @@
+interface Distribution.ModuleName where {
+
+{-# NEED #-}
+instance Data.Typeable.Typeable2 Array.Array;
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus (Text.ParserCombinators.ReadP.ReadPN a);
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus Text.ParserCombinators.ReadP.P;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable1 (Array.Array a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Ratio.Ratio;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.Internal.IO;
+
+{-# NEED #-}
+instance Distribution.Text.Text ModuleName;
+
+{-# NEED #-}
+instance Distribution.Text.Text Data.Version.Version;
+
+{-# NEED #-}
+instance Distribution.Text.Text Prelude.Bool;
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b) => Ix.Ix (a,b);
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Int;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Integer;
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m,Ix.Ix n,Ix.Ix o) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m,Ix.Ix n) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m,n);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j) => Ix.Ix (a,b,c,d,e,f,g,h,i,j);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i) => Ix.Ix (a,b,c,d,e,f,g,h,i);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h) => Ix.Ix (a,b,c,d,e,f,g,h);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g) => Ix.Ix (a,b,c,d,e,f,g);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f) => Ix.Ix (a,b,c,d,e,f);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e) => Ix.Ix (a,b,c,d,e);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d) => Ix.Ix (a,b,c,d);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c) => Ix.Ix (a,b,c);
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Ordering;
+
+{-# NEED #-}
+instance Ix.Ix Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Bool;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Char;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Bounded Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Control.Exception.Base.Exception Prelude.IOError;
+
+{-# NEED #-}
+instance Control.Exception.Base.Exception System.ExitCode;
+
+{-# NEED #-}
+instance Control.Exception.Base.Exception Control.Exception.Base.SomeException;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Enum Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read ModuleName;
+
+{-# NEED #-}
+instance Prelude.Read Data.Version.Version;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Read a,Prelude.Read b) => Prelude.Read (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Read Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Read System.ExitCode;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord ModuleName;
+
+{-# NEED #-}
+instance Prelude.Ord Data.Version.Version;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Ord b) => Prelude.Ord (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Ord Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Ord System.ExitCode;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq ModuleName;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Version.Version;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Eq b) => Prelude.Eq (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Eq System.ExitCode;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Data.Version.Version;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (Array.Array a b);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Control.Exception.Base.SomeException;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Show ModuleName;
+
+{-# NEED #-}
+instance Prelude.Show Data.Version.Version;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Show a,Prelude.Show b) => Prelude.Show (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Show Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Show Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Show System.ExitCode;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.RecUpdError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.RecSelError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.RecConError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.ErrorCall;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.BlockedIndefinitely;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.BlockedOnDeadMVar;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.Deadlock;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.NoMethodError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.PatternMatchFail;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.AssertionFailed;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.AsyncException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.ArrayException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.ArithException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.SomeException;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Ix.Ix a) => Prelude.Functor (Array.Array a);
+
+{-# NEED #-}
+instance Prelude.Functor (Text.ParserCombinators.ReadP.ReadPN a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Functor (Distribution.Compat.ReadP.Parser a b);
+
+{-# NEED #-}
+instance Prelude.Monad (Text.ParserCombinators.ReadP.ReadPN a);
+
+{-# NEED #-}
+instance Prelude.Monad Text.ParserCombinators.ReadP.P;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad (Distribution.Compat.ReadP.Parser a b);
+interface Data.Typeable
+{-# NEED Typeable #-}
+class Typeable a;
+interface Data.Version
+{-# NEED Version #-}
+data Version;
+interface Text.PrettyPrint.HughesPJ
+{-# NEED Doc #-}
+data Doc;
+interface NHC.FFI
+{-# NEED CInt #-}
+newtype {-#  #-} CInt;
+interface Data.Char
+{-# NEED GeneralCategory #-}
+data GeneralCategory;
+interface System
+{-# NEED ExitCode #-}
+data ExitCode;
+interface Control.Exception.Base
+{-# NEED RecUpdError #-}
+data RecUpdError;
+
+{-# NEED RecSelError #-}
+data RecSelError;
+
+{-# NEED RecConError #-}
+data RecConError;
+
+{-# NEED ErrorCall #-}
+data ErrorCall;
+
+{-# NEED BlockedIndefinitely #-}
+data BlockedIndefinitely;
+
+{-# NEED BlockedOnDeadMVar #-}
+data BlockedOnDeadMVar;
+
+{-# NEED Deadlock #-}
+data Deadlock;
+
+{-# NEED NoMethodError #-}
+data NoMethodError;
+
+{-# NEED PatternMatchFail #-}
+data PatternMatchFail;
+
+{-# NEED AssertionFailed #-}
+data AssertionFailed;
+
+{-# NEED AsyncException #-}
+data AsyncException;
+
+{-# NEED ArrayException #-}
+data ArrayException;
+
+{-# NEED ArithException #-}
+data ArithException;
+
+{-# NEED SomeException #-}
+data SomeException;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface Array
+{-# NEED Array #-}
+data (Ix.Ix a) => Array a b;
+interface Ix
+{-# NEED Ix #-}
+class (Prelude.Ord a) => Ix a;
+interface Text.ParserCombinators.ReadP
+{-# NEED ReadPN #-}
+newtype {-#  #-} ReadPN a b;
+
+{-# NEED P #-}
+data P a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO;
+
+{-# NEED World #-}
+data World;
+interface Distribution.Compat.ReadP
+{-# NEED Parser #-}
+newtype {-#  #-} Parser a b c;
+interface ! Distribution.ModuleName
+{-# NEED toFilePath #-}
+toFilePath{-# 0 #-}::(ModuleName -> Prelude.FilePath);
+
+{-# NEED components #-}
+components{-# 1 #-}::(ModuleName -> [Prelude.String]);
+
+{-# NEED main #-}
+main{-# 0 #-}::ModuleName;
+
+{-# NEED simple #-}
+simple{-# 1 #-}::(Prelude.String -> ModuleName);
+
+{-# NEED {ModuleName} #-}
+newtype {-#  #-} ModuleName
+  = ModuleName [Prelude.String];
+}

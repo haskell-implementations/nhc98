@@ -1,0 +1,126 @@
+man page for hp2graph
+ 1 January 1994
+(18 April   1992 original)
+
+
+        hp2graph - convert a heap profile to a PostScript/Mif/Draw  graph
+
+hp2graph [flags] [file]
+
+ The program hp2graph converts a heap profile stored in file into a
+graph , sending the result to "file.Type" where Type is one of
+"ps","mif" or "draw". Files to be processed by hp2graph must have a
+.hp extension, but the extension shoudl _not_ be given on the command
+line. The program can be used as a filter if the file is replced by a
+dash.
+
+
+        OPTIONS
+ The flags are:
+
+'-b'
+  Change a life time  profile into a biograpfical profile.
+
+'-bvoid' '-buse' '-bdrag' '-blag'
+ Only keep cells that are in one of the given phases.  These flags are
+legal only if enough information is available in the hp-file.
+
+'-c'
+ Ignore profiling comments in the hp-file.
+
+'-d'
+ Sort on deviation. (Not supported anymore.)
+
+'-e' float [in|mm|pt]'
+ If the output format is PostScript then the output will be in 
+ encapsulated PostScript suitable for inclusion in LaTeX documents.
+Usually, the PostScript graph is drawn in landscape mode in an area 9
+inches wide by 6 inches high, and hp2graph arranges for this area to
+be approximately centered on a sheet of a4 paper. This format is
+convenient of studying the graph in detail, but it is unsuitable for
+inclusion in LaTeX documents. The '-e' option causes the graph to be
+drawn in portrait mode, with float specifying the width in inches,
+millimetres or points (the default). The resulting PostScript file
+conforms to the "Encapsulated Post Script" (EPS) convention, and it
+can be included in a LaTeX document using Rokicki's dvi-to-PostScript
+converter dvips.
+
+'-fps'
+  Generate PostScript in file'.ps'.
+
+'-fmif'
+  Generate maker interchange format in file'.mif'. This can be
+imported an manipulated in FrameMaker.
+
+'-fdraw'
+  Generate PostScript in file'.draw'. This can be imported and
+manipulated in Acorn Draw.
+
+'-g'
+ Only availible for PostScript. Create output suitable for the gs
+PostScript previewer (or similar). In this case the graph is printed
+in portrait mode without scaling. The output is unsuitable for a laser
+printer.
+
+'-l'
+ Change a biograpfical profile into a life time profile.
+
+'-l' [low] '-' [high]
+ Only keep cells with the given lifetime in the heap profile. The
+flag is only legal if enough information is available in the hp-file.
+
+'-m'
+ Do not show garbage-collection marks.
+ 
+'-p'
+ Use previous parameters. By default, the PostScript graph is
+automatically scaled both horizontally and vertically so that it fills
+the page. However, when preparing a series of graphs for use in a
+presentation, it is often useful to draw a new graph using the same
+scale, shading and ordering as a previous one. The '-p' flag causes
+the graph to be drawn using the parameters determined by a previous
+run of hp2graph on a file with the same name as the current one. It is
+possible to give a file name directly after '-p' to fetch dimensions
+from another auxiliary file (the '.aux' suffix must be explicit).
+
+'-r'
+ In order to make graphs more readable, hp2graph sorts the shaded bands for
+each identifier. The default sort ordering is for the bands with the largest
+area to be stacked on top of the smaller ones. The '-r' option causes
+rougher bands (those representing series of values with the largest standard
+deviations) to be stacked on top of smoother ones.
+
+'-t'[percentage]
+ Bands with smaller percentage of the total area than the given
+threshold is ignored. Default is 1%.
+
+'-v'
+ Verbose, but not much.
+
+'-x'
+ Draw an exploded heap profile
+
+'-y'
+ Draw the graph in the traditional York style, witout census lines.
+
+        FILES
+
+hp2graph reads a file with the suffix '.hp', and writes a heap profile
+in a file with the same base name and the suffix '.ps' (as default,
+see '-f'). The scale and the order of the keys are written to a file
+with the suffix '.aux' (as default, see '-p').
+
+        SEE ALSO
+
+dvips(1), latex(1), nhc (1)
+
+C. Runciman and D. Wakeling,
+Heap Profiling for Lazy Functional Languages, YCS-172, University of York, 1992
+
+
+        NOTES
+PostScript is a registered trademark of Adobe Systems Incorporated.
+
+
+        AUTHOR
+Niklas Röjemo (with parts stolen from David Wakeling)

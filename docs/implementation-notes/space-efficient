@@ -1,0 +1,209 @@
+		Space Efficiency in Implementation.
+
+Nhc98 generates code that uses a modified G-machine to evaluate Haskell
+programs.  Most of the implementation is taken from Simon Peyton Jones'
+book "The Implementation of Functional Programming Languages" (1987).
+
+It was clear from the beginning that space would be a problem for the
+compiler when trying to recompile itself on a 4Mb machine (of which 1Mb
+was used by screen memory and operating system!)  Space usage can be
+subdivided into three groups:
+
+  * code and static data
+  * heap
+  * stacks
+
+
+Code and Static Data.
+
+There are two ways to decrease the size of nhc98's code:
+  * generate smaller code for a given source file
+  * write a smaller compiler e.g. less than 20,000 lines of source code.
+Nhc98 tries to do both, and currently produces a binary for nhc98comp
+which is less than 1Mb.
+
+Generate Smaller Code.
+
+It is possible to generate a small binary by eliminating common
+subexpressions and inserting clever abstractions which makes it possible
+to combine code from different parts of the source.  Unfortunately,
+these transformations use heap space, and were therefore abandoned early
+on.
+
+A "cheap" way to reduce the size of the generated code is to use
+bytecode instead of machine code.  This means that nhc98 must include a
+small interpreter in all generated programs, but this is not a huge
+cost.  The saving in space must however be paid in speed.  A bytecode
+interpreter make a lot of jumps whose destinations are decided very
+late, and this is bad behaviour for modern processors which use heavy
+pipelining and branch prediction.  The gain in space is however quite
+substantial as most instructions fit in 2 or less bytes, which is much
+better than the 4 bytes/instruction for normal RISC machine code.  The
+gain can in many cases be better than the 50-75% gain from smaller
+instructions, as the bytecode instruction set can be optimised for graph
+reduction so that fewer instructions are needed for a given Haskell
+function.  This optimisation is not done fully in nhc98 yet however.
+
+Less Source Code.
+
+Nhc98 has nearly no optimisations; it consists only of the necessary
+parts in a Haskell compiler for the G-machine.  The total source code
+for nhc98comp is 19,000 lines of Haskell, with 15,000 lines of C for the
+runtime system, and 9,000 lines for the Standard Prelude and Libraries.
+
+The Haskell source for nhc98comp can be divided into the following
+parts:
+
+  * Lexical - handwritten tokeniser.
+    All identifiers are hashed when read sp that equal identifiers can
+    share the same string in the heap.  Part of the cost of hashing all
+    identifiers is paid back in the renaming phase, as all comparisons of
+    identifiers only need to compare integers instead of strings.
+
+  * Parser - handwritten parser.
+    The parser is written with parser combinators utilising a
+    continuation monad that allows backtracking but has an efficient
+    commit combinator that gets rid of all the data that is only needed
+    for backtracking.  The commit combinator is essential when parsing
+    with backtracking, as we otherwise introduce a space leak starting
+    with the first position of the source code where backtracking is
+    possible.
+
+  * Renaming - gives all identifiers unique names.
+    All different identifiers are replaced with unique integers.  The
+    integers are then used as indexes into a balanced tree holding the
+    symbol table.  Another possibility would have been to use sharing,
+    so that all instances of an identifier point to the same shared
+    data.  In the latter case all information about an identifier must
+    be known when renaming.  This can be solved by lazy evaluation and
+    some circular data structures.  Unfortunately lazy evaluation can
+    sometimes hold onto a lot of heap space which can be difficult to
+    get rid of, especially with circular dependencies.  A decision to
+    use as few circular data structures as possible was therefore taken
+    for nhc98.
+
+  * Scc - find srongly connected groups (needed for typechecking).
+
+  * Type - type checking and insertion of dictionaries.
+    Here circular data structures are used to insert dictionaries as no
+    other method was known that didn't either have a nasty complexity
+    (exponential in the number of nested let-bindings) or holds onto a
+    lot of information before it could insert all dictionaries with an
+    extra pass over the syntax tree.
+
+  * Export - creates the interface file.
+
+  * Case - simplifies pattern bindings and pattern matching.
+    The removal of patterns is done without code duplication.  This
+    means that some programs might test the same pattern more than once,
+    but it saves space.
+
+  * Lift - lambda lifting.
+    This is a simple lambda lifter and doesn't use fully-lazy lambda
+    lifting.  It only does what is necessary for the G-machine which
+    can't evaluate code with free variables.
+
+  * Code - intermediate code for some small optimisations.
+    All applications with known functions are marked as vector
+    applications or constant expressions if the arity is greater than
+    the number of available arguments.  A vector application uses less
+    space than a chain of binary apply nodes, the latter using at least
+    2 pointers for every argument compared to one pointer/argument for
+    vector applications.
+
+  * G-code - generates bytecode (with a few peep-hole optimisations).
+
+
+Heap.
+
+The possibility to use a small heap depends mostly on the amount of data
+that is live at a given moment, but if we want the program to finish in
+a reasonable time, then also the rate that free heap is used is of
+interest.  Nhc98 uses the following implementation choices to reduce the
+amount of live data:
+
+  * compact graph representation
+    When designing the node layout, size was the main consideration (see
+    Fig 1).  The lack of a dedicated application means that higher-order
+    functions cost more (3 words per argument) than if a two-word
+    application node were defined.  Profiling has shown that nhc98 uses
+    a lot of vector applications with the apply function, over 20% of
+    the heap at some times, so something should be done here.
+
+  * pattern binding updates (Sparud 93)
+    When a variable in a left-hand pattern is used then all variables in
+    the pattern are set to point to their parts of the expression.  This
+    means that the node representing the expression that we matched
+    against can be released as soon as the first variable in the pattern
+    is used instead of waiting for the last one.
+
+  * indirection
+    No updates are done by copying; instead the reduced node is
+    overwritten with a pointer to the result.  If a function creates the
+    result node then overwriting is used if the result is smaller or
+    equal to the redex.  Copying does not cause any extra evaluation if
+    the result node is evaluated before being copied, but we night lose
+    sharing of the answer.  This was one of many reasons for the space
+    leak discovered in RuncimanWakeling93.
+
+  * tail calls
+    If the last expression of a function is a call to a function then
+    some compilers (e.g. hbc) rearrange the stack and jump to the new
+    function. This might lead to space leaks as the node representing
+    the old application hasn't been overwritten yet and therefore might
+    hold on to unnecessary data.  In hbc this can be solved by using the
+    option to zap redex, which overwrites all application nodes with a
+    dummy node at the start of their evaluation.  Nhc98 instead tries to
+    build the new application on top of the old application, rearranging
+    the stack and then jumping to the function in the new application.
+    If the new application is larger than the old application, then an
+    indirection node is used to overwrite the old application before
+    jumping to the new function.
+
+  * sharing of zero-arity constructors
+    Characters and all user-defined constructors with zero arity are
+    allocated once outside the heap, i.e. all uses of [] or a character
+    use the name node.  It is not possible to do the same for Int and
+    Float, but small ints have a table outside the heap.
+
+
+Stacks.
+
+The only thing currently done for reducing the stack usage is that
+arguments to functions aren't copied to the stack before reduction.  As
+all reductions are on vector application nodes (VAP nodes) it's quite
+cheap to fetch the arguments from the VAP nodes whenever they are needed.
+
+Another difference between nhc98 and the G-machine in SPJ87 is that
+nhc98's G-machine only uses one stack (see Fig 2).  The stack is
+organised into frames according to a sketch on Lennart's whiteboard.  It
+makes garbage collection slightly slower because of the need to keep
+track of which values on the stack are pointers.  A nice property is
+that it is easy to decide which functions are responsible for which
+pointers on the stack, which is needed from some heap profiles (see
+below).
+
+It is possible to reduce the size of a frame if we use the following
+observations:
+
+  * Always true: vapptr points to the same node as the stack cell below
+    fp'.
+
+  * Mostly true: it is possible to get the constptr from the VAP node
+    pointed at by vapptr.  The problem here is that pat-bind-update might
+    overwrite the VAP node.  This can be solved by emitting code so that
+    the VAP nodes that can be overwritten by pat-bind-update always are
+    of the same kind.
+
+It is also possible to remove the stack descriptor from the code if we
+only allow pointers on the stack; this does however prevent the
+possibility of using unboxed values.
+
+
+Profiling.
+
+An unplanned diversion in the development of the original nhc compiler
+was the inclusion of heap profiling.  Heap profiling was originally
+developed in hbc, but there are some extra possibilities when nhc98 is
+used.
+

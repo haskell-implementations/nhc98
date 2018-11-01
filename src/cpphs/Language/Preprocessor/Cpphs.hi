@@ -1,0 +1,275 @@
+interface Language.Preprocessor.Cpphs where {
+
+{-# NEED #-}
+instance Ix.Ix Time.Day;
+
+{-# NEED #-}
+instance Ix.Ix Time.Month;
+
+{-# NEED #-}
+instance Prelude.Bounded Time.Day;
+
+{-# NEED #-}
+instance Prelude.Bounded Time.Month;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum Time.Day;
+
+{-# NEED #-}
+instance Prelude.Enum Time.Month;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read Time.CalendarTime;
+
+{-# NEED #-}
+instance Prelude.Read Time.TimeDiff;
+
+{-# NEED #-}
+instance Prelude.Read Time.Day;
+
+{-# NEED #-}
+instance Prelude.Read Time.Month;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord Time.ClockTime;
+
+{-# NEED #-}
+instance Prelude.Ord Locale.TimeLocale;
+
+{-# NEED #-}
+instance Prelude.Ord Time.CalendarTime;
+
+{-# NEED #-}
+instance Prelude.Ord Time.TimeDiff;
+
+{-# NEED #-}
+instance Prelude.Ord Time.Day;
+
+{-# NEED #-}
+instance Prelude.Ord Time.Month;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Eq Language.Preprocessor.Cpphs.Options.RawOption;
+
+{-# NEED #-}
+instance Prelude.Eq Language.Preprocessor.Cpphs.Tokenise.WordStyle;
+
+{-# NEED #-}
+instance Prelude.Eq Language.Preprocessor.Cpphs.HashDefine.HashDefine;
+
+{-# NEED #-}
+instance Prelude.Eq Language.Preprocessor.Cpphs.HashDefine.ArgOrText;
+
+{-# NEED #-}
+instance Prelude.Eq Time.ClockTime;
+
+{-# NEED #-}
+instance Prelude.Eq Locale.TimeLocale;
+
+{-# NEED #-}
+instance Prelude.Eq Time.CalendarTime;
+
+{-# NEED #-}
+instance Prelude.Eq Time.TimeDiff;
+
+{-# NEED #-}
+instance Prelude.Eq Time.Day;
+
+{-# NEED #-}
+instance Prelude.Eq Time.Month;
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq Language.Preprocessor.Cpphs.Position.Posn;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Language.Preprocessor.Cpphs.SymTab.IndTree a);
+
+{-# NEED #-}
+instance Prelude.Show Language.Preprocessor.Cpphs.Options.RawOption;
+
+{-# NEED #-}
+instance Prelude.Show Language.Preprocessor.Cpphs.Tokenise.WordStyle;
+
+{-# NEED #-}
+instance Prelude.Show Language.Preprocessor.Cpphs.HashDefine.HashDefine;
+
+{-# NEED #-}
+instance Prelude.Show Language.Preprocessor.Cpphs.HashDefine.ArgOrText;
+
+{-# NEED #-}
+instance Prelude.Show Time.ClockTime;
+
+{-# NEED #-}
+instance Prelude.Show Locale.TimeLocale;
+
+{-# NEED #-}
+instance Prelude.Show Time.CalendarTime;
+
+{-# NEED #-}
+instance Prelude.Show Time.TimeDiff;
+
+{-# NEED #-}
+instance Prelude.Show Time.Day;
+
+{-# NEED #-}
+instance Prelude.Show Time.Month;
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show Language.Preprocessor.Cpphs.Position.Posn;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+interface Language.Preprocessor.Cpphs.SymTab
+{-# NEED IndTree #-}
+data IndTree a;
+interface Language.Preprocessor.Cpphs.Options
+{-# NEED RawOption #-}
+data RawOption;
+interface Language.Preprocessor.Cpphs.Tokenise
+{-# NEED WordStyle #-}
+data WordStyle;
+interface Language.Preprocessor.Cpphs.HashDefine
+{-# NEED HashDefine #-}
+data HashDefine;
+
+{-# NEED ArgOrText #-}
+data ArgOrText;
+interface Time
+{-# NEED ClockTime #-}
+data ClockTime;
+interface Locale
+{-# NEED TimeLocale #-}
+data TimeLocale;
+interface Time
+{-# NEED CalendarTime #-}
+data CalendarTime;
+
+{-# NEED TimeDiff #-}
+data TimeDiff;
+
+{-# NEED Day #-}
+data Day;
+
+{-# NEED Month #-}
+data Month;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Language.Preprocessor.Cpphs.MacroPass
+{-# NEED macroPass #-}
+macroPass{-# 2 #-}::([(Prelude.String,Prelude.String)] -> (Language.Preprocessor.Cpphs.Options.BoolOptions -> ([(Language.Preprocessor.Cpphs.Position.Posn,Prelude.String)] -> (NHC.Internal.IO Prelude.String))));
+interface ! Language.Preprocessor.Cpphs.Options
+{-# NEED defaultCpphsOptions #-}
+defaultCpphsOptions{-# 0 #-}::Language.Preprocessor.Cpphs.Options.CpphsOptions;
+
+{-# NEED defaultBoolOptions #-}
+defaultBoolOptions{-# 0 #-}::Language.Preprocessor.Cpphs.Options.BoolOptions;
+
+{-# NEED parseOptions #-}
+parseOptions{-# 1 #-}::([Prelude.String] -> (Prelude.Either Prelude.String Language.Preprocessor.Cpphs.Options.CpphsOptions));
+interface ! Language.Preprocessor.Cpphs.RunCpphs
+{-# NEED runCpphs #-}
+runCpphs{-# 3 #-}::(Language.Preprocessor.Cpphs.Options.CpphsOptions -> (Prelude.FilePath -> (Prelude.String -> (NHC.Internal.IO Prelude.String))));
+interface ! Language.Preprocessor.Cpphs.Options
+{-# NEED {CpphsOptions CpphsOptions infiles outfiles defines includes preInclude boolopts} #-}
+data CpphsOptions
+  = CpphsOptions {Language.Preprocessor.Cpphs.Options.infiles :: [Prelude.FilePath]} {Language.Preprocessor.Cpphs.Options.outfiles :: [Prelude.FilePath]} {Language.Preprocessor.Cpphs.Options.defines :: [(Prelude.String,Prelude.String)]} {Language.Preprocessor.Cpphs.Options.includes :: [Prelude.String]} {Language.Preprocessor.Cpphs.Options.preInclude :: [Prelude.FilePath]} {Language.Preprocessor.Cpphs.Options.boolopts :: Language.Preprocessor.Cpphs.Options.BoolOptions};
+interface ! Language.Preprocessor.Cpphs.Position
+{-# NEED newfile #-}
+newfile{-# 1 #-}::(Prelude.String -> Language.Preprocessor.Cpphs.Position.Posn);
+
+{-# NEED addcol #-}
+addcol{-# 2 #-}::(Prelude.Int -> (Language.Preprocessor.Cpphs.Position.Posn -> Language.Preprocessor.Cpphs.Position.Posn));
+
+{-# NEED newline #-}
+newline{-# 1 #-}::(Language.Preprocessor.Cpphs.Position.Posn -> Language.Preprocessor.Cpphs.Position.Posn);
+
+{-# NEED tab #-}
+tab{-# 1 #-}::(Language.Preprocessor.Cpphs.Position.Posn -> Language.Preprocessor.Cpphs.Position.Posn);
+
+{-# NEED newlines #-}
+newlines{-# 2 #-}::(Prelude.Int -> (Language.Preprocessor.Cpphs.Position.Posn -> Language.Preprocessor.Cpphs.Position.Posn));
+
+{-# NEED newpos #-}
+newpos{-# 3 #-}::(Prelude.Int -> ((Prelude.Maybe Prelude.String) -> (Language.Preprocessor.Cpphs.Position.Posn -> Language.Preprocessor.Cpphs.Position.Posn)));
+
+{-# NEED lineno #-}
+lineno{-# 1 #-}::(Language.Preprocessor.Cpphs.Position.Posn -> Prelude.Int);
+
+{-# NEED filename #-}
+filename{-# 1 #-}::(Language.Preprocessor.Cpphs.Position.Posn -> Prelude.String);
+
+{-# NEED directory #-}
+directory{-# 1 #-}::(Language.Preprocessor.Cpphs.Position.Posn -> Prelude.FilePath);
+
+{-# NEED cppline #-}
+cppline{-# 1 #-}::(Language.Preprocessor.Cpphs.Position.Posn -> Prelude.String);
+
+{-# NEED haskline #-}
+haskline{-# 1 #-}::(Language.Preprocessor.Cpphs.Position.Posn -> Prelude.String);
+
+{-# NEED cpp2hask #-}
+cpp2hask{-# 1 #-}::(Prelude.String -> Prelude.String);
+interface ! Language.Preprocessor.Cpphs.CppIfdef
+{-# NEED cppIfdef #-}
+cppIfdef{-# 4 #-}::(Prelude.FilePath -> ([(Prelude.String,Prelude.String)] -> ([Prelude.String] -> (Language.Preprocessor.Cpphs.Options.BoolOptions -> (Prelude.String -> (NHC.Internal.IO [(Language.Preprocessor.Cpphs.Position.Posn,Prelude.String)]))))));
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! Language.Preprocessor.Cpphs.Position
+{-# NEED {Posn Pn} #-}
+data Posn
+  = Pn Prelude.String !Prelude.Int !Prelude.Int (Prelude.Maybe Language.Preprocessor.Cpphs.Position.Posn);
+interface ! Language.Preprocessor.Cpphs.Options
+{-# NEED {BoolOptions BoolOptions macros locations hashline pragma stripEol stripC89 lang ansi layout literate warnings} #-}
+data BoolOptions
+  = BoolOptions {Language.Preprocessor.Cpphs.Options.macros :: Prelude.Bool} {Language.Preprocessor.Cpphs.Options.locations :: Prelude.Bool} {Language.Preprocessor.Cpphs.Options.hashline :: Prelude.Bool} {Language.Preprocessor.Cpphs.Options.pragma :: Prelude.Bool} {Language.Preprocessor.Cpphs.Options.stripEol :: Prelude.Bool} {Language.Preprocessor.Cpphs.Options.stripC89 :: Prelude.Bool} {Language.Preprocessor.Cpphs.Options.lang :: Prelude.Bool} {Language.Preprocessor.Cpphs.Options.ansi :: Prelude.Bool} {Language.Preprocessor.Cpphs.Options.layout :: Prelude.Bool} {Language.Preprocessor.Cpphs.Options.literate :: Prelude.Bool} {Language.Preprocessor.Cpphs.Options.warnings :: Prelude.Bool};
+}

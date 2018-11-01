@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>hmake interactive</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1><em>hi</em> - hmake interactive</h1></center>
+
+<hr>
+<p>
+<em>Hmake interactive</em>, or <em>hi</em> for short, is an
+interpreter-like environment that you can wrap over any common Haskell
+compiler to achieve an interactive development style.
+
+<p>
+It deliberately looks and feels a lot like the <em>Hugs</em>
+interpreter.  The difference is that you get real compiled code,
+compiled by your favorite compiler - you can even change compiler on
+the fly, to check your code's portability!
+
+<p>
+Of course, one of the reasons people prefer Hugs over a compiler is
+that <em>Hugs</em> generates runnable code very quickly compared to,
+say, <em>ghc</em>.  But all compilers are not equal - for instance,
+<em>nhc98</em> is pretty fast at generating code.  On a
+500Mhz Pentium, <em>hi</em> compiles an expression
+typed at the command-line in about one second with <em>nhc98</em>.
+And if you compare compile time with running time, <em>nhc98</em>'s
+compiled code runs between 3-15 times faster than <em>Hugs</em>,
+so you can easily end up with a net gain.
+
+<p>
+An even bigger potential advantage of <em>hi</em> is that it uses a
+smart recompilation strategy.  Big programs are the ones on which you
+would most like to use a compiler, for the benefit of speedy code.
+However, in big projects, compile times are long, so you really
+only want to recompile the modules you have edited and those which
+depend on them.  Writing Makefiles is tedious and error-prone, so
+<em>Hugs</em> is often seen as an easier alternative.  But because
+<em>hi</em> is just an interface to the standard <em>hmake</em>,
+you get the benefit of its recompilation analysis to rebuild only
+what is necessary, so you can reduce compile-times significantly,
+whilst still achieving full compiled-code speed, and what's more,
+you also have the <em>Hugs</em>-like ability to test small expressions
+at the command-line.
+
+<p>
+To use <em>hmake interactive</em>, just grab, build, and install
+<em>hmake</em>, then type <em>hi</em>.  The commands available are
+described in <a href="hi-commands.html">hi-commands.html</a>.  There
+is a <a href="lineedit.html">simple line editor</a> in <em>hi</em>
+to allow you to edit expressions as you type them.
+
+<p>
+If you want to know a little bit more about <em>hi</em>, there are
+two draft documents describing its implementation.
+<a href="ftp://ftp.cs.york.ac.uk/pub/malcolm/hw00-draft.html">
+A literate script.</a>
+<a href="ftp://ftp.cs.york.ac.uk/pub/malcolm/ifl00-draft.html">
+A draft paper.</a>
+
+
+<hr>
+<p>
+The latest updates to this software are available on the WWW from
+<a href="http://www.haskell.org/hmake/">
+<tt>http://www.haskell.org/hmake/</tt></a>
+(<a href="http://www.cs.york.ac.uk/fp/hmake/">
+<tt>http://www.cs.york.ac.uk/fp/hmake/</tt></a>)
+
+<p>
+Information last updated: 2003-06-23<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+Malcolm.Wallace@cs.york.ac.uk
+
+</td></tr></table>
+</body></html>
+

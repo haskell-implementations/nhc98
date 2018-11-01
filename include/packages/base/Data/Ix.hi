@@ -1,0 +1,79 @@
+interface Data.Ix where {
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Ordering;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Integer;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Char;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Bool;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Int;
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b) => Ix.Ix (a,b);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Ix
+{-# NEED {Ix range index inRange rangeSize} #-}
+class (Prelude.Ord a) => Ix a where {
+  range{-# 1 #-}::((a,a) -> [a]);
+  index{-# 2 #-}::((a,a) -> (a -> Prelude.Int));
+  inRange{-# 2 #-}::((a,a) -> (a -> Prelude.Bool));
+  rangeSize{-# 1 #-}::((a,a) -> Prelude.Int);
+};
+}

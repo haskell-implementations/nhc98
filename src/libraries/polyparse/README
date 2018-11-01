@@ -1,0 +1,51 @@
+    polyparse - a collection of alternative parser combinator libraries
+    -------------------------------------------------------------------
+
+Installation instructions:
+We currently support nhc98, ghc, and Hugs.  The automatic configuration
+detects which compilers/interpreters you have, and prepares a build
+tree for each.  Installation may require write-permission on the system
+directories of the compiler/interpreter.  The libraries and interfaces
+can then be used as "-package polyparse" (for ghc/nhc98 - no extra options
+required for Hugs).
+
+    sh configure
+    make
+    make install
+
+Options to configure are:
+    --buildwith=...  e.g. ghc-6.6,        to build for a specific compiler
+    --prefix=...     e.g. /usr/local,     to change installation location
+
+Complaints to:  :-)
+    Malcolm.Wallace@cs.york.ac.uk
+
+P.S.
+    For those building on Windows /without/ Cygwin, you can avoid the need
+    for configure/make steps by simply running the minimal build script in
+        Build.bat
+    You will need to edit it for the location of your compiler etc.
+
+----
+What this package contains:
+
+  docs/			Some rudimentary HTML documentation about the libraries.
+  docs/haddock/		Haddock-generated API documentation.
+  examples/		Some small examples of how the libraries are used.
+
+  src/Text
+	Parse			A replacement for the Prelude Read class.
+	Parse/ByteString	Like Text.Parse, except input is ByteString.
+  src/Text/ParserCombinators
+	HuttonMeijer		Early parser combinators from 1996.
+	HuttonMeijerWallace	Extended for arbitrary token type + running
+				state + error msgs.
+  src/Text/ParserCombinators/Poly	Space-efficient parsers.
+	Base		A class-based interface.  Most combinators defined here.
+	Plain		The instance for simple polymorphic parsers.
+	Lazy		The instance for lazy polymorphic parsers.
+	State		The instance for strict polymorphic parsers with state.
+	StateLazy	The instance for lazy polymorphic parsers with state.
+	ByteString	An experimental instance for parsing from ByteString.
+
+----

@@ -1,0 +1,4 @@
+before fopen
+after fopen
+result is FD (F 0x0)
+done.

@@ -1,0 +1,42 @@
+module NHC.Binary
+  ( getBitsF
+  ) where
+
+import NHC.GreenCard
+import BinPtr    ({-type-}BinPtr(..))
+import BinHandle ({-type-}BinHandle(..))
+
+%-#include "cLowBinary.h"
+%-#include <stdlib.h>
+%-#include <stdio.h>
+
+getBitsF :: BinHandle -> Int -> BinPtr -> (Int, BinPtr)
+getBitsF bh w p = (getBitsFAux bh w p, toEnum (w + fromEnum p))
+
+%fun getBitsFAux :: BinHandle -> Int -> BinPtr -> Int
+%call (binHandle bh) (int width) (binPtr p)
+%code
+%  if (bh->mode != RO) {
+%    fprintf(stderr,"Binary.getBitsF: BinHandle is not read-only.");
+%    exit(1);
+%  }
+%  bh->cptr = p - forceCacheTo(bh,p)*8;
+%  value = 0;
+%  while (width > 0) {
+%    int byte  = bh->cptr / 8;
+%    int avail = 8 - (bh->cptr % 8);
+%    if (width >= avail) {
+%      value = (value<<avail)
+%            | rhs(avail,bh->cache[byte]);
+%      bh->cptr += avail;
+%      width    -= avail;
+%      if ((byte+1) == CACHESIZE) nextcache(bh);
+%    } else {
+%      value = (value<<width)
+%            | (rhs(avail,bh->cache[byte]) >> (avail-width));
+%      bh->cptr += width;
+%      width     = 0;
+%    }
+%  }
+%result (declare "unsigned" value in (int value))
+

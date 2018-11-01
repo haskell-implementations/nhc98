@@ -1,0 +1,9 @@
+interface NonStdGetPID where {
+
+interface ! NonStdGetPID
+{-# NEED getPID #-}
+getPID{-# 0 #-}::(NHC.Internal.IO Prelude.Int);
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO;
+}

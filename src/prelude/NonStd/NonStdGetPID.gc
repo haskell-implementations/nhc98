@@ -1,0 +1,8 @@
+module NonStdGetPID where
+
+import NHC.GreenCard
+
+%fun getPID :: IO Int
+%code i = (int)getpid();
+%result (int i)
+

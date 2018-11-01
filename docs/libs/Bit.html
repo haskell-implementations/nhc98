@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>The NHC.Bit library</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>The NHC.Bit library</h1></center>
+
+<hr>
+This document describes the interface to the NHC.Bit library,
+originally from the Haskell 1.3 library specification.
+
+<hr>
+<pre>
+  module NHC.Bit where
+
+  infixl  7 ^&amp;
+  infixl  6 ^|
+  infixl  5 `xor`
+  infixl  8 ^&lt;&lt;
+  infixl  8 ^&gt;&gt;
+  infixl  8 `asr`
+  infixl  8 `rol`
+  infixl  8 `ror`
+
+  class Integral a =&gt; Bits a where
+      (^&)    :: a -&gt; a -&gt; a		-- bit-wise and
+      (^|)    :: a -&gt; a -&gt; a		-- bit-wise or
+      xor     :: a -&gt; a -&gt; a		-- bit-wise xor
+      compl   :: a -&gt; a			-- bit-wise complement
+      (^&lt;&lt;)   :: a -&gt; Int -&gt; a		-- left shift
+      (^&gt;&gt;)   :: a -&gt; Int -&gt; a		-- right shift
+      asr     :: a -&gt; Int -&gt; a		-- arithmetic right shift
+      rol     :: a -&gt; Int -&gt; a		-- rotate left
+      ror     :: a -&gt; Int -&gt; a		-- rotate right
+      test    :: Int -&gt; a -&gt; Bool	-- report n'th bit
+      set     :: Int -&gt; a -&gt; a		-- set n'th bit
+      clear   :: Int -&gt; a -&gt; a		-- clean n'th bit
+      bitSize :: a -&gt; Int		-- bit-width of type (not value)
+
+  instance Bits Int where ...
+</pre>
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.cs.york.ac.uk/fp/nhc98/">
+<tt>http://www.cs.york.ac.uk/fp/nhc98/</tt></a>
+
+<p>
+1998.03.26<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+
+</td></tr></table>
+</body></html>
+

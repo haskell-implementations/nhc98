@@ -1,0 +1,10 @@
+
+====================================
+	Error after type deriving/checking:
+Context for Prelude.Num needed in left hand pattern at 101:9.
+Context for Prelude.Num needed in left hand pattern at 100:9.
+Context for Prelude.Num needed in left hand pattern at 129:9.
+Context for Prelude.Num needed in left hand pattern at 126:9.
+Context for Prelude.Num needed in left hand pattern at 120:9.
+Context for Prelude.Num needed in left hand pattern at 117:9.
+Context for Prelude.Num needed in left hand pattern at 114:9.

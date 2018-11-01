@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>The NHC.FFI library</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>The FFI library in nhc98</h1></center>
+
+<hr>
+This document sketches the NHC.FFI library in nhc98.  It is based very
+closely on the proposed standard Foreign Function Interface libraries.
+The main difference from the proposed standard is that it collects
+all the proposed library functions into a single module.
+
+<hr>
+<h3>The NHC.FFI library</h3>
+<pre>
+module NHC.FFI
+   -------------------------------------------------------------------
+   -- {Int,Word}{8,16,32,64} are abstract and instances of Eq, Ord,
+   --   Num, Bounded, Real, Integral, Ix, Enum, Read, Show
+   -------------------------------------------------------------------
+  ( Int8,  Int16,  Int32,  Int64
+  , Word8, Word16, Word32, Word64
+
+   -------------------------------------------------------------------
+   -- `Addr' is now obsolete - use `Ptr a' instead.
+   -------------------------------------------------------------------
+  , Addr                  -- abstract, instance of: Eq, Ord, Enum, Show
+  , nullAddr              -- :: Addr
+  , plusAddr              -- :: Addr -&gt; Int -&gt; Addr
+
+   -------------------------------------------------------------------
+   -- `Ptr a' is a C pointer value.
+   -------------------------------------------------------------------
+  , Ptr(..)		-- abstract, instance of: Eq, Ord, Enum, Show
+  , nullPtr		-- :: Ptr a
+  , castPtr		-- :: Ptr a -&gt; Ptr b
+  , plusPtr		-- :: Ptr a -&gt; Int -&gt; Ptr b
+  , alignPtr		-- :: Ptr a -&gt; Int -&gt; Ptr a
+  , minusPtr		-- :: Ptr a -&gt; Ptr b -&gt; Int
+
+   -------------------------------------------------------------------
+   -- `FunPtr a' is a C function pointer value.
+   -------------------------------------------------------------------
+  , FunPtr              -- abstract, instance of: Eq, Ord, Enum, Show
+  , nullFunPtr          -- :: FunPtr a
+  , castFunPtr          -- :: FunPtr a -&gt; FunPtr b
+  , castFunPtrToPtr     -- :: FunPtr a -&gt; Ptr b
+  , castPtrToFunPtr     -- :: Ptr a -&gt; FunPtr b
+
+   -------------------------------------------------------------------
+   -- The `Storable' class.
+   -------------------------------------------------------------------
+  , Storable
+      ( sizeOf            -- :: a -&gt; Int
+      , alignment         -- :: a -&gt; Int
+      , peekElemOff       -- :: Ptr a -&gt; Int      -&gt; IO a
+      , pokeElemOff       -- :: Ptr a -&gt; Int -&gt; a -&gt; IO ()
+      , peekByteOff       -- :: Ptr b -&gt; Int      -&gt; IO a
+      , pokeByteOff       -- :: Ptr b -&gt; Int -&gt; a -&gt; IO ()
+      , peek              -- :: Ptr a             -&gt; IO a
+      , poke              -- :: Ptr a        -&gt; a -&gt; IO ()
+      , destruct)         -- :: Ptr a             -&gt; Io ()
+
+   -------------------------------------------------------------------
+   -- `ForeignObj' is now obsolete - use `ForeignPtr a' instead.
+   -------------------------------------------------------------------
+  , ForeignObj            -- abstract, instance of: Eq
+  , newForeignObj         -- :: Addr -&gt; IO () -&gt; IO ForeignObj
+  , makeForeignObj        -- :: Addr -&gt; IO () -&gt; IO ForeignObj  -- OBSOLETE
+  , foreignObjToAddr      -- :: ForeignObj -&gt; Addr
+#if !defined(TRACING)
+   ,freeForeignObj        -- :: ForeignObj -&gt; IO ()
+#endif
+  , withForeignObj        -- :: ForeignObj -&gt; (Addr -&gt; IO a) -&gt; IO a
+  , touchForeignObj       -- :: ForeignObj -&gt; IO ()
+
+   -------------------------------------------------------------------
+   -- `ForeignPtr a' is a C pointer value with an associated finaliser.
+   -------------------------------------------------------------------
+  , ForeignPtr                -- abstract, instance of: Eq
+  , newForeignPtr             -- :: Ptr a -&gt; IO () -&gt; IO (ForeignPtr a)
+-- , addForeignPtrFinalizer   -- :: ForeignPtr a -&gt; IO () -&gt; IO ()
+  , touchForeignPtr           -- :: ForeignPtr a -&gt; IO ()
+  , withForeignPtr            -- :: ForeignPtr a -&gt; (Ptr a -&gt; IO b) -&gt; IO b
+  , foreignPtrToPtr           -- :: ForeignPtr a -&gt; Ptr a
+  , castForeignPtr            -- :: ForeignPtr a -&gt; ForeignPtr b
+
+   -------------------------------------------------------------------
+   -- `StablePtr a' is a Haskell value passed to the foreign land.
+   -------------------------------------------------------------------
+#if !defined(TRACING)
+  , StablePtr             -- abstract
+  , newStablePtr          -- :: a -&gt; IO (StablePtr a)
+  , makeStablePtr         -- :: a -&gt; IO (StablePtr a)	-- OBSOLETE
+  , deRefStablePtr        -- :: StablePtr a -&gt; IO a
+  , freeStablePtr         -- :: StablePtr a -&gt; IO ()
+  , stablePtrToAddr       -- :: StablePtr a -&gt; Addr	-- OBSOLETE
+  , addrToStablePtr       -- :: Addr -&gt; StablePtr a	-- OBSOLETE
+  , castStablePtrToPtr  -- :: StablePtr a -&gt; Ptr ()
+  , castPtrToStablePtr  -- :: Ptr () -&gt; StablePtr a
+#endif
+
+   -------------------------------------------------------------------
+   -- `unsafePerformIO' is so commonly used, it should be exported.
+   -------------------------------------------------------------------
+  , unsafePerformIO	-- :: IO a -&gt; a
+
+   -------------------------------------------------------------------
+   -- nhc98's `PackedString' is a heap-allocated packed array of characters.
+   -------------------------------------------------------------------
+  , PackedString	-- abstract
+  , toCString		-- :: String  -&gt; PackedString
+  , fromCString		-- :: PackedString -&gt; String
+
+   -------------------------------------------------------------------
+   -- `CString' is a C-allocated C packed array of characters.
+   -------------------------------------------------------------------
+  , CString             -- = Ptr CChar
+  , CStringLen          -- = (CString, Int)
+  , peekCString         -- :: CString    -&gt; IO String
+  , peekCStringLen      -- :: CStringLen -&gt; IO String
+  , newCString          -- :: String -&gt; IO CString
+  , newCStringLen       -- :: String -&gt; IO CStringLen
+  , withCString         -- :: String -&gt; (CString    -&gt; IO a) -&gt; IO a
+  , withCStringLen      -- :: String -&gt; (CStringLen -&gt; IO a) -&gt; IO a
+  , castCharToCChar     -- :: Char -&gt; CChar
+  , castCCharToChar     -- :: CChar -&gt; Char
+
+   -------------------------------------------------------------------
+   -- nhc98's `CError' helps to build meaningful error messages.
+   -------------------------------------------------------------------
+  , getErrNo		-- :: IO Int
+  , mkIOError		-- :: String -&gt; Maybe FilePath -&gt; Maybe Handle
+			--      -&gt; Int -&gt; IOError
+  , throwIOError	-- :: String -&gt; Maybe FilePath -&gt; Maybe Handle
+			--      -&gt; Int -&gt; IO a
+   -------------------------------------------------------------------
+   -- Various `CTypes'.
+   -------------------------------------------------------------------
+  , CChar(..)	, CSChar(..)	, CUChar(..)
+  , CShort(..)	, CUShort(..)
+  , CInt(..)	, CUInt(..)
+  , CLong(..)	, CULong(..)
+  , CLLong(..)	, CULLong(..)
+  , CFloat(..)	, CDouble(..)	, CLDouble(..)
+   -------------------------------------------------------------------
+   -- `CTypesExtra'.
+   -------------------------------------------------------------------
+  , CPtrdiff(..)	, CSize(..)	, CWchar(..)
+  , CSigAtomic(..)	, CClock(..)	, CTime(..)
+  , CFile		, CFpos		, CJmpBuf
+
+   -------------------------------------------------------------------
+   -- `MarshalAlloc' provides memory allocation routines.
+   -------------------------------------------------------------------
+  , malloc            -- :: Storable a =&gt;        IO (Ptr a)
+  , mallocBytes       -- ::               Int -&gt; IO (Ptr a)
+  , alloca            -- :: Storable a =&gt;        (Ptr a -&gt; IO b) -&gt; IO b
+  , allocaBytes       -- ::               Int -&gt; (Ptr a -&gt; IO b) -&gt; IO b
+  , reallocBytes      -- :: Ptr a -&gt; Int -&gt; IO (Ptr a)
+  , free              -- :: Ptr a -&gt; IO ()
+
+   -------------------------------------------------------------------
+   -- `MarshalArray' provides bulk memory allocation/storage routines.
+   -------------------------------------------------------------------
+  , mallocArray     -- :: Storable a =&gt; Int -&gt; IO (Ptr a)
+  , mallocArray0    -- :: Storable a =&gt; Int -&gt; IO (Ptr a)
+  , allocaArray     -- :: Storable a =&gt; Int -&gt; (Ptr a -&gt; IO b) -&gt; IO b
+  , allocaArray0    -- :: Storable a =&gt; Int -&gt; (Ptr a -&gt; IO b) -&gt; IO b
+  , reallocArray    -- :: Storable a =&gt; Ptr a -&gt; Int -&gt; IO (Ptr a)
+  , reallocArray0   -- :: Storable a =&gt; Ptr a -&gt; Int -&gt; IO (Ptr a)
+  , peekArray       -- :: Storable a =&gt;         Int -&gt; Ptr a -&gt; IO [a]
+  , peekArray0      -- :: (Storable a, Eq a) =&gt; a   -&gt; Ptr a -&gt; IO [a]
+  , pokeArray       -- :: Storable a =&gt;      Ptr a -&gt; [a] -&gt; IO ()
+  , pokeArray0      -- :: Storable a =&gt; a -&gt; Ptr a -&gt; [a] -&gt; IO ()
+  , newArray        -- :: Storable a =&gt;      [a] -&gt; IO (Ptr a)
+  , newArray0       -- :: Storable a =&gt; a -&gt; [a] -&gt; IO (Ptr a)
+  , withArray       -- :: Storable a =&gt;      [a] -&gt; (Ptr a -&gt; IO b) -&gt; IO b
+  , withArray0      -- :: Storable a =&gt; a -&gt; [a] -&gt; (Ptr a -&gt; IO b) -&gt; IO b
+  , destructArray   -- :: Storable a =&gt;         Int -&gt; Ptr a -&gt; IO ()
+  , destructArray0  -- :: (Storable a, Eq a) =&gt; a   -&gt; Ptr a -&gt; IO ()
+  , copyArray       -- :: Storable a =&gt; Ptr a -&gt; Ptr a -&gt; Int -&gt; IO ()
+  , moveArray       -- :: Storable a =&gt; Ptr a -&gt; Ptr a -&gt; Int -&gt; IO ()
+  , lengthArray0    -- :: (Storable a, Eq a) =&gt; a -&gt; Ptr a -&gt; IO Int
+  , advancePtr      -- :: Storable a =&gt; Ptr a -&gt; Int -&gt; Ptr a
+
+   -------------------------------------------------------------------
+   -- `MarshalUtils' provides utilities for basic marshalling.
+   -------------------------------------------------------------------
+  , with           -- :: Storable a =&gt; a -&gt; (Ptr a -&gt; IO b) -&gt; IO b
+  , new            -- :: Storable a =&gt; a -&gt; IO (Ptr a)
+  , fromBool       -- :: Num a =&gt; Bool -&gt; a
+  , toBool         -- :: Num a =&gt; a -&gt; Bool
+  , maybeNew       -- :: (      a -&gt; IO (Ptr a))
+                   -- -&gt; (Maybe a -&gt; IO (Ptr a))
+  , maybeWith      -- :: (      a -&gt; (Ptr b -&gt; IO c) -&gt; IO c)
+                   -- -&gt; (Maybe a -&gt; (Ptr b -&gt; IO c) -&gt; IO c)
+  , maybePeek      -- :: (Ptr a -&gt; IO        b )
+                   -- -&gt; (Ptr a -&gt; IO (Maybe b))
+  , withMany       -- :: (a -&gt; (b -&gt; res) -&gt; res) -&gt; [a] -&gt; ([b] -&gt; res) -&gt; res
+  , copyBytes      -- :: Ptr a -&gt; Ptr a -&gt; Int -&gt; IO ()
+  , moveBytes      -- :: Ptr a -&gt; Ptr a -&gt; Int -&gt; IO ()
+
+   -------------------------------------------------------------------
+   -- `MarshalError' provides utilities for basic error-handling.
+   -------------------------------------------------------------------
+  , throwIf        -- :: (a -&gt; Bool) -&gt; (a -&gt; String) -&gt; IO a       -&gt; IO a
+  , throwIf_       -- :: (a -&gt; Bool) -&gt; (a -&gt; String) -&gt; IO a       -&gt; IO ()
+  , throwIfNeg     -- :: (Ord a, Num a) =&gt; (a -&gt; String) -&gt; IO a    -&gt; IO a
+  , throwIfNeg_    -- :: (Ord a, Num a) =&gt; (a -&gt; String) -&gt; IO a    -&gt; IO ()
+  , throwIfNull    -- :: String  -&gt; IO (Ptr a) -&gt; IO (Ptr a)
+  , void           -- IO a -&gt; IO ()
+
+  )
+</pre>
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.cs.york.ac.uk/fp/nhc98/">
+<tt>http://www.cs.york.ac.uk/fp/nhc98/</tt></a>
+
+<p>
+2001.11.27<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+
+</td></tr></table>
+</body></html>
+

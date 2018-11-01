@@ -1,0 +1,27 @@
+include Makefile.inc
+
+THISLIB	= DErrNo
+SEARCH	=
+EXTRA_C_FLAGS	=
+ifeq "$(findstring ghc, ${BUILDWITH})" "ghc"
+EXTRA_H_FLAGS	=	+RTS -K4M -RTS
+endif
+ifeq "$(findstring hbc, ${BUILDWITH})" "hbc"
+EXTRA_H_FLAGS	=	+RTS -H32M -A2M -RTS
+endif
+ifeq "${BUILDWITH}" "${CC}"
+EXTRA_H_FLAGS	=	+RTS -H32M -RTS
+endif
+ifeq "$(findstring nhc98, ${BUILDWITH})" "nhc98"
+EXTRA_H_FLAGS	=	+RTS -H32M -RTS
+endif
+
+
+SRCS	=
+
+
+# Here are the main rules.
+include ../../Makefile.common
+
+
+# Here are the dependencies.

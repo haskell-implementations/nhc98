@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Using the York Binary library</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>Using the York Binary library in nhc13</h1></center>
+
+<hr>
+This document describes the York Binary library.  (See also the
+<a href="BinArray.html">BinArray</a> library for an example of the
+use of Binary to build other abstractions.)
+
+<hr>
+<h3>The York Binary library</h3>
+<pre>
+    module Binary where
+
+    data BinPtr a = ...
+    data BinLocation = Memory | File FilePath BinIOMode
+    data BinIOMode = RO | RW | WO
+    data BinHandle = ...
+
+    stdmem     :: BinHandle
+    openBin    :: BinLocation -&gt; IO BinHandle
+    freezeBin  :: BinHandle -&gt; IO ()	-- changes BinIOMode to RO
+    closeBin   :: BinHandle -&gt; IO ()
+    copyBin    :: BinHandle -&gt; BinLocation -&gt; IO BinHandle
+
+    isEOFBin   :: BinHandle -&gt; IO Bool
+    seekBin    :: BinHandle -&gt; BinPtr a -&gt; IO ()
+    tellBin    :: BinHandle -&gt; IO (BinPtr a)
+
+    class Binary a where
+        put    :: BinHandle -&gt; a -&gt; IO (BinPtr a)
+        get    :: BinHandle -&gt; IO a
+        putAt  :: BinHandle -&gt; BinPtr a -&gt; a -&gt; IO ()
+        getAt  :: BinHandle -&gt; BinPtr a -&gt; IO a
+        getFAt :: BinHandle -&gt; BinPtr a -&gt; a
+</pre>
+
+<hr>
+<h3>Programming model</h3>
+<p>
+Both in-heap data compression and binary I/O can be achieved using the
+York <tt>Binary</tt> library.  The basic model is rather like file
+I/O:  binary data resides in a separate space which is accessed only
+through a <tt>BinHandle</tt> acting like a buffering file descriptor.
+Each item of binary data lies at a particular position within the
+space, the position being denoted by a <tt>BinPtr</tt>.  Data can be
+written and read sequentially just as with ordinary files.  Also, like
+ordinary files, we allow random-access reading and writing.  However,
+the particular beauty of this scheme is the ability to engage in
+<em>pure, lazy,</em> random-access reading when a <tt>BinHandle</tt> is
+in the appropriate <tt>RO</tt> (read-only) mode.  (A <tt>BinHandle</tt>
+which is already open for writing can be changed to <tt>RO</tt> mode
+with the <tt>freezeBin</tt> call.)
+
+<p>
+<tt>BinHandle</tt>s do not just denote files - they can also refer to
+areas of heap memory.  One such area is available by default - called
+<tt>stdmem</tt> - but new areas can be opened in just the
+same way as files.  They are opened in the default mode <tt>RW</tt>.
+Binary heap areas grow automatically to fit the data placed in them, and,
+like files, they are naturally garbage-collected when they are no longer
+in use.  (The <tt>closeBin</tt> operation is an explicit means to close
+a file or discard some memory.)
+
+<p>
+The <tt>Binary</tt> class is derivable for any datatype defined in a
+program except functions.  (Please note however that cyclic or infinite
+values will cause the compressing function to diverge.)
+
+<p>
+The class member functions come in two varieties, one for sequential
+access, the other for random access.  A <tt>BinHandle</tt> contains a
+hidden state, including the <em>current position</em> in the file or
+memory.  Understanding the notion of the current position is important
+for using the sequential operations correctly.  <tt>put</tt> and
+<tt>get</tt> always start reading or writing from the current position.
+All operations <em>including the random-access ones</em>, when they
+return, set the current position to the end of the value which has
+just been read or written.
+
+<table><tr>
+  <td colspan=2><tt>put :: BinHandle -&gt; a -&gt; IO (BinPtr a)</tt></td>
+</tr><tr>
+  <td width=200 valign=top><tt>put bh x</tt></td>
+  <td valign=top>writes a binary representation of the ordinary value
+      <tt>x</tt> sequentially at the current position, returning a pointer
+      to the beginning of the value.
+      Where later sequential reading is sufficient, the return value of
+      <tt>put</tt> can be discarded.  When random-access is required, the
+      return value of <tt>put</tt> can be used as the positional argument of
+      <tt>getAt</tt> and <tt>putAt</tt>.</td>
+</tr><tr>
+  <td colspan=2><tt>get :: BinHandle -&gt; IO a</tt></td>
+</tr><tr>
+  <td width=200 valign=top><tt>get bh</tt></td>
+  <td valign=top>reads a binary representation sequentially from the current
+      position, returning the ordinary representation of the value.</td>
+</tr><tr>
+  <td colspan=2><tt>putAt :: BinHandle -&gt; a -&gt; BinPtr a -&gt; IO ()</tt></td>
+</tr><tr>
+  <td width=200 valign=top><tt>putAt bh p x</tt></td>
+  <td valign=top>writes a binary representation of the ordinary value
+      <tt>x</tt> at the position <tt>p</tt>, returning nothing.  The pointer
+      <tt>p</tt> might have been obtained as the result of an earlier
+      <tt>put</tt> operation, or it may been read from a binary stream via
+      a <tt>get</tt> operation, or indeed it may have been calculated.</td>
+</tr><tr>
+  <td colspan=2><tt>getAt :: BinHandle -&gt; BinPtr a -&gt; IO a</tt></td>
+</tr><tr>
+  <td width=200 valign=top><tt>getAt bh p</tt></td>
+  <td valign=top>reads a binary representation from the position <tt>p</tt>, 
+      returning the ordinary representation of the value.</td>
+</tr><tr>
+  <td colspan=2><tt>getFAt :: BinHandle -&gt; BinPtr a -&gt; a</tt></td>
+</tr><tr>
+  <td width=200 valign=top><tt>getFAt bh p</tt></td>
+  <td valign=top>is a pure, lazy, version of the <tt>getAt</tt> method, which
+      can only be used on "frozen" <tt>BinHandle</tt>s.</td>
+</tr></table>
+
+<hr>
+<h3>Transferring bits in bulk</h3>
+<p>
+The easiest way to transfer bits in bulk is with the <tt>copyBin</tt>
+operation.  It takes an active <tt>BinHandle</tt> and copies its entire
+contents into the given <tt>BinLocation</tt>, returning a fresh
+<tt>BinHandle</tt> denoting the copy.
+
+<p>
+A completely different method exists to transfer individual binary
+values in bulk.  By recording the size of each binary value explicitly
+(which costs a certain amount of space), we can transfer just the
+bits belonging to that value, rather than the entire <tt>BinHandle</tt>.
+(This method predates the introduction of <tt>BinHandle</tt>s, so it
+may turn out to be less space-efficient, less quick, and more complex than
+the newer <tt>copyBin</tt> method.  Tell us which method you prefer.)
+
+<p>
+There are "sized" variations of two of the binary operations:
+<pre>
+    data SizedBin a = SB Size BinHandle (BinPtr a)
+
+    sizedPut    :: Binary a =&gt; BinHandle  -&gt; a -&gt; IO (SizedBin a)
+    sizedGetFAt :: Binary a =&gt; SizedBin a -&gt; a
+</pre>
+The main purpose of the sized operations is to enable efficient bulk
+transfer of binary data between two <tt>BinHandle</tt>s (typically
+between memory and file, although it can equally well occur between 
+two files or two memory spaces).  The sized operations do not implement
+this bulk transfer themselves - however bulk transfer is efficient
+only when the amount of data is known beforehand.
+
+<p>
+Hence there is a standard instance of class <tt>Binary</tt> for the type
+<tt>SizedBin a</tt>:  the operations <tt>put</tt> and <tt>get</tt>, when
+used on sized binary values, effect the bulk transfer of bits from one
+<tt>BinHandle</tt> to another.  It should be noted that <tt>get</tt>ting
+a sized binary value automatically allocates a fresh <tt>BinHandle</tt>
+in memory, since there is no other way of specifying a destination for a
+transfer in this direction.  This fresh <tt>BinHandle</tt> (enclosed
+anonymously within the <tt>SizedBin a</tt> value) is also
+frozen into <tt>RO</tt> mode after the transfer, ready for a later
+<tt>sizedGetFAt</tt> operation.
+
+<hr>
+<h3>Defining your own compression</h3>
+<p>
+If you want to play with defining your own instances of <tt>Binary</tt>, have
+a look at some of the instances for standard types like Int and Lists
+in <tt>src/prelude/Binary/Instances.hs</tt> to see how things work.
+One need define only three of the member functions - the others are
+defined in terms of them.
+
+<p>
+The lower-level tools used in defining instances are:
+<pre>
+    class Binary a where
+        ...
+        unsafeGetAt  :: BinHandle -&gt; BinPtr a -&gt; (a,BinPtr b)
+
+    getBits :: BinHandle -&gt; Int -&gt; BinPtr a -&gt; IO Int
+    putBits :: BinHandle -&gt; Int -&gt; Int      -&gt; IO (BinPtr a)
+    getAux  :: BinHandle -&gt; Int -&gt; BinPtr a -&gt; (Int,BinPtr a)
+    (&lt;&lt;) :: ((a-&gt;b),c) -&gt; (c-&gt;(a,d)) -&gt; (b,d)
+</pre>
+
+
+
+<hr>
+<h3>Read and write modes</h3>
+<p>
+A file <tt>BinHandle</tt> can be opened in one of three modes: read-only
+(<tt>RO</tt>), write-only (<tt>WO</tt>), or read-write (<tt>RW</tt>).
+A memory <tt>BinHandle</tt> is always opened in <tt>RW</tt> mode, but
+may be changed to <tt>RO</tt> mode by the <tt>freezeBin</tt> operation.
+These modes differ from those of ordinary textual files:
+
+<dl>
+<dt>A binary operation never raises an I/O exception.</dt>
+  <dd>When in <tt>RO</tt> mode, the operations <tt>put</tt> and <tt>putAt</tt>
+      will not fail, but nor will they alter the file/memory.
+  <dd>When in <tt>WO</tt> mode, the operations <tt>get</tt> and <tt>getAt</tt>
+      will return odd values, not corresponding to the real file/memory.
+  <dd>Encountering EOF in <tt>RO</tt> mode does not raise an error -
+      reading beyond the end of the file/memory will simply return zeros.
+      However, the operation <tt>isEOFBin</tt> can be used to test the
+      condition.
+  <dd>The <tt>getFAt</tt> operation <em>will</em> give a runtime error if
+      the file/memory is not in <tt>RO</tt> mode, but since this error does
+      not arise within the I/O monad. it cannot be trapped.
+<dt>In <tt>RW</tt> mode, interleaving read and write operations is safe.</dt>
+  <dd>The semantics of <tt>RW</tt> mode is that the file/memory is
+      <em>overwritten</em>.  In other words, you can write just a single
+      bit in the middle of the file/memory if you want to - everything else
+      will stay the same.  In particular, unlike <tt>WO</tt> mode, a file is
+      not truncated when you open it.
+</dl>
+
+<p>
+An example program which uses binary I/O in <tt>RW</tt> mode is
+<a href="../examples/ZooQuiz.hs">ZooQuiz.hs</a>.
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.cs.york.ac.uk/fp/nhc13/">
+<tt>http://www.cs.york.ac.uk/fp/nhc13/</tt></a>
+
+<p>
+1998.03.26<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+Malcolm Wallace &lt;Malcolm.Wallace@cs.york.ac.uk&gt;
+
+</td></tr></table>
+</body></html>
+

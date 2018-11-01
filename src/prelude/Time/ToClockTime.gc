@@ -1,0 +1,24 @@
+module Time where
+
+import NHC.GreenCard
+import DClockTime
+import DCalendarTime
+
+%-#include <time.h>
+%-
+%fun toClockTime :: CalendarTime -> ClockTime
+%call (calendarTime y mon d h min s pc wd yd tzn tz dst)
+%code
+%  struct tm cal;
+%  cal.tm_year = y;
+%  cal.tm_mon  = mon;
+%  cal.tm_mday = d;
+%  cal.tm_hour = h;
+%  cal.tm_min  = min;
+%  cal.tm_sec  = s;
+%  cal.tm_wday = wd;
+%  cal.tm_yday = yd;
+%  cal.tm_isdst = dst;
+%  ct = mktime(&cal);
+%result (clockTime ct)
+

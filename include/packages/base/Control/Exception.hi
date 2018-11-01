@@ -1,0 +1,275 @@
+interface Control.Exception where {
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Ratio.Ratio;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.Internal.IO;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable IO.Handle;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Control.Exception.Base.SomeException;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Control.Exception.Base.Exception Control.Exception.Base.SomeException;
+
+{-# NEED #-}
+instance Control.Exception.Base.Exception Prelude.IOError;
+
+{-# NEED #-}
+instance Control.Exception.Base.Exception System.ExitCode;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read System.ExitCode;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord System.ExitCode;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq System.ExitCode;
+
+{-# NEED #-}
+instance Prelude.Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.SomeException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.ArithException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.ArrayException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.AsyncException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.AssertionFailed;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.PatternMatchFail;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.NoMethodError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.Deadlock;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.BlockedIndefinitelyOnMVar;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.BlockedIndefinitelyOnSTM;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.ErrorCall;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.RecConError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.RecSelError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.RecUpdError;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Show System.ExitCode;
+interface Data.Typeable
+{-# NEED #-}
+class Typeable a;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface System
+{-# NEED ExitCode #-}
+data ExitCode;
+interface ! Control.Exception
+{-# NEED catches #-}
+catches{-# 2 #-}::((NHC.Internal.IO a) -> ([(Handler a)] -> (NHC.Internal.IO a)));
+
+{-# NEED {Handler Handler} #-}
+data Handler a
+  = forall a_fa . (Control.Exception.Base.Exception a_fa) => Handler (a_fa -> (NHC.Internal.IO a));
+interface ! Prelude
+{-# NEED ioError #-}
+ioError{-# 1 #-}::(Prelude.IOError -> (NHC.Internal.IO a));
+interface ! IO
+{-# NEED bracket #-}
+bracket{-# 3 #-}::((NHC.Internal.IO a) -> ((a -> (NHC.Internal.IO b)) -> ((a -> (NHC.Internal.IO c)) -> (NHC.Internal.IO c))));
+interface ! Control.Exception.Base
+{-# NEED IOException #-}
+type {-# 1 #-} IOException = Prelude.IOError;
+
+{-# NEED ArithException #-}
+data ArithException;
+
+{-# NEED ArrayException #-}
+data ArrayException;
+
+{-# NEED AsyncException #-}
+data AsyncException;
+
+{-# NEED AssertionFailed #-}
+data AssertionFailed;
+
+{-# NEED PatternMatchFail #-}
+data PatternMatchFail;
+
+{-# NEED NoMethodError #-}
+data NoMethodError;
+
+{-# NEED Deadlock #-}
+data Deadlock;
+
+{-# NEED BlockedIndefinitelyOnMVar #-}
+data BlockedIndefinitelyOnMVar;
+
+{-# NEED BlockedIndefinitelyOnSTM #-}
+data BlockedIndefinitelyOnSTM;
+
+{-# NEED ErrorCall #-}
+data ErrorCall;
+
+{-# NEED RecConError #-}
+data RecConError;
+
+{-# NEED RecSelError #-}
+data RecSelError;
+
+{-# NEED RecUpdError #-}
+data RecUpdError;
+
+{-# NEED catch #-}
+catch{-# 2 #-}::(Control.Exception.Base.Exception b) => ((NHC.Internal.IO a) -> ((b -> (NHC.Internal.IO a)) -> (NHC.Internal.IO a)));
+
+{-# NEED throwIO #-}
+throwIO{-# 0 #-}::(Control.Exception.Base.Exception a) => (a -> (NHC.Internal.IO b));
+
+{-# NEED throw #-}
+throw{-# 0 #-}::(Control.Exception.Base.Exception a) => (a -> b);
+
+{-# NEED evaluate #-}
+evaluate{-# 1 #-}::(a -> (NHC.Internal.IO a));
+
+{-# NEED assert #-}
+assert{-# 2 #-}::(Prelude.Bool -> (a -> a));
+
+{-# NEED mask #-}
+mask{-# 1 #-}::((((NHC.Internal.IO a) -> (NHC.Internal.IO a)) -> (NHC.Internal.IO a)) -> (NHC.Internal.IO a));
+
+{-# NEED block #-}
+block{-# 0 #-}::((NHC.Internal.IO a) -> (NHC.Internal.IO a));
+
+{-# NEED unblock #-}
+unblock{-# 0 #-}::((NHC.Internal.IO a) -> (NHC.Internal.IO a));
+
+{-# NEED blocked #-}
+blocked{-# 0 #-}::(NHC.Internal.IO Prelude.Bool);
+
+{-# NEED catchJust #-}
+catchJust{-# 3 #-}::(Control.Exception.Base.Exception a) => ((a -> (Prelude.Maybe b)) -> ((NHC.Internal.IO c) -> ((b -> (NHC.Internal.IO c)) -> (NHC.Internal.IO c))));
+
+{-# NEED handle #-}
+handle{-# 0 #-}::(Control.Exception.Base.Exception a) => ((a -> (NHC.Internal.IO b)) -> ((NHC.Internal.IO b) -> (NHC.Internal.IO b)));
+
+{-# NEED handleJust #-}
+handleJust{-# 1 #-}::(Control.Exception.Base.Exception a) => ((a -> (Prelude.Maybe b)) -> ((b -> (NHC.Internal.IO c)) -> ((NHC.Internal.IO c) -> (NHC.Internal.IO c))));
+
+{-# NEED mapException #-}
+mapException{-# 2 #-}::(Control.Exception.Base.Exception a,Control.Exception.Base.Exception b) => ((a -> b) -> (c -> c));
+
+{-# NEED try #-}
+try{-# 1 #-}::(Control.Exception.Base.Exception b) => ((NHC.Internal.IO a) -> (NHC.Internal.IO (Prelude.Either b a)));
+
+{-# NEED tryJust #-}
+tryJust{-# 2 #-}::(Control.Exception.Base.Exception a) => ((a -> (Prelude.Maybe b)) -> ((NHC.Internal.IO c) -> (NHC.Internal.IO (Prelude.Either b c))));
+
+{-# NEED onException #-}
+onException{-# 2 #-}::((NHC.Internal.IO a) -> ((NHC.Internal.IO b) -> (NHC.Internal.IO a)));
+
+{-# NEED finally #-}
+finally{-# 2 #-}::((NHC.Internal.IO a) -> ((NHC.Internal.IO b) -> (NHC.Internal.IO a)));
+
+{-# NEED bracket_ #-}
+bracket_{-# 3 #-}::((NHC.Internal.IO a) -> ((NHC.Internal.IO b) -> ((NHC.Internal.IO c) -> (NHC.Internal.IO c))));
+
+{-# NEED bracketOnError #-}
+bracketOnError{-# 3 #-}::((NHC.Internal.IO a) -> ((a -> (NHC.Internal.IO b)) -> ((a -> (NHC.Internal.IO c)) -> (NHC.Internal.IO c))));
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! Control.Exception.Base
+{-# NEED {Exception toException fromException} {SomeException SomeException} #-}
+class (Prelude.Show a) => Exception a where {
+  toException{-# 1 #-}::(a -> Control.Exception.Base.SomeException);
+  fromException{-# 1 #-}::(Control.Exception.Base.SomeException -> (Prelude.Maybe a));
+};
+data SomeException
+  = forall a_fa . (Control.Exception.Base.Exception a_fa) => SomeException a_fa;
+}

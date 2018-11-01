@@ -1,0 +1,242 @@
+interface Data.Monoid where {
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Monoid (Last a);
+
+{-# NEED #-}
+instance Monoid (First a);
+
+{-# NEED #-}
+instance (Prelude.Num a) => Monoid (Product a);
+
+{-# NEED #-}
+instance (Prelude.Num a) => Monoid (Sum a);
+
+{-# NEED #-}
+instance Monoid Any;
+
+{-# NEED #-}
+instance Monoid All;
+
+{-# NEED #-}
+instance Monoid (Endo a);
+
+{-# NEED #-}
+instance (Monoid a) => Monoid (Dual a);
+
+{-# NEED #-}
+instance Monoid Prelude.Ordering;
+
+{-# NEED #-}
+instance (Monoid a,Monoid b,Monoid c) => Monoid (a,b,c);
+
+{-# NEED #-}
+instance (Monoid a,Monoid b,Monoid c,Monoid d) => Monoid (a,b,c,d);
+
+{-# NEED #-}
+instance (Monoid a,Monoid b,Monoid c,Monoid d,Monoid e) => Monoid (a,b,c,d,e);
+
+{-# NEED #-}
+instance (Monoid a,Monoid b) => Monoid (a,b);
+
+{-# NEED #-}
+instance Monoid [a];
+
+{-# NEED #-}
+instance (Monoid a) => Monoid (Prelude.Maybe a);
+
+{-# NEED #-}
+instance (Monoid b) => Monoid (a -> b);
+
+{-# NEED #-}
+instance Monoid ();
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Bounded a) => Prelude.Bounded (Product a);
+
+{-# NEED #-}
+instance (Prelude.Bounded a) => Prelude.Bounded (Sum a);
+
+{-# NEED #-}
+instance Prelude.Bounded Any;
+
+{-# NEED #-}
+instance Prelude.Bounded All;
+
+{-# NEED #-}
+instance (Prelude.Bounded a) => Prelude.Bounded (Dual a);
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Last a);
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (First a);
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Product a);
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Sum a);
+
+{-# NEED #-}
+instance Prelude.Ord Any;
+
+{-# NEED #-}
+instance Prelude.Ord All;
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Dual a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Last a);
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (First a);
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Product a);
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Sum a);
+
+{-# NEED #-}
+instance Prelude.Eq Any;
+
+{-# NEED #-}
+instance Prelude.Eq All;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Dual a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Last a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (First a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Product a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Sum a);
+
+{-# NEED #-}
+instance Prelude.Show Any;
+
+{-# NEED #-}
+instance Prelude.Show All;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Dual a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (Last a);
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (First a);
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (Product a);
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (Sum a);
+
+{-# NEED #-}
+instance Prelude.Read Any;
+
+{-# NEED #-}
+instance Prelude.Read All;
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (Dual a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Data.Monoid
+{-# NEED {Last Last getLast} #-}
+newtype {-#  #-} Last a
+  = Last {getLast :: (Prelude.Maybe a)};
+
+{-# NEED {First First getFirst} #-}
+newtype {-#  #-} First a
+  = First {getFirst :: (Prelude.Maybe a)};
+
+{-# NEED {Product Product getProduct} #-}
+newtype {-#  #-} Product a
+  = Product {getProduct :: a};
+
+{-# NEED {Sum Sum getSum} #-}
+newtype {-#  #-} Sum a
+  = Sum {getSum :: a};
+
+{-# NEED {Any Any getAny} #-}
+newtype {-#  #-} Any
+  = Any {getAny :: Prelude.Bool};
+
+{-# NEED {All All getAll} #-}
+newtype {-#  #-} All
+  = All {getAll :: Prelude.Bool};
+
+{-# NEED {Endo Endo appEndo} #-}
+newtype {-#  #-} Endo a
+  = Endo {appEndo :: (a -> a)};
+
+{-# NEED {Dual Dual getDual} #-}
+newtype {-#  #-} Dual a
+  = Dual {getDual :: a};
+
+{-# NEED {Monoid mconcat mempty mappend} #-}
+class Monoid a where {
+  mconcat{-# 1 #-}::([a] -> a);
+  mempty{-# 0 #-}::a;
+  mappend{-# 2 #-}::(a -> (a -> a));
+};
+}

@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>nhc98 runtime options</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>nhc98 runtime options</h1></center>
+
+<hr>
+
+<p>
+Programs compiled by <b>nhc98</b> can be given runtime options
+independently of any command-line arguments that the program will
+interpret for itself.  Options directed at the runtime system must
+be enclosed between <tt>+RTS</tt> and <tt>-RTS</tt>.  Any command-line
+arguments not enclosed will be made available to the program as the
+return value of the <tt>System.getArgs</tt> library call.
+
+</td></tr></table>
+
+<table width=500><tr><td width=250 valign=top>
+
+<b>Options for system resources.</b>
+<table width=250> <tr>
+<td><em><b>-H</b>size</em></td>
+	<td>allocate a heap of specified <em>size</em></td>
+</tr><tr>
+<td><em><b>-V</b>size</em></td>
+	<td>allocate a stack of specified <em>size</em></td>
+</tr><tr>
+<td><em><b>-i</b>size</em></td>
+	<td>set the profiling interval to <em>size</em></td>
+</tr></table>
+<p>
+Memory sizes can be given in bytes or words, and may use symbols
+for Mega- and kilo-.  Both upper and lower case are acceptable.
+For example, 2mw (2 Megawords), 4KB (4 kilobytes).  If no units are
+specified, the default is bytes.  A profiling interval may be given as
+the number of heap allocations, or in Mega-, kilo-, or milli- seconds.
+For example, 1Ms (1 Megasecond), 2ms (2 milliseconds), 1M (1 megabyte).
+If no units are specified, the default is allocations.<br><br>
+
+</td><td width=250 valign=top>
+
+<b>Miscellaneous options.</b>
+<table width=250><tr>
+<td valign=top><em><b>-s</b></em></td><td>garbage collect statics</td>
+</tr><tr>
+<td valign=top><em><b>-B</b></em></td><td>print progress info at every garbage
+     collection (repeating the flag increases amount of info)</td>
+</tr><tr>
+<td valign=top><em><b>-I</b></em></td><td>turn on instruction counts
+     (Only if runtime system was compiled with -DINSCOUNT=1)</td>
+</tr><tr>
+<td valign=top><em><b>-X</b></em></td><td>turn on Xlib debugging</td>
+</tr><tr>
+<td valign=top><em><b>-t</b></em></td><td>turn on time profiling (see below)</td>
+</tr></table>
+
+
+</td></tr>
+<tr><td width=250 valign=top>
+
+<b>Heap profiling options.</b>
+<table width=250> <tr>
+<td valign=top><em><b>-p</b></em></td>
+	<td>build a producer heap profile</td>
+</tr><tr>
+<td valign=top><em><b>-c</b></em></td>
+	<td>build a construction heap profile</td>
+</tr><tr>
+<td valign=top><em><b>-m</b></em></td>
+	<td>build a module heap profile</td>
+</tr><tr>
+<td valign=top><em><b>-r</b>[num]</em></td>
+	<td>build a retainer heap profile, with
+	a maximum retainer set size of <em>num</em> (default=1).</td>
+</tr><tr>
+<td valign=top><em><b>-b</b></em></td>
+	<td>build a biographical heap profile</td>
+</tr><tr>
+<td valign=top><em><b>-l</b></em></td>
+	<td>build a lifetime heap profile</td>
+</tr><tr>
+<td valign=top><em><b>-p</b>names</em></td>
+	<td>restrict profile to named producers</td>
+</tr><tr>
+<td valign=top><em><b>-c</b>names</em></td>
+	<td>restrict profile to named constructions</td>
+</tr><tr>
+<td valign=top><em><b>-m</b>names</em></td>
+	<td>restrict profile to named modules</td>
+</tr><tr>
+<td valign=top><em><b>-r</b>names</em></td>
+	<td>restrict profile to named retainers</td>
+</tr><tr>
+<td valign=top><em><b>-b</b>name</em></td>
+	<td>restrict profile to named biographical phase
+	(<em>lag</em>, <em>drag</em>, <em>void</em>, or <em>use</em>)</td>
+</tr><tr>
+<td valign=top><em><b>-l</b>nums</em></td>
+	<td>restrict profile to numbered lifetimes
+	(<em>min-</em>, <em>-max</em>, or <em>min-max</em>)</td>
+</tr><tr>
+<td valign=top><em><b>-@</b></em></td>
+	<td>count application nodes during profiling</td>
+</tr><tr>
+<td valign=top><em><b>-u</b></em></td>
+	<td>print usage during profiling</td>
+</tr><tr>
+<td valign=top><em><b>-1</b></em></td>
+	<td>first run (for biography/lifetime)</td>
+</tr><tr>
+<td valign=top><em><b>-2</b></em></td>
+	<td>second run (for biography/lifetime)</td>
+</tr></table>
+<p>
+These options are only meaningful if the program has been compiled
+for heap profiling - otherwise they are ignored.  The first occurrence of
+any of the options <em>pcmrbl</em> determines the primary form of the
+profile.  Subsequent <em>pcmrbl</em> options introduce restrictions on
+the profile, for instance <em>-p -c:</em> asks for a producer profile
+restricted to producers of the `:' (list) construction.  Restrictions
+are almost all orthogonal to each other, and you may have as many as
+you like.  Except for biography and lifetime restrictions, the format
+is of a list of names, separated by commas.  (In general, you may need to
+use quotes around the list to protect special characters from the shell.)
+The heap profile results are produced in a file named <em>program<b>.hp</b></em>.
+Use the <em>hp2graph</em> tool to convert this to a Postscript or FrameMaker
+picture of the graph.
+
+
+</td><td width=250 valign=top>
+
+
+<b>Time profiling options.</b>
+<table width=250><tr>
+<td valign=top><em><b>-t</b></em></td><td>turn on time profiling</td>
+</tr><tr>
+<td valign=top><em><b>-tt</b></em></td>
+  <td>order results by time consumed per function</td>
+</tr><tr>
+<td valign=top><em><b>-tc</b></em></td>
+  <td>order results by number of calls per function</td>
+</tr><tr>
+<td valign=top><em><b>-tm</b></em></td>
+  <td>group results by module</td>
+</tr><tr>
+<td valign=top><em><b>-txp</b></em></td>
+  <td>give percentage of calls as well as percentage of time consumed</td>
+</tr><tr>
+<td valign=top><em><b>-txs</b></em></td>
+  <td>count sub-function entries separately</td>
+</tr><tr>
+<td valign=top><em><b>-t-</b>Module</em></td>
+  <td>show only the total for all functions in named module</td>
+</tr><tr>
+<td valign=top><em><b>-t+</b>Module</em></td>
+  <td>show all functions separately in named module</td>
+</tr><tr>
+<td valign=top><em><b>-t+</b>all</em></td>
+  <td>show all functions separately in all modules</td>
+</tr><tr>
+<td valign=top><em><b>-t-</b>all</em></td>
+  <td>show only total-per-module for all modules</td>
+</tr></table>
+<p>
+These options are only meaningful if the program has been compiled for
+time profiling - otherwise they are ignored.  The various single-letter
+flags can be aggregated together, e.g.  <em><b>-t</b>mt</em>.
+You can give a list of module names separated by spaces using the
+shell quoting mechanism e.g.  <em><b>-t"+</b>Prelude<b> -</b>Main<b>
++</b>IO<b>"</b></em>.  The default is to show all functions written
+by the user separately, but only show the total for library modules
+(Prelude, IO, etc.).
+<p>
+The time profile results are produced in a file named
+<em>program<b>.tp</b></em>.
+
+
+</td></tr></table>
+
+<table width=500><tr><td>
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.haskell.org/nhc98/">
+<tt>http://www.haskell.org/nhc98/</tt></a>
+
+<p>
+18th May 2001<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+
+</td></tr></table>
+</body></html>
+

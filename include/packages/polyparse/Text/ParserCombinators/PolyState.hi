@@ -1,0 +1,138 @@
+interface Text.ParserCombinators.PolyState where {
+infixl  6 `onFail`;
+infixl  3 `discard`;
+infixl  3 `apply`;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Monad (Parser a b);
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Functor (Parser a b);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+
+{-# NEED World #-}
+data World;
+interface ! Text.ParserCombinators.PolyState
+{-# NEED reparse #-}
+reparse{-# 1 #-}::([a] -> (Parser b a ()));
+
+{-# NEED stGet #-}
+stGet{-# 0 #-}::(Parser a b a);
+
+{-# NEED stQuery #-}
+stQuery{-# 1 #-}::((a -> b) -> (Parser a c b));
+
+{-# NEED stUpdate #-}
+stUpdate{-# 1 #-}::((a -> a) -> (Parser a b ()));
+
+{-# NEED manyFinally #-}
+manyFinally{-# 2 #-}::((Parser a b c) -> ((Parser a b d) -> (Parser a b [c])));
+
+{-# NEED bracket #-}
+bracket{-# 3 #-}::((Parser a b c) -> ((Parser a b d) -> ((Parser a b e) -> (Parser a b e))));
+
+{-# NEED bracketSep #-}
+bracketSep{-# 4 #-}::((Parser a b c) -> ((Parser a b d) -> ((Parser a b e) -> ((Parser a b f) -> (Parser a b [f])))));
+
+{-# NEED sepBy1 #-}
+sepBy1{-# 2 #-}::((Parser a b c) -> ((Parser a b d) -> (Parser a b [c])));
+
+{-# NEED sepBy #-}
+sepBy{-# 2 #-}::((Parser a b c) -> ((Parser a b d) -> (Parser a b [c])));
+
+{-# NEED many1 #-}
+many1{-# 1 #-}::((Parser a b c) -> (Parser a b [c]));
+
+{-# NEED many #-}
+many{-# 1 #-}::((Parser a b c) -> (Parser a b [c]));
+
+{-# NEED exactly #-}
+exactly{-# 2 #-}::(Prelude.Int -> ((Parser a b c) -> (Parser a b [c])));
+
+{-# NEED indent #-}
+indent{-# 1 #-}::(Prelude.Int -> (Prelude.String -> Prelude.String));
+
+{-# NEED oneOf' #-}
+oneOf'{-# 0 #-}::([(Prelude.String,(Parser a b c))] -> (Parser a b c));
+
+{-# NEED oneOf #-}
+oneOf{-# 1 #-}::([(Parser a b c)] -> (Parser a b c));
+
+{-# NEED onFail #-}
+onFail{-# 2 #-}::((Parser a b c) -> ((Parser a b c) -> (Parser a b c)));
+
+{-# NEED adjustErrBad #-}
+adjustErrBad{-# 2 #-}::((Parser a b c) -> ((Prelude.String -> Prelude.String) -> (Parser a b c)));
+
+{-# NEED adjustErr #-}
+adjustErr{-# 2 #-}::((Parser a b c) -> ((Prelude.String -> Prelude.String) -> (Parser a b c)));
+
+{-# NEED discard #-}
+discard{-# 2 #-}::((Parser a b c) -> ((Parser a b d) -> (Parser a b c)));
+
+{-# NEED apply #-}
+apply{-# 2 #-}::((Parser a b (c -> d)) -> ((Parser a b c) -> (Parser a b d)));
+
+{-# NEED satisfy #-}
+satisfy{-# 1 #-}::((a -> Prelude.Bool) -> (Parser b a a));
+
+{-# NEED next #-}
+next{-# 0 #-}::(Parser a b b);
+
+{-# NEED commit #-}
+commit{-# 1 #-}::((Parser a b c) -> (Parser a b c));
+
+{-# NEED failBad #-}
+failBad{-# 1 #-}::(Prelude.String -> (Parser a b c));
+
+{-# NEED runParser #-}
+runParser{-# 2 #-}::((Parser a b c) -> (a -> ([b] -> ((Prelude.Either Prelude.String c),a,[b]))));
+
+{-# NEED {Parser P} #-}
+newtype {-#  #-} Parser a b c
+  = P (a -> ([b] -> ((EitherE Prelude.String c),a,[b])));
+interface Text.ParserCombinators.PolyState
+{-# NEED EitherE #-}
+type {-# 1 #-} EitherE a b = (Prelude.Either (Prelude.Bool,a) b);
+}

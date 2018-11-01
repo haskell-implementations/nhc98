@@ -1,0 +1,22 @@
+The GC is organised in three phases: mark, flip, and move.
+
+  * The mark phase uses a normal pointer reversal algorithm, resetting
+    the pointers after traversing a path.  Nothing special there.
+  * The flip phase scans the heap, using a form of pointer reversal
+    to work out where live data will move to after it is compacted,
+    and hence updating pointers to the new locations.
+  * The move phase then does the actual copying of data to its new
+    compacted location.
+  * Note that copying and updating are in the opposite order to what
+    would be expected in a two-space collector.
+
+A pointer-negation trick is used by the flip phase to tell the
+move phase where the next live data is stored, i.e. purely to
+speed up the copying process.  Using the mark bits would suffice,
+but would be somewhat slower, and would repeat work already done
+once by the flip phase.
+
+Note also, that the flip phase additionally sets markbits in the
+marktable for those garbage cells that are overwritten with a
+negated pointer to the next live cell.  If we dump the negation
+trick, we must also be careful not to mark those cells either.

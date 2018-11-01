@@ -1,0 +1,3 @@
+stripNL :: TextParser Char
+stripNL = (do '\\' <- next; '\\' <- next; '\n' <- next; stripNL) `onFail` next
+

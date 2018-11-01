@@ -1,0 +1,33 @@
+module NHC.GreenCard
+  ( PackedString
+  , toCString
+  , fromCString
+  , ForeignObj
+  , Addr
+  , StablePtr
+  , newStablePtr
+  , deRefStablePtr
+  ) where
+
+import NHC.FFI (ForeignObj,StablePtr,Addr,newStablePtr,deRefStablePtr)
+--import DIO (IO(..))
+import NHC.PackedString (PackedString)
+import CString (toCString, fromCString)
+
+%dis int x          = declare "int" x in (%%Int x)
+%dis char x         = declare "char" x in (%%Char x)
+%dis bool x         = declare "int" x in (%%Bool x)
+%dis float x        = declare "float" x in (%%Float x)
+%dis double x       = declare "double" x in (%%Double x)
+%dis string x       = <toCString/fromCString> (packedString x)
+%dis packedString x = declare "char*" x in (%%PackedString x)
+%dis foreign f x    = declare "void*" x in (%%Foreign "%f" x)
+%dis word x         = declare "unsigned int" x in (%%Word x)
+%dis addr x         = declare "void *" x in (%%Addr x)
+
+%dis filePath x     = string x
+
+%dis integer i      = <fromInteger/toInteger> (int i)
+
+%dis stable x       = stableptr x
+%dis stableptr x    = declare "StablePtr" x in <<newStablePtr/deRefStablePtr>> (%%StablePtr x)

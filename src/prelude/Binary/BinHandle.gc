@@ -1,0 +1,9 @@
+module NHC.Binary
+  ( {-type-} BinHandle(..)
+  ) where
+
+import NHC.GreenCard (ForeignObj)
+
+newtype BinHandle = BH ForeignObj
+%dis binHandle bh = BH (declare "BinHandle" bh in foreign "finaliseBH" bh)
+

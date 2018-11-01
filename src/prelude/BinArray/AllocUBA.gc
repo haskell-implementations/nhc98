@@ -1,0 +1,21 @@
+module NHC.BinArray
+  ( allocUBA
+  ) where
+
+import NHC.GreenCard
+import DUnboxedArray ({-type-}UnboxedArray(..))
+import BinPtr        ({-type-}BinPtr(..))
+
+%-#include "cLowUnboxedArray.h"
+%-#include <stdlib.h>
+
+%fun allocUBA :: Int -> BinPtr -> IO UnboxedArray
+%call (int size) (binPtr end)
+%code
+%  uba = (UBA)malloc(sizeof(struct UnboxedArray));
+%  uba->block = (unsigned*)malloc(size*sizeof(unsigned));
+%  uba->free  = size;
+%  uba->write = 0;
+%  uba->end   = end;
+%result (unboxedArray uba)
+

@@ -1,0 +1,15 @@
+module NHC.Binary
+  ( sizeofBin
+  ) where
+
+import NHC.GreenCard
+import BinPtr    ({-type-}BinPtr(..))
+import BinHandle ({-type-}BinHandle(..))
+
+%-#include "cLowBinary.h"
+
+%fun sizeofBin :: BinHandle -> BinPtr -> IO Int
+%call (binHandle bh) (binPtr oldpos)
+%code n = (bh->file ? vtell(bh) : mtell(bh)) - oldpos;
+%result (int n)
+

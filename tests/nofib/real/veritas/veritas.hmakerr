@@ -1,0 +1,3 @@
+======	Errors after type inference/checking:
+Context for Prelude.Num needed in left hand pattern at 1480:11-1480:25.
+Context for Prelude.Num needed in left hand pattern at 1447:11-1447:31.

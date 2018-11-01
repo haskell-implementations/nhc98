@@ -1,0 +1,6 @@
+#!/bin/sh
+#	simple redirection script to find the correct executable
+#	for this machine architecture
+MACHINE=${MACHINE-"`ScriptDir/harch`"}
+NHC98INCDIR=${NHC98INCDIR-IncludeDir}
+exec ExecutableDir/$MACHINE/`basename $0` "$NHC98INCDIR/packages" "$@"

@@ -1,0 +1,42 @@
+#!/bin/sh
+# hmake-config - adjust the configuration of hmake
+# Author: Malcolm Wallace, 2002, Malcolm.Wallace@cs.york.ac.uk 
+
+INSTALLVER="InstallVer"
+SCRIPTDIR=${SCRIPTDIR-ScriptDir}
+MACHINE=${MACHINE-"`$SCRIPTDIR/harch`"}
+HMAKEDIR=${HMAKEDIR-ExecutableDir}
+HMAKECONFDIR=${HMAKECONFDIR-ConfDir}
+TMP=${TMP-/tmp}
+export MACHINE HMAKEDIR HMAKECONFDIR
+
+if [ ! -d $HMAKEDIR/$MACHINE ]
+then
+  echo "`basename $0` is not installed/configured for $MACHINE."
+  echo "  See your system administrator, or install it yourself from"
+  echo "  http://www.cs.york.ac.uk/fp/hmake/"
+  exit 1
+fi
+
+usage() {
+  echo "Usage: `basename $0` [config-file] new"
+  echo "       `basename $0` [config-file] list [compiler]"
+  echo "       `basename $0` [config-file] [add|delete|default] [compiler]"
+  exit 0
+}
+
+case $1 in
+  --version) echo "$0: $INSTALLVER"
+             exit 0;;
+  --help)    usage ;;
+esac
+
+map() { f=$1; shift; for item in $*; do $f $item; done; }
+cygfix() { cygpath -w $1 | tr '\\' '/'; }
+
+case $MACHINE in
+  ix86-CYGWIN*) ARGS=`map cygfix "$@"` ;;
+  *) ARGS="$@" ;;
+esac
+
+exec $HMAKEDIR/$MACHINE/MkConfig $ARGS

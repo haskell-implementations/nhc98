@@ -1,0 +1,184 @@
+interface NHC.Observe where {
+
+{-# NEED #-}
+instance (Observable a,Observable b,Observable c,Observable d,Observable e) => Observable (a,b,c,d,e);
+
+{-# NEED #-}
+instance Observable Prelude.Ordering;
+
+{-# NEED #-}
+instance (Observable a,Observable b,Observable c,Observable d) => Observable (a,b,c,d);
+
+{-# NEED #-}
+instance Observable Prelude.Double;
+
+{-# NEED #-}
+instance Observable Prelude.Float;
+
+{-# NEED #-}
+instance Observable Prelude.Char;
+
+{-# NEED #-}
+instance (Observable a,Observable b,Observable c) => Observable (a,b,c);
+
+{-# NEED #-}
+instance Observable Prelude.Integer;
+
+{-# NEED #-}
+instance (Observable a) => Observable (Prelude.Maybe a);
+
+{-# NEED #-}
+instance Observable Prelude.Bool;
+
+{-# NEED #-}
+instance (Observable a) => Observable [a];
+
+{-# NEED #-}
+instance (Observable a,Observable b) => Observable (a,b);
+
+{-# NEED #-}
+instance (Ix.Ix a,Observable a,Observable b) => Observable (Array.Array a b);
+
+{-# NEED #-}
+instance Observable Prelude.Int;
+
+{-# NEED #-}
+instance Observable ();
+
+{-# NEED #-}
+instance (Observable a) => Observable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Observable a,Observable b) => Observable (a -> b);
+
+{-# NEED #-}
+instance (Ix.Ix a) => Prelude.Functor (Array.Array a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Monad MonadObserver;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum IO.IOMode;
+
+{-# NEED #-}
+instance Ix.Ix IO.IOMode;
+
+{-# NEED #-}
+instance Prelude.Bounded IO.IOMode;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Read a,Prelude.Read b) => Prelude.Read (Array.Array a b);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read System.ExitCode;
+
+{-# NEED #-}
+instance Prelude.Read IO.IOMode;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Ord b) => Prelude.Ord (Array.Array a b);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord System.ExitCode;
+
+{-# NEED #-}
+instance Prelude.Ord IO.IOMode;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Eq b) => Prelude.Eq (Array.Array a b);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq System.ExitCode;
+
+{-# NEED #-}
+instance Prelude.Eq IO.IOMode;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Show a,Prelude.Show b) => Prelude.Show (Array.Array a b);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show System.ExitCode;
+
+{-# NEED #-}
+instance Prelude.Show IO.IOMode;
+interface Array
+{-# NEED Array #-}
+data (Ix.Ix a) => Array a b;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface System
+{-# NEED ExitCode #-}
+data ExitCode;
+interface IO
+{-# NEED IOMode #-}
+data IOMode;
+interface ! NHC.Observe
+{-# NEED putStrO #-}
+putStrO{-# 1 #-}::(Prelude.String -> (NHC.Internal.IO ()));
+
+{-# NEED printO #-}
+printO{-# 1 #-}::(Prelude.Show a) => (a -> (NHC.Internal.IO ()));
+
+{-# NEED runO #-}
+runO{-# 1 #-}::((NHC.Internal.IO a) -> (NHC.Internal.IO ()));
+
+{-# NEED sendObservePacket #-}
+sendObservePacket{-# 3 #-}::(Prelude.String -> ((MonadObserver a) -> (ObserveContext -> a)));
+
+{-# NEED thunk #-}
+thunk{-# 1 #-}::(Observable a) => (a -> (MonadObserver a));
+interface NHC.Observe
+{-# NEED MonadObserver #-}
+data MonadObserver a;
+interface ! NHC.Observe
+{-# NEED observeLit #-}
+observeLit{-# 2 #-}::(Prelude.Show a) => (a -> (ObserveContext -> a));
+
+{-# NEED Observing #-}
+type {-# 1 #-} Observing a = (a -> a);
+
+{-# NEED observe_ #-}
+observe_{-# 3 #-}::(Observable a) => (Prelude.Int -> (Prelude.String -> (a -> a)));
+
+{-# NEED observe #-}
+observe{-# 2 #-}::(Observable a) => (Prelude.String -> (a -> a));
+
+{-# NEED {Observable observer} #-}
+class Observable a where {
+  observer{-# 2 #-}::(a -> (ObserveContext -> a));
+};
+interface NHC.Observe
+{-# NEED ObserveContext #-}
+data ObserveContext;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO;
+}

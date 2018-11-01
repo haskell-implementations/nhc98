@@ -1,0 +1,9 @@
+ConsOne
+ConsTwo
+1
+[ConsOne,ConsTwo]
+[ConsOne,ConsTwo]
+2
+True
+True
+((ConsOne,ConsTwo),[(ConsOne,()),(ConsTwo,())])

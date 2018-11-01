@@ -1,0 +1,110 @@
+interface Language.Preprocessor.Cpphs.ReadFirst where {
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read Directory.Permissions;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord Time.ClockTime;
+
+{-# NEED #-}
+instance Prelude.Ord Directory.Permissions;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Eq Time.ClockTime;
+
+{-# NEED #-}
+instance Prelude.Eq Directory.Permissions;
+
+{-# NEED #-}
+instance Prelude.Eq DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq Language.Preprocessor.Cpphs.Position.Posn;
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance Prelude.Show Time.ClockTime;
+
+{-# NEED #-}
+instance Prelude.Show Directory.Permissions;
+
+{-# NEED #-}
+instance Prelude.Show DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show Language.Preprocessor.Cpphs.Position.Posn;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+interface Time
+{-# NEED ClockTime #-}
+data ClockTime;
+interface Directory
+{-# NEED Permissions #-}
+data Permissions;
+interface DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Language.Preprocessor.Cpphs.ReadFirst
+{-# NEED readFirst #-}
+readFirst{-# 4 #-}::(Prelude.String -> (Language.Preprocessor.Cpphs.Position.Posn -> ([Prelude.String] -> (Prelude.Bool -> (NHC.Internal.IO (Prelude.FilePath,Prelude.String))))));
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Language.Preprocessor.Cpphs.Position
+{-# NEED Posn #-}
+data Posn;
+}

@@ -1,0 +1,6 @@
+interface Warning where {
+
+interface ! Warning
+{-# NEED warning #-}
+warning{-# 1 #-}::(Prelude.String -> (a -> a));
+}

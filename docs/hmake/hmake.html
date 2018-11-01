@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>The hmake compilation tool</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>The <em>hmake</em> compilation management tool</h1></center>
+<table><tr><td width=200 align=center>
+<a href="#use">Usage</a><br>
+<a href="#comp">Choosing a compiler</a><br>
+<a href="#targets">Targets</a><br>
+<a href="#options">Hmake options</a><br>
+</td><td width=200 align=center>
+<a href="#compiler">Compiler options</a><br>
+<a href="#preproc">Preprocessors</a><br>
+<a href="#hat">Hat options</a><br>
+</td></tr></table>
+
+
+<hr>
+<p>
+<em>Hmake</em> is an intelligent compilation management tool for
+Haskell programs.  It automatically extracts dependencies between
+source modules, and issues the appropriate compiler commands to
+rebuild only those that have changed, given just the name of the
+program or module that you want to build.  Yes, you need never
+write a <em>Makefile</em> again!
+
+<p>
+<b>Highlights</b>
+<ul>
+<li>
+<em>hmake</em> knows about interface
+(<em>.hi</em>) files.  Even though a source module has changed, if
+its interface file has not changed, then other modules which import
+it do not need to be recompiled.
+
+<li>
+<em>hmake</em> is compiler-independent.  The installation process
+automatically detects which Haskell compilers you have, and sets
+up <em>hmake</em> to use any of them.  You can separately add or
+remove compilers to the configuration at any time after installation,
+and change which compiler is used as the default.  You can easily
+use different versions of a compiler (e.g. ghc 4.08 + 5.02) without
+any extra hassle.  (See <a href="hmake-config.html">hmake-config</a>.)
+
+<li>
+<em>hmake</em> is aware of many pre-processors.  Not only is the C
+preprocessor commonly used for selective imports, but tools such
+as happy, hsc2hs, c2hs, greencard, are also often used to generate
+Haskell modules.  If <em>hmake</em> finds a module with the
+appropriate filename extension (.y, .ly, .hsc, .chs, .gc), it
+automatically runs the preprocessor before the compiler.
+</ul>
+
+<p>
+<b>Minor Features</b>
+<ul>
+<li><em>hmake</em> can generate object files in a separate directory
+    from your sources.
+<li><em>hmake</em> understands the library package system.
+<li><em>hmake</em> understands hierarchical module namespaces.
+<li><em>hmake</em> understands the Hat tracer.
+</ul>
+
+
+<center><h3><a name="use">Usage</a></h3></center>
+<p>
+The basic option summary is:
+<pre>
+    Usage: hmake [compiler] [hmake-opts] [compiler-opts] target ...
+</pre>
+
+<b><a name="comp">Choosing a compiler</a></b>
+<center>
+<table border=1 width=400><tr>
+<td><b>-HC=</b><em>comp</em><br>
+    <b>-hc=</b><em>comp</em><br>
+    <b>-HC </b><em>comp</em><br>
+    <b>-hc </b><em>comp</em><br>
+    <b>-nhc98</b><br>
+    <b>-hbc</b><br>
+    <b>-ghc</b><br></td>
+	<td>Specify which compiler you want to use.  If no compiler is
+            specified, the default compiler is used.  (See
+            <a href="hmake-config.html">hmake-config</a> to set the
+            default.)</td>
+</tr><tr>
+<td><b>-f</b> <em>cfgfile</em></td>
+	<td>Use <em>cfgfile</em> as the hmake configuration file.  This
+	file contains information about the Haskell compilers that
+	are available.
+	(See <a href="hmake-config.html">hmake-config</a> for more
+	information.)</td>
+</tr></table>
+</center>
+<p>
+You can use any form of the compiler name that would normally work
+directly on the command-line, for instance
+<pre>
+  hmake -ghc Prog.hs
+  hmake -HC=/usr/local/bin/ghc-5.02.2 Prog.hs
+  hmake -hc ghc-5.02.2 Prog.hs
+</pre>
+provided only that its configuration is already known to
+<em>hmake</em>, via <em>hmake-config</em>.
+
+<p>
+<b><a name="targets">Targets</a></b>
+<ul>
+<li>You can have more than one target: all of them are built.
+<li>If the target is a module source filename (i.e. with <em>.lhs</em>,
+    <em>.hs</em>, <em>.hi</em>, or pre-processor extension), the module
+    and everything it depends on is compiled, but not linked.  e.g.
+    <pre>    hmake LiterateMod.lhs HappyMod.ly </pre>
+<li>If the target is a program name (i.e. <em>no</em> extension),
+    the appropriate modules are linked as well as compiled.  e.g.
+    <pre>    hmake Prog </pre>
+<li>An object or archive filename (<em>.o</em>, <em>.a</em> extension)
+    cannot be a target, but if you add it to the commandline, it will
+    be added into the final link.
+</ul>
+
+<p>
+<b><a name="options">Hmake Options</a></b>
+<p>
+Most options are passed straight through to the appropriate compiler.
+However, <em>hmake</em> understands and strips the following options.
+<center>
+<table border=1 width=400><tr>
+<td><b>-clean</b></td>
+	<td>remove all .o files relevant to the given targets
+           (does not compile anything).</td>
+</tr><tr>
+<td><b>-realclean</b></td>
+	<td>remove all .o and .hi files relevant to the given targets
+           (does not compile anything).</td>
+</tr><tr>
+<td><b>-hat</b></td>
+	<td>compile for the Hat tracing system.</td>
+</tr><tr>
+<td><b>-q</b></td>
+	<td>Quiet - don't echo compilation commands.</td>
+</tr><tr>
+<td><b>-n</b></td>
+	<td>Noexec - echo the compilation commands but don't execute them.</td>
+</tr><tr>
+<td><b>-g</b></td>
+	<td>Graph - show module dependency graph (implies -n -q).</td>
+</tr><tr>
+<td><b>-M</b></td>
+	<td>Makefile - show dependencies in Makefile format (implies -n -q).</td>
+</tr><tr>
+<td><b>-Md</b></td>
+	<td>as for -M, but treats <b>-d</b> <em>objdir</em> specially.</td>
+</tr><tr>
+<td><b>-watch</b></td>
+	<td>turn on debugging output.</td>
+</tr></table>
+</center>
+
+<p>
+<b><a name="compiler">Compiler Options</a></b>
+<p>
+<em>Hmake</em> also makes use of some compiler options if you specify them.
+(That is, the options are used by <em>hmake</em> as well as being
+passed on to the compiler, with suitable translation if necessary.)
+<center>
+<table border=1 width=400><tr>
+<td><b>-d</b><em>objdir</em></td>
+	<td>Search for (and compile) object files in(to) a separate objdir.</td>
+</tr><tr>
+<td><b>-I</b><em>dir</em><br>
+    <b>-i</b><em>dir</em></td>
+	<td>Search the directory <em>dir</em> for imported modules -
+        compile them if necessary, and link against the resulting
+        <em>.o</em> files.</td>
+</tr><tr>
+<td><b>-package</b> <em>pkgname</em></td>
+	<td>Add the library package <em>pkgname</em> to the search path for
+	interface files for imported modules.  <em>hmake</em> knows how
+	packages work in both ghc and nhc98.  A warning is produced if
+	the package cannot be found.</td>
+</tr><tr>
+<td><b>-P</b><em>dir</em></td>
+	<td>Search the directory <em>dir</em> for interface files for
+	imported modules.  If an interface is found here, don't look
+	for a source file to compile or link against.  (<em>hmake</em>
+	assumes it is the prelude or a library module that is already
+	linked into the program in some other manner).  This option is
+	pretty-much obsolete now that packages are supported.</td>
+</tr></table>
+</center>
+
+<p>
+Some options are passed to the compiler's runtime system (using whatever
+underlying mechanism is appropriate for the particular compiler).
+<center>
+<table border=1 width=400><tr>
+<td><b>-[Hh]</b><em>size</em></td>
+	<td>Compiler's heap size.</td>
+</tr><tr>
+<td><b>-[KVA]</b><em>size</em></td>
+	<td>Compiler's stack size.</td>
+</tr><tr>
+<td><b>-[BS]</b></td>
+	<td>Compiler's garbage collector information options.</td>
+</tr></table>
+</center>
+
+<p>
+You can force an option which would otherwise be interpreted by another
+part of the system to be passed to the compiler by enclosing it
+within <em>+CTS</em> ... <em>-CTS</em> delimiters.  For example, with
+<b>nhc98</b>, to set the final executable's default heapsize rather than
+the compiler's heapsize, use <em>+CTS -H4mb -CTS</em>.
+
+
+
+<p>
+<b><a name="preproc">Pre-processors</a></b>
+<p>
+<em>hmake</em> understands <em>cpp</em> directives in the source modules:
+this is particularly useful for imports which differ depending on which
+compiler you are using.
+For example,
+<pre>
+        #if defined(__HBC__) || defined(__GLASGOW_HASKELL__)
+        import Native
+        #elsif __NHC__
+        import Binary
+        #endif
+</pre>
+<em>hmake</em> automatically inserts the <em><b>-cpp</b></em> compiler
+option, but only for those modules which require it.  
+The compiler symbols are defined automatically - you can also define
+other symbols on the commandline.
+<center>
+<table border=1 width=400><tr>
+<td><b>-D</b><em>sym</em></td>
+	<td>Define the cpp symbol <em>sym</em>.</td>
+</tr><tr>
+<td><b>-D</b><em>sym=val</em></td>
+	<td>Define the cpp symbol <em>sym</em> with the value <em>val</em>.</td>
+</tr></table>
+</center>
+
+<p>
+Various other Haskell-specific preprocessors (happy, c2hs, hsc2hs,
+greencard) are recognised and called automatically when the source
+filename indicates by its extension that they are required.  It is not
+currently possible to pass extra options just to the preprocessor.
+<center>
+<table border=1 width=400><tr>
+<td><b>.y</b></td> <td>A Happy grammar</td>
+</tr><tr>
+<td><b>.ly</b></td> <td>A literate Happy grammar</td>
+</tr><tr>
+<td><b>.x</b></td> <td>An Alex lexical analyser</td>
+</tr><tr>
+<td><b>.lx</b></td> <td>A literate Alex lexical analyser</td>
+</tr><tr>
+<td><b>.gh</b></td> <td>Generic Haskell pre-processor</td>
+</tr><tr>
+<td><b>.gc</b></td> <td>GreenCard input</td>
+</tr><tr>
+<td><b>.chs</b></td> <td>c2hs input</td>
+</tr><tr>
+<td><b>.hsc</b></td> <td>hsc2hs input</td>
+</tr></table>
+</center>
+
+<p>
+<b><a name="hat">Hat Options</a></b>
+<p>
+<em>hmake</em> understands the Hat tracing system.  This is essentially
+just a more complex pre-processor.  For every module, the file is first
+transformed by <em>hat-trans</em>, generating a new module which is
+then compiled with some extra options.  Additionally, if any other
+pre-processing is required, it must be done before <em>hat-trans</em>
+is called; an auxiliary interface file (<em>.hx</em>) is also tracked.
+<center>
+<table border=1 width=400><tr>
+<td><b>-hat</b></td>
+	<td>compile for the Hat tracing system.</td>
+</tr><tr>
+<td><b>-trusted</b></td>
+	<td>in conjunction with <em>-hat</em>, compile the targets
+	in trusted mode, so that their internal calls are not traced.</td>
+</tr></table>
+</center>
+
+
+<hr>
+<p>
+The latest updates to this software are available on the WWW from
+<a href="http://www.haskell.org/hmake/">
+<tt>http://www.haskell.org/hmake/</tt></a>
+(<a href="http://www.cs.york.ac.uk/fp/hmake/">
+<tt>http://www.cs.york.ac.uk/fp/hmake/</tt></a>)
+
+<p>
+Information last updated: 24th June 2004<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+Malcolm.Wallace@cs.york.ac.uk
+
+</td></tr></table>
+</body></html>
+

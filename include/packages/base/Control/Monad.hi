@@ -1,0 +1,173 @@
+interface Control.Monad where {
+infixr  1 <=<;
+infixr  1 >=>;
+infixr  1 Prelude.=<<;
+infixl  1 Prelude.>>;
+infixl  1 Prelude.>>=;
+
+{-# NEED #-}
+instance MonadPlus Prelude.[];
+
+{-# NEED #-}
+instance MonadPlus Prelude.Maybe;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! Control.Monad
+{-# NEED ap #-}
+ap{-# 0 #-}::(Prelude.Monad a) => ((a (b -> c)) -> ((a b) -> (a c)));
+
+{-# NEED liftM5 #-}
+liftM5{-# 6 #-}::(Prelude.Monad g) => ((a -> (b -> (c -> (d -> (e -> f))))) -> ((g a) -> ((g b) -> ((g c) -> ((g d) -> ((g e) -> (g f)))))));
+
+{-# NEED liftM4 #-}
+liftM4{-# 5 #-}::(Prelude.Monad f) => ((a -> (b -> (c -> (d -> e)))) -> ((f a) -> ((f b) -> ((f c) -> ((f d) -> (f e))))));
+
+{-# NEED liftM3 #-}
+liftM3{-# 4 #-}::(Prelude.Monad e) => ((a -> (b -> (c -> d))) -> ((e a) -> ((e b) -> ((e c) -> (e d)))));
+
+{-# NEED liftM2 #-}
+liftM2{-# 3 #-}::(Prelude.Monad d) => ((a -> (b -> c)) -> ((d a) -> ((d b) -> (d c))));
+
+{-# NEED liftM #-}
+liftM{-# 2 #-}::(Prelude.Monad c) => ((a -> b) -> ((c a) -> (c b)));
+
+{-# NEED unless #-}
+unless{-# 2 #-}::(Prelude.Monad a) => (Prelude.Bool -> ((a ()) -> (a ())));
+
+{-# NEED when #-}
+when{-# 2 #-}::(Prelude.Monad a) => (Prelude.Bool -> ((a ()) -> (a ())));
+
+{-# NEED replicateM_ #-}
+replicateM_{-# 2 #-}::(Prelude.Monad a) => (Prelude.Int -> ((a b) -> (a ())));
+
+{-# NEED replicateM #-}
+replicateM{-# 2 #-}::(Prelude.Monad a) => (Prelude.Int -> ((a b) -> (a [b])));
+
+{-# NEED foldM_ #-}
+foldM_{-# 3 #-}::(Prelude.Monad c) => ((a -> (b -> (c a))) -> (a -> ([b] -> (c ()))));
+
+{-# NEED foldM #-}
+foldM{-# 3 #-}::(Prelude.Monad c) => ((a -> (b -> (c a))) -> (a -> ([b] -> (c a))));
+
+{-# NEED zipWithM_ #-}
+zipWithM_{-# 3 #-}::(Prelude.Monad c) => ((a -> (b -> (c d))) -> ([a] -> ([b] -> (c ()))));
+
+{-# NEED zipWithM #-}
+zipWithM{-# 3 #-}::(Prelude.Monad c) => ((a -> (b -> (c d))) -> ([a] -> ([b] -> (c [d]))));
+
+{-# NEED mapAndUnzipM #-}
+mapAndUnzipM{-# 2 #-}::(Prelude.Monad b) => ((a -> (b (c,d))) -> ([a] -> (b ([c],[d]))));
+
+{-# NEED join #-}
+join{-# 1 #-}::(Prelude.Monad a) => ((a (a b)) -> (a b));
+
+{-# NEED void #-}
+void{-# 0 #-}::(Prelude.Functor a) => ((a b) -> (a ()));
+
+{-# NEED forever #-}
+forever{-# 1 #-}::(Prelude.Monad a) => ((a b) -> (a c));
+
+{-# NEED (<=<) #-}
+(<=<){-# 0 #-}::(Prelude.Monad b) => ((a -> (b c)) -> ((d -> (b a)) -> (d -> (b c))));
+
+{-# NEED (>=>) #-}
+(>=>){-# 2 #-}::(Prelude.Monad b) => ((a -> (b c)) -> ((c -> (b d)) -> (a -> (b d))));
+
+{-# NEED msum #-}
+msum{-# 0 #-}::(MonadPlus a) => ([(a b)] -> (a b));
+
+{-# NEED forM_ #-}
+forM_{-# 0 #-}::(Prelude.Monad b) => ([a] -> ((a -> (b c)) -> (b ())));
+
+{-# NEED forM #-}
+forM{-# 0 #-}::(Prelude.Monad b) => ([a] -> ((a -> (b c)) -> (b [c])));
+
+{-# NEED filterM #-}
+filterM{-# 2 #-}::(Prelude.Monad b) => ((a -> (b Prelude.Bool)) -> ([a] -> (b [a])));
+
+{-# NEED guard #-}
+guard{-# 1 #-}::(MonadPlus a) => (Prelude.Bool -> (a ()));
+
+{-# NEED {MonadPlus mzero mplus} #-}
+class (Prelude.Monad a) => MonadPlus a where {
+  mzero{-# 0 #-}::(a b);
+  mplus{-# 2 #-}::((a b) -> ((a b) -> (a b)));
+};
+interface ! Prelude
+{-# NEED mapM #-}
+mapM{-# 2 #-}::(Prelude.Monad b) => ((a -> (b c)) -> ([a] -> (b [c])));
+
+{-# NEED (=<<) #-}
+(=<<){-# 2 #-}::(Prelude.Monad b) => ((a -> (b c)) -> ((b a) -> (b c)));
+
+{-# NEED mapM_ #-}
+mapM_{-# 2 #-}::(Prelude.Monad b) => ((a -> (b c)) -> ([a] -> (b ())));
+
+{-# NEED sequence_ #-}
+sequence_{-# 0 #-}::(Prelude.Monad a) => ([(a b)] -> (a ()));
+
+{-# NEED sequence #-}
+sequence{-# 0 #-}::(Prelude.Monad a) => ([(a b)] -> (a [b]));
+
+{-# NEED {Functor fmap} #-}
+class Functor a where {
+  fmap{-# 2 #-}::((b -> c) -> ((a b) -> (a c)));
+};
+
+{-# NEED {Monad (>>) fail (>>=) return} #-}
+class Monad a where {
+  (>>){-# 2 #-}::((a b) -> ((a c) -> (a c)));
+  fail{-# 1 #-}::(Prelude.String -> (a b));
+  (>>=){-# 2 #-}::((a b) -> ((b -> (a c)) -> (a c)));
+  return{-# 1 #-}::(b -> (a b));
+};
+}

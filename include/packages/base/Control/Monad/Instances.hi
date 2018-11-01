@@ -1,0 +1,413 @@
+interface Control.Monad.Instances where {
+infixl  1 Prelude.>>;
+infixl  1 Prelude.>>=;
+
+{-# NEED #-}
+instance Prelude.Integral Prelude.Int;
+
+{-# NEED #-}
+instance Prelude.Integral Prelude.Integer;
+
+{-# NEED #-}
+instance Prelude.Floating Prelude.Float;
+
+{-# NEED #-}
+instance Prelude.Floating Prelude.Double;
+
+{-# NEED #-}
+instance Prelude.RealFloat Prelude.Float;
+
+{-# NEED #-}
+instance Prelude.RealFloat Prelude.Double;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Fractional Prelude.Float;
+
+{-# NEED #-}
+instance Prelude.Fractional Prelude.Double;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.RealFrac Prelude.Float;
+
+{-# NEED #-}
+instance Prelude.RealFrac Prelude.Double;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Num Prelude.Int;
+
+{-# NEED #-}
+instance Prelude.Num Prelude.Integer;
+
+{-# NEED #-}
+instance Prelude.Num Prelude.Float;
+
+{-# NEED #-}
+instance Prelude.Num Prelude.Double;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Real Prelude.Int;
+
+{-# NEED #-}
+instance Prelude.Real Prelude.Integer;
+
+{-# NEED #-}
+instance Prelude.Real Prelude.Float;
+
+{-# NEED #-}
+instance Prelude.Real Prelude.Double;
+
+{-# NEED #-}
+instance Prelude.Enum Prelude.Ordering;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum Prelude.Int;
+
+{-# NEED #-}
+instance Prelude.Enum Prelude.Integer;
+
+{-# NEED #-}
+instance Prelude.Enum Prelude.Float;
+
+{-# NEED #-}
+instance Prelude.Enum Prelude.Bool;
+
+{-# NEED #-}
+instance Prelude.Enum Prelude.Double;
+
+{-# NEED #-}
+instance Prelude.Enum Prelude.Char;
+
+{-# NEED #-}
+instance Prelude.Enum ();
+
+{-# NEED #-}
+instance Prelude.Bounded Prelude.Ordering;
+
+{-# NEED #-}
+instance Prelude.Bounded Prelude.Int;
+
+{-# NEED #-}
+instance (Prelude.Bounded a,Prelude.Bounded b) => Prelude.Bounded (a,b);
+
+{-# NEED #-}
+instance Prelude.Bounded Prelude.Bool;
+
+{-# NEED #-}
+instance Prelude.Bounded Prelude.Char;
+
+{-# NEED #-}
+instance Prelude.Bounded ();
+
+{-# NEED #-}
+instance Prelude.Read Prelude.Ordering;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read Prelude.Int;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Read b) => Prelude.Read (a,b);
+
+{-# NEED #-}
+instance Prelude.Read Prelude.Integer;
+
+{-# NEED #-}
+instance Prelude.Read Prelude.Float;
+
+{-# NEED #-}
+instance Prelude.Read Prelude.Bool;
+
+{-# NEED #-}
+instance Prelude.Read Prelude.Double;
+
+{-# NEED #-}
+instance Prelude.Read Prelude.Char;
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read [a];
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (Prelude.Maybe a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Read b) => Prelude.Read (Prelude.Either a b);
+
+{-# NEED #-}
+instance Prelude.Read ();
+
+{-# NEED #-}
+instance Prelude.Ord Prelude.Ordering;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord Prelude.Int;
+
+{-# NEED #-}
+instance (Prelude.Ord a,Prelude.Ord b) => Prelude.Ord (a,b);
+
+{-# NEED #-}
+instance Prelude.Ord Prelude.Integer;
+
+{-# NEED #-}
+instance Prelude.Ord Prelude.Float;
+
+{-# NEED #-}
+instance Prelude.Ord Prelude.Bool;
+
+{-# NEED #-}
+instance Prelude.Ord Prelude.Double;
+
+{-# NEED #-}
+instance Prelude.Ord Prelude.Char;
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord [a];
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Prelude.Maybe a);
+
+{-# NEED #-}
+instance (Prelude.Ord a,Prelude.Ord b) => Prelude.Ord (Prelude.Either a b);
+
+{-# NEED #-}
+instance Prelude.Ord ();
+
+{-# NEED #-}
+instance Prelude.Eq Prelude.Ordering;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq Prelude.Int;
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b) => Prelude.Eq (a,b);
+
+{-# NEED #-}
+instance Prelude.Eq Prelude.Integer;
+
+{-# NEED #-}
+instance Prelude.Eq Prelude.Float;
+
+{-# NEED #-}
+instance Prelude.Eq Prelude.Bool;
+
+{-# NEED #-}
+instance Prelude.Eq Prelude.Double;
+
+{-# NEED #-}
+instance Prelude.Eq Prelude.Char;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq [a];
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Prelude.Maybe a);
+
+{-# NEED #-}
+instance Prelude.Eq Prelude.IOError;
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b) => Prelude.Eq (Prelude.Either a b);
+
+{-# NEED #-}
+instance Prelude.Eq ();
+
+{-# NEED #-}
+instance Prelude.Show Prelude.Ordering;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show Prelude.Int;
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b) => Prelude.Show (a,b);
+
+{-# NEED #-}
+instance Prelude.Show Prelude.Integer;
+
+{-# NEED #-}
+instance Prelude.Show Prelude.Float;
+
+{-# NEED #-}
+instance Prelude.Show Prelude.Bool;
+
+{-# NEED #-}
+instance Prelude.Show Prelude.Double;
+
+{-# NEED #-}
+instance Prelude.Show Prelude.Char;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show [a];
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Prelude.Maybe a);
+
+{-# NEED #-}
+instance Prelude.Show Prelude.IOError;
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b) => Prelude.Show (Prelude.Either a b);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b) => Prelude.Show (a -> b);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Show ();
+
+{-# NEED #-}
+instance Prelude.Monad Prelude.[];
+
+{-# NEED #-}
+instance Prelude.Monad Prelude.Maybe;
+
+{-# NEED #-}
+instance Prelude.Monad ( (->) a);
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Functor ((,) a);
+
+{-# NEED #-}
+instance Prelude.Functor Prelude.[];
+
+{-# NEED #-}
+instance Prelude.Functor Prelude.Maybe;
+
+{-# NEED #-}
+instance Prelude.Functor (Prelude.Either a);
+
+{-# NEED #-}
+instance Prelude.Functor ( (->) a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+interface Prelude
+{-# NEED Bounded #-}
+class Bounded a;
+
+{-# NEED Read #-}
+class Read a;
+
+{-# NEED Ordering #-}
+data Ordering;
+
+{-# NEED Integral #-}
+class (Prelude.Real a,Prelude.Enum a) => Integral a;
+
+{-# NEED Enum #-}
+class Enum a;
+
+{-# NEED Real #-}
+class (Prelude.Num a,Prelude.Ord a) => Real a;
+
+{-# NEED Ord #-}
+class (Prelude.Eq a) => Ord a;
+
+{-# NEED Num #-}
+class (Prelude.Eq a,Prelude.Show a) => Num a;
+
+{-# NEED Eq #-}
+class Eq a;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface Prelude
+{-# NEED Int #-}
+data Int;
+
+{-# NEED Integer #-}
+data Integer;
+
+{-# NEED Float #-}
+data Float;
+
+{-# NEED Bool #-}
+data Bool;
+
+{-# NEED Double #-}
+data Double;
+
+{-# NEED Show #-}
+class Show a;
+
+{-# NEED {() ()} #-}
+data ();
+
+{-# NEED {(,) (,)} #-}
+data (,) a b;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface Prelude
+{-# NEED IOError #-}
+data IOError;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface Prelude
+{-# NEED Maybe #-}
+data Maybe a;
+
+{-# NEED Either #-}
+data Either a b;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! Prelude
+{-# NEED {Monad (>>) fail (>>=) return} #-}
+class Monad a where {
+  (>>){-# 2 #-}::((a b) -> ((a c) -> (a c)));
+  fail{-# 1 #-}::(Prelude.String -> (a b));
+  (>>=){-# 2 #-}::((a b) -> ((b -> (a c)) -> (a c)));
+  return{-# 1 #-}::(b -> (a b));
+};
+interface Prelude
+{-# NEED String #-}
+type {-# 1 #-} String = [Char];
+
+{-# NEED Char #-}
+data Char;
+
+{-# NEED [] #-}
+data [] a;
+interface ! Prelude
+{-# NEED {Functor fmap} #-}
+class Functor a where {
+  fmap{-# 2 #-}::((b -> c) -> ((a b) -> (a c)));
+};
+interface Prelude
+{-# NEED (->) #-}
+data (->) a b;
+}

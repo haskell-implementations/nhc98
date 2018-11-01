@@ -1,0 +1,12 @@
+interface CPUTime where {
+
+interface ! CPUTime
+{-# NEED cpuTimePrecision #-}
+cpuTimePrecision{-# 0 #-}::Prelude.Integer;
+
+{-# NEED getCPUTime #-}
+getCPUTime{-# 0 #-}::(NHC.Internal.IO Prelude.Integer);
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO;
+}

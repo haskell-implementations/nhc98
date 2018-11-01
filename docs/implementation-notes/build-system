@@ -1,0 +1,128 @@
+                         nhc98's build system
+
+The build system for nhc98 is based on the standard 'make' utility,
+with a hand-built 'configure' script to patch up differences
+between machines and prepare various other scripts before building.
+We additionally use 'hmake' for some components (where all the files
+are in Haskell), because it works out the dependencies automatically
+and saves us some effort as developers.
+
+Source tree layout
+
+The source tree is laid out as follows:
+
+    docs/	-- you are here
+    include/	-- standard interface files (and runtime C includes)
+    lib/	-- final location for executables and libraries
+	$(MACHINE)/	-- separated by architecture
+    man/	-- manual pages
+    script/	-- shell script drivers for all the tools
+    src/
+	compiler98/	-- the compiler proper, called nhc98comp
+	greencard/	-- a Haskell-C-code interfacing tool
+	hmake/		-- automatic make tool for Haskell
+	hp2graph/	-- convert raw heap profile to PostScript graph
+	interpreter/	-- 'hmake interactive', simulates Hugs
+	libraries/	-- will contain the extended standard library set
+	prelude/	-- prelude + current standard libraries
+	    Prelude/
+	    List/
+	    Char/
+            ...
+	runtime/	-- runtime support all written in C
+	    Kernel/	--   cmdline args, interpreter, GC, tables
+	    Builtin/	--   implementations of primitives
+	    Mk/		--   auxiliaries for building heap values
+	    Integer/	--   multi-precision Integer library
+	tracer/		-- extra runtime support and tools for tracing
+	    runtime/	--   rts extensions for tracing
+	    ui/		--   java browser (hat-trail)
+	    hat/	--   textual hat tools (-observe, -detect, -stack, etc)
+	    hood/	--   java browser for HOOD library
+
+    targets/	-- temporary build location for objects, executables, etc.
+	$(MACHINE)/	-- subdir for each architecture
+	    obj/	-- ordinary object files
+		hmake/
+		compiler98/
+		runtime/
+		prelude/
+		...
+	    objp/	-- heap profiling object files
+		runtime/
+		prelude/
+	    objt/	-- time profiling object files
+		runtime/
+		prelude/
+	    objT/	-- tracing object files
+		runtime/
+		prelude/
+
+The build system is designed to allow multiple builds on different
+machine architectures to proceed in parallel from the same (shared)
+source tree.  The tool 'script/harch' is used to determine a canonical
+name for each architecture, and in many places this is assigned
+to the variable $(MACHINE).  For instance, common values might be
+"ix86-Linux", or "sparc-solaris2".  All architecture-specific files
+are kept separate from the sources and from each other, usually by
+the creation of a directory named for the architecture.  So, you will
+find directories like
+    lib/ix86-Linux
+    targets/ix86-Linux
+    src/prelude/ix86-Linux
+in various places.
+
+During the build, all object files are created under the 'targets'
+directory, in a tree structure that largely mimics the structure of
+the source tree.  Eventually, at the end of each component's build
+cycle, the final executables (or combined object archives) are moved
+to the 'lib' directory.
+
+
+Makefiles
+
+In every source directory, there is both a Makefile and a Makefile.inc.
+Every Makefile issues a command to include the corresponding
+Makefile.inc.  The primary purpose of each Makefile.inc is simply to
+include the Makefile.inc from the enclosing directory - and hence,
+eventually the top-level Makefile.inc.  The top-level Makefile.inc
+contains various configuration options that can be overridden once
+for the whole tree - many of these options are in fact sourced from
+environment variables set in the file lib/$(MACHINE)/config.  
+
+The top-level Makefile has many useful "dummy" targets like 'compiler',
+'tracer', 'prelude' etc.  These essentially call 'make' recursively
+in the appropriate directories.  Often, they also leave a zero-length
+dummy file in the targets/$(MACHINE) directory, as a quick check for
+later 'make' invocations to know whether a component is already built.
+Sometimes you will find it necessary to remove one or two of these
+dummy files if you want to force 'make' to build a component again.
+
+In general, each subdirectory Makefile has six main targets:
+
+	all		-- build the component
+	install		-- build the component and install in lib/$(MACHINE)
+	fromC		-- build the component from .c bootstrap files
+	cfiles		-- create .c bootstrap files
+	clean		-- remove object files
+	realclean	-- remove object files and .hi files
+
+Note that 'make install' in a subdirectory copies components into
+the lib/$(MACHINE) directory *within* the build tree.  Only the
+top-level Makefile can do the final install from the build tree into
+a system-wide location.
+
+Ways
+
+Nhc98 has facilities for heap profiling, time profiling, and tracing,
+and each of these requires the runtime system and prelude/libraries
+to be built in a slightly different way.  From the top-level Makefile,
+the variable $(CFG) is set to 'p' 't' or 'T' to indicate the way for
+a recursive call of 'make' in the runtime or prelude subdirectory.
+
+The tools (i.e. anything except the runtime and prelude) can be built
+with any Haskell'98 compiler.  This is indicated to a recursive call of
+'make' by setting the $(HC) environment variable.
+
+
+

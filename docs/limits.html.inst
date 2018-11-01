@@ -1,0 +1,54 @@
+<html><head><title>nhc98 implementation limits</title></head>
+<body bgcolor=#ffffff>
+<table><tr><td width=500>
+
+<center><h1>nhc98 implementation limits</h1></center>
+
+<hr>
+
+<p>
+  <em>Compiler limits.</em>  There are some arbitrary limits in nhc98's Prelude:
+
+<center>
+<table><tr>
+<td>Prelude.hs</td><td>max size of a tuple type</td><td>15</td>
+</tr><tr>
+<td>Prelude.hs</td><td>largest Eq instance for a tuple type</td><td>15</td>
+</tr><tr>
+<td>Prelude.hs</td><td>largest Ord instance for a tuple type</td><td>15</td>
+</tr></table>
+</center>
+
+<p>
+  <em>Runtime limits.</em>  There are various limits hard-coded into
+  the runtime system, whose configured settings are:
+
+<center>
+<table><tr>
+<td>node.h</td><td>max number of constructors in a data type</td><td>512</td>
+</tr><tr>
+<td>MAX_FILE_NAME</td><td>max length of filename for profiling</td><td>80</td>
+</tr><tr>
+<td>MAX_CDATA</td><td>max open files + ForeignObjs</td><td>1024</td>
+</tr><tr>
+<td>HEAPSIZE</td><td>default heap (change on commandline)</td><td>DefaultHeap</td>
+</tr><tr>
+<td>STACKSIZE</td><td>default stack (change on commandline)</td><td>20000 words</td>
+</tr></table>
+</center>
+
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.cs.york.ac.uk/fp/nhc98/">
+<tt>http://www.cs.york.ac.uk/fp/nhc98/</tt></a>
+
+<p>
+2001.09.24<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+
+</td></tr></table>
+</body></html>
+

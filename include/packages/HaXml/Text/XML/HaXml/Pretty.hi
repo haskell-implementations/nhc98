@@ -1,0 +1,518 @@
+interface Text.XML.HaXml.Pretty where {
+
+{-# NEED #-}
+instance Data.Traversable.Traversable (Data.Map.Map a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable2 Data.Map.Map;
+
+{-# NEED #-}
+instance Data.Foldable.Foldable (Data.Map.Map a);
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Data.Monoid.Monoid (Data.Map.Map a b);
+
+{-# NEED #-}
+instance Control.Monad.Fix.MonadFix NHC.Internal.IO;
+
+{-# NEED #-}
+instance Control.Applicative.Applicative NHC.Internal.IO;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable1 (Data.Map.Map a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Ratio.Ratio;
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Functor (Data.Map.Map a);
+
+{-# NEED #-}
+instance Prelude.Functor Text.XML.HaXml.Types.Content;
+
+{-# NEED #-}
+instance Prelude.Functor Text.XML.HaXml.Types.Element;
+
+{-# NEED #-}
+instance Prelude.Functor Text.XML.HaXml.Types.Document;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (Data.Map.Map a b);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable IO.Handle;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Ord a,Prelude.Read a,Prelude.Read b) => Prelude.Read (Data.Map.Map a b);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b) => Prelude.Eq (Data.Map.Map a b);
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.QName;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.SystemLiteral;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.PubidLiteral;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.EV;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.EntityValue;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.AttValue;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.Namespace;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.ExternalID;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.PEDef;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.Reference;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Text.XML.HaXml.Types.Content a);
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Text.XML.HaXml.Types.Element a);
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Text.XML.HaXml.Types.Document a);
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.EncodingDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.PublicID;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.NotationDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.ExtPE;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Text.XML.HaXml.Types.ExtParsedEnt a);
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.TextDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.NDataDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.EntityDef;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.PEDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.GEDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.EntityDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.IgnoreSectContents;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.Ignore;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.ConditionalSect;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.FIXED;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.DefaultDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.EnumeratedType;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.TokenizedType;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.AttType;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.AttDef;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.AttListDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.Mixed;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.Modifier;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.CP;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.ContentSpec;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.ElementDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.ElemTag;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.ExtSubsetDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.ExtSubset;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.MarkupDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.DocTypeDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.Misc;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.XMLDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Text.XML.HaXml.Types.Prolog;
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Ord a,Prelude.Ord b) => Prelude.Ord (Data.Map.Map a b);
+
+{-# NEED #-}
+instance Prelude.Ord Text.XML.HaXml.Types.QName;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b) => Prelude.Show (Data.Map.Map a b);
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.QName;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.SystemLiteral;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.PubidLiteral;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.EV;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.EntityValue;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.AttValue;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.Namespace;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.ExternalID;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.PEDef;
+
+{-# NEED #-}
+instance Prelude.Show Text.XML.HaXml.Types.Reference;
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance Prelude.Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show Text.PrettyPrint.HughesPJ.Doc;
+interface Data.Typeable
+{-# NEED Typeable #-}
+class Typeable a;
+interface Text.XML.HaXml.Types
+{-# NEED ExtPE #-}
+data ExtPE;
+
+{-# NEED ExtParsedEnt #-}
+data ExtParsedEnt a;
+
+{-# NEED ElemTag #-}
+data ElemTag;
+
+{-# NEED ExtSubset #-}
+data ExtSubset;
+
+{-# NEED ExtSubsetDecl ConditionalSect IncludeSect #-}
+data ExtSubsetDecl;
+data ConditionalSect;
+type {-# 13 #-} IncludeSect = [ExtSubsetDecl];
+
+{-# NEED IgnoreSect #-}
+type {-# 14 #-} IgnoreSect = [IgnoreSectContents];
+
+{-# NEED IgnoreSectContents #-}
+data IgnoreSectContents;
+
+{-# NEED Ignore #-}
+data Ignore;
+
+{-# NEED TextDecl #-}
+data TextDecl;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+
+{-# NEED World #-}
+data World;
+interface Data.Map
+{-# NEED Map #-}
+data Map a b;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface ! Text.XML.HaXml.Pretty
+{-# NEED cp #-}
+cp{-# 1 #-}::(Text.XML.HaXml.Types.CP -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED content #-}
+content{-# 1 #-}::((Text.XML.HaXml.Types.Content a) -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED element #-}
+element{-# 1 #-}::((Text.XML.HaXml.Types.Element a) -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED doctypedecl #-}
+doctypedecl{-# 1 #-}::(Text.XML.HaXml.Types.DocTypeDecl -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED prolog #-}
+prolog{-# 1 #-}::(Text.XML.HaXml.Types.Prolog -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED document #-}
+document{-# 1 #-}::((Text.XML.HaXml.Types.Document a) -> Text.PrettyPrint.HughesPJ.Doc);
+interface Text.PrettyPrint.HughesPJ
+{-# NEED Doc #-}
+data Doc;
+interface Text.XML.HaXml.Types
+{-# NEED Document #-}
+data Document a;
+
+{-# NEED Element Content #-}
+data Element a;
+data Content a;
+
+{-# NEED CharData #-}
+type {-# 20 #-} CharData = Prelude.String;
+
+{-# NEED Attribute #-}
+type {-# 8 #-} Attribute = (QName,AttValue);
+
+{-# NEED SymTab #-}
+type {-# 2 #-} SymTab a = [(Prelude.String,a)];
+
+{-# NEED Prolog #-}
+data Prolog;
+
+{-# NEED DocTypeDecl #-}
+data DocTypeDecl;
+
+{-# NEED MarkupDecl #-}
+data MarkupDecl;
+
+{-# NEED NotationDecl #-}
+data NotationDecl;
+
+{-# NEED PublicID #-}
+newtype {-#  #-} PublicID;
+
+{-# NEED EntityDecl #-}
+data EntityDecl;
+
+{-# NEED PEDecl #-}
+data PEDecl;
+
+{-# NEED PEDef #-}
+data PEDef;
+
+{-# NEED GEDecl #-}
+data GEDecl;
+
+{-# NEED EntityDef #-}
+data EntityDef;
+
+{-# NEED NDataDecl #-}
+newtype {-#  #-} NDataDecl;
+
+{-# NEED EntityValue #-}
+data EntityValue;
+
+{-# NEED EV #-}
+data EV;
+
+{-# NEED AttListDecl #-}
+data AttListDecl;
+
+{-# NEED AttDef #-}
+data AttDef;
+
+{-# NEED DefaultDecl #-}
+data DefaultDecl;
+
+{-# NEED FIXED #-}
+data FIXED;
+
+{-# NEED AttValue #-}
+data AttValue;
+
+{-# NEED Reference #-}
+data Reference;
+
+{-# NEED CharRef #-}
+type {-# 16 #-} CharRef = Prelude.Int;
+
+{-# NEED EntityRef #-}
+type {-# 15 #-} EntityRef = Name;
+
+{-# NEED AttType #-}
+data AttType;
+
+{-# NEED EnumeratedType #-}
+data EnumeratedType;
+
+{-# NEED Enumeration #-}
+type {-# 12 #-} Enumeration = [NmToken];
+
+{-# NEED NmToken #-}
+type {-# 11 #-} NmToken = Prelude.String;
+
+{-# NEED NotationType #-}
+type {-# 10 #-} NotationType = [Name];
+
+{-# NEED TokenizedType #-}
+data TokenizedType;
+
+{-# NEED ElementDecl #-}
+data ElementDecl;
+
+{-# NEED ContentSpec #-}
+data ContentSpec;
+
+{-# NEED CP #-}
+data CP;
+
+{-# NEED Modifier #-}
+data Modifier;
+
+{-# NEED Mixed #-}
+data Mixed;
+
+{-# NEED ExternalID #-}
+data ExternalID;
+
+{-# NEED PubidLiteral #-}
+newtype {-#  #-} PubidLiteral;
+
+{-# NEED SystemLiteral #-}
+newtype {-#  #-} SystemLiteral;
+
+{-# NEED QName #-}
+data QName;
+
+{-# NEED Namespace #-}
+data Namespace;
+
+{-# NEED Name #-}
+type {-# 9 #-} Name = Prelude.String;
+
+{-# NEED Misc #-}
+data Misc;
+
+{-# NEED ProcessingInstruction #-}
+type {-# 4 #-} ProcessingInstruction = (PITarget,Prelude.String);
+
+{-# NEED PITarget #-}
+type {-# 3 #-} PITarget = Prelude.String;
+
+{-# NEED Comment #-}
+type {-# 7 #-} Comment = Prelude.String;
+
+{-# NEED XMLDecl #-}
+data XMLDecl;
+
+{-# NEED SDDecl #-}
+type {-# 5 #-} SDDecl = Prelude.Bool;
+
+{-# NEED EncodingDecl #-}
+newtype {-#  #-} EncodingDecl;
+
+{-# NEED VersionInfo #-}
+type {-# 6 #-} VersionInfo = Prelude.String;
+}

@@ -1,0 +1,164 @@
+interface Data.PackedString where {
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read NHC.PackedString.PackedString;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PackedString.PackedString;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PackedString.PackedString;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show NHC.PackedString.PackedString;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface ! Data.PackedString
+{-# NEED joinPS #-}
+joinPS{-# 1 #-}::(NHC.PackedString.PackedString -> ([NHC.PackedString.PackedString] -> NHC.PackedString.PackedString));
+
+{-# NEED splitWithPS #-}
+splitWithPS{-# 1 #-}::((Prelude.Char -> Prelude.Bool) -> (NHC.PackedString.PackedString -> [NHC.PackedString.PackedString]));
+
+{-# NEED splitPS #-}
+splitPS{-# 1 #-}::(Prelude.Char -> (NHC.PackedString.PackedString -> [NHC.PackedString.PackedString]));
+
+{-# NEED unwordsPS #-}
+unwordsPS{-# 0 #-}::([NHC.PackedString.PackedString] -> NHC.PackedString.PackedString);
+
+{-# NEED wordsPS #-}
+wordsPS{-# 0 #-}::(NHC.PackedString.PackedString -> [NHC.PackedString.PackedString]);
+
+{-# NEED unlinesPS #-}
+unlinesPS{-# 0 #-}::([NHC.PackedString.PackedString] -> NHC.PackedString.PackedString);
+
+{-# NEED linesPS #-}
+linesPS{-# 0 #-}::(NHC.PackedString.PackedString -> [NHC.PackedString.PackedString]);
+
+{-# NEED breakPS #-}
+breakPS{-# 0 #-}::((Prelude.Char -> Prelude.Bool) -> (NHC.PackedString.PackedString -> (NHC.PackedString.PackedString,NHC.PackedString.PackedString)));
+
+{-# NEED spanPS #-}
+spanPS{-# 0 #-}::((Prelude.Char -> Prelude.Bool) -> (NHC.PackedString.PackedString -> (NHC.PackedString.PackedString,NHC.PackedString.PackedString)));
+
+{-# NEED dropWhilePS #-}
+dropWhilePS{-# 0 #-}::((Prelude.Char -> Prelude.Bool) -> (NHC.PackedString.PackedString -> NHC.PackedString.PackedString));
+
+{-# NEED takeWhilePS #-}
+takeWhilePS{-# 0 #-}::((Prelude.Char -> Prelude.Bool) -> (NHC.PackedString.PackedString -> NHC.PackedString.PackedString));
+
+{-# NEED foldrPS #-}
+foldrPS{-# 0 #-}::((Prelude.Char -> (a -> a)) -> (a -> (NHC.PackedString.PackedString -> a)));
+
+{-# NEED foldlPS #-}
+foldlPS{-# 0 #-}::((a -> (Prelude.Char -> a)) -> (a -> (NHC.PackedString.PackedString -> a)));
+
+{-# NEED splitAtPS #-}
+splitAtPS{-# 0 #-}::(Prelude.Int -> (NHC.PackedString.PackedString -> (NHC.PackedString.PackedString,NHC.PackedString.PackedString)));
+
+{-# NEED dropPS #-}
+dropPS{-# 0 #-}::(Prelude.Int -> (NHC.PackedString.PackedString -> NHC.PackedString.PackedString));
+
+{-# NEED takePS #-}
+takePS{-# 0 #-}::(Prelude.Int -> (NHC.PackedString.PackedString -> NHC.PackedString.PackedString));
+
+{-# NEED substrPS #-}
+substrPS{-# 0 #-}::(NHC.PackedString.PackedString -> (Prelude.Int -> (Prelude.Int -> NHC.PackedString.PackedString)));
+
+{-# NEED elemPS #-}
+elemPS{-# 2 #-}::(Prelude.Char -> (NHC.PackedString.PackedString -> Prelude.Bool));
+
+{-# NEED concatPS #-}
+concatPS{-# 0 #-}::([NHC.PackedString.PackedString] -> NHC.PackedString.PackedString);
+
+{-# NEED reversePS #-}
+reversePS{-# 0 #-}::(NHC.PackedString.PackedString -> NHC.PackedString.PackedString);
+
+{-# NEED filterPS #-}
+filterPS{-# 0 #-}::((Prelude.Char -> Prelude.Bool) -> (NHC.PackedString.PackedString -> NHC.PackedString.PackedString));
+
+{-# NEED mapPS #-}
+mapPS{-# 0 #-}::((Prelude.Char -> Prelude.Char) -> (NHC.PackedString.PackedString -> NHC.PackedString.PackedString));
+
+{-# NEED indexPS #-}
+indexPS{-# 2 #-}::(NHC.PackedString.PackedString -> (Prelude.Int -> Prelude.Char));
+
+{-# NEED lengthPS #-}
+lengthPS{-# 0 #-}::(NHC.PackedString.PackedString -> Prelude.Int);
+
+{-# NEED appendPS #-}
+appendPS{-# 0 #-}::(NHC.PackedString.PackedString -> (NHC.PackedString.PackedString -> NHC.PackedString.PackedString));
+
+{-# NEED nullPS #-}
+nullPS{-# 0 #-}::(NHC.PackedString.PackedString -> Prelude.Bool);
+
+{-# NEED tailPS #-}
+tailPS{-# 0 #-}::(NHC.PackedString.PackedString -> NHC.PackedString.PackedString);
+
+{-# NEED headPS #-}
+headPS{-# 0 #-}::(NHC.PackedString.PackedString -> Prelude.Char);
+
+{-# NEED consPS #-}
+consPS{-# 0 #-}::(Prelude.Char -> (NHC.PackedString.PackedString -> NHC.PackedString.PackedString));
+
+{-# NEED nilPS #-}
+nilPS{-# 0 #-}::NHC.PackedString.PackedString;
+interface ! NHC.PackedString
+{-# NEED unpackPS #-}
+unpackPS{-# 1 #-}::(NHC.PackedString.PackedString -> [Prelude.Char]);
+
+{-# NEED packString #-}
+packString{-# 1 #-}::(Prelude.String -> NHC.PackedString.PackedString);
+
+{-# NEED PackedString #-}
+data PackedString;
+}

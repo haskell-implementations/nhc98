@@ -1,0 +1,337 @@
+interface Language.Haskell.Extension where {
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus Text.ParserCombinators.ReadP.P;
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus (Text.ParserCombinators.ReadP.ReadPN a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable2 Array.Array;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable1 (Array.Array a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Ratio.Ratio;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.Internal.IO;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Distribution.Text.Text Extension;
+
+{-# NEED #-}
+instance Distribution.Text.Text Data.Version.Version;
+
+{-# NEED #-}
+instance Distribution.Text.Text Prelude.Bool;
+
+{-# NEED #-}
+instance Prelude.Bounded Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (Array.Array a b);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Data.Version.Version;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read Extension;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Read a,Prelude.Read b) => Prelude.Read (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Read Data.Version.Version;
+
+{-# NEED #-}
+instance Prelude.Read Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Ord b) => Prelude.Ord (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Ord Data.Version.Version;
+
+{-# NEED #-}
+instance Prelude.Ord Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq Extension;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Eq b) => Prelude.Eq (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Eq Data.Version.Version;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b) => Ix.Ix (a,b);
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Int;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Integer;
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m,Ix.Ix n,Ix.Ix o) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m,Ix.Ix n) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m,n);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j) => Ix.Ix (a,b,c,d,e,f,g,h,i,j);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i) => Ix.Ix (a,b,c,d,e,f,g,h,i);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h) => Ix.Ix (a,b,c,d,e,f,g,h);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g) => Ix.Ix (a,b,c,d,e,f,g);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f) => Ix.Ix (a,b,c,d,e,f);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e) => Ix.Ix (a,b,c,d,e);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d) => Ix.Ix (a,b,c,d);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c) => Ix.Ix (a,b,c);
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Ordering;
+
+{-# NEED #-}
+instance Ix.Ix Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Bool;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Char;
+
+{-# NEED #-}
+instance Prelude.Show Extension;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Show a,Prelude.Show b) => Prelude.Show (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Show Data.Version.Version;
+
+{-# NEED #-}
+instance Prelude.Show Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Show Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Functor (Text.ParserCombinators.ReadP.ReadPN a);
+
+{-# NEED #-}
+instance (Ix.Ix a) => Prelude.Functor (Array.Array a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Functor (Distribution.Compat.ReadP.Parser a b);
+
+{-# NEED #-}
+instance Prelude.Monad Text.ParserCombinators.ReadP.P;
+
+{-# NEED #-}
+instance Prelude.Monad (Text.ParserCombinators.ReadP.ReadPN a);
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad (Distribution.Compat.ReadP.Parser a b);
+interface Data.Typeable
+{-# NEED Typeable #-}
+class Typeable a;
+interface Data.Version
+{-# NEED Version #-}
+data Version;
+interface Data.Char
+{-# NEED GeneralCategory #-}
+data GeneralCategory;
+interface NHC.FFI
+{-# NEED CInt #-}
+newtype {-#  #-} CInt;
+interface Text.PrettyPrint.HughesPJ
+{-# NEED Doc #-}
+data Doc;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface Array
+{-# NEED Array #-}
+data (Ix.Ix a) => Array a b;
+interface Ix
+{-# NEED Ix #-}
+class (Prelude.Ord a) => Ix a;
+interface Text.ParserCombinators.ReadP
+{-# NEED P #-}
+data P a;
+
+{-# NEED ReadPN #-}
+newtype {-#  #-} ReadPN a b;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+
+{-# NEED World #-}
+data World;
+interface Distribution.Compat.ReadP
+{-# NEED Parser #-}
+newtype {-#  #-} Parser a b c;
+interface ! Language.Haskell.Extension
+{-# NEED knownExtensions #-}
+knownExtensions{-# 0 #-}::[Extension];
+
+{-# NEED {Extension OverlappingInstances UndecidableInstances IncoherentInstances RecursiveDo ParallelListComp MultiParamTypeClasses NoMonomorphismRestriction FunctionalDependencies Rank2Types RankNTypes PolymorphicComponents ExistentialQuantification ScopedTypeVariables ImplicitParams FlexibleContexts FlexibleInstances EmptyDataDecls CPP KindSignatures BangPatterns TypeSynonymInstances TemplateHaskell ForeignFunctionInterface Arrows Generics NoImplicitPrelude NamedFieldPuns PatternGuards GeneralizedNewtypeDeriving ExtensibleRecords RestrictedTypeSynonyms HereDocuments MagicHash TypeFamilies StandaloneDeriving UnicodeSyntax PatternSignatures UnliftedFFITypes LiberalTypeSynonyms TypeOperators RecordWildCards RecordPuns DisambiguateRecordFields OverloadedStrings GADTs NoMonoPatBinds RelaxedPolyRec ExtendedDefaultRules UnboxedTuples DeriveDataTypeable ConstrainedClassMethods PackageImports UnknownExtension} #-}
+data Extension
+  = OverlappingInstances 
+  | UndecidableInstances 
+  | IncoherentInstances 
+  | RecursiveDo 
+  | ParallelListComp 
+  | MultiParamTypeClasses 
+  | NoMonomorphismRestriction 
+  | FunctionalDependencies 
+  | Rank2Types 
+  | RankNTypes 
+  | PolymorphicComponents 
+  | ExistentialQuantification 
+  | ScopedTypeVariables 
+  | ImplicitParams 
+  | FlexibleContexts 
+  | FlexibleInstances 
+  | EmptyDataDecls 
+  | CPP 
+  | KindSignatures 
+  | BangPatterns 
+  | TypeSynonymInstances 
+  | TemplateHaskell 
+  | ForeignFunctionInterface 
+  | Arrows 
+  | Generics 
+  | NoImplicitPrelude 
+  | NamedFieldPuns 
+  | PatternGuards 
+  | GeneralizedNewtypeDeriving 
+  | ExtensibleRecords 
+  | RestrictedTypeSynonyms 
+  | HereDocuments 
+  | MagicHash 
+  | TypeFamilies 
+  | StandaloneDeriving 
+  | UnicodeSyntax 
+  | PatternSignatures 
+  | UnliftedFFITypes 
+  | LiberalTypeSynonyms 
+  | TypeOperators 
+  | RecordWildCards 
+  | RecordPuns 
+  | DisambiguateRecordFields 
+  | OverloadedStrings 
+  | GADTs 
+  | NoMonoPatBinds 
+  | RelaxedPolyRec 
+  | ExtendedDefaultRules 
+  | UnboxedTuples 
+  | DeriveDataTypeable 
+  | ConstrainedClassMethods 
+  | PackageImports 
+  | UnknownExtension Prelude.String;
+}

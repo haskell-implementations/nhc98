@@ -1,0 +1,174 @@
+#!/bin/sh
+#	tprofprel:  A small script to generate init code 
+#                   needed for time profiling
+
+case $# in
+  0) exit 1;;
+  1) exit 1;;
+esac
+
+case $BASH in
+  "") if ( bash --version -e >/dev/null 2>&1 )
+      then exec bash $0 "$@"
+      fi ;;
+  *) ;;
+esac
+
+
+# Nasty compatibility stuff between /bin/sh/ and bash for arithmetic.
+if sh --version 2>/dev/null | grep -i gnu >/dev/null
+then increment() { ( let x=$1+1; echo $x; ); }
+else increment() { echo $1 + 1 | bc; }
+fi
+
+BUILTIN='Builtin' #Runtime Module added to beginning
+MODNAMES=''
+nummods=0
+
+USRPREL=$1
+shift
+while test "'$1'" != "''" 
+do 
+  if test "'$1'" != "'Driver'"
+  then
+    MODNAMES=${MODNAMES}' '$1
+  else
+    MODNAMES=${MODNAMES}' _95Driver'
+  fi
+  nummods=`increment $nummods`
+  if test "'$1'" != "''" 
+  then 
+    shift
+  fi
+done
+
+#Usr functions
+if test "'$USRPREL'" = "'0'" 
+then
+  echo 'typedef unsigned char UChar;'
+  echo 'typedef UChar  Code;'
+  echo 'typedef Code  *CodePtr;'
+  for mod in ${MODNAMES};
+  do
+    echo 'int TM_'${mod}';'
+    echo 'int TMSUB_'${mod}';'
+    echo 'extern CodePtr TMIP_'${mod}';'
+  done
+  echo 'extern void tprofTMInit(void) {' #Init
+  for mod in ${MODNAMES};
+  do
+    echo '  TM_'${mod}' = -1;'
+  done
+  echo '}'
+  echo 'extern void tprofTMIncludeUsr(char *mods,int value) {' #IncludeUsr
+  echo '  int all;'
+  echo '  if (strcmp(mods,"all") == 0) all=1; else all=0;'
+  for mod in ${MODNAMES};
+  do
+    echo '  if (all || (strcmp(mods,"'${mod}'") == 0))'
+    echo '    TM_'${mod}' = value;'
+  done
+  echo '}'
+  echo 'extern void tprofTMIncludeUsrSubfn(void) {' #IncludeUsrSubfn
+  for mod in ${MODNAMES};
+  do
+    echo '  if (TM_'${mod}'==-1) TMSUB_'${mod}' = -1;'
+  done
+  echo '}'
+  echo 'extern int tprofTMInitTreeUsr(void) {' #InitTreeUsr
+  for mod in ${MODNAMES};
+  do
+    echo '  if (TM_'${mod}'==0)'
+    echo '    tprofInitTree(&TMIP_'${mod}',strdup("---'${mod}'"),&TM_'${mod}');'
+    echo '  else'
+    echo '    tprofInitTree(&TMIP_'${mod}',strdup("+++'${mod}'"),&TM_'${mod}');'
+  done
+  echo '  return '${nummods}';'
+  echo '}'
+fi
+
+#Prelude functions
+if test "'$USRPREL'" != "'0'" 
+then
+  MODNAMES=${BUILTIN}' '${MODNAMES}
+  nummods=`increment $nummods`
+  if test "'$USRPREL'" = "'1'" 
+  then
+    echo '#include <string.h>'
+    echo '#ifdef __arm'
+    echo 'char *strdup(char *str) {'
+    echo '  char *strc;'
+    echo '  int i = strlen(str)+1;'
+    echo '  if(0==(strc = (char *)malloc(i))) {'
+    echo '    fprintf(stderr,"No space to duplicate \"%s\"\n",str);'
+    echo '    exit(-1);'
+    echo '  }'
+    echo '  strcpy(strc,str);'
+    echo '  return strc;'
+    echo '}'
+    echo '#endif'
+  fi
+  echo 'typedef unsigned char UChar;'
+  echo 'typedef UChar  Code;'
+  echo 'typedef Code  *CodePtr;'
+  if test "'${USRPREL}'" != "'1'" 
+  then
+    EXTERN='extern '
+  else
+    EXTERN=''
+  fi
+  for mod in ${MODNAMES};
+  do
+    echo ${EXTERN}'int TM_'${mod}';'
+    echo ${EXTERN}'int TMSUB_'${mod}';'
+    if test "'${mod}'" != "'_95Driver'"
+    then
+      echo 'extern CodePtr TMIP_'${USRPREL}${mod}';'
+    else
+      echo 'extern CodePtr TMIP_'${USRPREL}'Driver;'
+    fi
+  done
+  if test "'${USRPREL}'" = "'1'" 
+  then
+    echo 'extern void tprofTMIncludePrel(char *mods,int value) {' #IncludePrel
+    echo '  int all;'
+    echo '  if (strcmp(mods,"all") == 0) all=1; else all=0;'
+    for mod in ${MODNAMES};
+    do
+      echo '  if (all || (strcmp(mods,"'${mod}'") == 0))'
+      echo '    TM_'${mod}' = value;'
+    done
+    echo '}'
+    echo 'extern void tprofTMIncludePrelSubfn(void) {' #IncludePrelSubfn
+    for mod in ${MODNAMES};
+    do
+      echo '  if (TM_'${mod}'==-1) TMSUB_'${mod}' = -1;'
+    done
+    echo '}'
+  fi
+  echo 'extern int tprofTMInitTreePrel'${USRPREL}'(void) {' #InitTreePrel123
+  num=1
+  for mod in ${MODNAMES};
+  do
+    echo '  if (TM_'${mod}'==0)'
+    if test ${num} -lt 10
+    then
+      NUMSTR='0'${num}
+    else
+      NUMSTR=${num}
+    fi
+    if test "'${mod}'" != "'_95Driver'"
+    then
+      echo '    tprofInitTree(&TMIP_'${USRPREL}${mod}',strdup("-'${NUMSTR}${mod}'"),&TM_'${mod}');'
+      echo '  else'
+      echo '    tprofInitTree(&TMIP_'${USRPREL}${mod}',strdup("+'${NUMSTR}${mod}'"),&TM_'${mod}');'
+      num=`increment $num`
+    else
+      echo '    tprofInitTree(&TMIP_'${USRPREL}'Driver,strdup("-'00_Driver'"),&TM_'${mod}');'
+      echo '  else'
+      echo '    tprofInitTree(&TMIP_'${USRPREL}'Driver,strdup("+'00_Driver'"),&TM_'${mod}');'
+    fi
+  done
+  echo '  return '${nummods}';'
+  echo '}'
+fi

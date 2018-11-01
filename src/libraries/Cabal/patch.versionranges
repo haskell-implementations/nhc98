@@ -1,0 +1,1216 @@
+
+New patches:
+
+[Fix the version-range parser to allow arbitrary expressions over constraints.
+Malcolm.Wallace@cs.york.ac.uk**20090911111643
+ Previously, only a single conjunction (&&) or disjunction (||) was
+ parseable, despite an internal representation that permits arbitrary
+ combinations.  Now, any sequence of (&&) and (||) combining forms is
+ parsed.  (&&) binds more tightly than (||).
+] {
+hunk ./Distribution/PackageDescription/Check.hs 671
++    -- check use of "foo (>= 1.0 && < 1.4) || >=1.8 " version-range syntax
++    checkVersion [1,8] (not (null versionRangeExpressions)) $
++      PackageDistInexcusable $
++           "The package uses full version-range expressions "
++        ++ "in a 'build-depends' field: "
++        ++ commaSep (map display versionRangeExpressions)
++        ++ ". To use this new syntax the package needs to specify at least "
++        ++ "'cabal-version: >= 1.8'. Alternatively, if broader compatibility "
++        ++ "is important, then convert to conjunctive normal form, and use "
++        ++ "multiple 'build-depends:' lines, one conjunct per line."
++
+hunk ./Distribution/PackageDescription/Check.hs 683
+-    checkVersion [1,6] (not (null depsUsingWildcardSyntax)) $
++  , checkVersion [1,6] (not (null depsUsingWildcardSyntax)) $
+hunk ./Distribution/PackageDescription/Check.hs 766
++    versionRangeExpressions =
++        [ dep | dep@(Dependency _ vr) <- buildDepends pkg
++              , depth vr > (2::Int) ]
++        where depth = foldVersionRange 1 (const 1) (const 1) (const 1)
++                                         (const (const 1)) (+) (+)
++
+hunk ./Distribution/Version.hs 629
+-  parse = do
+-    f1 <- factor
+-    Parse.skipSpaces
+-    (do
+-       _ <- Parse.string "||"
+-       Parse.skipSpaces
+-       f2 <- factor
+-       return (UnionVersionRanges f1 f2)
+-     +++
+-     do
+-       _ <- Parse.string "&&"
+-       Parse.skipSpaces
+-       f2 <- factor
+-       return (IntersectVersionRanges f1 f2)
+-     +++
+-     return f1)
++  parse = expr
+hunk ./Distribution/Version.hs 631
+-        factor   = Parse.choice $ parseAnyVersion
+-                                : parseWildcardRange
+-                                : map parseRangeOp rangeOps
++        expr   = do Parse.skipSpaces
++                    t <- term
++                    Parse.skipSpaces
++                    (do _  <- Parse.string "||"
++                        Parse.skipSpaces
++                        e <- expr
++                        return (UnionVersionRanges t e)
++                     +++
++                     return t)
++        term   = do f <- factor
++                    Parse.skipSpaces
++                    (do _  <- Parse.string "&&"
++                        Parse.skipSpaces
++                        t <- term
++                        return (IntersectVersionRanges f t)
++                     +++
++                     return f)
++        factor = Parse.choice $ parens expr
++                              : parseAnyVersion
++                              : parseWildcardRange
++                              : map parseRangeOp rangeOps
+hunk ./Distribution/Version.hs 662
++        parens p = Parse.between (Parse.char '(' >> Parse.skipSpaces)
++                                 (Parse.char ')' >> Parse.skipSpaces)
++                                 (do a <- p
++                                     Parse.skipSpaces
++                                     return a)
++
+}
+
+Context:
+
+[Use -package-id rather than -package with GHC 6.11+
+Simon Marlow <marlowsd@gmail.com>**20090906112416
+ Ignore-this: a9cb1e8684411ea3fa04e0d54826f76b
+] 
+[Install dyn way hi files
+Duncan Coutts <duncan@haskell.org>**20090908142853
+ Ignore-this: 9de867381e500fda321a29e137e71414
+] 
+[Use -R flags for hsc2hs wherever we use -L flags on ELF platforms.
+Duncan Coutts <duncan@haskell.org>**20090828233704
+ Ignore-this: 357aa0d1865a1fe6bf37fb6f41e2c93a
+ This fixes use of hsc2hs in cases where things like libgmp
+ is not on the system's dynamic linker path. It's ok to use
+ rpath in the case of hsc2hs because the linked programs are
+ run immediately and never installed.
+] 
+[Add the ABI hash to the InstalledPackageId for inplace registrations too
+Simon Marlow <marlowsd@gmail.com>**20090826155157
+ Ignore-this: f10a1e90492a356a8ed8ed78fd056176
+ Previously, we just added a -inplace suffix, but this will cause
+ problems when developing multiple packages inplace, and then
+ installing them.
+ 
+ Also, there was a round of refactoring: registerPackage now takes the
+ InstalledPackageId as an argument, and generateRegistrationInfo is
+ exposed for constructing it.  This means that callers of
+ registerPackage get to munge the InstalledPackageInfo before it is
+ registered.
+] 
+[Bump minor version to 1.7.4
+Duncan Coutts <duncan@haskell.org>**20090824010433
+ Ignore-this: 360111493090f2cf86a65dfa2bd41da0
+ due to recent API changes
+] 
+[Change finalizePackageDescription to take dep test function
+Duncan Coutts <duncan@haskell.org>**20090822234256
+ Ignore-this: 573c4d60e9c40f8814371a6c3a0b8c9
+ Ths is instead of taking a set of installed packages. This insulates
+ us from the representation of the installed package set which is good
+ since we now have several representations. It also opens the door to
+ generalising the kinds of constraints we can handle.
+] 
+[Add a HACKING file
+Duncan Coutts <duncan@haskell.org>**20090822151636
+ Ignore-this: 222a83edbe3bf27574bfe51df7f109f0
+ Seems people do not know that the source guide exists.
+] 
+[Add a bunch of TODOs and minor doc changes
+Duncan Coutts <duncan@haskell.org>**20090822134721
+ Most TODOs related to the new InstalledPackageId stuff.
+] 
+[Refactor and simplify the fixup in "hc-pkg dump"
+Duncan Coutts <duncan@haskell.org>**20090822134408
+ We have to set the installedPackageId if it's missing.
+ There's no need for this to depend on the version of ghc which
+ is nice since this module is not supposed to be ghc specific.
+] 
+[Rename the InstalledPackageInfo field package to sourcePackageId
+Duncan Coutts <duncan@haskell.org>**20090822134111
+ The old one was always too generic and it now contrasts
+ better with the new installedPackageId field.
+] 
+[Add a unuque identifier for installed packages (part 9 of 9)
+Simon Marlow <marlowsd@gmail.com>**20090806132217
+ Ignore-this: 942731e2e26cfad6c53e728b911f1912
+ 
+ When registering, choose the InstalledPackageId.
+ 
+  - When registering inplace, use "foo-1.0-inplace"
+ 
+  - If this isn't GHC, just use "foo-1.0-installed"
+ 
+  - When installing a package with GHC, call
+    Distribution.Simple.GHC.libAbiHash to get the hash, and
+    use "foo-1.0-<hash>".
+] 
+[Add a unuque identifier for installed packages (part 7 of 9)
+Simon Marlow <marlowsd@gmail.com>**20090806131728
+ Ignore-this: cf0e7da3e1e8e2b39336649c479c0938
+ 
+ Follow changes in Distribution.Simple.LocalBuildInfo (installedPkgs is
+ now an InstalledPackageIndex).
+] 
+[Add a unuque identifier for installed packages (part 8 of 9)
+Simon Marlow <marlowsd@gmail.com>**20090806131700
+ Ignore-this: 7cc5db4eb24ced8f3e8770fb8c19650f
+ 
+ Distribution.Simple.Configure: follow changes to PackageIndex and
+ INstalledPackageInfo.
+] 
+[Add a unuque identifier for installed packages (part 6 of 9)
+Simon Marlow <marlowsd@gmail.com>**20090806132002
+ Ignore-this: 80e560a4b659edd2ec9345aa57af862a
+ 
+ Add libAbiHash, which extracts a String representing a hash of
+ the ABI of a built library.  It can fail if the library has not
+ yet been built.
+] 
+[Add a unuque identifier for installed packages (part 5 of 9)
+Simon Marlow <marlowsd@gmail.com>**20090806131748
+ Ignore-this: 9e242223ca16314148bf92616c19838b
+ 
+ Follow changes to Distribution.Simple.LocalBuildInfo.componentPackageDeps.
+] 
+[Add a unuque identifier for installed packages (part 4 of 9)
+Simon Marlow <marlowsd@gmail.com>**20090806131829
+ Ignore-this: cd1f965c30d3dbd26dd184b3fd126163
+ 
+ Distribution.Simple.LocalBuildInfo: 
+ 
+   - the LocalBuildInfo record contains an index of the installed
+     packages; this has changed from PackageIndex InstalledPackageInfo
+     to InstalledPackageIndex.
+ 
+   - ComponentLocalBuildInfo stores the "external package dependencies"
+     of the component, which was 
+       componentPackageDeps :: [PackageId]
+     and is now
+       componentInstalledPackageDeps :: [InstalledPackageId]
+ 
+   - we now export
+       componentPackageDeps :: LocalBuildInfo -> [PackageId]
+     (since to get the PackageId for an InstalledPackageId, you need
+     to look it up in the InstalledPackageIndex, which is in the
+     LocalBuildInfo)
+ 
+   - similarly, previously
+       externalPackageDeps :: LocalBuildInfo -> [PackageId]
+     is now
+       externalPackageDeps :: LocalBuildInfo -> [InstalledPackageId]
+] 
+[Add a unuque identifier for installed packages (part 3 of 9)
+Simon Marlow <marlowsd@gmail.com>**20090806131810
+ Ignore-this: 455a736ea5a3241aa6040f4c684ab0b3
+ 
+ This part adds the InstalledPackageIndex type to
+ Distribution.Simple.PackageIndex.  Now that packages have a unique
+ identifier within a package database, it makes sense to use this as
+ the key for looking up installed packages, so InstalledPackageIndex is
+ a mapping from InstalledPackageId to InstalledPackageInfo.
+ 
+ Distribution.Simple.PackageIndex still supports other kinds of package
+ mappings: PackageIndex is a mapping from PackageName.
+ 
+ All the functions in the section "Special Queries" now work on
+ InstalledPackageIndex rather than PackageFixedDeps pkg => PackageIndex
+ pkg:
+ 
+   topologicalOrder,
+   reverseTopologicalOrder,
+   dependencyInconsistencies,
+   dependencyCycles,
+   brokenPackages,
+   dependencyClosure,
+   reverseDependencyClosure
+   dependencyGraph
+] 
+[Add a unuque identifier for installed packages (part 2 of 9)
+Simon Marlow <marlowsd@gmail.com>**20090806131906
+ Ignore-this: f3fba4465373bd4b7397384f08ca189e
+ 
+ Note: this patch doesn't build on its own, you also need the rest of
+ the patch series.
+ 
+ Compatibility with older GHCs.  When reading a package database
+ created by an older version of GHC without installedPackageIds, we
+ have to fake an InstalledPackageId for the internal
+ InstalledPackageInfo.
+ 
+ So, when reading in an InstalledPackageInfo from an older GHC, we set
+ the installedPackageId to be the textual representation of the
+ PackageIdentifier: i.e. <package>-<version>.  Now, previously the
+ depends field of InstalledPackageInfo was [PackageIdentifier], and is
+ now [InstalledPackageId], so we will read each PackageIdentifier as an
+ InstalledPackageId (a String).  The dependencies will still point to
+ the correct package, however, because we have chosen the
+ installedPackageId to be the textual representation of the
+ PackageIdentifier.
+] 
+[Add a unuque identifier for installed packages (part 1 of 9)
+Simon Marlow <marlowsd@gmail.com>**20090806131928
+ Ignore-this: b774e5719e666baee504e1f52381cc8b
+   
+   NOTE: the patch has been split into 9 pieces for easy
+   reviewing, the individual pieces won't build on their own.
+   
+ Part 1 does the following:
+ 
+ Distribution.Package: 
+   - define the InstalledPackageId type as a newtype of String
+ 
+ Distribution.InstalledPackageInfo:
+   - add an installedPackageId field to InstalledPackageInfo
+   - change the type of the depends field from [PackageIdentifier]
+     to [InstalledPackageId]
+ 
+ 
+ The idea behind this change is to add a way to uniquely identify
+ installed packages, letting us decouple the identity of an installed
+ package instance from its package name and version.  The benefits of
+ this are
+ 
+   - We get to detect when a package is broken because its
+     dependencies have been recompiled, or because it is being
+     used with a different package than it was compiled against.
+ 
+   - We have the possibility of having multiple instances of a
+     given <package>-<version> installed at the same time.  In the
+     future this might be used for "ways".  It might also be
+     useful during the process of upgrading/recompiling packages.
+] 
+[Refactoring: fit into 80 columns
+Simon Marlow <marlowsd@gmail.com>**20090806115825
+ Ignore-this: e4e9bdea632814842121fcf7c7d6c3a
+] 
+[Use a simpler method for the check on the base-upper-bound
+Duncan Coutts <duncan@haskell.org>**20090812133313
+ Ignore-this: 9234cc76670a135906c8b7d2e19e6199
+ The key point is that we do not complain for packages
+ that do not depend on base at all (like ghc-prim).
+] 
+[Fix the base-upper-bound Cabal check error
+Ian Lynagh <igloo@earth.li>**20090811204455] 
+[Fix "unused-do-bind" warnings properly
+Duncan Coutts <duncan@haskell.org>**20090727161125
+ Though I'm not at all sure I like the _ <- bind idiom.
+] 
+[Undo incorrect fixes for "unused-do-bind" warnings.
+Duncan Coutts <duncan@haskell.org>**20090727160907
+ We capture (and discard) the program output because we do not
+ want it printed to the console. We do not currently have a
+ specific variant for redirecting the output to /dev/null so
+ we simply use the variant that captures the output.
+ 
+ rolling back:
+ 
+ Fri Jul 10 22:04:45 BST 2009  Ian Lynagh <igloo@earth.li>
+   * Don't ask for the output of running ld, as we ignore it anyway
+ 
+     M ./Distribution/Simple/GHC.hs -2 +2
+     M ./Distribution/Simple/LHC.hs -2 +2
+ Fri Jul 10 22:08:02 BST 2009  Ian Lynagh <igloo@earth.li>
+   * Don't use the Stdout variant of rawSystemProgramConf to call gcc
+   We ignore the output anyway
+ 
+     M ./Distribution/Simple/Configure.hs -2 +3
+] 
+[Pass GHC >= 6.11 the -fbuilding-cabal-package flag
+Ian Lynagh <igloo@earth.li>**20090726181405] 
+[Follow the change in GHC's split-objs directory naming
+Ian Lynagh <igloo@earth.li>**20090723234430] 
+[Fix a "warn-unused-do-bind" warning
+Ian Lynagh <igloo@earth.li>**20090710212059] 
+[Don't use the Stdout variant of rawSystemProgramConf to call gcc
+Ian Lynagh <igloo@earth.li>**20090710210802
+ We ignore the output anyway
+] 
+[Don't ask for the output of running ld, as we ignore it anyway
+Ian Lynagh <igloo@earth.li>**20090710210445] 
+[Fix some "warn-unused-do-bind" warnings where we want to ignore the value
+Ian Lynagh <igloo@earth.li>**20090710210407] 
+[Fix unused import warnings
+Ian Lynagh <igloo@earth.li>**20090707133559] 
+[Remove unused imports
+Ian Lynagh <igloo@earth.li>**20090707115824] 
+[Bump version to 1.7.3 due to recent API changes
+Duncan Coutts <duncan@haskell.org>**20090707095901] 
+[Simplify and generalise installDirsTemplateEnv 
+Duncan Coutts <duncan@haskell.org>**20090705205411
+ Take a set of templates rather than file paths.
+] 
+[Rename and export substituteInstallDirTemplates
+Duncan Coutts <duncan@haskell.org>**20090705205257
+ This does the mutual substituition of the installation
+ directory templates into each other.
+] 
+[Follow changes in haddock
+Ian Lynagh <igloo@earth.li>**20090705193610
+ The --verbose flag is now called --verbosity
+] 
+[TAG 2009-06-25
+Ian Lynagh <igloo@earth.li>**20090625160144] 
+[Undo a simplification in the type of absoluteInstallDirs
+Duncan Coutts <duncan@haskell.org>**20090705154155
+ Existing Setup scripts use it so we can't change it. Fixes #563.
+] 
+[Help Cabal find gcc/ld on Windows
+Simon Marlow <marlowsd@gmail.com>**20090626140250
+ Ignore-this: bad21fe3047bc6e23165160c88dd53d9
+ the layout changed in the new GHC build system
+] 
+[clean up createTempDirectory, using System.Posix or System.Directory
+Simon Marlow <marlowsd@gmail.com>**20090625105648
+ Ignore-this: 732aac57116c308198a8aaa2f67ec475
+ rather than low-level System.Posix.Internals operations which are
+ about to go away.
+] 
+[follow change in System.Posix.Internals.c_open
+Simon Marlow <marlowsd@gmail.com>**20090622133654
+ Ignore-this: d2c775473d6dfb1dcca40f51834a2d26
+] 
+[update to work with the new GHC IO library internals (fdToHandle)
+Simon Marlow <marlowsd@gmail.com>**20090612095346
+ Ignore-this: 2697bd2b64b3231ab4d9bb13490c124f
+] 
+[Describe the autoconfUserHooks option more accurately in the user guide
+Duncan Coutts <duncan@haskell.org>**20090614191400] 
+[Fix && entity refs in doc xml
+Duncan Coutts <duncan@haskell.org>**20090614191230] 
+[documentation update: add a description of the syntax for 'compiler' fields in .cabal files
+Brent Yorgey <byorgey@cis.upenn.edu>**20090610194550] 
+[use Haskell 98 import syntax
+Ross Paterson <ross@soi.city.ac.uk>**20090610174619
+ Ignore-this: 26774087968e247b41d69350c015bc30
+] 
+[fix typo of exitcode
+Ross Paterson <ross@soi.city.ac.uk>**20090610174541
+ Ignore-this: e21da0e6178e69694011e5286b382d72
+] 
+[Put a "%expect 0" directive in the .y file of a test
+Ian Lynagh <igloo@earth.li>**20090608204035] 
+[Rearrange the PathTemplateEnv stuff and export more pieces
+Duncan Coutts <duncan@haskell.org>**20090607224721] 
+[Rewrite the Register module
+Duncan Coutts <duncan@haskell.org>**20090607182821
+ It was getting increasingly convoluted and incomprehensible.
+ Now uses the Program.HcPkg and Program.Scripts modules.
+] 
+[Simplify OSX ranlib madness
+Duncan Coutts <duncan@haskell.org>**20090607180717] 
+[Use new Program.Ld and Program.Ar in GHC module
+Duncan Coutts <duncan@haskell.org>**20090607180534] 
+[Use the new HcPkg module in the GHC getInstalledPackages function
+Duncan Coutts <duncan@haskell.org>**20090607180442] 
+[Add specialised modules for handling ar and ld
+Duncan Coutts <duncan@haskell.org>**20090607180257] 
+[Add improved xargs style function
+Duncan Coutts <duncan@haskell.org>**20090607180214
+ More flexible and based on the ProgramInvocation stuff
+] 
+[Pass verbosity to hc-pkg
+Duncan Coutts <duncan@haskell.org>**20090607180146] 
+[Use a better api for registering libs in the internal package db
+Duncan Coutts <duncan@haskell.org>**20090607125436] 
+[Add new Program modules
+Duncan Coutts <duncan@haskell.org>**20090607121301] 
+[New module for handling calling the hc-pkg program
+Duncan Coutts <duncan@haskell.org>**20090607120650] 
+[New module to write program invocations as shell scripts or batch files
+Duncan Coutts <duncan@haskell.org>**20090607120520
+ For tasks like registering where we call hc-pkg, this allows us to
+ produce a single program invocation and then either run it directly
+ or write it out as a script.
+] 
+[Re-export the program invocation stuff from the Program module
+Duncan Coutts <duncan@haskell.org>**20090607120404] 
+[Fix rawSystemStdin util function
+Duncan Coutts <duncan@haskell.org>**20090607120324
+ Close the input after pushing it. Return any error message.
+] 
+[Split the Program module up a bit
+Duncan Coutts <duncan@haskell.org>**20090607101246
+ Add an explicit intermediate ProgramInvocation data type.
+] 
+[Do not pass Maybe LocalBuildInfo to clean hook
+Duncan Coutts <duncan@haskell.org>**20090604203830
+ It is a bad idea for clean to do anything different depending
+ on whether the package was configured already or not. The
+ actual cleaning code did not use the LocalBuildInfo so this
+ only changes in the UserHooks interface. No Setup.hs scripts
+ actually make of this parameter for the clean hook.
+ Part of ticket #133.
+] 
+[Simplify checkPackageProblems function
+Duncan Coutts <duncan@haskell.org>**20090604203709
+ Since we now always have a GenericPackageDescription
+] 
+[Change UserHooks.confHook to use simply GenericPackageDescription
+Duncan Coutts <duncan@haskell.org>**20090604203400
+ Rather than Either GenericPackageDescription PackageDescription
+ In principle this is an interface change that could break Setup.hs
+ scripts but in practise the few scripts that use confHook just pass
+ the arguments through and so are not sensitve to the type change.
+] 
+[Change UserHooks.readDesc to use GenericPackageDescription
+Duncan Coutts <duncan@haskell.org>**20090604202837
+ Also changes Simple.defaultMainNoRead to use GenericPackageDescription.
+ This is an API change that in principle could break Setup.hs scripts
+ but in practise there are no Setup.hs scripts that use either.
+] 
+[Pass a verbosity flag to ghc-pkg
+Ian Lynagh <igloo@earth.li>**20090605143244] 
+[When build calls register, pass the verbosity level too
+Ian Lynagh <igloo@earth.li>**20090605142718] 
+[Fix unlit
+Ian Lynagh <igloo@earth.li>**20090605130801
+ The arguments to isPrefixOf were the wrong way round. We want to see if
+ the line starts "\\begin{code}", not if the line is a prefix of that string.
+] 
+[Tweak a comment so that it doesn't confuse haddock
+Ian Lynagh <igloo@earth.li>**20090605130728] 
+[Tweak new build system
+Ian Lynagh <igloo@earth.li>**20090404204426] 
+[GHC new build system fixes
+Ian Lynagh <igloo@earth.li>**20090329153151] 
+[Add ghc.mk for the new GHC build system
+Ian Lynagh <igloo@earth.li>**20090324211819] 
+[Bump version due to recent changes
+Duncan Coutts <duncan@haskell.org>**20090603101833] 
+[Ticket #89 final: Regression tests for new dependency behaviour.
+rubbernecking.trumpet.stephen@blacksapphire.com**20090601215651
+ Ignore-this: 52e04d50f1d045a14706096413c19a85
+] 
+[Make message "refers to a library which is defined within the same.." more grammatical
+rubbernecking.trumpet.stephen@blacksapphire.com**20090601214918
+ Ignore-this: 3887c33ff39105f3483ca97a7f05f3eb
+] 
+[Remove a couple unused imports.
+Duncan Coutts <duncan@haskell.org>**20090601192932] 
+[Ban upwardly open version ranges in dependencies on base
+Duncan Coutts <duncan@haskell.org>**20090601191629
+ Fixes ticket #435. This is an approximation. It will ban most
+ but not all cases where a package specifies no upper bound.
+ There should be no false positives however, that is cases that
+ really are always bounded above that the check flags up.
+ Doing a fully precise test needs a little more work.
+] 
+[Split requireProgram into two different functions
+Duncan Coutts <duncan@haskell.org>**20090601174846
+ Now requireProgram doesn't take a version range and does not check
+ the program version (indeed it doesn't need to have one). The new
+ function requireProgramVersion takes a required program version
+ range and returns the program version. Also update callers.
+ Also fixes the check that GHC has a version number.
+] 
+[Ignore a byte order mark (BOM) when reading UTF8 text files
+Duncan Coutts <duncan@haskell.org>**20090531225008
+ Yes of course UTF8 text files should not use the BOM but
+ notepad.exe does anyway. Fixes ticket #533.
+] 
+[executables can now depend on a library in the same package.
+Duncan Coutts <duncan@haskell.org>**20090531220720
+ Fixes ticket #89. The library gets registered into an inplace
+ package db file which is used when building the executables.
+ Based partly on an original patch by Stephen Blackheath.
+] 
+[Always build ar files with indexes
+Duncan Coutts <duncan@haskell.org>**20090531193412
+ Since we have to be able to use these inplace we always need
+ the index it's not enough to just make the index on installing.
+ This particularly affects OSX.
+] 
+[Make rendering the ghc package db stack more lenient
+Duncan Coutts <duncan@haskell.org>**20090531192545
+ Allow the user package db to appear after a specific one.
+ No reason not to and makes some things in cabal-install more convenient.
+] 
+[Simplify version ranges in configure messages and errors
+Duncan Coutts <duncan@haskell.org>**20090531192426
+ Part of #369
+] 
+[Add and export simplifyDependency
+Duncan Coutts <duncan@haskell.org>**20090531192332
+ Just uses simplifyVersionRange on the version range in the dep
+] 
+[Use the PackageDbStack in the local build info and compiler modules
+Duncan Coutts <duncan@haskell.org>**20090531153124
+ This lets us pass a whole stack of package databases to the compiler.
+ This is more flexible than passing just one and working out what
+ other dbs that implies. This also lets us us more than one specific
+ package db, which we need for the inplace package db use case.
+] 
+[Simplify version ranges before printing in configure error message
+Duncan Coutts <duncan@haskell.org>**20090530213922
+ Part of ticket #369. Now instead of:
+   setup: At least the following dependencies are missing:
+   base <3 && <4 && <3 && <3 && <4
+ we get:
+   setup: At least the following dependencies are missing:
+   base <3
+] 
+[Bump version to 1.7.1 due to recent changes
+Duncan Coutts <duncan@haskell.org>**20090530211320] 
+[Minor renaming
+Duncan Coutts <duncan@haskell.org>**20090530202312
+ Part of one of Stephen Blackheath's patches
+] 
+[Improve an internal error message slightly
+Duncan Coutts <duncan@haskell.org>**20090530205540] 
+[Detect intra-package build-depends
+Duncan Coutts <duncan@haskell.org>**20090530204447
+ Based on an original patch by Stephen Blackheath
+ With this change build-depends on a library within the same package
+ are detected. Such deps are not full handled yet so for the moment
+ they are explicitly banned, however this is another step towards
+ actually supporting such dependencies. In particular deps on
+ internal libs are resolved to the internal one in preference to any
+ existing external version of the same lib.
+] 
+[Use accurate per-component package deps
+Duncan Coutts <duncan@haskell.org>**20090530202350
+ Based on an original patch by Stephen Blackheath
+ Previously each component got built using the union of all package
+ deps of all components in the entire package. Now we use exactly the
+ deps specified for that component. To prevent breaking old packages
+ that rely on the sloppy behaviour, package will only get the new
+ behaviour if they specify they need at least cabal-version: >= 1.7.1
+] 
+[Add *LBI variants of withLib and withExe that give corresponding build info
+rubbernecking.trumpet.stephen@blacksapphire.com**20090528113232
+ Ignore-this: 6856385f1c210e33c352da4a0b6e876a
+] 
+[Register XmlSyntax and RegularPatterns as known extensions in Language.Haskell.Extension
+Niklas Broberg <d00nibro@chalmers.se>**20090529102848
+ Ignore-this: 32aacd8aeef9402a1fdf3966a213db7d
+ 
+ Concrete XML syntax is used in the Haskell Server Pages extension 
+ language, and a description can be found in the paper "Haskell Server 
+ Pages through Dynamic Loading" by Niklas Broberg, published in Haskell 
+ Workshop '05.
+ 
+ Regular expression pattern matching is described in the paper "Regular 
+ Expression Patterns" by Niklas Broberg, Andreas Farre and Josef 
+ Svenningsson, published in ICFP '04.
+] 
+[Resolve merge conflict with dynlibPref patch
+Duncan Coutts <duncan@haskell.org>**20090528115249
+ The dynlibPref patch accidentally was only pushed to ghc's branch.
+] 
+[Use dynlibdir = libdir for the moment
+Duncan Coutts <duncan@well-typed.com>**20090519134115
+ It will need more thought about how much control the user needs
+ and what the default shared libs management scheme should be.
+] 
+[Use componentPackageDeps, remove packageDeps, add externalPackageDeps
+Duncan Coutts <duncan@haskell.org>**20090527225016
+ So now when building, we actually use per-component set of package deps.
+ There's no actual change in behaviour yet as we're still setting each of
+ the componentPackageDeps to the union of all the package deps.
+] 
+[Pass ComponentLocalBuildInfo to the buildLib/Exe
+Duncan Coutts <duncan@haskell.org>**20090527210731
+ Not yet used
+] 
+[Simplify writeInstalledConfig slightly
+Duncan Coutts <duncan@haskell.org>**20090527204755] 
+[No need to drop dist/installed-pkg-config after every build
+Duncan Coutts <duncan@haskell.org>**20090527204500
+ We generate this file if necessary when registering.
+] 
+[Make absoluteInstallDirs only take the package id
+Duncan Coutts <duncan@haskell.org>**20090527203112
+ It doesn't need the entire PackageDescription
+] 
+[Rejig calls to per-compiler build functions
+Duncan Coutts <duncan@haskell.org>**20090527195146
+ So it's now a bit clearer what is going on in the generic build code
+ Also shift info calls up to generic code
+] 
+[Split nhc and hugs's build action into buildLib and buildExe
+Duncan Coutts <duncan@haskell.org>**20090527194206] 
+[Split JHC's build into buildLib and buildExe
+Duncan Coutts <duncan@haskell.org>**20090527192036] 
+[Sync LHC module from GHC module
+Duncan Coutts <duncan@haskell.org>**20090527191615] 
+[Give withLib and withExe sensible types
+Duncan Coutts <duncan@haskell.org>**20090527185634] 
+[Fix types of libModules and exeModules
+Duncan Coutts <duncan@haskell.org>**20090527185108
+ Take a Library/Executable rather than a PackageDescription
+ Means we're more precise in using it, just passing the info we need.
+] 
+[Split ghc's build action into buildLib and buildExe
+Duncan Coutts <duncan@haskell.org>**20090527183250] 
+[Remove unused ghc-only executable wrapper feature
+Duncan Coutts <duncan@haskell.org>**20090527183245
+ Some kind of shell script wrapper feature might be useful,
+ but we should design it properly.
+] 
+[Fixup .cabal file with the removed modules and files
+Duncan Coutts <duncan@haskell.org>**20090527182344] 
+[Fix warnings about unused definitions and imports
+Duncan Coutts <duncan@haskell.org>**20090527175253] 
+[Remove the makefile generation feature
+Duncan Coutts <duncan@haskell.org>**20090527175002
+ It was an ugly hack and ghc no longer uses it.
+] 
+[Add new ComponentLocalBuildInfo
+Duncan Coutts <duncan@haskell.org>**20090527174418
+ We want to have each component have it's own dependencies,
+ rather than using the union of deps of the whole package.
+] 
+[Ticket #89 part 2: Dependency-related test cases and a simple test harness
+rubbernecking.trumpet.stephen@blacksapphire.com**20090526133509
+ Ignore-this: 830dd56363c34d8edff65314cd8ccb2
+ The purpose of these tests is mostly to pin down some existing behaviour to
+ ensure it doesn't get broken by the ticket #89 changes.
+] 
+[Ticket #89 part 1: add targetBuildDepends field to PackageDescription's target-specific BuildInfos
+rubbernecking.trumpet.stephen@blacksapphire.com**20090526133729
+ Ignore-this: 96572adfad12ef64a51dce2f7c5f738
+ This provides dependencies specifically for each library and executable target.
+ buildDepends is calculated as the union of the individual targetBuildDepends,
+ giving a result that's exactly equivalent to the old behaviour.
+] 
+[LHC: register the external core files.
+Lemmih <lemmih@gmail.com>**20090521021511
+ Ignore-this: d4e484d7b8e541c3ec4cb35ba8aba4d0
+] 
+[Update the support for LHC.
+Lemmih <lemmih@gmail.com>**20090515211659
+ Ignore-this: 2884d3eca0596a441e3b3c008e16fd6f
+] 
+[Print a more helpful message when haddock's ghc version doesn't match
+Duncan Coutts <duncan@haskell.org>**20090422093240
+ Eg now says something like:
+ cabal: Haddock's internal GHC version must match the configured GHC version.
+ The GHC version is 6.8.2 but haddock is using GHC version 6.10.1
+] 
+[use -D__HADDOCK__ only when preprocessing for haddock < 2
+Andrea Vezzosi <sanzhiyan@gmail.com>**20090302015137
+ Ignore-this: d186a5dbebe6d7fdc64e6414493c6271
+ haddock-2.x doesn't define any additional macros.
+] 
+[Make die use an IOError that gets handled at the top level
+Duncan Coutts <duncan@haskell.org>**20090301195143
+ Rather than printing the error there and then and throwing an
+ exit exception. The top handler now catches IOErrors and
+ formats and prints them before throwing an exit exception.
+ Fixes ticket #512.
+] 
+[rewrite of Distribution.Simple.Haddock
+Andrea Vezzosi <sanzhiyan@gmail.com>**20090219153738
+ Ignore-this: 5b465b2b0f5ee001caa0cb19355d6fce
+ In addition to (hopefully) making clear what's going on
+ we now do the additional preprocessing for all the versions of haddock 
+ (but not for hscolour) and we run cpp before moving the files.
+] 
+[Allow --with-ghc to be specified when running Cabal
+Ian Lynagh <igloo@earth.li>**20090225172249] 
+[fix imports for non-GHC
+Ross Paterson <ross@soi.city.ac.uk>**20090221164939
+ Ignore-this: 12756e3863e312352d5f6c69bba63b92
+] 
+[Fix user guide docs about --disable-library-vanilla
+Duncan Coutts <duncan@haskell.org>**20090219165539
+ It is not default. Looks like it was a copy and paste error.
+] 
+[Specify a temp output file for the header/lib checks
+Duncan Coutts <duncan@haskell.org>**20090218233928
+ Otherwise we litter the current dir with a.out and *.o files.
+] 
+[Final changelog updates for 1.6.0.2
+Duncan Coutts <duncan@haskell.org>**20090218222106] 
+[Use more cc options when checking for header files and libs
+Duncan Coutts <duncan@haskell.org>**20090218110520
+ Use -I. to simulate the search path that gets used when we tell ghc
+ to -#include something. Also use the include dirs and cc options of
+ dependent packages. These two changes fix about 3 packages each.
+] 
+[Validate the docbook xml before processing.
+Duncan Coutts <duncan@haskell.org>**20090213134136
+ Apparently xsltproc does not validate against the dtd.
+ This should stop errors creaping back in.
+] 
+[Make documentation validate
+Samuel Bronson <naesten@gmail.com>**20090212235057] 
+[Folly the directions for docbook-xsl
+Samuel Bronson <naesten@gmail.com>**20090213022615
+ As it says in http://docbook.sourceforge.net/release/xsl/current/README:
+ 
+   - Use the base canonical URI in combination with one of the
+     pathnames below. For example, for "chunked" HTML, output:
+ 
+     http://docbook.sourceforge.net/release/xsl/current/html/chunk.xsl
+ 
+] 
+[Fix compat functions for setting file permissions on windows
+Duncan Coutts <duncan@haskell.org>**20090205224415
+ Spotted by Dominic Steinitz
+] 
+[Only print message about ignoring -threaded if its actually present
+Duncan Coutts <duncan@haskell.org>**20090206174707] 
+[Don't build ghci lib if we're not making vanilla libs
+Duncan Coutts <duncan@haskell.org>**20090206173914
+ As the .o files will not exist.
+] 
+[Correct docdir -> mandir in InstallDirs
+Samuel Bronson <naesten@gmail.com>**20090203043338] 
+[Fix message suggesting the --executables flag
+Samuel Bronson <naesten@gmail.com>**20090201010708] 
+[Remove #ifdefery for windows, renameFile now works properly
+Duncan Coutts <duncan@haskell.org>**20090202004450
+ It's even atomic on windows so we don't need the workaround.
+] 
+[Make withTempDirectory create a new secure temp dir
+Duncan Coutts <duncan@haskell.org>**20090201233318
+ Rather than taking a specific dir to create.
+ Update the one use of the function.
+] 
+[Add createTempDirectory to Compat.TempFile module
+Duncan Coutts <duncan@haskell.org>**20090201233213
+ Also clean up imports
+] 
+[Improve the error message for missing foreign libs and make it fatal
+Duncan Coutts <duncan@haskell.org>**20090131184813
+ The check should now be accurate enough that we can make it an
+ error rather than just a warning.
+] 
+[Use the cc, cpp and ld options when checking foreign headers and libs
+Duncan Coutts <duncan@haskell.org>**20090131184016
+ In partiular this is needed for packages that use ./configure
+ scripts to write .buildinfo files since they typically do not
+ split the cpp/cc/ldoptions into the more specific fields.
+] 
+[Do the check for foreign libs after running configure
+Duncan Coutts <duncan@haskell.org>**20090131182213
+ This lets us pick up build info discovered by the ./configure script
+] 
+[move imports outside ifdef GHC
+Ross Paterson <ross@soi.city.ac.uk>**20090130153505] 
+[Document most of the new file utility functions
+Duncan Coutts <duncan@haskell.org>**20090130151640] 
+[#262 iterative tests for foreign dependencies
+Gleb Alexeyev <gleb.alexeev@gmail.com>**20090130120228
+ Optimize for succesful case. First try all libs and includes in one command, 
+ proceed with further tests only if the first test fails. The same goes for libs 
+ and headers: look for an offending one only when overall test fails.
+ 
+] 
+[Misc minor comment and help message changes
+Duncan Coutts <duncan@haskell.org>**20090129233455] 
+[Deprecate smartCopySources and copyDirectoryRecursiveVerbose
+Duncan Coutts <duncan@haskell.org>**20090129233234
+ Also use simplified implementation in terms of recently added functions.
+] 
+[Switch copyFileVerbose to use compat copyFile
+Duncan Coutts <duncan@haskell.org>**20090129233125
+ All remaining uses of it do not require copying permissions
+] 
+[Let the setFileExecutable function work with hugs too
+Duncan Coutts <duncan@haskell.org>**20090129232948] 
+[Switch hugs wrapper code to use setFileExecutable
+Duncan Coutts <duncan@haskell.org>**20090129232542
+ instead of get/setPermissions which don't really work properly.
+] 
+[Switch last uses of copyFile to copyFileVerbose
+Duncan Coutts <duncan@haskell.org>**20090129232429] 
+[Stop using smartCopySources or copyDirectoryRecursiveVerbose
+Duncan Coutts <duncan@haskell.org>**20090129231656
+ Instead if copyDirectoryRecursiveVerbose use installDirectoryContents
+ and for smartCopySources use findModuleFiles and installExecutableFiles
+ In both cases the point is so that we use functions for installing
+ files rather than functions to copy files.
+] 
+[Use installOrdinaryFile and installExecutableFile in various places
+Duncan Coutts <duncan@haskell.org>**20090129231321
+ instead of copyFileVerbose
+] 
+[Make the Compat.CopyFile module with with old and new ghc
+Duncan Coutts <duncan@haskell.org>**20090129225423] 
+[Add a bunch of utility functions for installing files
+Duncan Coutts <duncan@haskell.org>**20090129180243
+ We want to separate the functions that do ordinary file copies
+ from the functions that install files because in the latter
+ case we have to do funky things with file permissions.
+] 
+[Use setFileExecutable instead of copyPermissions
+Duncan Coutts <duncan@haskell.org>**20090129180130
+ This lets us get rid of the Compat.Permissions module
+] 
+[Export setFileOrdinary and setFileExecutable from Compat.CopyFile
+Duncan Coutts <duncan@haskell.org>**20090129173413] 
+[Warn if C dependencies not found (kind of fixes #262)
+gleb.alexeev@gmail.com**20090126185832
+ 
+ This is just a basic check - generate a sample program and check if it compiles and links with relevant flags. Error messages (warning messages, 
+ actually) could use some improvement.
+] 
+[Pass include directories to LHC
+Samuel Bronson <naesten@gmail.com>**20090127220021] 
+[Add Distribution.Compat.CopyFile module
+Duncan Coutts <duncan@haskell.org>**20090128181115
+ This is to work around the file permissions problems with the
+ standard System.Directory.copyFile function. When installing
+ files we do not want to copy permissions or attributes from the
+ source files. On unix we want to use specific permissions and
+ on windows we want to inherit default permissions. On unix:
+ copyOrdinaryFile   sets the permissions to -rw-r--r--
+ copyExecutableFile sets the permissions to -rwxr-xr-x
+] 
+[Remove unused support for installing dynamic exe files
+Duncan Coutts <duncan@haskell.org>**20090128170421
+ No idea why this was ever added, they've never been built.
+] 
+[Check for ghc-options: -threaded in libraries
+Duncan Coutts <duncan@haskell.org>**20090125161226
+ It's totally unnecessary and messes up profiling in older ghc versions.
+] 
+[Filter ghc-options -threaded for libs too
+Duncan Coutts <duncan@haskell.org>**20090125145035] 
+[New changelog entries for 1.7.x
+Duncan Coutts <duncan@haskell.org>**20090123175645] 
+[Update changelog for 1.6.0.2
+Duncan Coutts <duncan@haskell.org>**20090123175629] 
+[Fix openNewBinaryFile on Windows with ghc-6.6
+Duncan Coutts <duncan@haskell.org>**20090122172100
+ fdToHandle calls fdGetMode which does not work with ghc-6.6 on
+ windows, the workaround is not to call fdToHandle, but call
+ openFd directly. Bug reported by Alistair Bayley, ticket #473.
+] 
+[filter -threaded when profiling is on
+Duncan Coutts <duncan@haskell.org>**20090122014425
+ Fixes #317. Based on a patch by gleb.alexeev@gmail.com
+] 
+[Move installDataFiles out of line to match installIncludeFiles
+Duncan Coutts <duncan@haskell.org>**20090122005318] 
+[Fix installIncludeFiles to create target directories properly
+Duncan Coutts <duncan@haskell.org>**20090122004836
+ Previously for 'install-includes: subdir/blah.h' we would not
+ create the subdir in the target location.
+] 
+[Typo in docs for source-repository
+Joachim Breitner <mail@joachim-breitner.de>**20090121220747] 
+[Make 'ghc-options: -O0' a warning rather than an error
+Duncan Coutts <duncan@haskell.org>**20090118141949] 
+[Improve runE parse error message
+Duncan Coutts <duncan@haskell.org>**20090116133214
+ Only really used in parsing config files derived from command line flags.
+] 
+[The Read instance for License and InstalledPackageInfo is authoritative
+Duncan Coutts <duncan@haskell.org>**20090113234229
+ It is ghc's optimised InstalledPackageInfo parser that needs updating.
+ 
+ rolling back:
+ 
+ Fri Dec 12 18:36:22 GMT 2008  Ian Lynagh <igloo@earth.li>
+   * Fix Show/Read for License
+   We were ending up with things like
+       InstalledPackageInfo {
+           ...
+           license = LGPL Nothing,
+           ...
+       }
+   i.e. "LGPL Nothing" rather than "LGPL", which we couldn't then read.
+ 
+     M ./Distribution/License.hs -2 +14
+] 
+[Swap the order of global usage messages
+Duncan Coutts <duncan@haskell.org>**20090113191810
+ Put the more important one first.
+] 
+[Enable the global command usage to be set
+Duncan Coutts <duncan@haskell.org>**20090113181303
+ extend it rather than overriding it.
+ Also rearrange slightly the default global --help output.
+] 
+[On Windows, if gcc isn't where we expect it then keep looking
+Ian Lynagh <igloo@earth.li>**20090109153507] 
+[Ban ghc-options: --make
+Duncan Coutts <duncan@haskell.org>**20081223170621
+ I dunno, some people...
+] 
+[Update changelog for 1.6.0.2 release
+Duncan Coutts <duncan@haskell.org>**20081211142202] 
+[Make the compiler PackageDB stuff more flexible
+Duncan Coutts <duncan@haskell.org>**20081211141649
+ We support using multiple package dbs, however the method for
+ specifying them is very limited. We specify a single package db
+ and that implicitly specifies any other needed dbs. For example
+ the user or a specific db require the global db too. We now
+ represent that stack explicitly. The user interface still uses
+ the single value method and we convert internally.
+] 
+[Fix Show/Read for License
+Ian Lynagh <igloo@earth.li>**20081212183622
+ We were ending up with things like
+     InstalledPackageInfo {
+         ...
+         license = LGPL Nothing,
+         ...
+     }
+ i.e. "LGPL Nothing" rather than "LGPL", which we couldn't then read.
+] 
+[Un-deprecate Distribution.ModuleName.simple for now
+Ian Lynagh <igloo@earth.li>**20081212164540
+ Distribution/Simple/PreProcess.hs uses it, so this causes build failures
+ with -Werror.
+] 
+[Use the first three lhc version digits
+Duncan Coutts <duncan@haskell.org>**20081211224048
+ Rather than two, and do it in a simpler way.
+] 
+[Remove obsolete test code
+Duncan Coutts <duncan@haskell.org>**20081211142054] 
+[Update the VersionInterval properties which now all pass
+Duncan Coutts <duncan@haskell.org>**20081210145653] 
+[Eliminate NoLowerBound, Versions do have a lower bound of 0.
+Duncan Coutts <duncan@haskell.org>**20081210145433
+ This eliminates the duplicate representation of ">= 0" vs "-any"
+ and makes VersionIntervals properly canonical.
+] 
+[Update and extend the Version quickcheck properties
+Duncan Coutts <duncan@haskell.org>**20081210143251
+ One property fails. The failure reveals that the VersionInterval type
+ is not quite a canonical representation of the VersionRange semantics.
+ This is because the lowest Version is [0] and not -infinity, so for
+ example the intervals (.., 0] and [0,0] are equivalent.
+] 
+[Add documentation for VersionRange functions
+Duncan Coutts <duncan@haskell.org>**20081210140632
+ With properties.
+] 
+[Export withinVersion and deprecate betweenVersionsInclusive
+Duncan Coutts <duncan@haskell.org>**20081210140411] 
+[Add checking of Version validity to the VersionIntervals invariant
+Duncan Coutts <duncan@haskell.org>**20081210134100
+ Version numbers have to be a non-empty sequence of non-negataive ints.
+] 
+[Fix implementation of withinIntervals
+Duncan Coutts <duncan@haskell.org>**20081210000141] 
+[Fix configCompilerAux to consider user-supplied program flags
+Duncan Coutts <duncan@haskell.org>**20081209193320
+ This fixes a bug in cabal-install
+] 
+[Add ModuleName.fromString and deprecate ModuleName.simple
+Duncan Coutts <duncan@haskell.org>**20081209151232
+ Also document the functions in the ModuleName module.
+] 
+[Check for absolute, outside-of-tree and dist/ paths
+Duncan Coutts <duncan@haskell.org>**20081208234312] 
+[Export more VersionIntervals operations
+Duncan Coutts <duncan@haskell.org>**20081208222420
+ and check internal invariants
+] 
+[Check for use of cc-options: -O
+Duncan Coutts <duncan@haskell.org>**20081208182047] 
+[Fake support for NamedFieldPuns in ghc-6.8
+Duncan Coutts <duncan@haskell.org>**20081208180018
+ Implement it in terms of the -XRecordPuns which was accidentally
+ added in ghc-6.8 and deprecates in 6.10 in favor of NamedFieldPuns
+ So this is for compatability so we can tell package authors always
+ to use NamedFieldPuns instead.
+] 
+[Make getting ghc supported language extensions its own function
+Duncan Coutts <duncan@haskell.org>**20081208175815] 
+[Check for use of deprecated extensions
+Duncan Coutts <duncan@haskell.org>**20081208175441] 
+[Add a list of deprecated extenstions
+Duncan Coutts <duncan@haskell.org>**20081208175337
+ Along with possibly another extension that replaces it.
+] 
+[Change the checking of new language extensions
+Duncan Coutts <duncan@haskell.org>**20081207202315
+ Check for new language extensions added in Cabal-1.2 and also 1.6.
+ Simplify the checking of -X ghc flags. Now always suggest using
+ the extensions field, as we separately warn about new extenssons.
+] 
+[Tweak docs for VersionRange and VersionIntervals
+Duncan Coutts <duncan@haskell.org>**20081207184749] 
+[Correct and simplify checkVersion
+Duncan Coutts <duncan@haskell.org>**20081205232845] 
+[Make users of VersionIntervals use the new view function
+Duncan Coutts <duncan@haskell.org>**20081205232707] 
+[Make VersionIntervals an abstract type
+Duncan Coutts <duncan@haskell.org>**20081205232041
+ Provide asVersionIntervals as the view function for a VersionRange
+ This will let us enforce the internal data invariant
+] 
+[Slight clarity improvement in compiler language extension handling
+Duncan Coutts <duncan@haskell.org>**20081205210747] 
+[Slightly simplify the maintenance burden of adding new language extensions
+Duncan Coutts <duncan@haskell.org>**20081205210543] 
+[Distributing a package with no synopsis and no description is inexcusable
+Duncan Coutts <duncan@haskell.org>**20081205160719
+ Previously if one or the other or both were missing we only warned.
+ Now if neither are given it's an error. We still warn about either
+ missing.
+] 
+[Add Test.Laws module for checking class laws
+Duncan Coutts <duncan@haskell.org>**20081204144238
+ For Functor, Monoid and Traversable.
+] 
+[Add QC Arbitrary instances for Version and VersionRange
+Duncan Coutts <duncan@haskell.org>**20081204144204] 
+[Remove accidentally added bianry file
+Duncan Coutts <duncan@haskell.org>**20081203000824] 
+[Fix #396 and add let .Haddock find autogen modules
+Andrea Vezzosi <sanzhiyan@gmail.com>**20081201114853] 
+[Add checks for new and unknown licenses
+Duncan Coutts <duncan@haskell.org>**20081202172742] 
+[Add MIT and versioned GPL and LGPL licenses
+Duncan Coutts <duncan@haskell.org>**20081202171033
+ Since Cabal-1.4 we've been able to parse versioned licenses
+ and unknown licenses without the parser falling over.
+] 
+[Don't nub lists of dependencies
+Duncan Coutts <duncan@haskell.org>**20081202162259
+ It's pretty meaningless since it's only a syntactic check.
+ The proper thing is to maintain a dependency set or to
+ simplify dependencies before printing them.
+] 
+[Fix the date in the LICENSE file
+Duncan Coutts <duncan@haskell.org>**20081202161457] 
+[Fix the version number in the makefile
+Duncan Coutts <duncan@haskell.org>**20081202161441] 
+[Use VersionRange abstractly
+Duncan Coutts <duncan@haskell.org>**20081202160321] 
+[Do the cabal version check properly.
+Duncan Coutts <duncan@haskell.org>**20081202155410
+ Instead of matching on the actual expression ">= x.y" we use the
+ sematic view of the version range so we can do it precisely.
+ Also use foldVersionRange to simplify a couple functions.
+] 
+[Drop support for ghc-6.4 era OPTIONS pragmas
+Duncan Coutts <duncan@haskell.org>**20081202154744
+ It's still possible to build with ghc-6.4 but you have to pass
+ extra flags like "ghc --make -cpp -fffi Setup.hs" We could not
+ keep those OPTIONS pragmas and make it warning-free with ghc-6.10.
+ See http://hackage.haskell.org/trac/ghc/ticket/2800 for details.
+] 
+[Almost make the VersionRange type abstract
+Duncan Coutts <duncan@haskell.org>**20081202154307
+ Export constructor functions and deprecate all the real constructors
+ We should not be pattern matching on this type because it's just
+ syntax. For meaningful questions we should be matching on the
+ VersionIntervals type which represents the semantics.
+] 
+[Change isAnyVersion to be a semantic rather than syntactic test
+Duncan Coutts <duncan@haskell.org>**20081202142123
+ Also add simplify and isNoVersion.
+] 
+[Add VersionIntervals, a view of VersionRange
+Duncan Coutts <duncan@haskell.org>**20081202141040
+ as a sequence of non-overlapping intervals. This provides a canonical
+ representation for the semantics of a VersionRange. This makes several
+ operations easier.
+] 
+[Fix pretty-printing of version wildcards, was missing leading ==
+Duncan Coutts <duncan@haskell.org>**20081202135949] 
+[Add a fold function for the VersionRange
+Duncan Coutts <duncan@haskell.org>**20081202135845
+ Use it to simplify the eval / withinRange function
+] 
+[Improve the error on invalid file globs slightly
+Duncan Coutts <duncan@haskell.org>**20081202135335] 
+[Use commaSep everywhere in the Check module
+Duncan Coutts <duncan@haskell.org>**20081202135208] 
+[Fix message in the extra-source-files field check
+Duncan Coutts <duncan@haskell.org>**20081202135000] 
+[Add checks for file glob syntax
+Duncan Coutts <duncan@haskell.org>**20081202133954
+ It requires cabal-version: >= 1.6 to be specified
+] 
+[Add check for use of "build-depends: foo == 1.*" syntax
+Duncan Coutts <duncan@haskell.org>**20081202131459
+ It requires Cabal-1.6 or later.
+] 
+[Distinguish version wild cards in the VersionRange AST
+Duncan Coutts <duncan@haskell.org>**20081128170513
+ Rather than encoding them in existing constructors.
+ This will enable us to check that uses of the new syntax
+ are flagged in .cabal files with cabal-version: >= 1.6
+] 
+[Fix comment in LHC module
+Duncan Coutts <duncan@haskell.org>**20081123100710
+ Yes, LHC really does use ghc-pkg (with a different package.conf)
+] 
+[Use the new bug-reports and source-repository info in the .cabal file
+Duncan Coutts <duncan@haskell.org>**20081123100041] 
+[Simplify build-depends and base3/4 flags
+Duncan Coutts <duncan@haskell.org>**20081123100003] 
+[Simplify default global libdir for LHC
+Duncan Coutts <duncan@haskell.org>**20081123095802
+ So it uses libdir=$prefix/lib rather than libdir=/usr/local/lib
+] 
+[Simplify the compat exceptions stuff
+Duncan Coutts <duncan@haskell.org>**20081123095737] 
+[Fix warnings in the LHC module
+Duncan Coutts <duncan@haskell.org>**20081122224011] 
+[Distribution/Simple/GHC.hs: remove tabs for whitespace to eliminate warnings in cabal-install
+gwern0@gmail.com**20081122190011
+ Ignore-this: 2fd54090af86e67e25e51ade42992b53
+] 
+[Warn about use of tabs
+Duncan Coutts <duncan@haskell.org>**20081122154134] 
+[Bump Cabal HEAD version to 1.7.x development series
+Duncan Coutts <duncan@haskell.org>**20081122145817
+ Support for LHC is the first divergence between 1.7
+ and the stable 1.6.x series.
+] 
+[Update changelog for 1.6.0.x fixes
+Duncan Coutts <duncan@haskell.org>**20081122145758] 
+[LHC: Don't use --no-user-package-conf. It doesn't work with ghc-6.8.
+Lemmih <lemmih@gmail.com>**20081122012341
+ Ignore-this: 88a837b38cf3e897cc5ed4bb22046cee
+] 
+[Semi-decent lhc support.
+Lemmih <lemmih@gmail.com>**20081121034138] 
+[Make auto-generated *_paths.hs module warning-free.
+Thomas Schilling <nominolo@googlemail.com>**20081106142734
+ 
+ On newer GHCs using {-# OPTIONS_GHC -fffi #-} gives a warning which
+ can lead to a compile failure when -Werror is activated.  We therefore
+ emit this option if we know that the LANGUAGE pragma is supported 
+ (ghc >= 6.6.1).
+] 
+[Escape ld-options with the -optl prefix when passing them to ghc
+Duncan Coutts <duncan@haskell.org>**20081103151931
+ Fixes ticket #389
+] 
+[Simplify previous pkg-config fix
+Duncan Coutts <duncan@haskell.org>**20081101200309] 
+[Fix bug where we'd try to configure an empty set of pkg-config packages
+Duncan Coutts <duncan@haskell.org>**20081101195512
+ This happened when the lib used pkg-config but the exe did not.
+ It cropped up in hsSqlite3-0.0.5.
+] 
+[Add GHC 6.10.1's extensions to the list in Language.Haskell.Extension
+Ian Lynagh <igloo@earth.li>**20081019141408] 
+[Ensure that the lib target directory is present when installing
+Duncan Coutts <duncan@haskell.org>**20081017004437
+ Variant on a patch from Bryan O'Sullivan
+] 
+[Release kind is now rc
+Duncan Coutts <duncan@haskell.org>**20081011183201] 
+[TAG 1.6.0.1
+Duncan Coutts <duncan@haskell.org>**20081011182516] 
+Patch bundle hash:
+9fcb78723c75f75f19ebd3e1c78e37c59ced6d7f

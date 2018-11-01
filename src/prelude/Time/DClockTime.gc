@@ -1,0 +1,9 @@
+module Time
+  ( ClockTime(..)
+  ) where
+
+import NHC.GreenCard
+
+data ClockTime = CT Int deriving (Eq, Ord, Show)
+%dis clockTime c = declare "time_t" c in (CT (int c))
+

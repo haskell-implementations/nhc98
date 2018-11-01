@@ -1,0 +1,101 @@
+# This Makefile.common is included from each subdirectory's individual
+# Makefile.  We assume the following definitions have already been
+# made in the importing Makefile.
+#
+# THISLIB = e.g. Complex
+# SRCS    = all .hs .gc and .c files
+# SEARCH  = e.g. -P../IO -P../PreludeIO
+#
+# EXTRA_H_FLAGS = e.g. --prelude
+# EXTRA_C_FLAGS = e.g. -I../Binary
+#
+# optionally, to turn off SRC_MAIN(.hs) rules:
+# EXCLUDE_THISLIB_HS = yes
+
+
+OBJDIR   = ${BUILDDIR}/${OBJ}/prelude/${THISLIB}
+SRC_MAIN = ${THISLIB}.hs
+.SUFFIXES: .hi .hs .o .gc .c .hc .T.hi .T.o .T.c .p.o .p.c .z.o .z.c .Tz.o .Tz.c
+
+PART_FLAGS = +CTS --part --redefine --nowarnFFI -CTS $(SEARCH)
+LIB_FLAGS  = +CTS --lib  --redefine --nowarnFFI -CTS $(SEARCH)
+
+
+OBJS_HS  = $(patsubst %.hs, ${OBJDIR}/%.$O, $(filter %.hs,${SRCS}))
+OBJS_GC  = $(patsubst %.gc, ${OBJDIR}/%.$O, $(filter %.gc,${SRCS}))
+OBJS_C   = $(patsubst %.c,  ${OBJDIR}/%.$O, $(filter %.c, ${SRCS}))
+ifneq "${EXCLUDE_THISLIB_HS}" "yes"
+OBJ_MAIN = $(patsubst %.hs, ${OBJDIR}/%.$O, ${SRC_MAIN})
+endif
+OBJS = ${OBJS_HS} ${OBJS_GC} ${OBJS_C}
+
+CFILES_HS  = $(patsubst %.hs, %.$C, $(filter %.hs, ${SRCS}))
+CFILES_GC  = $(patsubst %.gc, %.$C, $(filter %.gc, ${SRCS}))
+CFILES_XS  = $(patsubst %.gc, %_.$C, $(filter %.gc, ${SRCS})) \
+             $(patsubst %.gc, %_.hs, $(filter %.gc, ${SRCS}))
+ifneq "${EXCLUDE_THISLIB_HS}" "yes"
+CFILE_MAIN = $(patsubst %.hs, %.$C, ${SRC_MAIN})
+endif
+
+CFILES_GEN = ${CFILES_HS} ${CFILES_GC} ${CFILE_MAIN}
+
+
+all: ${OBJS} extra ${OBJ_MAIN}
+extra:
+cfiles: extracfiles ${CFILES_GEN}
+extracfiles:
+fromC: ${OBJS_C}
+	$(HC) -c -d $(OBJDIR) $(EXTRA_C_FLAGS) *.$C
+objdir: ${OBJDIR}
+${OBJDIR}:
+	mkdir -p ${OBJDIR}
+cleanhi:
+	-rm -f *.hi
+cleanC: cleanExtraC
+	-rm -f ${CFILES_GEN} ${CFILES_XS}
+clean:	cleanhi
+	-rm -f ${OBJDIR}/*.$O *.$O
+	-rm -f $(patsubst %.gc, %_.hs, $(filter %.gc, $(SRCS)))
+	-rm -f $(patsubst %.gc, %_.$C,  $(filter %.gc, $(SRCS)))
+cleanExtraC:
+
+# general build rules for making objects from Haskell files
+${OBJS_HS}: ${OBJDIR}/%.$O : %.hs
+	$(HC) -c $(PART_FLAGS) $(EXTRA_H_FLAGS) -o $@ $<
+${OBJS_GC}: ${OBJDIR}/%.$O : %.gc
+	${HC} -c ${PART_FLAGS} $(EXTRA_H_FLAGS) -o $@ $<
+ifneq "${EXCLUDE_THISLIB_HS}" "yes"
+${OBJ_MAIN}: ${OBJS}
+${OBJ_MAIN}: ${OBJDIR}/%.$O : %.hs
+	$(HC) -c $(LIB_FLAGS)  $(EXTRA_H_FLAGS) -o $@ $<
+endif
+
+# general build rule for making objects from C files
+${OBJS_C}: ${OBJDIR}/%.$O : %.c
+	$(CC) -c -I$(INCDIR) $(ENDIAN) $(ARCH) $(EXTRA_C_FLAGS) -o $@ $<
+
+# general build rules for making C files from Haskell files
+${CFILES_HS}: %.$C : %.hs
+	$(HC) -C $(PART_FLAGS) $(EXTRA_H_FLAGS) $<
+${CFILES_GC}: %.$C : %.gc
+	$(HC) -C $(PART_FLAGS) $(EXTRA_H_FLAGS) $<
+ifneq "${EXCLUDE_THISLIB_HS}" "yes"
+${CFILE_MAIN}: %.$C : %.hs
+	$(HC) -C $(LIB_FLAGS)  $(EXTRA_H_FLAGS) $<
+endif
+
+# hack to get round mutual recursion between libraries
+HIFILES = $(patsubst %.hs,../${THISLIB}/%.${HISUFFIX},$(filter %.hs, ${SRCS}))
+${HIFILES}: ../${THISLIB}/%.${HISUFFIX} : %.hs
+	$(HC) -c $(PART_FLAGS) -o tmp $<
+	rm tmp
+
+
+# The importing Makefile should now define individual dependencies
+#    e.g.
+# ${OBJDIR}/Function.$O: Function.hs ${OBJDIR}/Other.$O
+#
+# and C-files dependencies likewise
+#    e.g.
+# AlignBin.c:    BinHandle.c
+

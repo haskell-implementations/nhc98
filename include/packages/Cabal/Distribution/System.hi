@@ -1,0 +1,357 @@
+interface Distribution.System where {
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus Text.ParserCombinators.ReadP.P;
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus (Text.ParserCombinators.ReadP.ReadPN a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable2 Array.Array;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable1 (Array.Array a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Ratio.Ratio;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.Internal.IO;
+
+{-# NEED #-}
+instance Distribution.Text.Text Platform;
+
+{-# NEED #-}
+instance Distribution.Text.Text Arch;
+
+{-# NEED #-}
+instance Distribution.Text.Text OS;
+
+{-# NEED #-}
+instance Distribution.Text.Text Data.Version.Version;
+
+{-# NEED #-}
+instance Distribution.Text.Text Prelude.Bool;
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b) => Ix.Ix (a,b);
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Int;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Integer;
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m,Ix.Ix n,Ix.Ix o) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m,Ix.Ix n) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m,n);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j) => Ix.Ix (a,b,c,d,e,f,g,h,i,j);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i) => Ix.Ix (a,b,c,d,e,f,g,h,i);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h) => Ix.Ix (a,b,c,d,e,f,g,h);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g) => Ix.Ix (a,b,c,d,e,f,g);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f) => Ix.Ix (a,b,c,d,e,f);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e) => Ix.Ix (a,b,c,d,e);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d) => Ix.Ix (a,b,c,d);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c) => Ix.Ix (a,b,c);
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Ordering;
+
+{-# NEED #-}
+instance Ix.Ix Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Bool;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Char;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Bounded Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Enum Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read Platform;
+
+{-# NEED #-}
+instance Prelude.Read Arch;
+
+{-# NEED #-}
+instance Prelude.Read OS;
+
+{-# NEED #-}
+instance Prelude.Read Data.Version.Version;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Read a,Prelude.Read b) => Prelude.Read (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Read Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord Platform;
+
+{-# NEED #-}
+instance Prelude.Ord Arch;
+
+{-# NEED #-}
+instance Prelude.Ord OS;
+
+{-# NEED #-}
+instance Prelude.Ord Data.Version.Version;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Ord b) => Prelude.Ord (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Ord Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq Platform;
+
+{-# NEED #-}
+instance Prelude.Eq Arch;
+
+{-# NEED #-}
+instance Prelude.Eq OS;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Version.Version;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Eq b) => Prelude.Eq (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Show Platform;
+
+{-# NEED #-}
+instance Prelude.Show Arch;
+
+{-# NEED #-}
+instance Prelude.Show OS;
+
+{-# NEED #-}
+instance Prelude.Show Data.Version.Version;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Show a,Prelude.Show b) => Prelude.Show (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Show Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Show Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Data.Version.Version;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (Array.Array a b);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Functor (Text.ParserCombinators.ReadP.ReadPN a);
+
+{-# NEED #-}
+instance (Ix.Ix a) => Prelude.Functor (Array.Array a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Functor (Distribution.Compat.ReadP.Parser a b);
+
+{-# NEED #-}
+instance Prelude.Monad Text.ParserCombinators.ReadP.P;
+
+{-# NEED #-}
+instance Prelude.Monad (Text.ParserCombinators.ReadP.ReadPN a);
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad (Distribution.Compat.ReadP.Parser a b);
+interface Text.PrettyPrint.HughesPJ
+{-# NEED Doc #-}
+data Doc;
+interface NHC.FFI
+{-# NEED CInt #-}
+newtype {-#  #-} CInt;
+interface Data.Char
+{-# NEED GeneralCategory #-}
+data GeneralCategory;
+interface Data.Version
+{-# NEED Version #-}
+data Version;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface Data.Typeable
+{-# NEED Typeable #-}
+class Typeable a;
+interface Array
+{-# NEED Array #-}
+data (Ix.Ix a) => Array a b;
+interface Ix
+{-# NEED Ix #-}
+class (Prelude.Ord a) => Ix a;
+interface Text.ParserCombinators.ReadP
+{-# NEED P #-}
+data P a;
+
+{-# NEED ReadPN #-}
+newtype {-#  #-} ReadPN a b;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+
+{-# NEED World #-}
+data World;
+interface Distribution.Compat.ReadP
+{-# NEED Parser #-}
+newtype {-#  #-} Parser a b c;
+interface ! Distribution.System
+{-# NEED buildPlatform #-}
+buildPlatform{-# 0 #-}::Platform;
+
+{-# NEED {Platform Platform} #-}
+data Platform
+  = Platform Arch OS;
+
+{-# NEED buildArch #-}
+buildArch{-# 0 #-}::Arch;
+
+{-# NEED {Arch I386 X86_64 PPC PPC64 Sparc Arm Mips SH IA64 S390 Alpha Hppa Rs6000 M68k Vax OtherArch} #-}
+data Arch
+  = I386 
+  | X86_64 
+  | PPC 
+  | PPC64 
+  | Sparc 
+  | Arm 
+  | Mips 
+  | SH 
+  | IA64 
+  | S390 
+  | Alpha 
+  | Hppa 
+  | Rs6000 
+  | M68k 
+  | Vax 
+  | OtherArch Prelude.String;
+
+{-# NEED buildOS #-}
+buildOS{-# 0 #-}::OS;
+
+{-# NEED {OS Linux Windows OSX FreeBSD OpenBSD NetBSD Solaris AIX HPUX IRIX OtherOS} #-}
+data OS
+  = Linux 
+  | Windows 
+  | OSX 
+  | FreeBSD 
+  | OpenBSD 
+  | NetBSD 
+  | Solaris 
+  | AIX 
+  | HPUX 
+  | IRIX 
+  | OtherOS Prelude.String;
+}

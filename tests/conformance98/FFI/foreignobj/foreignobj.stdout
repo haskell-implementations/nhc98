@@ -1,0 +1,7 @@
+f <- fopen temporary
+fwrite "hello world\n" 7 f
+fwrite "orld\n" 5 f
+fclose f
+f <- fopen /dev/null
+mapM_ (\n-> fwrite (show n) 1 f) [1..1000]
+done

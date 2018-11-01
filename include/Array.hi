@@ -1,0 +1,123 @@
+interface Array where {
+infixl  9 !;
+infixl  9 //;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Integer;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Bool;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Int;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Char;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Ordering;
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b) => Ix.Ix (a,b);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c) => Ix.Ix (a,b,c);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d) => Ix.Ix (a,b,c,d);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e) => Ix.Ix (a,b,c,d,e);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f) => Ix.Ix (a,b,c,d,e,f);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g) => Ix.Ix (a,b,c,d,e,f,g);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h) => Ix.Ix (a,b,c,d,e,f,g,h);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i) => Ix.Ix (a,b,c,d,e,f,g,h,i);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j) => Ix.Ix (a,b,c,d,e,f,g,h,i,j);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m,Ix.Ix n,Ix.Ix o) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o);
+
+{-# NEED #-}
+instance (Ix.Ix a) => Prelude.Functor (Array a);
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Read a,Prelude.Read b) => Prelude.Read (Array a b);
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Ord b) => Prelude.Ord (Array a b);
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Show a,Prelude.Show b) => Prelude.Show (Array a b);
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Eq b) => Prelude.Eq (Array a b);
+interface ! Array
+{-# NEED listArray #-}
+listArray{-# 2 #-}::(Ix.Ix a) => ((a,a) -> ([b] -> (Array a b)));
+
+{-# NEED accumArray #-}
+accumArray{-# 3 #-}::(Ix.Ix c) => ((a -> (b -> a)) -> (a -> ((c,c) -> ([(c,b)] -> (Array c a)))));
+
+{-# NEED (!) #-}
+(!){-# 2 #-}::(Ix.Ix a) => ((Array a b) -> (a -> b));
+
+{-# NEED elems #-}
+elems{-# 1 #-}::(Ix.Ix a) => ((Array a b) -> [b]);
+
+{-# NEED indices #-}
+indices{-# 0 #-}::(Ix.Ix a) => ((Array a b) -> [a]);
+
+{-# NEED bounds #-}
+bounds{-# 1 #-}::(Ix.Ix a) => ((Array a b) -> (a,a));
+
+{-# NEED assocs #-}
+assocs{-# 1 #-}::(Ix.Ix a) => ((Array a b) -> [(a,b)]);
+
+{-# NEED ixmap #-}
+ixmap{-# 3 #-}::(Ix.Ix a,Ix.Ix b) => ((a,a) -> ((a -> b) -> ((Array b c) -> (Array a c))));
+
+{-# NEED array #-}
+array{-# 2 #-}::(Ix.Ix a) => ((a,a) -> ([(a,b)] -> (Array a b)));
+
+{-# NEED accum #-}
+accum{-# 1 #-}::(Ix.Ix c) => ((a -> (b -> a)) -> ((Array c a) -> ([(c,b)] -> (Array c a))));
+
+{-# NEED (//) #-}
+(//){-# 2 #-}::(Ix.Ix a) => ((Array a b) -> ([(a,b)] -> (Array a b)));
+
+{-# NEED Array #-}
+data (Ix.Ix a) => Array a b;
+interface ! Ix
+{-# NEED _tupleIndex #-}
+_tupleIndex{-# 4 #-}::(Ix a) => (a -> (a -> (a -> (Prelude.Int -> Prelude.Int))));
+
+{-# NEED _tupleRange #-}
+_tupleRange{-# 3 #-}::(Ix a) => (a -> (a -> ([(a -> b)] -> [b])));
+
+{-# NEED {Ix range index inRange rangeSize} #-}
+class (Prelude.Ord a) => Ix a where {
+  range{-# 1 #-}::((a,a) -> [a]);
+  index{-# 2 #-}::((a,a) -> (a -> Prelude.Int));
+  inRange{-# 2 #-}::((a,a) -> (a -> Prelude.Bool));
+  rangeSize{-# 1 #-}::((a,a) -> Prelude.Int);
+};
+}

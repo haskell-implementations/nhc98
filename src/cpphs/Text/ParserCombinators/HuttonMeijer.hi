@@ -1,0 +1,178 @@
+interface Text.ParserCombinators.HuttonMeijer where {
+infixr  5 +++;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Monad.MonadPlus Parser;
+
+{-# NEED #-}
+instance Monad.MonadPlus Prelude.Maybe;
+
+{-# NEED #-}
+instance Monad.MonadPlus Prelude.[];
+
+{-# NEED #-}
+instance Prelude.Monad Parser;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Functor Parser;
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! Text.ParserCombinators.HuttonMeijer
+{-# NEED identifier #-}
+identifier{-# 1 #-}::([Prelude.String] -> (Parser Prelude.String));
+
+{-# NEED symbol #-}
+symbol{-# 1 #-}::(Prelude.String -> (Parser Prelude.String));
+
+{-# NEED integer #-}
+integer{-# 0 #-}::(Parser Prelude.Int);
+
+{-# NEED natural #-}
+natural{-# 0 #-}::(Parser Prelude.Int);
+
+{-# NEED token #-}
+token{-# 1 #-}::((Parser a) -> (Parser a));
+
+{-# NEED skip #-}
+skip{-# 1 #-}::((Parser a) -> (Parser a));
+
+{-# NEED junk #-}
+junk{-# 0 #-}::(Parser ());
+
+{-# NEED comment #-}
+comment{-# 0 #-}::(Parser ());
+
+{-# NEED spaces #-}
+spaces{-# 0 #-}::(Parser ());
+
+{-# NEED int #-}
+int{-# 0 #-}::(Parser Prelude.Int);
+
+{-# NEED nat #-}
+nat{-# 0 #-}::(Parser Prelude.Int);
+
+{-# NEED ident #-}
+ident{-# 0 #-}::(Parser Prelude.String);
+
+{-# NEED string #-}
+string{-# 1 #-}::(Prelude.String -> (Parser Prelude.String));
+
+{-# NEED alphanum #-}
+alphanum{-# 0 #-}::(Parser Prelude.Char);
+
+{-# NEED letter #-}
+letter{-# 0 #-}::(Parser Prelude.Char);
+
+{-# NEED upper #-}
+upper{-# 0 #-}::(Parser Prelude.Char);
+
+{-# NEED lower #-}
+lower{-# 0 #-}::(Parser Prelude.Char);
+
+{-# NEED digit #-}
+digit{-# 0 #-}::(Parser Prelude.Char);
+
+{-# NEED char #-}
+char{-# 1 #-}::(Prelude.Char -> (Parser Prelude.Char));
+
+{-# NEED bracket #-}
+bracket{-# 3 #-}::((Parser a) -> ((Parser b) -> ((Parser c) -> (Parser b))));
+
+{-# NEED ops #-}
+ops{-# 1 #-}::([((Parser a),b)] -> (Parser b));
+
+{-# NEED chainr1 #-}
+chainr1{-# 2 #-}::((Parser a) -> ((Parser (a -> (a -> a))) -> (Parser a)));
+
+{-# NEED chainr #-}
+chainr{-# 3 #-}::((Parser a) -> ((Parser (a -> (a -> a))) -> (a -> (Parser a))));
+
+{-# NEED chainl1 #-}
+chainl1{-# 2 #-}::((Parser a) -> ((Parser (a -> (a -> a))) -> (Parser a)));
+
+{-# NEED chainl #-}
+chainl{-# 3 #-}::((Parser a) -> ((Parser (a -> (a -> a))) -> (a -> (Parser a))));
+
+{-# NEED sepby1 #-}
+sepby1{-# 2 #-}::((Parser a) -> ((Parser b) -> (Parser [a])));
+
+{-# NEED sepby #-}
+sepby{-# 2 #-}::((Parser a) -> ((Parser b) -> (Parser [a])));
+
+{-# NEED many1 #-}
+many1{-# 1 #-}::((Parser a) -> (Parser [a]));
+
+{-# NEED many #-}
+many{-# 1 #-}::((Parser a) -> (Parser [a]));
+
+{-# NEED sat #-}
+sat{-# 1 #-}::((Token -> Prelude.Bool) -> (Parser Token));
+
+{-# NEED (+++) #-}
+(+++){-# 2 #-}::((Parser a) -> ((Parser a) -> (Parser a)));
+
+{-# NEED papply #-}
+papply{-# 2 #-}::((Parser a) -> ([Token] -> [(a,[Token])]));
+
+{-# NEED first #-}
+first{-# 1 #-}::((Parser a) -> (Parser a));
+
+{-# NEED item #-}
+item{-# 0 #-}::(Parser Token);
+
+{-# NEED {Parser P} #-}
+newtype {-#  #-} Parser a
+  = P ([Token] -> [(a,[Token])]);
+interface Text.ParserCombinators.HuttonMeijer
+{-# NEED Token #-}
+type {-# 1 #-} Token = Prelude.Char;
+}

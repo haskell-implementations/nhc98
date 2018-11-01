@@ -1,0 +1,6 @@
+interface NonStdTrace where {
+
+interface ! NonStdTrace
+{-# NEED trace #-}
+trace{-# 2 #-}::(Prelude.String -> (a -> a));
+}

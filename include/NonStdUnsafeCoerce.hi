@@ -1,0 +1,6 @@
+interface NonStdUnsafeCoerce where {
+
+interface ! NonStdUnsafeCoerce
+{-# NEED unsafeCoerce #-}
+unsafeCoerce{-# 1 #-}::(a -> b);
+}

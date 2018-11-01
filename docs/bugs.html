@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Known bugs in nhc98</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>Known bugs in nhc98</h1></center>
+<hr>
+
+<h3>Non-bugs</h3>
+<dl>
+<dt><em>Warning: nhc98 might produce faulty code here</em></dt>
+  <dd>In fact, it no longer (to our knowledge) produces faulty code at the
+      point this warning is produced.  But we were cautious about removing
+      the warning message, just in case.</dd>
+<dt><em>Warning: foreign import/export has non-primitive type:
+        Prelude.Integer</em></dt>
+  <dd>The warning is accurate, but harmless if it occurs during a build
+      of the Prelude or Libraries.  However, if it appears when you are
+      compiling your own code, it means you have probably made a mistake
+      using the primitive FFI.</dd>
+</dl>
+
+<h3>Bugs by design :-)</h3>
+<dl>
+<dt><em>the monomorphism restriction</em></dt>
+  <dd>is not implemented.</dd>
+<dt><em>the Unicode character set</em></dt>
+  <dd>is not fully supported yet - internally, characters are 32-bits,
+      but Haskell source files are read in 8-bit UTF.</dd>
+<dt><em>Latin-ISO-8859-1 character set not fully supported</em></dt>
+  <dd><a href="bugs/nhc13test18.hs">Example program</a>.</dd>
+<dt><em>Overloaded cafs are treated as functions (debatable "problem")</em></dt>
+  <dd><a href="bugs/nhc13test4.hs">Example program</a>.</dd>
+</dl>
+
+<h3>Unintended bugs :-(</h3>
+<dl>
+<dt><em>Large Integer bug in div/mod</em></dt>
+  <dd>We believe this is a bug in an old version of the GMP library
+      used within nhc98's runtime system.  It results in incorrect
+      values, then a segfault.
+      <a href="bugs/badsqrt.hs">Test program</a>.
+    </dd>
+<dt><em>Strictness annotations on named-field labels</em></dt>
+  <dd>are not implemented - although you can use strictness annotations
+      elsewhere.</dd>
+<dt><em>Precursor to one below </em></dt>
+  <dd><a href="bugs/nhc13test2.hs">Example program</a>.</dd>
+<dt><em>Type checking: default declarations</em></dt>
+  <dd><a href="bugs/nhc13test3.hs">Example program</a>.</dd>
+<dt><em>Importing qualified Prelude and then using an unqualified Prelude entity</em></dt>
+  <dd><a href="bugs/nhc13test16.hs">Example program</a>.</dd>
+<dt><em>Contexts required in let-bindings</em></dt>
+  <dd><a href="bugs/nhc13test17.hs">Example program</a>.  This is
+      a consequence of the non-implementation of the monomorphism
+      restriction.</dd>
+<dt><em>Compiler crashes on large source files</em></dt>
+  <dd>Very rarely, the compiler will crash on a large source file
+      with a ``pointer stack overflow'' or a ``heap overrun'', or sometimes
+      no message at all.  As far as I can tell, this is a space fault in
+      the ansi-C backend, triggered only if nhc98 was built by hbc.
+      A workaround is to use the <em>-noansiC</em>
+      flag (provided you are using a machine for which we have direct
+      assembly language support, i.e. arm, hppa, sparc, x86, mips, alpha),
+      or to bootstrap nhc98 with itself, or with ghc.</dd>
+<dt><em>ghc-4.06 bug</em></dt>
+  <dd>If you build nhc98 using ghc-4.06, all code using Floats and Doubles
+      is broken.  This is due to a bug in ghc, fixed in 4.08.  (Actually,
+      broken in 4.08 as well when -O optimisation is turned on.)</dd>
+<dt><em>Nhc performs no kind check in type definitions.</em></dt>
+  <dd><a href="bugs/nhc98test19.hs">Example program</a>.</dd>
+</dl>
+
+
+<h3>Fixed bugs :-)</h3>
+<dl>
+<dt><em>Nhc is too restrictive in rhs of newtype definitions</em>
+      (fixed 2002-12-17)</dt>
+  <dd><a href="bugs/nhc98test21.hs">Example program</a>.  A too-strong
+      check for newtype circularity was responsible for this fault.</dd>
+<dt><em>Nhc does not handle data types with arguments of kind *->*
+         correctly</em></dt>
+  <dd><a href="bugs/nhc98test22.hs">Example program</a>.  There is an
+      error in the bug report!  <tt>(f Fix f)</tt> should be
+      <tt>(f (Fix f))</tt>, and with this fix, nhc98 accepts the program.</dd>
+<dt><em>Import bugs</em> (fixed 2001-10-19)</dt>
+  <dd>An `import M' should bring both qualified and unqualified names into
+      scope, but nhc98 only made unqualified names are available unless
+      there was an additional explicit `import qualified M'.</dd>
+<dt><em>As-pattern bindings</em> (fixed 2001-02-05)</dt>
+  <dd>An @-pattern as argument to a function or lambda was okay,
+      but in a CAF pattern-binding, led either to wrong
+      results or a seg-fault.  It turns out we were generating
+      type-incorrect code.</dd>
+<dt><em>Read/Show instances for named-fields</em> (fixed 2000-06-14)</dt>
+  <dd>did not show or read the label syntax, just the values.</dd>
+<dt><em>Runtime crashes on Array-based programs</em> (fixed 2000-03-14)</dt>
+  <dd>A program although it compiled, crashed intermittently at runtime,
+      sometimes with SegFaults, sometimes with other errors.  This was
+      caused by an obscure Garbage Collection bug, because changing the
+      heap size altered the behaviour.  Although we originally believed
+      that the Regexp library from Glasgow was the only known program to
+      tickle this bug, it turned out that other programs using Arrays
+      also suffered the same fate.  The fix turned out to be a single
+      character change in the sources!</dd>
+<dt><em>Named fields</em> (fixed 1999-07-27)</dt>
+  <dd>Initialisation of a value using named fields failed to type-check
+      (error: typeExp) if some fields were missing.</dd>
+<dt><em>(n+k) patterns</em></dt>
+  <dd>are finally supported by nhc98.</dd>
+<dt><em>Stable pointers in GreenCard</em> (fixed 1999-02-17)</dt>
+  <dd>used to be too strict - for instance passing the closure
+      <tt>error "message"</tt> into C-world as a stable pointer would
+      terminate a program immediately.  They are now properly lazy -
+      a stable pointer to the closure <tt>error "message"</tt> now
+      terminates the program only if and when it is hauled back into
+      Haskell world and evaluated.</dd>
+<dt><em>Re-defining Prelude entities should strictly speaking cause an error</em></dt>
+  <dd><a href="bugs/nhc13test15.hs">Example program</a>.  Although this
+      was a bug in <b>nhc13</b>, Haskell 98 fixed it for us, by allowing
+      redefinition of imported entities.</dd>
+<dt><em>GreenCard parser</em> (fixed 1998-11-03)</dt>
+  <dd>did not notify syntax errors - it simply generated bogus
+      Haskell and C.  (This was because the original GreenCard parser was
+      generated by Happy, which can only be used in conjunction with ghc.
+      For nhc13, we had been using a cheap and cheerful
+      parser combinator library without error-detection.  We have now
+      added error-detection to the combinators.)</dd>
+<dt><em>GreenCard IO cafs</em></dt>
+  <dd>A CAF (constant applicative form) of type <tt>IO a</tt> implemented
+      as a C-function via GreenCard is only evaluated once.</dd>
+<dt><em>Unknown instruction 199</em> (fixed 1998-08-27)</dt>
+  <dd>A GreenCard-ed program which called C which called back to Haskell
+      which called out to C again would sometimes fail with this error.
+      The system simply forgot to stack the outward call contexts and
+      so returned to the wrong place.</dd>
+<dt><em>Prelude.product</em> (fixed 1998-07-02)</dt>
+  <dd>Incorrectly defined as <tt>foldl (*) 0</tt>, rather than
+      <tt>foldl (*) 1</tt>.</dd>
+<dt><em>Garbage collecting BinHandles</em> (fixed 1998-07-02)</dt>
+  <dd>When the GC collected a Memory BinHandle, it first tried to close
+      it, which occasionally called the GC again recursively, generating
+      a segmentation fault.</dd>
+<dt><em>multiple-precision integers</em> (fixed 1998-04-07)</dt>
+  <dd>The functions (>) and (>=) were semantically swapped for
+      multiple-precision integers (type <tt>Integer</tt>).</dd>
+<dt><em>GreenCard</em> (fixed 1998-03-23)</dt>
+  <dd>A C function of type <tt>() -> IO a</tt> was only ever called once
+      (and the result shared with all other calls), because the unit argument
+      was stripped, leaving a zero-arity CAF.  This is now fixed so that
+      the unit argument is passed through, forcing re-evaluation with every
+      call.</dd>
+<dt><em>Binary library</em> (fixed 1998-03-02)</dt>
+  <dd><tt>closeBin</tt> operation sometimes caused unexpected effects -
+      both <tt>closeBin</tt> and the garbage collector free'd the same
+      malloc'd memory</dd>
+<dt><em>Pattern matching with no fields against constructions with no fields</em>
+(fixed 1998-02-03)</dt>
+  <dd><a href="bugs/nhc13test20.hs">Example program</a>.</dd>
+<dt><em>sparc space faults</em> (fixed 1997-11-20)</dt>
+  <dd>Occasionally GreenCard crashed horribly on the sparc architecture with
+      a segmentation fault, which went away if you
+      increased the heapsize.  Also, programs compiled with -p on the sparc
+      crashed when you attempted to gather a runtime profile.
+      (UserGC structure allocated wrong amount of space.)
+  </dd>
+<dt><em>Importing qualified names</em></dt>
+  <dd><a href="bugs/Nhc13Test1.hs">Example module</a>.
+      <a href="bugs/nhc13test1.hs">Example program</a>.</dd>
+<dt><em>Internal error on incorrect program</em></dt>
+  <dd>Symptom: "0" where "t Int" should be.<br>
+      <a href="bugs/nhc13test6.hs">Example program</a>.</dd>
+<dt><em>Parsing an integer literal as a Double</em></dt>
+  <dd><a href="bugs/nhc13test7.hs">Example program</a>.</dd>
+<dt><em>Strictness annotations combining with seq</em></dt>
+  <dd><a href="bugs/nhc13test8.hs">Example program</a>.</dd>
+<dt><em>Parsing literal characters, e.g. read "'a'"</em></dt>
+  <dd><a href="bugs/nhc13test9.hs">Example program</a>.</dd>
+<dt><em>Importing/exporting classes without any methods (pedantic)</em></dt>
+  <dd><a href="bugs/Nhc13Test10.hs">Example module</a>.
+      <a href="bugs/nhc13test10.hs">Example program</a>.</dd>
+<dt><em>Printing doubles less than 0.1</em></dt>
+  <dd><a href="bugs/nhc13test11.hs">Example program</a>.</dd>
+<dt><em>Supplying a function to seq as its second argument</em></dt>
+  <dd><a href="bugs/nhc13test12.hs">Example program</a>.</dd>
+<dt><em>Translating do-notation for a pattern of the form `[a]'</em></dt>
+  <dd><a href="bugs/nhc13test14.hs">Example program</a>.</dd>
+<dt><em>Bizarre error on seq interacting with classes</em></dt>
+  <dd><a href="bugs/nhc13test5.hs">Example program</a>.</dd>
+<dt><em>Using an imported renaming type to define a second renaming type</em></dt>
+  <dd><a href="bugs/Nhc13Test13.hs">Example module</a>.
+      <a href="bugs/nhc13test13.hs">Example program</a>.</dd>
+<dt><em>Nhc is too restrictive in rhs of newtype definitions</em></dt>
+  <dd><a href="bugs/nhc98test20.hs">Example program</a>.</dd>
+</dl>
+
+<h3>Reporting bugs</h3>
+Please notify any bugs you find in any part of the <b>nhc98</b>
+system to
+<a href="mailto:nhc-bugs@haskell.org">
+<tt>nhc-bugs@haskell.org</tt></a>.
+
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.haskell.org/nhc98/">
+<tt>http://www.haskell.org/nhc98/</tt></a>
+
+<p>
+24th August 2005<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+
+</td></tr></table>
+</body></html>
+

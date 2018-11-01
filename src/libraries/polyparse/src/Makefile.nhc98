@@ -1,0 +1,33 @@
+THISPKG	= polyparse
+VERSION = 1.4.1
+SEARCH	= -package base
+EXTRA_H_FLAGS   = -K6M -DVERSION=$(VERSION)
+EXTRA_HBC_FLAGS = -H50M -A4M
+
+DIRS	= \
+	Text Text/ParserCombinators Text/ParserCombinators/Poly
+
+SRCS	= \
+	Text/ParserCombinators/HuttonMeijer.hs \
+	Text/ParserCombinators/HuttonMeijerWallace.hs \
+	Text/ParserCombinators/Poly.hs \
+        Text/ParserCombinators/Poly/Base.hs \
+        Text/ParserCombinators/Poly/Plain.hs \
+        Text/ParserCombinators/Poly/Lazy.hs \
+        Text/ParserCombinators/Poly/State.hs \
+        Text/ParserCombinators/Poly/StateLazy.hs \
+	Text/Parse.hs
+
+#	Text/Parse/ByteString.hs \
+#	Text/ParserCombinators/Poly/ByteString.hs \
+
+
+# Here are the main rules.
+include ../../Makefile.common
+
+# extra rules
+
+# Here are any extra dependencies.
+
+# C-files dependencies.
+

@@ -1,0 +1,101 @@
+interface NHC.PackedString where {
+
+{-# NEED #-}
+instance Prelude.Read PackedString;
+
+{-# NEED #-}
+instance Prelude.Ord PackedString;
+
+{-# NEED #-}
+instance Prelude.Eq PackedString;
+
+{-# NEED #-}
+instance Prelude.Show PackedString;
+interface ! NHC.PackedString
+{-# NEED index #-}
+index{-# 2 #-}::(PackedString -> (Prelude.Int -> Prelude.Char));
+
+{-# NEED concat #-}
+concat{-# 1 #-}::([PackedString] -> PackedString);
+
+{-# NEED splitAt #-}
+splitAt{-# 2 #-}::(Prelude.Int -> (PackedString -> (PackedString,PackedString)));
+
+{-# NEED cons #-}
+cons{-# 2 #-}::(Prelude.Char -> (PackedString -> PackedString));
+
+{-# NEED unlines #-}
+unlines{-# 0 #-}::([PackedString] -> PackedString);
+
+{-# NEED lines #-}
+lines{-# 1 #-}::(PackedString -> [PackedString]);
+
+{-# NEED unwords #-}
+unwords{-# 0 #-}::([PackedString] -> PackedString);
+
+{-# NEED words #-}
+words{-# 1 #-}::(PackedString -> [PackedString]);
+
+{-# NEED substr #-}
+substr{-# 3 #-}::(PackedString -> (Prelude.Int -> (Prelude.Int -> PackedString)));
+
+{-# NEED filter #-}
+filter{-# 1 #-}::((Prelude.Char -> Prelude.Bool) -> (PackedString -> PackedString));
+
+{-# NEED foldr #-}
+foldr{-# 2 #-}::((Prelude.Char -> (a -> a)) -> (a -> (PackedString -> a)));
+
+{-# NEED drop #-}
+drop{-# 2 #-}::(Prelude.Int -> (PackedString -> PackedString));
+
+{-# NEED map #-}
+map{-# 1 #-}::((Prelude.Char -> Prelude.Char) -> (PackedString -> PackedString));
+
+{-# NEED span #-}
+span{-# 2 #-}::((Prelude.Char -> Prelude.Bool) -> (PackedString -> (PackedString,PackedString)));
+
+{-# NEED null #-}
+null{-# 1 #-}::(PackedString -> Prelude.Bool);
+
+{-# NEED tail #-}
+tail{-# 1 #-}::(PackedString -> PackedString);
+
+{-# NEED nil #-}
+nil{-# 0 #-}::PackedString;
+
+{-# NEED foldl #-}
+foldl{-# 2 #-}::((a -> (Prelude.Char -> a)) -> (a -> (PackedString -> a)));
+
+{-# NEED break #-}
+break{-# 2 #-}::((Prelude.Char -> Prelude.Bool) -> (PackedString -> (PackedString,PackedString)));
+
+{-# NEED length #-}
+length{-# 1 #-}::(PackedString -> Prelude.Int);
+
+{-# NEED packString #-}
+packString{-# 1 #-}::(Prelude.String -> PackedString);
+
+{-# NEED reverse #-}
+reverse{-# 0 #-}::(PackedString -> PackedString);
+
+{-# NEED dropWhile #-}
+dropWhile{-# 2 #-}::((Prelude.Char -> Prelude.Bool) -> (PackedString -> PackedString));
+
+{-# NEED takeWhile #-}
+takeWhile{-# 2 #-}::((Prelude.Char -> Prelude.Bool) -> (PackedString -> PackedString));
+
+{-# NEED take #-}
+take{-# 2 #-}::(Prelude.Int -> (PackedString -> PackedString));
+
+{-# NEED append #-}
+append{-# 2 #-}::(PackedString -> (PackedString -> PackedString));
+
+{-# NEED head #-}
+head{-# 1 #-}::(PackedString -> Prelude.Char);
+
+{-# NEED unpackPS #-}
+unpackPS{-# 1 #-}::(PackedString -> [Prelude.Char]);
+
+{-# NEED PackedString #-}
+data PackedString;
+}

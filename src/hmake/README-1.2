@@ -1,0 +1,26 @@
+This file describe how to build nhcmake version 0.04. Read the file Summary for an
+explanation of what nhcmake is.
+
+Unix:
+ Compile NhcMk and Older, preferably with hbcmake NhcMk Older. It's
+also possible to use nhcmake but a nhc compiled version is slower than
+if nhcmake is compiled with hbc. If neither nhcmake nor hbcmake is
+availible then run the shell script BuildNew.
+ Place NhcMk and Older in the nhc library and change the
+shell script nhcmake accordingly.
+ BuildNew, nhcmakeR, older.c and exfile.c are not used under Unix.
+
+
+RISC OS:
+ Compile NhcMk, exfile and older, the later two are C-programs (located
+in cfiles/, older needs RISC_OSlib).
+If you don't have an earlier version of nhcmake use BuildNewRC, if you have the
+necessary c-files. BuildNewR uses the Haskell files a source.
+Both BuildNewRC and BuildNewR are Obey files.
+ Place NhcMk in the nhc library and change the obey file nhcmakeR
+accordingly.  Put exfile, older and nhcmakeR in your binary
+directory. Nhcmake will create the files nhcmk_via and __nhcmake in
+<Wimp$ScrapDir> when used.
+ I'm sorry for all the garbage produced on the screen when compiling but
+that's the way Command files work.
+ BuildNew, nhcmake and Older.hs are not used under RISC OS.

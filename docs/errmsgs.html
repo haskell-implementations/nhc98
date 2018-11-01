@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>nhc98 error messages</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>nhc98 error messages</h1></center>
+
+<hr>
+
+<h3>What does this error message mean?</h3>
+
+<p>
+Like all compilers, the error messages produced by the <b>nhc98</b> are
+sometimes difficult to understand.  Here are a few tips as to what might
+have gone wrong.
+
+<dl>
+<dt><tt>
+Only 32 words after gc, need 32 words
+</tt></dt>
+<dd>
+The garbage collector failed to reclaim enough space - the program is
+out of heap.  Try re-running with <em>+RTS -Hn -RTS</em> where
+<em>n</em> is a bigger heap size, e.g. <em>16M</em>.
+</dd>
+
+<dt><tt>
+Type error: cannot unify types Prelude.2 and Prelude.3 at 133:9
+</tt></dt>
+<dd>
+In type errors, pairs, triples, and other tuples are denoted by their
+arity - thus Prelude.2 means pair.  The notation 133:9 means line 133,
+character position 9.
+</dd>
+
+<dt><tt>
+arityIS in IntState.hs couldn't find 376
+</tt></dt>
+<dd>
+If you get an error message like this and you have an <em>(n+k)</em>
+pattern in your program, then you have found a bug in the compiler.
+Please report it!
+</dd>
+
+</dl>
+
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.haskell.org/nhc98/">
+<tt>http://www.haskell.org/nhc98/</tt></a>
+
+<p>
+10th June 1999<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+
+</td></tr></table>
+</body></html>
+

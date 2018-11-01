@@ -1,0 +1,135 @@
+interface NHC.Prelude where {
+infixr  5 Prelude.:;
+interface ! Prelude
+{-# NEED Int #-}
+data Int;
+
+{-# NEED {(,) (,)} #-}
+data (,) a b
+ = (,) a b;
+
+{-# NEED id #-}
+id{-# 1 #-}::(a -> a);
+
+{-# NEED undefined #-}
+undefined{-# 0 #-}::a;
+
+{-# NEED flip #-}
+flip{-# 3 #-}::((a -> (b -> c)) -> (b -> (a -> c)));
+
+{-# NEED error #-}
+error{-# 1 #-}::(Prelude.String -> a);
+
+{-# NEED String #-}
+type {-# 1 #-} String = [Char];
+
+{-# NEED Char #-}
+data Char;
+
+{-# NEED {[] [] (:)} #-}
+data [] a
+  = [] 
+  | (:) a [a];
+
+{-# NEED IOError #-}
+data IOError;
+interface ! NHC.Internal
+{-# NEED _eqDouble #-}
+_eqDouble{-# 2 #-}::(Prelude.Double -> (Prelude.Double -> Prelude.Bool));
+interface ! Prelude
+{-# NEED Double #-}
+data Double;
+interface ! NHC.Internal
+{-# NEED _eqFloat #-}
+_eqFloat{-# 2 #-}::(Prelude.Float -> (Prelude.Float -> Prelude.Bool));
+interface ! Prelude
+{-# NEED Float #-}
+data Float;
+interface ! NHC.Internal
+{-# NEED _eqInteger #-}
+_eqInteger{-# 2 #-}::(Prelude.Integer -> (Prelude.Integer -> Prelude.Bool));
+interface ! Prelude
+{-# NEED {Bool False True} #-}
+data Bool
+  = False 
+  | True ;
+
+{-# NEED Integer #-}
+data Integer;
+interface ! NHC.Internal
+{-# NEED _id #-}
+_id{-# 1 #-}::(a -> a);
+
+{-# NEED _apply4 #-}
+_apply4{-# 5 #-}::((a -> (b -> (c -> (d -> e)))) -> (a -> (b -> (c -> (d -> e)))));
+
+{-# NEED _apply3 #-}
+_apply3{-# 4 #-}::((a -> (b -> (c -> d))) -> (a -> (b -> (c -> d))));
+
+{-# NEED _apply2 #-}
+_apply2{-# 3 #-}::((a -> (b -> c)) -> (a -> (b -> c)));
+
+{-# NEED _apply1 #-}
+_apply1{-# 2 #-}::((a -> b) -> (a -> b));
+
+{-# NEED _mkIOok0 #-}
+_mkIOok0{-# 1 #-}::((() -> a) -> (NHC.Internal.IO a));
+interface ! Prelude
+{-# NEED {() ()} #-}
+data ()
+ = ();
+interface ! NHC.Internal
+{-# NEED _mkIOok1 #-}
+_mkIOok1{-# 1 #-}::((a -> b) -> (a -> (NHC.Internal.IO b)));
+
+{-# NEED _mkIOok2 #-}
+_mkIOok2{-# 1 #-}::((a -> (b -> c)) -> (a -> (b -> (NHC.Internal.IO c))));
+
+{-# NEED _mkIOok3 #-}
+_mkIOok3{-# 1 #-}::((a -> (b -> (c -> d))) -> (a -> (b -> (c -> (NHC.Internal.IO d)))));
+
+{-# NEED _mkIOok4 #-}
+_mkIOok4{-# 1 #-}::((a -> (b -> (c -> (d -> e)))) -> (a -> (b -> (c -> (d -> (NHC.Internal.IO e))))));
+
+{-# NEED _mkIOok5 #-}
+_mkIOok5{-# 1 #-}::((a -> (b -> (c -> (d -> (e -> f))))) -> (a -> (b -> (c -> (d -> (e -> (NHC.Internal.IO f)))))));
+
+{-# NEED _mkIOok6 #-}
+_mkIOok6{-# 1 #-}::((a -> (b -> (c -> (d -> (e -> (f -> g)))))) -> (a -> (b -> (c -> (d -> (e -> (f -> (NHC.Internal.IO g))))))));
+
+{-# NEED _mkIOok7 #-}
+_mkIOok7{-# 1 #-}::((a -> (b -> (c -> (d -> (e -> (f -> (g -> h))))))) -> (a -> (b -> (c -> (d -> (e -> (f -> (g -> (NHC.Internal.IO h)))))))));
+
+{-# NEED _mkIOok8 #-}
+_mkIOok8{-# 1 #-}::((a -> (b -> (c -> (d -> (e -> (f -> (g -> (h -> i)))))))) -> (a -> (b -> (c -> (d -> (e -> (f -> (g -> (h -> (NHC.Internal.IO i))))))))));
+
+{-# NEED _mkIOok9 #-}
+_mkIOok9{-# 1 #-}::((a -> (b -> (c -> (d -> (e -> (f -> (g -> (h -> (i -> j))))))))) -> (a -> (b -> (c -> (d -> (e -> (f -> (g -> (h -> (i -> (NHC.Internal.IO j)))))))))));
+
+{-# NEED _mkIOok10 #-}
+_mkIOok10{-# 1 #-}::((a -> (b -> (c -> (d -> (e -> (f -> (g -> (h -> (i -> (j -> k)))))))))) -> (a -> (b -> (c -> (d -> (e -> (f -> (g -> (h -> (i -> (j -> (NHC.Internal.IO k))))))))))));
+
+{-# NEED _mkIOok11 #-}
+_mkIOok11{-# 1 #-}::((a -> (b -> (c -> (d -> (e -> (f -> (g -> (h -> (i -> (j -> (k -> l))))))))))) -> (a -> (b -> (c -> (d -> (e -> (f -> (g -> (h -> (i -> (j -> (k -> (NHC.Internal.IO l)))))))))))));
+
+{-# NEED _mkIOok12 #-}
+_mkIOok12{-# 1 #-}::((a -> (b -> (c -> (d -> (e -> (f -> (g -> (h -> (i -> (j -> (k -> (l -> m)))))))))))) -> (a -> (b -> (c -> (d -> (e -> (f -> (g -> (h -> (i -> (j -> (k -> (l -> (NHC.Internal.IO m))))))))))))));
+
+{-# NEED _mkIOok13 #-}
+_mkIOok13{-# 1 #-}::((a -> (b -> (c -> (d -> (e -> (f -> (g -> (h -> (i -> (j -> (k -> (l -> (m -> n))))))))))))) -> (a -> (b -> (c -> (d -> (e -> (f -> (g -> (h -> (i -> (j -> (k -> (l -> (m -> (NHC.Internal.IO n)))))))))))))));
+
+{-# NEED _mkIOok14 #-}
+_mkIOok14{-# 1 #-}::((a -> (b -> (c -> (d -> (e -> (f -> (g -> (h -> (i -> (j -> (k -> (l -> (m -> (n -> o)))))))))))))) -> (a -> (b -> (c -> (d -> (e -> (f -> (g -> (h -> (i -> (j -> (k -> (l -> (m -> (n -> (NHC.Internal.IO o))))))))))))))));
+
+{-# NEED _mkIOok15 #-}
+_mkIOok15{-# 1 #-}::((a -> (b -> (c -> (d -> (e -> (f -> (g -> (h -> (i -> (j -> (k -> (l -> (m -> (n -> (o -> p))))))))))))))) -> (a -> (b -> (c -> (d -> (e -> (f -> (g -> (h -> (i -> (j -> (k -> (l -> (m -> (n -> (o -> (NHC.Internal.IO p)))))))))))))))));
+
+{-# NEED unsafePerformIO #-}
+unsafePerformIO{-# 1 #-}::((NHC.Internal.IO a) -> a);
+
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface ! Prelude
+{-# NEED (->) #-}
+data (->) a b;
+}

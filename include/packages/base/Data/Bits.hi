@@ -1,0 +1,89 @@
+interface Data.Bits where {
+infixl  8 `shift`;
+infixl  8 `rotate`;
+infixl  8 `shiftL`;
+infixl  8 `shiftR`;
+infixl  8 `rotateL`;
+infixl  8 `rotateR`;
+infixl  7 .&.;
+infixl  5 .|.;
+infixl  6 `xor`;
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Bits Prelude.Int;
+
+{-# NEED #-}
+instance Bits Prelude.Integer;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Data.Bits
+{-# NEED {Bits shift rotate bit setBit clearBit complementBit testBit shiftL shiftR rotateL rotateR (.&.) (.|.) xor complement bitSize isSigned} #-}
+class (Prelude.Num a) => Bits a where {
+  shift{-# 2 #-}::(a -> (Prelude.Int -> a));
+  rotate{-# 2 #-}::(a -> (Prelude.Int -> a));
+  bit{-# 1 #-}::(Prelude.Int -> a);
+  setBit{-# 2 #-}::(a -> (Prelude.Int -> a));
+  clearBit{-# 2 #-}::(a -> (Prelude.Int -> a));
+  complementBit{-# 2 #-}::(a -> (Prelude.Int -> a));
+  testBit{-# 2 #-}::(a -> (Prelude.Int -> Prelude.Bool));
+  shiftL{-# 2 #-}::(a -> (Prelude.Int -> a));
+  shiftR{-# 2 #-}::(a -> (Prelude.Int -> a));
+  rotateL{-# 2 #-}::(a -> (Prelude.Int -> a));
+  rotateR{-# 2 #-}::(a -> (Prelude.Int -> a));
+  (.&.){-# 2 #-}::(a -> (a -> a));
+  (.|.){-# 2 #-}::(a -> (a -> a));
+  xor{-# 2 #-}::(a -> (a -> a));
+  complement{-# 1 #-}::(a -> a);
+  bitSize{-# 1 #-}::(a -> Prelude.Int);
+  isSigned{-# 1 #-}::(a -> Prelude.Bool);
+};
+}

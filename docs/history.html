@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>nhc13 release history</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>nhc13 release history</h1></center>
+
+<hr>
+
+<h3>Unreleased 0.9.5 (99xxxx) features (now in <b>nhc98</b>)</h3>
+<ul>
+<li> Major addition: Existential types in data declarations.
+<li> Addition: A fresh version of the time profiler is ready.  It is now
+               gives accurate results, and the overhead is down to 10% of
+               runtime.
+<li> Addition: New options <tt>-M</tt> and <tt>-Md</tt> to <em>hmake</em>.
+<li> Bugfix: In the Binary library there was a very slight incompatibility
+             between the types described in the ISMM'98 paper and the
+             implementation.  The implementation is now fixed to match the
+             paper.
+<li> Bugfix: At last, the distribution tarfiles down extract into an
+             nhc13-x.x directory, rather than the current directory.
+</ul>
+
+<h3>Release 0.9.4 (981105) features</h3>
+<ul>
+<li> Addition: Various aspects of the trace browser have been updated.
+<li> Bugfix: Haskell code which called C code which in turn called Haskell
+             code crashed with 'Unknown instruction 199'.  Fixed.
+<li> Bugfix: various small changes are required to enable nhc13 to compile for
+             mips-Ultrix-4.5.
+<li> Bugfix: hmake did not collect import dependencies correctly from
+             literate files.  Fixed.
+<li> Bugfix: not just SunOS, but also FreeBSD, has a too-small limit on
+             the number of open files a process can hold.  This can cause
+             problems when compiling <em>nhc13comp</em> with <em>hmake</em>.
+             The work-around from 0.9.3 is now applied universally, regardless
+             of operating system.
+<li> Bugfix: At last, the nhc13 version of GreenCard has parse error messages!
+             Previously, it simply failed silently, with truncated output
+             files.
+<li> Bugfix: installed version of hmake referred to temp include directory
+             instead of installed directory.
+</ul>
+
+<h3>Release 0.9.3 (980706) features</h3>
+<ul>
+<li> Bugfix: Compiling for tracing under SunOS no longer requires an explicit
+             <tt>-lsocket</tt>.
+<li> Bugfix: SunOS has a very small limit on the number of open files a
+             process can hold.  This caused problems when compiling
+             <em>nhc13comp</em> with <em>hmake</em>.  It now has a work-around.
+<li> Bugfix: there was a GC bug in the Binary library, rarely causing a
+             segmentation fault.
+<li> Bugfix: the Prelude definition of <em>product</em> was wrong.
+<li> Bugfix: GreenCard now permits limited use of the <em>Word</em> type.
+</ul>
+
+<h3>Release 0.9.2 (980624) features</h3>
+<ul>
+<li> Major addition: the tracing compiler and trace browser are now
+     available!
+<li> Major addition: source-level time profiling is now available.
+<li> Addition: a new compile-time option: <em><b>-d</b> objdir</em>
+<li> Addition: the <em>nhc13make</em> and <em>hbcmake</em> tools have been
+     replaced by <em>hmake</em>.  (New features: it generates build
+     scripts using any of hbc, nhc13, or ghc; it knows about cpp
+     directives; it knows about separate objdirs.)
+<li> Bugfix: object files are now built in separate directories from the
+     source tree.  This means you can build simultaneously on different
+     architectures sharing the same sources.
+<li> Bugfix: the binary library is no longer tied into the Prelude.
+<li> Addition: class Binary has a new operation <em>sizeOf</em>.
+</ul>
+
+
+<h3>Beta release 980501 features</h3>
+<ul>
+<li> Additions: Binary library functions <tt>endBin</tt>, <tt>skipBits</tt>,
+     <tt>clearBits</tt>, <tt>copyBytes</tt>, etc. + documentation updates.
+<li> Bugfix: fixed (>) and (>=) for multiple precision integers
+</ul>
+
+<h3>Beta release 980327 features</h3>
+<ul>
+<li> Addition: a library for binary arrays, BinArray, has been revised and
+     added to the distribution.
+<li> Addition: the efficient bulk-transfer operation <tt>copyBin</tt> has
+     now been added to the Binary library.
+<li> Bugfix: GreenCard now treats functions of type <tt>()->IO a</tt>
+     correctly.
+<li> Bugfix: there are some additional options to the config script.
+</ul>
+
+<h3>Beta release 980320 features</h3>
+<ul>
+<li> Mainly bugfixes in the new configuration/installation script,
+     particularly installation of <em>nhc13make</em>, and better
+     handling of re-compilation in the presence of errors.
+<li> Some minor library bugfixes: Array is now an instance of Functor
+     (i.e. you can use <tt>map</tt> on an array rather than the old
+     <tt>amap</tt>); in GreenCard, the null string is now converted
+     to an empty string; the limit on ForeignObj's is now extended to
+     1024.
+</ul>
+
+<h3>Beta release 980304 features</h3>
+<ul>
+<li> A complete overhaul of the installation scripts, particularly for
+     the C source distribution: there is now much greater automation of
+     configuration, build and installation.
+<li> The treatment of big- vs. little-endian architectures is now fully
+     automatic.
+</ul>
+
+<h3>Beta release 980212 features</h3>
+<ul>
+<li> The binary libraries have been completely re-implemented (again).
+     The new version unifies memory compression and binary I/O into
+     a single `<tt>Binary</tt>' class.  The old interfaces are still
+     available, but there are many benefits to the new design.
+<li> Bugfixes in the <b>nhc13</b> version of the <em>greencard</em>
+     tool:  it now understands `<tt>%const</tt>'
+     directives; and user DISs with multiple parameters (e.g.
+     `<tt>&#60;fr/to&#62; a b c</tt>') are now handled correctly.
+<li> Bugfixes in the installation scripts for the C source distribution
+     (which is now beta quality):
+     the makefile now correctly builds the runtime and prelude
+     <em>before</em> the compiler which must be linked with them;  and
+     the freshly-built compiler now uses the ANSI-C backend by default.
+<li> A couple of other minor compiler bugfixes have been incorporated.
+</ul>
+
+<h3>Beta release 971219 features</h3>
+<ul>
+<li> I have just added an (alpha-quality) distribution package which
+     requires only an ANSI-C
+     compiler (for instance, <em>gcc</em>) to build <b>nhc13</b>.  This
+     should make <b>nhc13</b> an extremely portable Haskell compiler.  It
+     was made possible by a new compiler back-end (beta-quality) which
+     generates ANSI-C.  The intention is to allow easy cross-compilation
+     (e.g. for embedded systems).  We will be testing the cross-compiler
+     in early 1998.
+</ul>
+
+<h3>Alpha release 971106 features</h3>
+<ul>
+<li> When you use the <em>nhc13</em> or <em>nhc13make</em> commands,
+     <em>GreenCard</em> will be
+     called automatically if the file you are compiling has the extension
+     <tt>.gc</tt>.
+<li> The <tt>Compress</tt> and <tt>BinIO</tt> libraries have been
+     completely re-implemented using <em>GreenCard</em>.  As well as
+     being faster all round, it is now possible
+     to interleave random-access reading and writing on the same file.
+</ul>
+
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.haskell.org/nhc98/">
+<tt>http://www.haskell.org/nhc98/</tt></a>
+See also
+<a href="http://www.cs.york.ac.uk/fp/nhc13/">
+<tt>http://www.cs.york.ac.uk/fp/nhc13/</tt></a>
+
+<p>
+26th January 1999<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+
+</td></tr></table>
+</body></html>
+

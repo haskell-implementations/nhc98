@@ -1,0 +1,55 @@
+include Makefile.inc
+
+
+OBJDIR = ${BUILDDIR}/obj/compiler98
+TARGET = ${DST}/hat-trans${EXE}
+
+SRCS = \
+	TraceDerive.hs TraceTrans.hs SyntaxUtil.hs AuxLabelAST.hs \
+	AuxFixity.hs Overlap.hs DbgId.hs TokenInt.hs NeedLib.hs IExtract.hs \
+	State.hs ImportState.hs PreImp.hs ParseI.hs Memo.hs Import.hs \
+	AuxFile.hs ParseLex.hs ParseLib.hs Parse2.hs SyntaxPos.hs \
+	MkSyntax.hs Parse.hs LexStr.hs LexLow.hs LexPre.hs Lexical.hs \
+	Unlit.hs Lex.hs AuxTypes.hs TraceId.hs Nice.hs Reduce.hs \
+	MergeSort.hs Info.hs IdKind.hs NT.hs Tree234.hs AssocTree.hs \
+	IntState.hs PrettyLib.hs PrettySyntax.hs OsOnly.hs Flags.hs \
+	ParseCore.hs Id.hs TokenId.hs HbcOnly.hs Extra.hs Syntax.hs \
+	Error.hs HatTrans.hs
+OBJS = $(patsubst %.hs, $(OBJDIR)/%.$O, ${SRCS})
+
+
+HC = nhc98	# can be overridden by caller with 'make HC=...'
+
+ifeq "nhc98" "$(findstring nhc98, ${HC})"
+HMAKEFLAGS := -H16M -K2M +CTS -H16M -CTS
+endif
+ifeq "ghc" "$(findstring ghc, ${HC})"
+IMPROVE     = #-O
+HMAKEFLAGS := $(shell $(LOCAL)fixghc $(GHCSYM) -syslib exts)  $(IMPROVE)
+endif
+
+HMAKEFLAGS += $(shell echo $(BUILDOPTS))
+
+
+all: ${TARGET}
+hat-trans: ${TARGET}
+install: ${TARGET}
+objdir: ${OBJDIR}
+clean:
+	rm -f $(OBJDIR)/*.$O *.$O *.hi *.hc
+realclean: clean
+	rm -f *.hc *.c $(TARGET)
+
+$(TARGET): ${OBJDIR} $(OBJDIR)/$(HC) $(SRCS)
+	hmake -$(HC) $(HMAKEFLAGS) -d $(OBJDIR) HatTrans
+	mv $(OBJDIR)/HatTrans$(EXE) $(TARGET)
+	$(HOSTSTRIP) $(TARGET)
+${OBJDIR}:
+	mkdir -p ${OBJDIR}
+$(OBJDIR)/$(HC):
+	rm -f $(OBJDIR)/nhc98 $(OBJDIR)/hbc $(OBJDIR)/ghc*
+	$(MAKE) clean
+	touch "$(OBJDIR)/$(HC)"
+ 
+.SUFFIXES: .hs .o .c
+

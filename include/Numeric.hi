@@ -1,0 +1,66 @@
+interface Numeric where {
+
+interface ! Numeric
+{-# NEED readHex #-}
+readHex{-# 0 #-}::(Prelude.Integral a) => (Prelude.ReadS a);
+
+{-# NEED showInt #-}
+showInt{-# 0 #-}::(Prelude.Integral a) => (a -> Prelude.ShowS);
+
+{-# NEED readInt #-}
+readInt{-# 4 #-}::(Prelude.Integral a) => (a -> ((Prelude.Char -> Prelude.Bool) -> ((Prelude.Char -> Prelude.Int) -> (Prelude.ReadS a))));
+
+{-# NEED readOct #-}
+readOct{-# 0 #-}::(Prelude.Integral a) => (Prelude.ReadS a);
+
+{-# NEED showFloat #-}
+showFloat{-# 0 #-}::(Prelude.RealFloat a) => (a -> Prelude.ShowS);
+
+{-# NEED readFloat #-}
+readFloat{-# 1 #-}::(Prelude.RealFrac a) => (Prelude.ReadS a);
+
+{-# NEED showGFloat #-}
+showGFloat{-# 2 #-}::(Prelude.RealFloat a) => ((Prelude.Maybe Prelude.Int) -> (a -> Prelude.ShowS));
+
+{-# NEED showFFloat #-}
+showFFloat{-# 2 #-}::(Prelude.RealFloat a) => ((Prelude.Maybe Prelude.Int) -> (a -> Prelude.ShowS));
+
+{-# NEED showEFloat #-}
+showEFloat{-# 2 #-}::(Prelude.RealFloat a) => ((Prelude.Maybe Prelude.Int) -> (a -> Prelude.ShowS));
+
+{-# NEED fromRat #-}
+fromRat{-# 1 #-}::(Prelude.RealFloat a) => (Ratio.Rational -> a);
+interface Ratio
+{-# NEED Rational #-}
+type {-# 1 #-} Rational = (Ratio.Ratio Prelude.Integer);
+
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Numeric
+{-# NEED lexDigits #-}
+lexDigits{-# 0 #-}::(Prelude.ReadS Prelude.String);
+
+{-# NEED floatToDigits #-}
+floatToDigits{-# 2 #-}::(Prelude.RealFloat a) => (Prelude.Integer -> (a -> ([Prelude.Int],Prelude.Int)));
+
+{-# NEED showIntAtBase #-}
+showIntAtBase{-# 4 #-}::(Prelude.Integral a) => (a -> ((Prelude.Int -> Prelude.Char) -> (a -> Prelude.ShowS)));
+
+{-# NEED showHex #-}
+showHex{-# 0 #-}::(Prelude.Integral a) => (a -> Prelude.ShowS);
+
+{-# NEED showOct #-}
+showOct{-# 0 #-}::(Prelude.Integral a) => (a -> Prelude.ShowS);
+
+{-# NEED showBin #-}
+showBin{-# 0 #-}::(Prelude.Integral a) => (a -> Prelude.ShowS);
+
+{-# NEED showSigned #-}
+showSigned{-# 3 #-}::(Prelude.Real a) => ((a -> Prelude.ShowS) -> (Prelude.Int -> (a -> Prelude.ShowS)));
+
+{-# NEED readSigned #-}
+readSigned{-# 1 #-}::(Prelude.Real a) => ((Prelude.ReadS a) -> (Prelude.ReadS a));
+
+{-# NEED readDec #-}
+readDec{-# 0 #-}::(Prelude.Integral a) => (Prelude.ReadS a);
+}

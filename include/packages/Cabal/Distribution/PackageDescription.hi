@@ -1,0 +1,996 @@
+interface Distribution.PackageDescription where {
+
+{-# NEED #-}
+instance Control.Exception.Base.Exception Control.Exception.Base.SomeException;
+
+{-# NEED #-}
+instance Control.Exception.Base.Exception System.ExitCode;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable2 Array.Array;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable1 (Array.Array a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Ratio.Ratio;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.Internal.IO;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus (Text.ParserCombinators.ReadP.ReadPN a);
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus Text.ParserCombinators.ReadP.P;
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus (Distribution.Compat.ReadP.P a);
+
+{-# NEED #-}
+instance Distribution.Text.Text BuildType;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.Compiler.CompilerFlavor;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.Compiler.CompilerId;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.Version.VersionWildcard;
+
+{-# NEED #-}
+instance Distribution.Text.Text Language.Haskell.Extension.Extension;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.System.OS;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.System.Arch;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.System.Platform;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.License.License;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.ModuleName.ModuleName;
+
+{-# NEED #-}
+instance Distribution.Text.Text Data.Version.Version;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.Version.VersionRange;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.Package.PackageName;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.Package.PackageIdentifier;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.Package.Dependency;
+
+{-# NEED #-}
+instance Distribution.Text.Text Prelude.Bool;
+
+{-# NEED #-}
+instance Distribution.Package.Package GenericPackageDescription;
+
+{-# NEED #-}
+instance Distribution.Package.Package PackageDescription;
+
+{-# NEED #-}
+instance Distribution.Package.Package Distribution.Package.PackageIdentifier;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable ();
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Double;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Float;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Prelude.Maybe a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Control.Exception.Base.SomeException;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Int;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Ordering;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Integer;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (Array.Array a b);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Data.Version.Version;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable [a];
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Bool;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Char;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (a -> b);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Int;
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m,Ix.Ix n,Ix.Ix o) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m,Ix.Ix n) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m,n);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j) => Ix.Ix (a,b,c,d,e,f,g,h,i,j);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i) => Ix.Ix (a,b,c,d,e,f,g,h,i);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h) => Ix.Ix (a,b,c,d,e,f,g,h);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g) => Ix.Ix (a,b,c,d,e,f,g);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f) => Ix.Ix (a,b,c,d,e,f);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e) => Ix.Ix (a,b,c,d,e);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d) => Ix.Ix (a,b,c,d);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c) => Ix.Ix (a,b,c);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b) => Ix.Ix (a,b);
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Ordering;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Integer;
+
+{-# NEED #-}
+instance Ix.Ix Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Bool;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Char;
+
+{-# NEED #-}
+instance Prelude.Bounded Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Bounded a) => Prelude.Bounded (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance Prelude.Bounded Data.Monoid.All;
+
+{-# NEED #-}
+instance Prelude.Bounded Data.Monoid.Any;
+
+{-# NEED #-}
+instance (Prelude.Bounded a) => Prelude.Bounded (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance (Prelude.Bounded a) => Prelude.Bounded (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance Data.Monoid.Monoid BuildInfo;
+
+{-# NEED #-}
+instance Data.Monoid.Monoid Executable;
+
+{-# NEED #-}
+instance Data.Monoid.Monoid Library;
+
+{-# NEED #-}
+instance Data.Monoid.Monoid ();
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a) => Data.Monoid.Monoid (Prelude.Maybe a);
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a,Data.Monoid.Monoid b,Data.Monoid.Monoid c,Data.Monoid.Monoid d,Data.Monoid.Monoid e) => Data.Monoid.Monoid (a,b,c,d,e);
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a,Data.Monoid.Monoid b,Data.Monoid.Monoid c,Data.Monoid.Monoid d) => Data.Monoid.Monoid (a,b,c,d);
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a,Data.Monoid.Monoid b,Data.Monoid.Monoid c) => Data.Monoid.Monoid (a,b,c);
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a,Data.Monoid.Monoid b) => Data.Monoid.Monoid (a,b);
+
+{-# NEED #-}
+instance Data.Monoid.Monoid Prelude.Ordering;
+
+{-# NEED #-}
+instance Data.Monoid.Monoid [a];
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a) => Data.Monoid.Monoid (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance Data.Monoid.Monoid Data.Monoid.All;
+
+{-# NEED #-}
+instance Data.Monoid.Monoid Data.Monoid.Any;
+
+{-# NEED #-}
+instance (Prelude.Num a) => Data.Monoid.Monoid (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance (Prelude.Num a) => Data.Monoid.Monoid (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance Data.Monoid.Monoid (Data.Monoid.First a);
+
+{-# NEED #-}
+instance Data.Monoid.Monoid (Data.Monoid.Last a);
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid b) => Data.Monoid.Monoid (a -> b);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read BuildInfo;
+
+{-# NEED #-}
+instance Prelude.Read Executable;
+
+{-# NEED #-}
+instance Prelude.Read Library;
+
+{-# NEED #-}
+instance Prelude.Read BuildType;
+
+{-# NEED #-}
+instance Prelude.Read PackageDescription;
+
+{-# NEED #-}
+instance Prelude.Read Distribution.Compiler.CompilerFlavor;
+
+{-# NEED #-}
+instance Prelude.Read Distribution.Compiler.CompilerId;
+
+{-# NEED #-}
+instance Prelude.Read Language.Haskell.Extension.Extension;
+
+{-# NEED #-}
+instance Prelude.Read Distribution.System.OS;
+
+{-# NEED #-}
+instance Prelude.Read Distribution.System.Arch;
+
+{-# NEED #-}
+instance Prelude.Read Distribution.System.Platform;
+
+{-# NEED #-}
+instance Prelude.Read Distribution.License.License;
+
+{-# NEED #-}
+instance Prelude.Read System.ExitCode;
+
+{-# NEED #-}
+instance Prelude.Read Distribution.ModuleName.ModuleName;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Read a,Prelude.Read b) => Prelude.Read (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Read Data.Version.Version;
+
+{-# NEED #-}
+instance Prelude.Read Distribution.Version.VersionRange;
+
+{-# NEED #-}
+instance Prelude.Read Distribution.Package.PackageName;
+
+{-# NEED #-}
+instance Prelude.Read Distribution.Package.PackageIdentifier;
+
+{-# NEED #-}
+instance Prelude.Read Distribution.Package.Dependency;
+
+{-# NEED #-}
+instance Prelude.Read Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance Prelude.Read Data.Monoid.All;
+
+{-# NEED #-}
+instance Prelude.Read Data.Monoid.Any;
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (Data.Monoid.First a);
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (Data.Monoid.Last a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq ConfVar;
+
+{-# NEED #-}
+instance Prelude.Eq FlagName;
+
+{-# NEED #-}
+instance Prelude.Eq BuildInfo;
+
+{-# NEED #-}
+instance Prelude.Eq Executable;
+
+{-# NEED #-}
+instance Prelude.Eq Library;
+
+{-# NEED #-}
+instance Prelude.Eq BuildType;
+
+{-# NEED #-}
+instance Prelude.Eq PackageDescription;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.Compiler.CompilerFlavor;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.Compiler.CompilerId;
+
+{-# NEED #-}
+instance Prelude.Eq Language.Haskell.Extension.Extension;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.System.OS;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.System.Arch;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.System.Platform;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.License.License;
+
+{-# NEED #-}
+instance Prelude.Eq System.ExitCode;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.ModuleName.ModuleName;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Eq b) => Prelude.Eq (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Eq Data.Version.Version;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.Version.VersionRange;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.Package.PackageName;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.Package.PackageIdentifier;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.Package.Dependency;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance Prelude.Eq Data.Monoid.All;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Monoid.Any;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Data.Monoid.First a);
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Data.Monoid.Last a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord FlagName;
+
+{-# NEED #-}
+instance Prelude.Ord Distribution.Compiler.CompilerFlavor;
+
+{-# NEED #-}
+instance Prelude.Ord Distribution.Compiler.CompilerId;
+
+{-# NEED #-}
+instance Prelude.Ord Distribution.System.OS;
+
+{-# NEED #-}
+instance Prelude.Ord Distribution.System.Arch;
+
+{-# NEED #-}
+instance Prelude.Ord Distribution.System.Platform;
+
+{-# NEED #-}
+instance Prelude.Ord System.ExitCode;
+
+{-# NEED #-}
+instance Prelude.Ord Distribution.ModuleName.ModuleName;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Ord b) => Prelude.Ord (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Ord Data.Version.Version;
+
+{-# NEED #-}
+instance Prelude.Ord Distribution.Package.PackageName;
+
+{-# NEED #-}
+instance Prelude.Ord Distribution.Package.PackageIdentifier;
+
+{-# NEED #-}
+instance Prelude.Ord Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance Prelude.Ord Data.Monoid.All;
+
+{-# NEED #-}
+instance Prelude.Ord Data.Monoid.Any;
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Data.Monoid.First a);
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Data.Monoid.Last a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Ix.Ix a) => Prelude.Functor (Array.Array a);
+
+{-# NEED #-}
+instance Prelude.Functor (Text.ParserCombinators.ReadP.ReadPN a);
+
+{-# NEED #-}
+instance Prelude.Functor (Distribution.Compat.ReadP.Parser a b);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad (Text.ParserCombinators.ReadP.ReadPN a);
+
+{-# NEED #-}
+instance Prelude.Monad Text.ParserCombinators.ReadP.P;
+
+{-# NEED #-}
+instance Prelude.Monad (Distribution.Compat.ReadP.P a);
+
+{-# NEED #-}
+instance Prelude.Monad (Distribution.Compat.ReadP.Parser a b);
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b,Prelude.Show c) => Prelude.Show (CondTree a b c);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Condition a);
+
+{-# NEED #-}
+instance Prelude.Show ConfVar;
+
+{-# NEED #-}
+instance Prelude.Show FlagName;
+
+{-# NEED #-}
+instance Prelude.Show Flag;
+
+{-# NEED #-}
+instance Prelude.Show GenericPackageDescription;
+
+{-# NEED #-}
+instance Prelude.Show BuildInfo;
+
+{-# NEED #-}
+instance Prelude.Show Executable;
+
+{-# NEED #-}
+instance Prelude.Show Library;
+
+{-# NEED #-}
+instance Prelude.Show BuildType;
+
+{-# NEED #-}
+instance Prelude.Show PackageDescription;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.Compiler.CompilerFlavor;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.Compiler.CompilerId;
+
+{-# NEED #-}
+instance Prelude.Show Language.Haskell.Extension.Extension;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.System.OS;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.System.Arch;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.System.Platform;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.License.License;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.ArithException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.ArrayException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.AsyncException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.AssertionFailed;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.PatternMatchFail;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.NoMethodError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.Deadlock;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.BlockedOnDeadMVar;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.BlockedIndefinitely;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.ErrorCall;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.RecConError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.RecSelError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.RecUpdError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.SomeException;
+
+{-# NEED #-}
+instance Prelude.Show System.ExitCode;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.ModuleName.ModuleName;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Show a,Prelude.Show b) => Prelude.Show (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Show Data.Version.Version;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.Version.VersionRange;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.Package.PackageName;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.Package.PackageIdentifier;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.Package.Dependency;
+
+{-# NEED #-}
+instance Prelude.Show Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance Prelude.Show Data.Monoid.All;
+
+{-# NEED #-}
+instance Prelude.Show Data.Monoid.Any;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Data.Monoid.First a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Data.Monoid.Last a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+interface Distribution.Version
+{-# NEED VersionWildcard #-}
+newtype {-#  #-} VersionWildcard;
+interface Data.Typeable
+{-# NEED Typeable #-}
+class Typeable a;
+interface Data.Monoid
+{-# NEED Monoid #-}
+class Monoid a;
+interface Text.ParserCombinators.ReadP
+{-# NEED ReadPN #-}
+newtype {-#  #-} ReadPN a b;
+
+{-# NEED P #-}
+data P a;
+interface Distribution.Compat.ReadP
+{-# NEED P #-}
+data P a b;
+
+{-# NEED Parser #-}
+newtype {-#  #-} Parser a b c;
+interface Distribution.Compiler
+{-# NEED CompilerId #-}
+data CompilerId;
+interface Distribution.System
+{-# NEED Platform #-}
+data Platform;
+interface Control.Exception.Base
+{-# NEED ArithException #-}
+data ArithException;
+
+{-# NEED ArrayException #-}
+data ArrayException;
+
+{-# NEED AsyncException #-}
+data AsyncException;
+
+{-# NEED AssertionFailed #-}
+data AssertionFailed;
+
+{-# NEED PatternMatchFail #-}
+data PatternMatchFail;
+
+{-# NEED NoMethodError #-}
+data NoMethodError;
+
+{-# NEED Deadlock #-}
+data Deadlock;
+
+{-# NEED BlockedOnDeadMVar #-}
+data BlockedOnDeadMVar;
+
+{-# NEED BlockedIndefinitely #-}
+data BlockedIndefinitely;
+
+{-# NEED ErrorCall #-}
+data ErrorCall;
+
+{-# NEED RecConError #-}
+data RecConError;
+
+{-# NEED RecSelError #-}
+data RecSelError;
+
+{-# NEED RecUpdError #-}
+data RecUpdError;
+
+{-# NEED SomeException #-}
+data SomeException;
+interface System
+{-# NEED ExitCode #-}
+data ExitCode;
+interface Array
+{-# NEED Array #-}
+data (Ix.Ix a) => Array a b;
+interface Ix
+{-# NEED Ix #-}
+class (Prelude.Ord a) => Ix a;
+interface Data.Char
+{-# NEED GeneralCategory #-}
+data GeneralCategory;
+interface NHC.FFI
+{-# NEED CInt #-}
+newtype {-#  #-} CInt;
+interface Data.Monoid
+{-# NEED Dual #-}
+newtype {-#  #-} Dual a;
+
+{-# NEED All #-}
+newtype {-#  #-} All;
+
+{-# NEED Any #-}
+newtype {-#  #-} Any;
+
+{-# NEED Sum #-}
+newtype {-#  #-} Sum a;
+
+{-# NEED Product #-}
+newtype {-#  #-} Product a;
+
+{-# NEED First #-}
+newtype {-#  #-} First a;
+
+{-# NEED Last #-}
+newtype {-#  #-} Last a;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface Text.PrettyPrint.HughesPJ
+{-# NEED Doc #-}
+data Doc;
+interface ! Distribution.PackageDescription
+{-# NEED FlagAssignment #-}
+type {-# 3 #-} FlagAssignment = [(FlagName,Prelude.Bool)];
+
+{-# NEED {GenericPackageDescription GenericPackageDescription packageDescription genPackageFlags condLibrary condExecutables} #-}
+data GenericPackageDescription
+  = GenericPackageDescription {packageDescription :: PackageDescription} {genPackageFlags :: [Flag]} {condLibrary :: (Prelude.Maybe (CondTree ConfVar [Distribution.Package.Dependency] Library))} {condExecutables :: [(Prelude.String,(CondTree ConfVar [Distribution.Package.Dependency] Executable))]};
+
+{-# NEED {ConfVar OS Arch Flag Impl} #-}
+data ConfVar
+  = OS Distribution.System.OS
+  | Arch Distribution.System.Arch
+  | Flag FlagName
+  | Impl Distribution.Compiler.CompilerFlavor Distribution.Version.VersionRange;
+interface Distribution.System
+{-# NEED Arch #-}
+data Arch;
+
+{-# NEED OS #-}
+data OS;
+interface ! Distribution.PackageDescription
+{-# NEED {CondTree CondNode condTreeData condTreeConstraints condTreeComponents} #-}
+data CondTree a b c
+  = CondNode {condTreeData :: c} {condTreeConstraints :: b} {condTreeComponents :: [((Condition a),(CondTree a b c),(Prelude.Maybe (CondTree a b c)))]};
+
+{-# NEED {Condition Var Lit CNot COr CAnd} #-}
+data Condition a
+  = Var a
+  | Lit Prelude.Bool
+  | CNot (Condition a)
+  | COr (Condition a) (Condition a)
+  | CAnd (Condition a) (Condition a);
+
+{-# NEED {Flag MkFlag flagName flagDescription flagDefault flagManual} #-}
+data Flag
+  = MkFlag {flagName :: FlagName} {flagDescription :: Prelude.String} {flagDefault :: Prelude.Bool} {flagManual :: Prelude.Bool};
+
+{-# NEED {FlagName FlagName} #-}
+newtype {-#  #-} FlagName
+  = FlagName Prelude.String;
+
+{-# NEED updatePackageDescription #-}
+updatePackageDescription{-# 2 #-}::(HookedBuildInfo -> (PackageDescription -> PackageDescription));
+
+{-# NEED hcOptions #-}
+hcOptions{-# 2 #-}::(Distribution.Compiler.CompilerFlavor -> (BuildInfo -> [Prelude.String]));
+
+{-# NEED emptyHookedBuildInfo #-}
+emptyHookedBuildInfo{-# 0 #-}::HookedBuildInfo;
+
+{-# NEED HookedBuildInfo #-}
+type {-# 2 #-} HookedBuildInfo = ((Prelude.Maybe BuildInfo),[(Prelude.String,BuildInfo)]);
+
+{-# NEED allBuildInfo #-}
+allBuildInfo{-# 1 #-}::(PackageDescription -> [BuildInfo]);
+
+{-# NEED emptyBuildInfo #-}
+emptyBuildInfo{-# 0 #-}::BuildInfo;
+
+{-# NEED exeModules #-}
+exeModules{-# 1 #-}::(PackageDescription -> [Distribution.ModuleName.ModuleName]);
+
+{-# NEED withExe #-}
+withExe{-# 2 #-}::(PackageDescription -> ((Executable -> (NHC.Internal.IO a)) -> (NHC.Internal.IO ())));
+
+{-# NEED hasExes #-}
+hasExes{-# 1 #-}::(PackageDescription -> Prelude.Bool);
+
+{-# NEED emptyExecutable #-}
+emptyExecutable{-# 0 #-}::Executable;
+
+{-# NEED libModules #-}
+libModules{-# 1 #-}::(PackageDescription -> [Distribution.ModuleName.ModuleName]);
+
+{-# NEED withLib #-}
+withLib{-# 3 #-}::(PackageDescription -> (a -> ((Library -> (NHC.Internal.IO a)) -> (NHC.Internal.IO a))));
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+
+{-# NEED World #-}
+data World;
+interface ! Distribution.PackageDescription
+{-# NEED hasLibs #-}
+hasLibs{-# 1 #-}::(PackageDescription -> Prelude.Bool);
+
+{-# NEED emptyLibrary #-}
+emptyLibrary{-# 0 #-}::Library;
+
+{-# NEED knownBuildTypes #-}
+knownBuildTypes{-# 0 #-}::[BuildType];
+
+{-# NEED emptyPackageDescription #-}
+emptyPackageDescription{-# 0 #-}::PackageDescription;
+
+{-# NEED {PackageDescription PackageDescription package license licenseFile copyright maintainer author stability testedWith homepage pkgUrl synopsis description category customFieldsPD buildDepends descCabalVersion buildType library executables dataFiles dataDir extraSrcFiles extraTmpFiles} #-}
+data PackageDescription
+  = PackageDescription {package :: Distribution.Package.PackageIdentifier} {license :: Distribution.License.License} {licenseFile :: Prelude.FilePath} {copyright :: Prelude.String} {maintainer :: Prelude.String} {author :: Prelude.String} {stability :: Prelude.String} {testedWith :: [(Distribution.Compiler.CompilerFlavor,Distribution.Version.VersionRange)]} {homepage :: Prelude.String} {pkgUrl :: Prelude.String} {synopsis :: Prelude.String} {description :: Prelude.String} {category :: Prelude.String} {customFieldsPD :: [(Prelude.String,Prelude.String)]} {buildDepends :: [Distribution.Package.Dependency]} {descCabalVersion :: Distribution.Version.VersionRange} {buildType :: (Prelude.Maybe BuildType)} {library :: (Prelude.Maybe Library)} {executables :: [Executable]} {dataFiles :: [Prelude.FilePath]} {dataDir :: Prelude.FilePath} {extraSrcFiles :: [Prelude.FilePath]} {extraTmpFiles :: [Prelude.FilePath]};
+
+{-# NEED {Executable Executable exeName modulePath buildInfo} #-}
+data Executable
+  = Executable {exeName :: Prelude.String} {modulePath :: Prelude.FilePath} {buildInfo :: BuildInfo};
+
+{-# NEED {Library Library exposedModules libExposed libBuildInfo} #-}
+data Library
+  = Library {exposedModules :: [Distribution.ModuleName.ModuleName]} {libExposed :: Prelude.Bool} {libBuildInfo :: BuildInfo};
+
+{-# NEED {BuildInfo BuildInfo buildable buildTools cppOptions ccOptions ldOptions pkgconfigDepends frameworks cSources hsSourceDirs otherModules extensions extraLibs extraLibDirs includeDirs includes installIncludes options ghcProfOptions ghcSharedOptions customFieldsBI} #-}
+data BuildInfo
+  = BuildInfo {buildable :: Prelude.Bool} {buildTools :: [Distribution.Package.Dependency]} {cppOptions :: [Prelude.String]} {ccOptions :: [Prelude.String]} {ldOptions :: [Prelude.String]} {pkgconfigDepends :: [Distribution.Package.Dependency]} {frameworks :: [Prelude.String]} {cSources :: [Prelude.FilePath]} {hsSourceDirs :: [Prelude.FilePath]} {otherModules :: [Distribution.ModuleName.ModuleName]} {extensions :: [Language.Haskell.Extension.Extension]} {extraLibs :: [Prelude.String]} {extraLibDirs :: [Prelude.String]} {includeDirs :: [Prelude.FilePath]} {includes :: [Prelude.FilePath]} {installIncludes :: [Prelude.FilePath]} {options :: [(Distribution.Compiler.CompilerFlavor,[Prelude.String])]} {ghcProfOptions :: [Prelude.String]} {ghcSharedOptions :: [Prelude.String]} {customFieldsBI :: [(Prelude.String,Prelude.String)]};
+interface Language.Haskell.Extension
+{-# NEED Extension #-}
+data Extension;
+interface Distribution.ModuleName
+{-# NEED ModuleName #-}
+newtype {-#  #-} ModuleName;
+interface ! Distribution.PackageDescription
+{-# NEED {BuildType Simple Configure Make Custom UnknownBuildType} #-}
+data BuildType
+  = Simple 
+  | Configure 
+  | Make 
+  | Custom 
+  | UnknownBuildType Prelude.String;
+interface Distribution.Package
+{-# NEED Dependency #-}
+data Dependency;
+interface Distribution.Version
+{-# NEED VersionRange #-}
+data VersionRange;
+interface Distribution.Compiler
+{-# NEED CompilerFlavor #-}
+data CompilerFlavor;
+interface Distribution.License
+{-# NEED License #-}
+data License;
+interface Distribution.Package
+{-# NEED PackageIdentifier #-}
+data PackageIdentifier;
+interface Data.Version
+{-# NEED Version #-}
+data Version;
+interface Distribution.Package
+{-# NEED PackageName #-}
+newtype {-#  #-} PackageName;
+}

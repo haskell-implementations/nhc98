@@ -1,0 +1,161 @@
+interface Data.Fixed where {
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance HasResolution E12;
+
+{-# NEED #-}
+instance HasResolution E9;
+
+{-# NEED #-}
+instance HasResolution E6;
+
+{-# NEED #-}
+instance HasResolution E3;
+
+{-# NEED #-}
+instance HasResolution E2;
+
+{-# NEED #-}
+instance HasResolution E1;
+
+{-# NEED #-}
+instance HasResolution E0;
+
+{-# NEED #-}
+instance (HasResolution a) => Prelude.Fractional (Fixed a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (HasResolution a) => Prelude.RealFrac (Fixed a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (HasResolution a) => Prelude.Real (Fixed a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum (Fixed a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord (Fixed a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq (Fixed a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (HasResolution a) => Prelude.Show (Fixed a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance (HasResolution a) => Prelude.Num (Fixed a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Data.Fixed
+{-# NEED Pico #-}
+type {-# 7 #-} Pico = (Fixed E12);
+
+{-# NEED E12 #-}
+data E12;
+
+{-# NEED Nano #-}
+type {-# 6 #-} Nano = (Fixed E9);
+
+{-# NEED E9 #-}
+data E9;
+
+{-# NEED Micro #-}
+type {-# 5 #-} Micro = (Fixed E6);
+
+{-# NEED E6 #-}
+data E6;
+
+{-# NEED Milli #-}
+type {-# 4 #-} Milli = (Fixed E3);
+
+{-# NEED E3 #-}
+data E3;
+
+{-# NEED Centi #-}
+type {-# 3 #-} Centi = (Fixed E2);
+
+{-# NEED E2 #-}
+data E2;
+
+{-# NEED Deci #-}
+type {-# 2 #-} Deci = (Fixed E1);
+
+{-# NEED E1 #-}
+data E1;
+
+{-# NEED Uni #-}
+type {-# 1 #-} Uni = (Fixed E0);
+
+{-# NEED E0 #-}
+data E0;
+
+{-# NEED showFixed #-}
+showFixed{-# 2 #-}::(HasResolution a) => (Prelude.Bool -> ((Fixed a) -> Prelude.String));
+
+{-# NEED {HasResolution resolution} #-}
+class HasResolution a where {
+  resolution{-# 1 #-}::((b a) -> Prelude.Integer);
+};
+
+{-# NEED {Fixed} #-}
+newtype {-#  #-} Fixed a
+  = MkFixed Prelude.Integer;
+
+{-# NEED mod' #-}
+mod'{-# 2 #-}::(Prelude.Real a) => (a -> (a -> a));
+
+{-# NEED divMod' #-}
+divMod'{-# 2 #-}::(Prelude.Real a,Prelude.Integral b) => (a -> (a -> (b,a)));
+
+{-# NEED div' #-}
+div'{-# 2 #-}::(Prelude.Real a,Prelude.Integral b) => (a -> (a -> b));
+}

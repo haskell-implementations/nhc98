@@ -1,0 +1,210 @@
+#!/bin/sh
+#	fixghc:  a small script to patch up the -syslib changes between
+#		versions 4.04, 4.06, 4.08, and 5.xx of ghc.
+
+case $# in
+  0) exit 1;;
+esac
+ghcversion=$1
+shift
+
+# We need a working `echo' command: Solaris2.6 and HP/UX may not have it.
+case `echo -n hello | wc -c | ( read n ; echo $n )` in
+    5) echon () { echo -n "$@"; } ;;
+    *) LOCAL=${LOCAL-`dirname $0`}
+       if [ -x $LOCAL/echo ]
+       then echon () { $LOCAL/echo -n "$@"; }
+       else echon () { echo "$@"; }
+       fi ;;
+esac
+
+# Versions of ghc > 6.0 need a hack to make the version number larger.
+if [ $ghcversion -le 100 ]
+then
+  ghcversion=${ghcversion}0
+fi
+
+# We permit arguments to arrive in any format (4.04, 4.06, 4.08, 5.00, 5.04),
+# and translate to the format specified by the first arg.
+
+if [ $ghcversion -le 405 ]
+then
+  while test "'$1'" != "''" 
+  do
+    case $1 in
+      -syslib|-package) shift
+               case $1 in
+                 lang) echon " -syslib exts";;
+                 text) echon " -syslib misc";;
+                 base) ;;
+                 getopt) ;;
+                 *)    echon " -syslib $1" ;;
+               esac ;;
+      *) echon " $1" ;;
+    esac
+    shift
+  done
+  echo
+  exit 0
+fi
+
+if [ $ghcversion -gt 405 -a $ghcversion -lt 408 ]
+then
+  while test "'$1'" != "''" 
+  do
+    case $1 in
+      -syslib|-package) shift
+               case $1 in
+                 exts) echon " -syslib lang";;
+                 misc) ;;
+                 base) ;;
+                 packedstring) ;;
+                 directory) ;;
+                 containers) ;;
+                 getopt) ;;
+                 *)    echon " -syslib $1" ;;
+               esac ;;
+      *) echon " $1" ;;
+    esac
+    shift
+  done
+  echo
+  exit 0
+fi
+
+if [ $ghcversion -ge 408 -a $ghcversion -lt 504 ]
+then
+  while test "'$1'" != "''" 
+  do
+    case $1 in
+      -syslib) shift
+               case $1 in
+                 exts) echon " -package lang";;
+                 misc) ;;
+                 base) ;;
+                 *)    echon " -package $1" ;;
+               esac ;;
+      -package) shift
+               case $1 in
+                 base) ;;
+                 haskell98) ;;
+                 readline) ;;
+                 packedstring) ;;
+                 directory) ;;
+                 process) ;;
+                 containers) ;;
+                 getopt) ;;
+                 *)    echon " -package $1" ;;
+               esac ;;
+      *) echon " $1" ;;
+    esac
+    shift
+  done
+  echo
+  exit 0
+fi
+
+if [ $ghcversion -ge 504 -a $ghcversion -lt 605 ]
+then
+  while test "'$1'" != "''" 
+  do
+    case $1 in
+      -syslib) shift
+               case $1 in
+                 exts) echon " -package lang";;
+                 misc) ;;
+                 *)    echon " -package $1" ;;
+               esac ;;
+      -package) shift
+                case $1 in
+                  readline) ;;
+                  packedstring) ;;
+                  directory) ;;
+                  process) ;;
+                  containers) ;;
+                  getopt) ;;
+                  *)    echon " -package $1" ;;
+                esac ;;
+      *) echon " $1" ;;
+    esac
+    shift
+  done
+  echo
+  exit 0
+fi
+
+if [ $ghcversion -ge 605  -a $ghcversion -lt 607 ]
+then
+  while test "'$1'" != "''" 
+  do
+    case $1 in
+      -syslib|-package) shift
+               case $1 in
+                 exts) ;;
+                 misc) ;;
+                 util) ;;
+                 lang) ;;
+                 text) ;;
+                 packedstring) ;;
+                 directory) ;;
+                 process) ;;
+                 containers) ;;
+                 getopt) ;;
+                 *)    echon " -package $1" ;;
+               esac ;;
+      *) echon " $1" ;;
+    esac
+    shift
+  done
+  echo
+  exit 0
+fi
+
+if [ $ghcversion -ge 607 -a $ghcversion -lt 609 ]
+then
+  while test "'$1'" != "''" 
+  do
+    case $1 in
+      -syslib|-package) shift
+               case $1 in
+                 exts) ;;
+                 misc) ;;
+                 util) ;;
+                 lang) ;;
+                 text) ;;
+                 getopt) ;;
+                 *)    echon " -package $1" ;;
+               esac ;;
+      *) echon " $1" ;;
+    esac
+    shift
+  done
+  echo
+  exit 0
+fi
+
+if [ $ghcversion -ge 609 ]
+then
+  while test "'$1'" != "''" 
+  do
+    case $1 in
+      -syslib|-package) shift
+               case $1 in
+                 exts) ;;
+                 misc) ;;
+                 util) ;;
+                 lang) ;;
+                 text) ;;
+                 *)    echon " -package $1" ;;
+               esac ;;
+      *) echon " $1" ;;
+    esac
+    shift
+  done
+  echo
+  exit 0
+fi
+
+# stand-by default case
+echo "$@"
+exit 0

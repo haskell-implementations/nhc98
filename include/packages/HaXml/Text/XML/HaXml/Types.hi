@@ -1,0 +1,527 @@
+interface Text.XML.HaXml.Types where {
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord QName;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show SystemLiteral;
+
+{-# NEED #-}
+instance Prelude.Show PubidLiteral;
+
+{-# NEED #-}
+instance Prelude.Show EV;
+
+{-# NEED #-}
+instance Prelude.Show EntityValue;
+
+{-# NEED #-}
+instance Prelude.Show AttValue;
+
+{-# NEED #-}
+instance Prelude.Show Namespace;
+
+{-# NEED #-}
+instance Prelude.Show QName;
+
+{-# NEED #-}
+instance Prelude.Show ExternalID;
+
+{-# NEED #-}
+instance Prelude.Show PEDef;
+
+{-# NEED #-}
+instance Prelude.Show Reference;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Functor Content;
+
+{-# NEED #-}
+instance Prelude.Functor Element;
+
+{-# NEED #-}
+instance Prelude.Functor Document;
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Eq SystemLiteral;
+
+{-# NEED #-}
+instance Prelude.Eq PubidLiteral;
+
+{-# NEED #-}
+instance Prelude.Eq EV;
+
+{-# NEED #-}
+instance Prelude.Eq EntityValue;
+
+{-# NEED #-}
+instance Prelude.Eq AttValue;
+
+{-# NEED #-}
+instance Prelude.Eq Namespace;
+
+{-# NEED #-}
+instance Prelude.Eq QName;
+
+{-# NEED #-}
+instance Prelude.Eq EncodingDecl;
+
+{-# NEED #-}
+instance Prelude.Eq PublicID;
+
+{-# NEED #-}
+instance Prelude.Eq NotationDecl;
+
+{-# NEED #-}
+instance Prelude.Eq ExtPE;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (ExtParsedEnt a);
+
+{-# NEED #-}
+instance Prelude.Eq TextDecl;
+
+{-# NEED #-}
+instance Prelude.Eq NDataDecl;
+
+{-# NEED #-}
+instance Prelude.Eq ExternalID;
+
+{-# NEED #-}
+instance Prelude.Eq PEDef;
+
+{-# NEED #-}
+instance Prelude.Eq EntityDef;
+
+{-# NEED #-}
+instance Prelude.Eq PEDecl;
+
+{-# NEED #-}
+instance Prelude.Eq GEDecl;
+
+{-# NEED #-}
+instance Prelude.Eq EntityDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Reference;
+
+{-# NEED #-}
+instance Prelude.Eq IgnoreSectContents;
+
+{-# NEED #-}
+instance Prelude.Eq Ignore;
+
+{-# NEED #-}
+instance Prelude.Eq ConditionalSect;
+
+{-# NEED #-}
+instance Prelude.Eq FIXED;
+
+{-# NEED #-}
+instance Prelude.Eq DefaultDecl;
+
+{-# NEED #-}
+instance Prelude.Eq EnumeratedType;
+
+{-# NEED #-}
+instance Prelude.Eq TokenizedType;
+
+{-# NEED #-}
+instance Prelude.Eq AttType;
+
+{-# NEED #-}
+instance Prelude.Eq AttDef;
+
+{-# NEED #-}
+instance Prelude.Eq AttListDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Mixed;
+
+{-# NEED #-}
+instance Prelude.Eq Modifier;
+
+{-# NEED #-}
+instance Prelude.Eq CP;
+
+{-# NEED #-}
+instance Prelude.Eq ContentSpec;
+
+{-# NEED #-}
+instance Prelude.Eq ElementDecl;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Content a);
+
+{-# NEED #-}
+instance Prelude.Eq ElemTag;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Element a);
+
+{-# NEED #-}
+instance Prelude.Eq ExtSubsetDecl;
+
+{-# NEED #-}
+instance Prelude.Eq ExtSubset;
+
+{-# NEED #-}
+instance Prelude.Eq MarkupDecl;
+
+{-# NEED #-}
+instance Prelude.Eq DocTypeDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Misc;
+
+{-# NEED #-}
+instance Prelude.Eq XMLDecl;
+
+{-# NEED #-}
+instance Prelude.Eq Prolog;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Document a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Text.XML.HaXml.Types
+{-# NEED CDSect #-}
+type {-# 21 #-} CDSect = CharData;
+
+{-# NEED NmTokens #-}
+type {-# 19 #-} NmTokens = [NmToken];
+
+{-# NEED Names #-}
+type {-# 18 #-} Names = [Name];
+
+{-# NEED {ExtPE ExtPE} #-}
+data ExtPE
+  = ExtPE (Prelude.Maybe TextDecl) [ExtSubsetDecl];
+
+{-# NEED {ExtParsedEnt ExtParsedEnt} #-}
+data ExtParsedEnt a
+  = ExtParsedEnt (Prelude.Maybe TextDecl) (Content a);
+
+{-# NEED PEReference #-}
+type {-# 17 #-} PEReference = Name;
+
+{-# NEED info #-}
+info{-# 1 #-}::((Content a) -> a);
+
+{-# NEED {ElemTag ElemTag} #-}
+data ElemTag
+  = ElemTag QName [Attribute];
+
+{-# NEED {ExtSubset ExtSubset} #-}
+data ExtSubset
+  = ExtSubset (Prelude.Maybe TextDecl) [ExtSubsetDecl];
+
+{-# NEED {ExtSubsetDecl ExtMarkupDecl ExtConditionalSect} {ConditionalSect IncludeSect IgnoreSect} IncludeSect #-}
+data ExtSubsetDecl
+  = ExtMarkupDecl MarkupDecl
+  | ExtConditionalSect ConditionalSect;
+data ConditionalSect
+  = IncludeSect IncludeSect
+  | IgnoreSect IgnoreSect;
+type {-# 13 #-} IncludeSect = [ExtSubsetDecl];
+
+{-# NEED IgnoreSect #-}
+type {-# 14 #-} IgnoreSect = [IgnoreSectContents];
+
+{-# NEED {IgnoreSectContents IgnoreSectContents} #-}
+data IgnoreSectContents
+  = IgnoreSectContents Ignore [(IgnoreSectContents,Ignore)];
+
+{-# NEED {Ignore Ignore} #-}
+data Ignore
+  = Ignore ;
+
+{-# NEED {TextDecl TextDecl} #-}
+data TextDecl
+  = TextDecl (Prelude.Maybe VersionInfo) EncodingDecl;
+
+{-# NEED {Document Document} #-}
+data Document a
+  = Document Prolog (SymTab EntityDef) (Element a) [Misc];
+
+{-# NEED {Element Elem} {Content CElem CString CRef CMisc} #-}
+data Element a
+  = Elem QName [Attribute] [(Content a)];
+data Content a
+  = CElem (Element a) a
+  | CString Prelude.Bool CharData a
+  | CRef Reference a
+  | CMisc Misc a;
+
+{-# NEED CharData #-}
+type {-# 20 #-} CharData = Prelude.String;
+
+{-# NEED Attribute #-}
+type {-# 8 #-} Attribute = (QName,AttValue);
+
+{-# NEED {Prolog Prolog} #-}
+data Prolog
+  = Prolog (Prelude.Maybe XMLDecl) [Misc] (Prelude.Maybe DocTypeDecl) [Misc];
+
+{-# NEED {DocTypeDecl DTD} #-}
+data DocTypeDecl
+  = DTD QName (Prelude.Maybe ExternalID) [MarkupDecl];
+
+{-# NEED {MarkupDecl Element AttList Entity Notation MarkupMisc} #-}
+data MarkupDecl
+  = Element ElementDecl
+  | AttList AttListDecl
+  | Entity EntityDecl
+  | Notation NotationDecl
+  | MarkupMisc Misc;
+
+{-# NEED {NotationDecl NOTATION} #-}
+data NotationDecl
+  = NOTATION Name (Prelude.Either ExternalID PublicID);
+
+{-# NEED {PublicID PUBLICID} #-}
+newtype {-#  #-} PublicID
+  = PUBLICID PubidLiteral;
+
+{-# NEED {EntityDecl EntityGEDecl EntityPEDecl} #-}
+data EntityDecl
+  = EntityGEDecl GEDecl
+  | EntityPEDecl PEDecl;
+
+{-# NEED {PEDecl PEDecl} #-}
+data PEDecl
+  = PEDecl Name PEDef;
+
+{-# NEED {PEDef PEDefEntityValue PEDefExternalID} #-}
+data PEDef
+  = PEDefEntityValue EntityValue
+  | PEDefExternalID ExternalID;
+
+{-# NEED {GEDecl GEDecl} #-}
+data GEDecl
+  = GEDecl Name EntityDef;
+
+{-# NEED {EntityDef DefEntityValue DefExternalID} #-}
+data EntityDef
+  = DefEntityValue EntityValue
+  | DefExternalID ExternalID (Prelude.Maybe NDataDecl);
+
+{-# NEED {NDataDecl NDATA} #-}
+newtype {-#  #-} NDataDecl
+  = NDATA Name;
+
+{-# NEED {EntityValue EntityValue} #-}
+data EntityValue
+  = EntityValue [EV];
+
+{-# NEED {EV EVString EVRef} #-}
+data EV
+  = EVString Prelude.String
+  | EVRef Reference;
+
+{-# NEED {AttListDecl AttListDecl} #-}
+data AttListDecl
+  = AttListDecl QName [AttDef];
+
+{-# NEED {AttDef AttDef} #-}
+data AttDef
+  = AttDef QName AttType DefaultDecl;
+
+{-# NEED {DefaultDecl REQUIRED IMPLIED DefaultTo} #-}
+data DefaultDecl
+  = REQUIRED 
+  | IMPLIED 
+  | DefaultTo AttValue (Prelude.Maybe FIXED);
+
+{-# NEED {FIXED FIXED} #-}
+data FIXED
+  = FIXED ;
+
+{-# NEED {AttValue AttValue} #-}
+data AttValue
+  = AttValue [(Prelude.Either Prelude.String Reference)];
+
+{-# NEED {Reference RefEntity RefChar} #-}
+data Reference
+  = RefEntity EntityRef
+  | RefChar CharRef;
+
+{-# NEED CharRef #-}
+type {-# 16 #-} CharRef = Prelude.Int;
+
+{-# NEED EntityRef #-}
+type {-# 15 #-} EntityRef = Name;
+
+{-# NEED {AttType StringType TokenizedType EnumeratedType} #-}
+data AttType
+  = StringType 
+  | TokenizedType TokenizedType
+  | EnumeratedType EnumeratedType;
+
+{-# NEED {EnumeratedType NotationType Enumeration} #-}
+data EnumeratedType
+  = NotationType NotationType
+  | Enumeration Enumeration;
+
+{-# NEED Enumeration #-}
+type {-# 12 #-} Enumeration = [NmToken];
+
+{-# NEED NmToken #-}
+type {-# 11 #-} NmToken = Prelude.String;
+
+{-# NEED NotationType #-}
+type {-# 10 #-} NotationType = [Name];
+
+{-# NEED {TokenizedType ID IDREF IDREFS ENTITY ENTITIES NMTOKEN NMTOKENS} #-}
+data TokenizedType
+  = ID 
+  | IDREF 
+  | IDREFS 
+  | ENTITY 
+  | ENTITIES 
+  | NMTOKEN 
+  | NMTOKENS ;
+
+{-# NEED {ElementDecl ElementDecl} #-}
+data ElementDecl
+  = ElementDecl QName ContentSpec;
+
+{-# NEED {ContentSpec EMPTY ANY Mixed ContentSpec} #-}
+data ContentSpec
+  = EMPTY 
+  | ANY 
+  | Mixed Mixed
+  | ContentSpec CP;
+
+{-# NEED {CP TagName Choice Seq} #-}
+data CP
+  = TagName QName Modifier
+  | Choice [CP] Modifier
+  | Seq [CP] Modifier;
+
+{-# NEED {Modifier None Query Star Plus} #-}
+data Modifier
+  = None 
+  | Query 
+  | Star 
+  | Plus ;
+
+{-# NEED {Mixed PCDATA PCDATAplus} #-}
+data Mixed
+  = PCDATA 
+  | PCDATAplus [QName];
+
+{-# NEED {ExternalID SYSTEM PUBLIC} #-}
+data ExternalID
+  = SYSTEM SystemLiteral
+  | PUBLIC PubidLiteral SystemLiteral;
+
+{-# NEED {PubidLiteral PubidLiteral} #-}
+newtype {-#  #-} PubidLiteral
+  = PubidLiteral Prelude.String;
+
+{-# NEED {SystemLiteral SystemLiteral} #-}
+newtype {-#  #-} SystemLiteral
+  = SystemLiteral Prelude.String;
+
+{-# NEED {QName N QN} #-}
+data QName
+  = N Name
+  | QN Namespace Name;
+
+{-# NEED {Namespace Namespace nsPrefix nsURI} #-}
+data Namespace
+  = Namespace {nsPrefix :: Prelude.String} {nsURI :: Prelude.String};
+
+{-# NEED Name #-}
+type {-# 9 #-} Name = Prelude.String;
+
+{-# NEED {Misc Comment PI} #-}
+data Misc
+  = Comment Comment
+  | PI ProcessingInstruction;
+
+{-# NEED ProcessingInstruction #-}
+type {-# 4 #-} ProcessingInstruction = (PITarget,Prelude.String);
+
+{-# NEED PITarget #-}
+type {-# 3 #-} PITarget = Prelude.String;
+
+{-# NEED Comment #-}
+type {-# 7 #-} Comment = Prelude.String;
+
+{-# NEED {XMLDecl XMLDecl} #-}
+data XMLDecl
+  = XMLDecl VersionInfo (Prelude.Maybe EncodingDecl) (Prelude.Maybe SDDecl);
+
+{-# NEED SDDecl #-}
+type {-# 5 #-} SDDecl = Prelude.Bool;
+
+{-# NEED {EncodingDecl EncodingDecl} #-}
+newtype {-#  #-} EncodingDecl
+  = EncodingDecl Prelude.String;
+
+{-# NEED VersionInfo #-}
+type {-# 6 #-} VersionInfo = Prelude.String;
+
+{-# NEED lookupST #-}
+lookupST{-# 0 #-}::(Prelude.String -> ((SymTab a) -> (Prelude.Maybe a)));
+
+{-# NEED addST #-}
+addST{-# 2 #-}::(Prelude.String -> (a -> ((SymTab a) -> (SymTab a))));
+
+{-# NEED emptyST #-}
+emptyST{-# 0 #-}::(SymTab a);
+
+{-# NEED SymTab #-}
+type {-# 2 #-} SymTab a = [(Prelude.String,a)];
+}

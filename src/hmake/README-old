@@ -1,0 +1,12 @@
+This file describes how to build hmake version 0.2.0 for Haskell 1.3.
+The other files "README-1.[23]" give instructions for older versions of
+this tool.
+
+Unix:
+ *  Change the shell script hmake according to your preferred
+    installation directories.
+ *  Compile NhcMk and Older, preferably with `make all'. It is
+    now possible to compile using either nhc13 or hbc.
+ *  Place NhcMk and Older in the nhc13 library (done for you if you use
+    `make install').
+

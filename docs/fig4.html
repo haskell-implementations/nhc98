@@ -1,0 +1,103 @@
+<table borderwidth=0 border=1>
+  <tr>
+    <th align=left>
+      standard DIS
+    </th><th align=left>
+      Haskell type
+    </th><th align=left>
+      C type
+    </th><th align=left>
+      comments
+    </th>
+  </tr><tr>
+    <td align=left>
+      int i
+    </td><td align=left>
+      Int
+    </td><td align=left>
+      <tt>int</tt>
+    </td><td align=left>
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      char c
+    </td><td align=left>
+      Char
+    </td><td align=left>
+      <tt>char</tt>
+    </td><td align=left>
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      bool b
+    </td><td align=left>
+      Bool
+    </td><td align=left>
+      <tt>int</tt>
+    </td><td align=left>
+      0 for False, 1 for True
+    </td>
+  </tr><tr>
+    <td align=left>
+      float f
+    </td><td align=left>
+      Float
+    </td><td align=left>
+      <tt>float</tt>
+    </td><td align=left>
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      double d
+    </td><td align=left>
+      Double
+    </td><td align=left>
+      <tt>double</tt>
+    </td><td align=left>
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      string s
+    </td><td align=left>
+      String
+    </td><td align=left>
+      <tt>char*</tt>
+    </td><td align=left>
+      Persistence not required in either direction
+    </td>
+  </tr><tr>
+    <td align=left>
+      addr a
+    </td><td align=left>
+      Addr
+    </td><td align=left>
+      <tt>void*</tt>
+    </td><td align=left>
+      An immovable C address
+    </td>
+  </tr><tr>
+    <td align=left>
+      foreign f r
+    </td><td align=left>
+      ForeignObj
+    </td><td align=left>
+      <tt>void*</tt>
+    </td><td align=left>
+      r is the finalisation routine
+    </td>
+  </tr><tr>
+    <td align=left>
+      stable s
+    </td><td align=left>
+      a
+    </td><td align=left>
+      <tt>HaskellRef</tt>
+    </td><td align=left>
+      HaskellRef is just an index into the stable pointer table.
+    </td>
+  </tr>
+</table>

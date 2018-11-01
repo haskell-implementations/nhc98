@@ -1,0 +1,10 @@
+module NHC.BinArray
+  ( {-type-} UnboxedArray(..)
+  ) where
+
+import NHC.GreenCard
+
+newtype UnboxedArray = UBA ForeignObj
+%dis unboxedArray uba = declare "UBA" uba in 
+%                       UBA (foreign "finaliseUBA" uba)
+

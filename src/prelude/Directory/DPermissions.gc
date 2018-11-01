@@ -1,0 +1,11 @@
+module Directory (Permissions(..),fromPerm,toPerm) where
+
+data Permissions = Permissions {
+    readable, writable, executable, searchable :: Bool
+    } deriving (Eq, Ord, Read, Show)
+
+
+%dis perms r w x s = <fromPerm/toPerm> (bool r) (bool w) (bool x) (bool s)
+fromPerm (Permissions r w x s) = (r, w, x, s)
+toPerm   (r, w, x, s)          = (Permissions r w x s)
+

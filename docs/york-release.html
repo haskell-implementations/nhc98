@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Release 1.18 of nhc98</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>Release 1.18 of nhc98</h1></center>
+
+<hr>
+
+<h3>Should I use nhc98 or yhc?</h3>
+<a href="http://haskell.org/yhc">Yhc</a> is an offshoot of nhc98, with
+considerable improvements to the clarity of the implementation code.
+It is intended to be faster and better than nhc98.  However, the project
+is still incomplete, and you should be aware that, in the meantime,
+<ul>
+<li> nhc98's build system is much more robust than Yhc's.  It is more
+     likely to just work first time (unless you happen to want to build
+     your compiler on Windows without mingw, and using MS VC++, in which
+     case Yhc is definitely the way to go.)
+<li> nhc98 correctly builds more programs than Yhc.  Mainly, Yhc is
+     missing many standard libraries.
+<li> nhc98-built programs run on average 20-40% faster than Yhc-built
+     programs.  In theory, Yhc should be faster, because Yhc executes
+     fewer bytecodes, and they are simpler, but in practice nhc98 still
+     wins.  See the
+     <a href="http://www.cse.unsw.edu.au/~dons/nobench.html">nobench results</a>.
+</ul>
+
+<h3>Why use the <em>nhc98</em> Haskell compiler?</h3>
+
+<dl>
+<dt><em>Because it is easy to install.</em></dt>
+<dd><em>nhc98</em> is very easy to configure and build, even for new machines
+  which have never seen a Haskell compiler before, and it copes with
+  Unix, Windows, and MacOS X without difficulty.</dd>
+
+<dt><em>Because you have a small machine.</em></dt>
+<dd>  <em>nhc98</em> is designed for space-efficiency.  Compile the same
+  program under either <em>ghc</em> or <em>hbc</em>, and compare it with
+  that produced by <em>nhc98</em>.  Generally, <em>nhc98</em> produces
+  much smaller executables, and runtime space usage is also
+  <em>very</em> much smaller.  (With the <em>nhc98</em> Binary library [1]
+  you can compress your heap data in addition to the normal savings.)
+  Expect to pay a speed penalty though - programs produced by
+  <em>nhc98</em> run between 2x and 6x slower than with <em>ghc</em>
+  or <em>hbc</em> (although they are still up to 15x faster than
+  <em>Hugs</em>).</dd>
+
+<dt><em>Because you're a software developer.</em></dt>
+<dd> nhc98 comes with comprehensive tool support - hmake, hi, greencard,
+  heap and time profiling, and <em>two</em> debuggers.
+  Are you fed up waiting for <em>ghc</em> to compile your programs?
+  <em>nhc98</em> can be pretty quick at compiling, even though it
+  is not as fast as <em>hbc</em>.  For development work, it can also
+  provide a useful check that you are sticking to the Haskell 98
+  standard and avoiding compiler-specific extensions.</dd>
+
+<dt><em>Because your programs have strange space behaviour.</em></dt>
+<dd>
+  <em>nhc98</em> has the most advanced heap profiler in the Haskell
+  world [2], allowing you to observe in very fine detail exactly what is
+  happening to the heap.  Profile types include producer, construction,
+  retainer, biography, and lifetime - and any combination thereof.</dd>
+
+<dt><em>Because your program crashes, or produces the wrong output.</em></dt>
+<dd>
+  <em>nhc98</em> has <em>two</em> sets of debugging facilities.
+  First, Andy Gill's <a href="http://www.haskell.org/hood/">HOOD</a>
+  library together with his XML-based debugging browser.
+  Second, York's advanced
+  <a href="http://www.haskell.org/hat/"><em>Hat</em></a> tracing system
+  based on augmented redex trails [2,3], which gives you much, much more.
+  The Hat system (distributed separately from nhc98) provides three different
+  and complementary browsing tools for exploring the runtime behaviour
+  of your program.
+  </dd>
+
+</dl>
+
+
+<h4>References</h4>
+<p>
+[1] The Bits Between The Lambdas - Binary Data in a Lazy Functional Language,
+    Malcolm Wallace and Colin Runciman, Proceedings of the International
+    Symposium on Memory Management, Vancouver, Oct 1998.
+    [<a href="ftp://ftp.cs.york.ac.uk/pub/malcolm/ismm98.html">FTP site</a>]
+
+<p>
+[2] Heap Profiling for Space Efficiency, Colin Runciman and Niklas R&ouml;jemo,
+    2nd Intl School on Advanced Functional Programming, pp.159-183,
+    Springer LNCS 1129, Olympia WA, Aug 1996.
+    [<a href="ftp://ftp.cs.york.ac.uk/pub/colin/advfp96.ps.gz">FTP site</a>]
+
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.haskell.org/nhc98/">
+<tt>http://www.haskell.org/nhc98/</tt></a>
+
+<p>
+This page last updated: 28th Feb 2007<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+
+</td></tr></table>
+</body></html>
+

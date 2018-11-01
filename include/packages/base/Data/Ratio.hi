@@ -1,0 +1,69 @@
+interface Data.Ratio where {
+infixl  7 Ratio.%;
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! Ratio
+{-# NEED approxRational #-}
+approxRational{-# 2 #-}::(Prelude.RealFrac a) => (a -> (a -> Ratio.Rational));
+
+{-# NEED Rational #-}
+type {-# 1 #-} Rational = (Ratio.Ratio Prelude.Integer);
+
+{-# NEED (%) #-}
+(%){-# 2 #-}::(Prelude.Integral a) => (a -> (a -> (Ratio.Ratio a)));
+
+{-# NEED denominator #-}
+denominator{-# 1 #-}::(Prelude.Integral a) => ((Ratio.Ratio a) -> a);
+
+{-# NEED numerator #-}
+numerator{-# 1 #-}::(Prelude.Integral a) => ((Ratio.Ratio a) -> a);
+
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+}

@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Hat - a Haskell tracer for nhc98</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>Hat - a Haskell tracer for nhc98</h1></center>
+
+<hr>
+
+<p>
+<em>Hat</em>, the nhc98 tracer, is applicable to a wide class of Haskell
+computations, including those that:
+<ol>
+<li> run to completion producing output, though perhaps not the
+    output expected; <i>or</i>
+<li> halt with a run-time error, such as a pattern-matching
+    failure or a black hole; <i>or</i>
+<li> appear to be stuck in an a recursive loop, whether or not
+    output is being produced.
+</ol>
+
+
+<h3> To obtain a trace of a computation: </h3>
+
+<ol>
+<li>
+    Compile all modules of the program with the <tt>-T</tt> option;
+    also specify <tt>-T</tt> at link-time.  Using <tt>hmake -T</tt> does
+    all the necessary compiling and linking automatically.
+<p>
+<li>
+    Run the program.
+    <p>
+    If the program halts, any normal output from the program will
+    be followed by a summary line indicating whether it terminated
+    correctly or if there was an error.  The trace is
+    now available in a file called <tt>&lt;program&gt;.<em>hat</em></tt>.
+    <p>
+    If it seems the program is stuck in an unproductive loop
+    force it to halt by keying an interrupt (usually <i>ctrl</i>-<tt>C</tt>).
+<p>
+<li>
+    This is now a variety of tools you can use to explore this trace.
+
+</ol>
+
+<h3> To explore a trace using the <tt>hat-trail</tt> browser </h3>
+
+<ol>
+<li>
+    If there is not already a trace browser running, start
+    one by giving the shell command <tt>hat-trail</tt>, optionally
+    adding the name of the program whose trail you wish to browse.
+<p>
+<li>
+    ****<br>Wrong here<br>****<br>
+    With a traced Haskell program in the trace-available
+    state, click over the `connect' button in the upper part
+    of the trace-browser window.  
+    <p>
+    Any program output is shown in the lower panel of the
+    trace browser.  Clicking over a section of the output causes a
+    parent expression for that output to be displayed in the upper trace
+    panel.  There is one section of output for each monadic output
+    operation performed by the program, and any currently selected
+    section is shown in blue.
+    <p>
+    If a run-time error has occurred, or the computation has been interrupted,
+    the initial trace panel displays the expression under
+    evaluation at the time.
+<p>
+<li>
+    Moving the mouse over expressions in the trace panel causes
+    the display of various forms of highlighting.  The most important
+    ones are:
+
+    <ol>
+    <li> a red box highlights any currently-selected subexpression <i>S</i>;
+    <li> expressions with the same parent as <i>S</i> (siblings) are shown in blue; however, subexpressions of these siblings which have a different parent are not shown in blue;
+    <li> if the parent redex of <i>S</i> is already on display it is shown
+         with a background highlight in yellow.
+    </ol>
+<p>
+<li>
+    Beyond the normal syntax for Haskell expressions, five special
+    symbols may occur in trace expressions:
+    <p>
+    <table>
+    <tr valign=top> <td> <em>bottom</em> </td>
+                    <td> the undefined value, as usual; </td>
+    </tr>
+    <tr valign=top> <td> <em>empty box</em> </td>
+                    <td> a placeholder for a subexpression suppressed for
+                         the time-being (eg. to avoid over-wide displays); </td>
+    </tr>
+    <tr valign=top> <td> <em>slant box</em> </td>
+                    <td> a placeholder for an expression that
+                         is not available because it is part of a
+                         <i>trusted</i> computation not recorded in
+                         the trace -- however, the parent redex
+                         is available; </td>
+    </tr>
+    <tr valign=top> <td> <em>cross box</em> </td>
+                    <td> a placeholder for an expression that
+                         is not available -- nor are its ancestral
+                         redexes, as they have been
+                         <i>pruned</i> from the trace; </td>
+    </tr>
+    <tr valign=top> <td> <em>within</em> </td>
+                    <td> shown between the values of case
+                         subjects, conditions or guards and those of
+                         the expressions they belong to. </td>
+    </tr>
+    </table>
+    <p>
+    Mouse clicks in the trace panel have the following effects:
+    <p>
+    <table>
+    <tr valign=top> <td> left: </td>
+                    <td> show the parent redex of <i>S</i>, if any;
+		         (<i>or</i>, if the parent is already on
+                         display, remove it along with any of its
+                         ancestors also on display) </td>
+    </tr>
+    <tr valign=top> <td> middle: </td>
+                    <td> if <i>S</i> is a place-holder, expand it;
+		         (<i>or</i>, if not, contract <i>S</i> to a
+                         place-holder) </td>
+    </tr>
+    <tr valign=top> <td> right: </td>
+                    <td> show where <i>S</i> originates in the
+                         source program, displayed in lower panel.
+                         (If <i>S</i> is a name, a plain right-click
+                         requests the corresponding point of use,
+                         but shift-right-click requests the
+                         definition.) </td>
+    </tr>
+    </table>
+</ol>
+
+<h3> Partial traces (avoiding detail and saving space) </h3>
+
+There are two ways to specify a partial trace:
+<p>
+<ol>
+<li>   
+   <i>Trusting:</i> details of computation within specified modules or
+   functions are omitted from the trace.  The choice of which
+   components to trust and which to suspect can be made at
+   compile-time but can also be altered at run-time.
+   <p>
+   At compile-time, use <tt>-T -trusted</tt> to compile a trusted module. 
+   <p>
+   At run-time, after <tt>+RTS</tt> alter the compile-time specification
+   of trusted modules or functions by <tt>-dt</tt> <i>name</i>, or suspected
+   ones by <tt>-ds</tt> <i>name</i>.  Name functions in full with the
+   module name as prefix: for example, <tt>-ds BinaryTree.Delete</tt>.
+   <p>
+   The flags <tt>-dtr</tt> and <tt>-dsr</tt> can be used to trust or suspect
+   not only the
+   named module but also all other modules that it (recursively)
+   depends on.
+   <p>
+   By default only the <tt>Prelude</tt> is trusted.
+   <p>
+<li>
+   <i>Pruning:</i>at each garbage collection, trace structure more
+   than a specified distance <i>k</i> from all continuing evaluation points
+   is discarded.  Any pruning is specified at run-time: for example,
+   <tt>+RTS -dk2 -RTS</tt>.
+   Just using <tt>+RTS -dk -RTS</tt> prunes the trace structure to free just
+   enough space to continue computation.
+   <p>
+   By default there is no pruning.
+</ol>
+
+<h3> Four limiting factors </h3>
+
+<ol>
+<li>
+  The tracer does not currently handle programs involving
+  I/O other than to standard input and/or standard output.
+<li>
+  List comprehensions are traced in terms of their explicit
+  translations to higher-order function applications.
+<li>
+  Traced execution can take 10-30 times longer than normal.
+<li>
+  Traced execution without pruning requires heap memory in
+  rough proportion to the length of the computation.
+  (As a rough rule of thumb, 100 bytes of heap memory are
+  required for each traced reduction.)
+</ol>
+We plan to address all four of these limitations in future versions.
+<p>
+
+
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.haskell.org/nhc98/">
+<tt>http://www.haskell.org/nhc98/</tt></a>
+
+<p>
+27th April 2001<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+Colin.Runciman@cs.york.ac.uk
+
+</td></tr></table>
+</body></html>
+

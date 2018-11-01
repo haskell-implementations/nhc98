@@ -1,0 +1,385 @@
+interface Data.Traversable where {
+
+{-# NEED #-}
+instance Control.Monad.Fix.MonadFix NHC.Internal.IO;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.Internal.IO;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Ratio.Ratio;
+
+{-# NEED #-}
+instance (Ix.Ix a) => Traversable (Array.Array a);
+
+{-# NEED #-}
+instance Traversable Prelude.Maybe;
+
+{-# NEED #-}
+instance Traversable Prelude.[];
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Integer;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Char;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Bool;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Int;
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b) => Ix.Ix (a,b);
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Ordering;
+
+{-# NEED #-}
+instance (Control.Monad.MonadPlus a) => Control.Applicative.Alternative (Control.Applicative.WrappedMonad a);
+
+{-# NEED #-}
+instance Control.Applicative.Alternative Prelude.Maybe;
+
+{-# NEED #-}
+instance Control.Applicative.Alternative Prelude.[];
+
+{-# NEED #-}
+instance Prelude.Functor Id;
+
+{-# NEED #-}
+instance Prelude.Functor (StateR a);
+
+{-# NEED #-}
+instance Prelude.Functor (StateL a);
+
+{-# NEED #-}
+instance (Ix.Ix a) => Prelude.Functor (Array.Array a);
+
+{-# NEED #-}
+instance Prelude.Functor (Control.Applicative.Const a);
+
+{-# NEED #-}
+instance (Prelude.Monad a) => Prelude.Functor (Control.Applicative.WrappedMonad a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Control.Applicative.Applicative Id;
+
+{-# NEED #-}
+instance Control.Applicative.Applicative (StateR a);
+
+{-# NEED #-}
+instance Control.Applicative.Applicative (StateL a);
+
+{-# NEED #-}
+instance Control.Applicative.Applicative (Prelude.Either a);
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a) => Control.Applicative.Applicative (Control.Applicative.Const a);
+
+{-# NEED #-}
+instance (Prelude.Monad a) => Control.Applicative.Applicative (Control.Applicative.WrappedMonad a);
+
+{-# NEED #-}
+instance Control.Applicative.Applicative NHC.Internal.IO;
+
+{-# NEED #-}
+instance Control.Applicative.Applicative Prelude.Maybe;
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a) => Control.Applicative.Applicative ((,) a);
+
+{-# NEED #-}
+instance Control.Applicative.Applicative Prelude.[];
+
+{-# NEED #-}
+instance Control.Applicative.Applicative ( (->) a);
+
+{-# NEED #-}
+instance (Ix.Ix a) => Data.Foldable.Foldable (Array.Array a);
+
+{-# NEED #-}
+instance Data.Foldable.Foldable Prelude.Maybe;
+
+{-# NEED #-}
+instance Data.Foldable.Foldable Prelude.[];
+
+{-# NEED #-}
+instance (Prelude.Bounded a) => Prelude.Bounded (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance (Prelude.Bounded a) => Prelude.Bounded (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance Prelude.Bounded Data.Monoid.Any;
+
+{-# NEED #-}
+instance Prelude.Bounded Data.Monoid.All;
+
+{-# NEED #-}
+instance (Prelude.Bounded a) => Prelude.Bounded (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Ord b) => Prelude.Ord (Array.Array a b);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance Prelude.Ord Data.Monoid.Any;
+
+{-# NEED #-}
+instance Prelude.Ord Data.Monoid.All;
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Eq b) => Prelude.Eq (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance Prelude.Eq Data.Monoid.Any;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Monoid.All;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Show a,Prelude.Show b) => Prelude.Show (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance Prelude.Show Data.Monoid.Any;
+
+{-# NEED #-}
+instance Prelude.Show Data.Monoid.All;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Read a,Prelude.Read b) => Prelude.Read (Array.Array a b);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance Prelude.Read Data.Monoid.Any;
+
+{-# NEED #-}
+instance Prelude.Read Data.Monoid.All;
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable IO.Handle;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Num a) => Data.Monoid.Monoid (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance (Prelude.Num a) => Data.Monoid.Monoid (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance Data.Monoid.Monoid Data.Monoid.Any;
+
+{-# NEED #-}
+instance Data.Monoid.Monoid Data.Monoid.All;
+
+{-# NEED #-}
+instance Data.Monoid.Monoid (Data.Monoid.Endo a);
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a) => Data.Monoid.Monoid (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a) => Data.Monoid.Monoid (Prelude.Maybe a);
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a,Data.Monoid.Monoid b) => Data.Monoid.Monoid (a,b);
+
+{-# NEED #-}
+instance Data.Monoid.Monoid ();
+
+{-# NEED #-}
+instance Data.Monoid.Monoid Prelude.Ordering;
+
+{-# NEED #-}
+instance Data.Monoid.Monoid [a];
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid b) => Data.Monoid.Monoid (a -> b);
+interface Control.Monad
+{-# NEED #-}
+class MonadPlus a;
+interface Data.Traversable
+{-# NEED Id #-}
+newtype {-#  #-} Id a;
+
+{-# NEED StateR #-}
+newtype {-#  #-} StateR a b;
+
+{-# NEED StateL #-}
+newtype {-#  #-} StateL a b;
+interface Control.Applicative
+{-# NEED Const #-}
+newtype {-#  #-} Const a b;
+
+{-# NEED WrappedMonad #-}
+newtype {-#  #-} WrappedMonad a b;
+interface Array
+{-# NEED Array #-}
+data (Ix.Ix a) => Array a b;
+interface Ix
+{-# NEED Ix #-}
+class (Prelude.Ord a) => Ix a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Data.Typeable
+{-# NEED Typeable #-}
+class Typeable a;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface Data.Monoid
+{-# NEED Product #-}
+newtype {-#  #-} Product a;
+
+{-# NEED Sum #-}
+newtype {-#  #-} Sum a;
+
+{-# NEED Any #-}
+newtype {-#  #-} Any;
+
+{-# NEED All #-}
+newtype {-#  #-} All;
+
+{-# NEED Endo #-}
+newtype {-#  #-} Endo a;
+
+{-# NEED Dual #-}
+newtype {-#  #-} Dual a;
+interface ! Data.Traversable
+{-# NEED foldMapDefault #-}
+foldMapDefault{-# 1 #-}::(Traversable c,Data.Monoid.Monoid b) => ((a -> b) -> ((c a) -> b));
+interface Data.Monoid
+{-# NEED Monoid #-}
+class Monoid a;
+interface ! Data.Traversable
+{-# NEED fmapDefault #-}
+fmapDefault{-# 1 #-}::(Traversable c) => ((a -> b) -> ((c a) -> (c b)));
+
+{-# NEED mapAccumR #-}
+mapAccumR{-# 3 #-}::(Traversable d) => ((a -> (b -> (a,c))) -> (a -> ((d b) -> (a,(d c)))));
+
+{-# NEED mapAccumL #-}
+mapAccumL{-# 3 #-}::(Traversable d) => ((a -> (b -> (a,c))) -> (a -> ((d b) -> (a,(d c)))));
+
+{-# NEED forM #-}
+forM{-# 0 #-}::(Traversable a,Prelude.Monad c) => ((a b) -> ((b -> (c d)) -> (c (a d))));
+
+{-# NEED for #-}
+for{-# 0 #-}::(Traversable a,Control.Applicative.Applicative c) => ((a b) -> ((b -> (c d)) -> (c (a d))));
+
+{-# NEED {Traversable traverse sequenceA mapM sequence} #-}
+class (Prelude.Functor a,Data.Foldable.Foldable a) => Traversable a where {
+  traverse{-# 2 #-}::(Control.Applicative.Applicative c) => ((b -> (c d)) -> ((a b) -> (c (a d))));
+  sequenceA{-# 1 #-}::(Control.Applicative.Applicative b) => ((a (b c)) -> (b (a c)));
+  mapM{-# 2 #-}::(Prelude.Monad c) => ((b -> (c d)) -> ((a b) -> (c (a d))));
+  sequence{-# 1 #-}::(Prelude.Monad b) => ((a (b c)) -> (b (a c)));
+};
+interface Control.Applicative
+{-# NEED Applicative #-}
+class (Prelude.Functor a) => Applicative a;
+interface Data.Foldable
+{-# NEED Foldable #-}
+class Foldable a;
+}

@@ -1,0 +1,79 @@
+interface Text.Show where {
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! Text.Show
+{-# NEED showListWith #-}
+showListWith{-# 0 #-}::((a -> Prelude.ShowS) -> ([a] -> Prelude.ShowS));
+interface ! Prelude
+{-# NEED shows #-}
+shows{-# 0 #-}::(Prelude.Show a) => (a -> Prelude.ShowS);
+
+{-# NEED {Show showsPrec showList showsType show} #-}
+class Show a where {
+  showsPrec{-# 2 #-}::(Prelude.Int -> (a -> Prelude.ShowS));
+  showList{-# 1 #-}::([a] -> Prelude.ShowS);
+  showsType{-# 1 #-}::(a -> Prelude.ShowS);
+  show{-# 1 #-}::(a -> Prelude.String);
+};
+
+{-# NEED showChar #-}
+showChar{-# 0 #-}::(Prelude.Char -> Prelude.ShowS);
+
+{-# NEED showParen #-}
+showParen{-# 2 #-}::(Prelude.Bool -> (Prelude.ShowS -> Prelude.ShowS));
+
+{-# NEED showString #-}
+showString{-# 0 #-}::(Prelude.String -> Prelude.ShowS);
+
+{-# NEED ShowS #-}
+type {-# 2 #-} ShowS = (String -> String);
+}

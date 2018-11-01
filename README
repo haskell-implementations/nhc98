@@ -1,0 +1,20 @@
+If you have just got hold of a copy of the darcs repository, you will
+need to run "sh start" before proceeding.
+
+A lot of useful information is in the docs directory, all in html format.
+This includes configuration, installation, and usage instructions.
+
+Start by pointing your web browser at the file
+    docs/index.html
+
+Updates to the documentation and new releases of the software are
+available from
+
+    http://www.haskell.org/nhc98/
+    http://www.haskell.org/hmake/
+and also at
+    http://www.cs.york.ac.uk/fp/nhc98/
+    http://www.cs.york.ac.uk/fp/hmake/
+
+
+Malcolm.Wallace@cs.york.ac.uk

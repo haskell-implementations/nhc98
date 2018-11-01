@@ -1,0 +1,110 @@
+interface Text.ParserCombinators.Poly.Base where {
+infixl  3 `discard`;
+infixl  3 `apply`;
+infixl  6 `onFail`;
+
+{-# NEED #-}
+instance PolyParse Prelude.[];
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! Text.ParserCombinators.Poly.Base
+{-# NEED manyFinally #-}
+manyFinally{-# 2 #-}::(PolyParse a) => ((a b) -> ((a c) -> (a [b])));
+
+{-# NEED bracket #-}
+bracket{-# 3 #-}::(PolyParse a) => ((a b) -> ((a c) -> ((a d) -> (a d))));
+
+{-# NEED bracketSep #-}
+bracketSep{-# 4 #-}::(PolyParse a) => ((a b) -> ((a c) -> ((a d) -> ((a e) -> (a [e])))));
+
+{-# NEED sepBy1 #-}
+sepBy1{-# 2 #-}::(PolyParse a) => ((a b) -> ((a c) -> (a [b])));
+
+{-# NEED sepBy #-}
+sepBy{-# 2 #-}::(PolyParse a) => ((a b) -> ((a c) -> (a [b])));
+
+{-# NEED many1 #-}
+many1{-# 1 #-}::(PolyParse a) => ((a b) -> (a [b]));
+
+{-# NEED many #-}
+many{-# 1 #-}::(PolyParse a) => ((a b) -> (a [b]));
+
+{-# NEED exactly #-}
+exactly{-# 2 #-}::(PolyParse a) => (Prelude.Int -> ((a b) -> (a [b])));
+
+{-# NEED optional #-}
+optional{-# 1 #-}::(PolyParse a) => ((a b) -> (a (Prelude.Maybe b)));
+
+{-# NEED indent #-}
+indent{-# 1 #-}::(Prelude.Int -> (Prelude.String -> Prelude.String));
+
+{-# NEED oneOf #-}
+oneOf{-# 1 #-}::(PolyParse a) => ([(a b)] -> (a b));
+
+{-# NEED adjustErrBad #-}
+adjustErrBad{-# 2 #-}::(PolyParse a) => ((a b) -> ((Prelude.String -> Prelude.String) -> (a b)));
+
+{-# NEED discard #-}
+discard{-# 2 #-}::(PolyParse a) => ((a b) -> ((a c) -> (a b)));
+
+{-# NEED failBad #-}
+failBad{-# 1 #-}::(PolyParse a) => (Prelude.String -> (a b));
+
+{-# NEED {PolyParse apply commit adjustErr onFail oneOf'} #-}
+class (Prelude.Functor a,Prelude.Monad a) => PolyParse a where {
+  apply{-# 2 #-}::((a (b -> c)) -> ((a b) -> (a c)));
+  commit{-# 1 #-}::((a b) -> (a b));
+  adjustErr{-# 2 #-}::((a b) -> ((Prelude.String -> Prelude.String) -> (a b)));
+  onFail{-# 2 #-}::((a b) -> ((a b) -> (a b)));
+  oneOf'{-# 1 #-}::([(Prelude.String,(a b))] -> (a b));
+};
+}

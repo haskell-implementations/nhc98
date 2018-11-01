@@ -1,0 +1,14 @@
+Some useful information is in the docs/hmake directory, all in html format.
+This includes configuration, installation, and usage instructions.
+
+Start by pointing your web browser at the file
+    docs/hmake/index.html
+
+See also the files INSTALL and COPYRIGHT.
+
+Updates to the documentation and new releases of the software are
+available from
+
+    http://www.cs.york.ac.uk/fp/hmake/
+
+Malcolm.Wallace@cs.york.ac.uk

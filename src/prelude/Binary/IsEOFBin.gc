@@ -1,0 +1,21 @@
+module NHC.Binary
+  ( isEOFBin
+  ) where
+
+import NHC.GreenCard
+import BinHandle ({-type-}BinHandle(..))
+
+%-#include "cLowBinary.h"
+
+%fun isEOFBin :: BinHandle -> IO Bool
+%call (binHandle bh)
+%code
+%  if (bh->file)
+%    b = bh->cptr >= 8*(CACHESIZE-bh->attrib.eof);
+%  else
+%    b = bh->adjust.here + (bh->cptr/8) >= bh->attrib.size;
+%result (bool b)
+
+-- This could return the wrong result.  Check whether the underlying
+-- C routines reset the eof flag correctly following a forceCacheTo
+-- (or other) movement.  Checked OK 980325.

@@ -1,0 +1,26 @@
+#!/bin/sh
+#	simple redirection script to find the correct executable
+#	for this machine architecture
+#	(also ensures that hi's config is identical to hmake)
+SCRIPTDIR=${SCRIPTDIR-ScriptDir}
+HMAKEDIR=${HMAKEDIR-ExecutableDir}
+HMAKECONFDIR=${HMAKECONFDIR-ConfDir}
+MACHINE=${MACHINE-"`$SCRIPTDIR/harch`"}
+INSTALLVER="InstallVer"
+export MACHINE INSTALLVER HMAKEDIR HMAKECONFDIR SCRIPTDIR
+
+if [ ! -d $HMAKEDIR/$MACHINE ]
+then
+  echo "`basename $0` is not installed/configured for $MACHINE."
+  echo "  See your system administrator, or install it yourself from"
+  echo "  http://www.cs.york.ac.uk/fp/hmake/"
+  exit 1
+fi
+
+case $MACHINE in
+  ix86-CYGWIN*) CYGSHELL=`cygpath -w $SHELL | tr "\\\\\\\\" "/"`
+                export CYGSHELL;;
+esac
+
+# Now let's get started.
+exec $HMAKEDIR/$MACHINE/HInteractive $@

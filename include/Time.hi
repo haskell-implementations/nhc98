@@ -1,0 +1,152 @@
+interface Time where {
+
+{-# NEED #-}
+instance Prelude.Bounded Month;
+
+{-# NEED #-}
+instance Prelude.Bounded Day;
+
+{-# NEED #-}
+instance Ix.Ix Month;
+
+{-# NEED #-}
+instance Ix.Ix Day;
+
+{-# NEED #-}
+instance Prelude.Read TimeDiff;
+
+{-# NEED #-}
+instance Prelude.Read Month;
+
+{-# NEED #-}
+instance Prelude.Read Day;
+
+{-# NEED #-}
+instance Prelude.Read CalendarTime;
+
+{-# NEED #-}
+instance Prelude.Show Locale.TimeLocale;
+
+{-# NEED #-}
+instance Prelude.Show TimeDiff;
+
+{-# NEED #-}
+instance Prelude.Show Month;
+
+{-# NEED #-}
+instance Prelude.Show Day;
+
+{-# NEED #-}
+instance Prelude.Show CalendarTime;
+
+{-# NEED #-}
+instance Prelude.Show ClockTime;
+
+{-# NEED #-}
+instance Prelude.Enum Month;
+
+{-# NEED #-}
+instance Prelude.Enum Day;
+
+{-# NEED #-}
+instance Prelude.Eq Locale.TimeLocale;
+
+{-# NEED #-}
+instance Prelude.Eq TimeDiff;
+
+{-# NEED #-}
+instance Prelude.Eq Month;
+
+{-# NEED #-}
+instance Prelude.Eq Day;
+
+{-# NEED #-}
+instance Prelude.Eq CalendarTime;
+
+{-# NEED #-}
+instance Prelude.Eq ClockTime;
+
+{-# NEED #-}
+instance Prelude.Ord Locale.TimeLocale;
+
+{-# NEED #-}
+instance Prelude.Ord TimeDiff;
+
+{-# NEED #-}
+instance Prelude.Ord Month;
+
+{-# NEED #-}
+instance Prelude.Ord Day;
+
+{-# NEED #-}
+instance Prelude.Ord CalendarTime;
+
+{-# NEED #-}
+instance Prelude.Ord ClockTime;
+interface ! Time
+{-# NEED diffClockTimes #-}
+diffClockTimes{-# 2 #-}::(ClockTime -> (ClockTime -> TimeDiff));
+
+{-# NEED calendarTimeToString #-}
+calendarTimeToString{-# 0 #-}::(CalendarTime -> Prelude.String);
+
+{-# NEED formatCalendarTime #-}
+formatCalendarTime{-# 3 #-}::(Locale.TimeLocale -> (Prelude.String -> (CalendarTime -> Prelude.String)));
+interface Locale
+{-# NEED TimeLocale #-}
+data TimeLocale;
+interface ! Time
+{-# NEED toCalendarTime #-}
+toCalendarTime{-# 1 #-}::(ClockTime -> (NHC.Internal.IO CalendarTime));
+
+{-# NEED getClockTime #-}
+getClockTime{-# 0 #-}::(NHC.Internal.IO ClockTime);
+
+{-# NEED addToClockTime #-}
+addToClockTime{-# 2 #-}::(TimeDiff -> (ClockTime -> ClockTime));
+
+{-# NEED {TimeDiff TimeDiff tdYear tdMonth tdDay tdHour tdMin tdSec tdPicosec} #-}
+data TimeDiff
+  = TimeDiff {tdYear :: Prelude.Int} {tdMonth :: Prelude.Int} {tdDay :: Prelude.Int} {tdHour :: Prelude.Int} {tdMin :: Prelude.Int} {tdSec :: Prelude.Int} {tdPicosec :: Prelude.Integer};
+
+{-# NEED toClockTime #-}
+toClockTime{-# 1 #-}::(CalendarTime -> ClockTime);
+
+{-# NEED toUTCTime #-}
+toUTCTime{-# 1 #-}::(ClockTime -> CalendarTime);
+
+{-# NEED {CalendarTime CalendarTime ctYear ctMonth ctDay ctHour ctMin ctSec ctPicosec ctWDay ctYDay ctTZName ctTZ ctIsDST} #-}
+data CalendarTime
+  = CalendarTime {ctYear :: Prelude.Int} {ctMonth :: Month} {ctDay :: Prelude.Int} {ctHour :: Prelude.Int} {ctMin :: Prelude.Int} {ctSec :: Prelude.Int} {ctPicosec :: Prelude.Integer} {ctWDay :: Day} {ctYDay :: Prelude.Int} {ctTZName :: Prelude.String} {ctTZ :: Prelude.Int} {ctIsDST :: Prelude.Bool};
+
+{-# NEED {Day Sunday Monday Tuesday Wednesday Thursday Friday Saturday} #-}
+data Day
+  = Sunday 
+  | Monday 
+  | Tuesday 
+  | Wednesday 
+  | Thursday 
+  | Friday 
+  | Saturday ;
+
+{-# NEED {Month January February March April May June July August September October November December} #-}
+data Month
+  = January 
+  | February 
+  | March 
+  | April 
+  | May 
+  | June 
+  | July 
+  | August 
+  | September 
+  | October 
+  | November 
+  | December ;
+
+{-# NEED ClockTime #-}
+data ClockTime;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO;
+}

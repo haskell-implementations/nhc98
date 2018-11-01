@@ -1,0 +1,398 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>hmake versions</title></head>
+<body bgcolor=white text=black>
+<table><tr><td width=500>
+
+<center>
+<h1><em>hmake</em> versions</h1>
+</center>
+<hr>
+
+<table>
+
+<tr>
+<td valign=top><b>3.14</b></td>
+  <td valign=top>
+	<ul>
+	<li> Fix build system for ghc-6.8.x.
+	</ul>
+</td></tr><tr>
+
+<tr>
+<td valign=top><b>3.13</b></td>
+  <td valign=top>
+	<ul>
+	<li> No, really fix hmake to build with ghc-6.6.
+	</ul>
+</td></tr><tr>
+
+<tr>
+<td valign=top><b>3.12</b></td>
+  <td valign=top>
+	<ul>
+	<li> New feature: hmake -M dependency analysis now adds
+                        "# -cpp" if cpp is required.
+	<li> Fix to enable hmake to build with ghc-6.6.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>3.11</b></td>
+  <td valign=top>
+	<ul>
+        <li> New: the #! runhs script 'interpreter'.
+        <li> Bugfix: now finds dependency B in
+             <tt>module A where { import B; ... }</tt>
+        <li> Bugfixes: for compatibility problems with gcc-4.0.
+        <li> Re-organised the internal cpphs library.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>3.10</b></td>
+  <td valign=top>
+	<ul>
+        <li> Improved the extraction of import decls from source files:
+             now accepts corner cases like multiple imports on a single line.
+        <li> Source file scanning is now lazier - it stops at the first line
+             that indicates no further import decls are possible.  This fixes
+             some bugs dealing with .hsc files, and .ly files.
+        <li> Takes care of the new package story in ghc-6.4.
+        <li> Now interprets the compiler options <tt>-odir=foo</tt>
+             option as well as passing it on to the compiler.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>3.09</b></td>
+  <td valign=top>
+	<ul>
+        <li> Some fixes so that <em>hi</em> now works under Cygwin/GHC.
+        <li> Now interprets a <tt>-hidir=foo</tt> option as well as passing
+             it on to the compiler.
+        <li> Improvements to the internal documentation of the APIs
+             (thanks to Isaac Jones).
+        <li> Improved handling of C pre-processor directives (thanks
+             to cpphs).
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>3.08</b></td>
+  <td valign=top>
+	<ul>
+        <li> Hmake should now build cleanly with GHC 6.0.
+        <li> In hmake-interactive, if the readline library is not available,
+             the simple line editor now has a history mechanism.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>3.07</b></td>
+  <td valign=top>
+	<ul>
+        <li> Hmake should now build cleanly with GHC under Cygwin.
+        <li> Better handling of config files.  Your personal config file
+             is now used as an override for the system-wide config file,
+             rather than being used instead of it.  Hence, any global
+             config updates are now automatically propagated to all users.
+        <li> The new command <tt>hmake-config new</tt> is now needed to
+             begin a fresh personal config file.
+        <li> <tt>hmake-config list</tt> can now take a specific compiler
+             argument to show detailed info for that compiler.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>3.06</b></td>
+  <td valign=top>
+	<ul>
+        <li> Better handling of package libraries.  Previously, the package
+             import directories were detected at installation time, so the
+             addition of a new package required a re-configure of hmake.
+             Also, because all of the package dirs were searched on every
+             invocation, hmake could not warn of a missing `package' flag.
+             Now, package dirs are detected at runtime, and only for the
+             requested packages - this fixes both problems.
+        <li> Added the cmdline option `list' to <tt>hmake-config</tt> to
+             display the set of Haskell compilers known to <tt>hmake</tt>.
+        <li> Bugfix for the -hat option.  Ensure that if a file goes through
+             cpp before hat-trans, the resulting .hx file is moved from the
+             temporary dir back to the build dir.
+        <li> Bugfix, to ensure that hmake isn't confused by the escaped
+             character \\ in a literal string.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>3.05</b></td>
+  <td valign=top>
+	<ul>
+        <li> Some small fixes for the cpp preprocessor config.  Always give
+             it the -traditional option, to cope with single quote marks.
+             Also, if cpp is required before hat-trans, give it an input
+             filename!
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>3.04</b></td>
+  <td valign=top>
+	<ul>
+        <li> Remove the use of the Posix package under GHC.  It is not
+             available on Windows platforms, and only one feature is needed
+             anyway, which can easily be coded directly using the FFI.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>3.03</b></td>
+  <td valign=top>
+	<ul>
+        <li> The -P option to hmake (which specifies a directory in which
+             there are interface files, but no sources) should be translated
+             automatically to -i when the compiler is either ghc or hbc.
+        <li> Some problems with hmake-config not detecting compilers correctly
+             on Solaris and BSD machines are now fixed.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>3.02</b></td>
+  <td valign=top>
+	<ul>
+        <li> An automatic invocation of a pre-processor should supply
+             default options to it.  Also fix the dependency determination
+             to correctly use the un-pre-processed file modification time.
+        <li> When the hmake option <em>-hat</em> is used, add
+             <em>-package hat</em> to the generated calls to the compiler.
+        <li> Minor configuration fix to ease building under Cygwin.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>3.01</b></td>
+  <td valign=top>
+	<ul>
+        <li> When detecting ghc 5.00 or later, hmake-config now uses the
+             relevant ghc-pkg tool to discover import directories.
+        <li> An hmake command with no specified compiler no longer fails
+             if the location of the config file (to provide a default
+	     compiler) cannot be discovered correctly.
+        <li> If a <tt>.hs.cpp</tt> file is discovered, use the <tt>-x c</tt>
+             option correctly (was missing a space before).
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>3.00</b></td>
+  <td valign=top>
+	<ul>
+        <li> The mechanism by which <em>hmake</em> knows about installed
+             Haskell compilers has been completely revamped.  It is now
+             possible to have more than one compiler of the same type
+             (e.g. ghc-4.08 and ghc-5.02) installed simultaneously.
+        <li> A new configuration utility <em>hmake-config</em>
+	     is provided.  This allows an individual user to have a
+	     personalised set-up telling hmake about new compilers,
+	     removing old compilers, and changing the default compiler.
+        <li> <em>hmake</em> now knows about many more preprocessors for
+             Haskell - happy, hsc2hs, c2hs, greencard.  If it finds the
+             appropriate file extension (.ly, .hsc, .chs, .gc) it now
+             calls the preprocessor before the compiler.
+        <li> The new <em>-hat</em> flag is for the Hat tracing system, if
+             you have it installed.  With this option, hmake calls the
+             tracing transformation tool <em>hat-trans</em> between
+             any preprocessor and the compiler.  The resulting program
+             generates a trace file suitable for viewing with the
+             hat browsers.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>2.03</b></td>
+  <td valign=top>
+	<ul>
+        <li> Updated the configure script to understand ghc-5.02's
+             location.
+        <li> Incorporates other small bugfixes.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>2.02</b></td>
+  <td valign=top>
+	<ul>
+        <li> Note: <font color=red>patch-2.02-devnull</font> must be
+             applied to fix the unfortunate behaviour that the
+             configure script destroys <tt>/dev/null</tt> if you
+             run it as root.
+        <li> Improved the error-reporting in <em>hmake</em>.  When
+		a module cannot be found, it now shows where the
+		demand for the module arose, and which directories
+		were searched.
+        <li> Added knowledge of extended file suffixes like <em>.p.o</em>,
+		<em>.T.o</em>, and <em>.T.hi</em> to <em>hmake</em>.
+        <li> Fixed a bug in the generation of Makefile dependencies in
+		the presence of a <em>-I</em> option.
+        <li> Ghc's options <tt>-syslib n</tt> and <tt>-package n</tt> no
+		longer need to be enclosed in double quotes.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>2.01</b></td>
+  <td valign=top>
+	<ul>
+        <li> If you build <em>hi</em> with ghc, the automatic
+             configuration now detects and links in the <em>readline</em>
+             library for command-line editing.  (Thanks to Simon Marlow
+             for the code changes.)
+        <li> <em>hi</em> now uses unique temporary filenames so that
+             multiple users on one machine do not conflict with each other.
+             (Thanks to Kamo Hiroyasu for the suggestion.)  Temporaries
+             are also now tidied up afterwards.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>2.00</b></td>
+  <td valign=top>
+	<ul>
+        <li> Many improvements to <em>hi</em>, which moves out of
+             alpha-testing to beta.  We think this is worth an
+             increment to the major version number.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>1.9</b></td>
+  <td valign=top>
+	<ul>
+        <li> New options: -clean and -realclean, which remove relevant
+               .o files (or both .o and .hi files).
+        <li> Addition of a simple line editor to <em>hi</em>.
+        <li> Bugfix: the auto-configuration of <em>hi</em> was erratic,
+               but should now work much more smoothly.
+        <li> Bugfix: all the nasty possibilities of unmatched comment
+	       characters inside strings and unmatched quote chars
+	       inside comments no longer cause hmake to give up on
+	       trying to extract dependencies from a file.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>1.8</b></td>
+  <td valign=top>
+	<ul>
+        <li> New addition: hmake interactive, or <em>hi</em> for short.
+               Looks and feels like Hugs, but uses hmake + any Haskell
+               compiler as a backend.
+	<li> Small bugfixes, for instance to allow #-} at the beginning
+               of a line (previously interpreted as a cpp directive!).
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>1.7.2</b></td>
+  <td valign=top>
+	<ul>
+	<li> Small configure script patch for BUILDWITH variable.
+	<li> Small driver script patch to permit -N option again.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>1.7.1</b></td>
+  <td valign=top>
+	<ul>
+	<li> Small configuration patch for hmake built from C sources.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>1.7</b></td>
+  <td valign=top>
+	<ul>
+	<li> The previous patch for detecting hbc 0.9999.5 was wrong, now fixed.
+	<li> However, you cannot build hmake with hbc 0.9999.5 (at least on
+	     linux-libc6), as that compiler has buggy libraries.  A binary
+	     distribution built with ghc is available for this platform as
+	     an alternative.
+	<li> It often makes sense to have the default compiler called by
+	     hmake to be the same as the one that built it.  This is now
+	     enabled by default.  You can override it by editing the COMP
+             variable in your hmake.config file, or by setting your HC
+             environment variable at runtime.
+	<li> Treatment of the <b>-i</b><em>dir</em> option has been changed:
+	     it is now identical to the <b>-I</b><em>dir</em> option, for
+	     compatibility with hbc and ghc.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>1.6.2</b></td>
+  <td valign=top>
+	<ul>
+	<li> Small patch for detecting hbc version >= 0.9999.5 correctly.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>1.6.1</b></td>
+  <td valign=top>
+	<ul>
+	<li> Small cosmetic patch to fix the -g flag (module dependency
+             graph) whose output had multiple entries for some imports
+             (depending on how many blank lines preceded it).
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>1.6</b></td>
+  <td valign=top>
+	<ul>
+	<li> Import determination is no longer confused by {- -} nested
+             comments, end-of-line comments, or line-breaks between the
+             "import"/"qualified" keywords and module name.
+	<li> <em>hmake</em> driver script now returns true exit status.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>1.5</b></td>
+  <td valign=top>
+	<ul>
+	<li> Configuration now automatically determines which Haskell
+             compilers are available, where they live, and so on - no
+             editing of files required.
+	<li> Some minor bugfixes.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>1.4</b></td>
+  <td valign=top>
+	<ul>
+	<li> Symbol error in GetDep.hs when compiling with ghc, fixed.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>1.3</b></td>
+  <td valign=top>
+	<ul>
+	<li> Cpp-emulation now understands numeric comparisons.
+	<li> Compiler cpp symbols (e.g. <tt>__HBC__</tt>) are not defined twice now.
+	<li> Revert to allowing <em>both</em> GHCINCDIR and GHCINCPATH.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>1.2</b></td>
+  <td valign=top>
+	<ul>
+	<li> Allow "<tt>import A-- comment</tt>", "<tt>import A;</tt>",
+             "<tt>import A{-comment-}</tt>".
+	<li> Change GHCINCDIR to GHCINCPATH to allow multiple directories
+             for prelude .hi files.
+	</ul>
+</td></tr><tr>
+
+<td valign=top><b>1.1</b></td>
+  <td valign=top>	Minor bug fixes.
+</td></tr><tr>
+
+<td valign=top><b>1.0</b></td>
+  <td valign=top>	Initial release (separated from nhc98/nhc13).
+</td></tr></table>
+
+<hr>
+<p>
+The latest updates to this software are available on the WWW from
+<a href="http://www.haskell.org/hmake/">
+<tt>http://www.haskell.org/hmake/</tt></a><br>
+<a href="http://www.cs.york.ac.uk/fp/hmake/">
+<tt>http://www.cs.york.ac.uk/fp/hmake/</tt></a>
+
+<p>
+Information last updated: 21st May 2008<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+Malcolm.Wallace@cs.york.ac.uk
+
+</td></tr></table>
+
+</body></html>

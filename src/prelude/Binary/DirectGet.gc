@@ -1,0 +1,63 @@
+module NHC.Binary
+  ( directGet
+  ) where
+
+import NHC.GreenCard
+import BinHandle ({-type-}BinHandle(..))
+import SizedBin  ({-type-}Size(..))
+import BinPtr   ({-type-}BinPtr(..))
+
+%-#include "cLowBinary.h"
+    -- %-#include <stdio.h>
+    -- %-#include <errno.h>
+
+%fun directGet :: BinHandle -> Size -> BinHandle -> IO BinPtr
+%call (binHandle sbh) (Size (int size)) (binHandle dbh)
+%code  /* The BinPtr component in a SizedBin is always aligned to a */
+%      /* byte boundary (at both ends) */
+%
+%  int bytes = (size%8 ? (size/8)+1 : (size/8));
+%  /* fprintf(stderr,"directGet: size=%d vtell=%d bytes=%d ",
+%                  size,vtell(bh),bytes); */
+%  /* build return value */
+%  p = (dbh->file ? vtell(dbh) : mtell(dbh));
+%  closecache(sbh);
+%  closecache(dbh);
+%  if (sbh->file {
+%    if (dbh->file) {
+%      /*FILE->FILE*/
+%    } else {
+%      /*FILE->MEM*/
+%    }
+%  } else {
+%    if (dbh->file) {
+%      /*MEM->FILE*/
+%    } else {
+%      /*MEM->MEM*/
+%    }
+%  }
+%
+%  b = mkBin(wordPtr,bitIndx);  /* binSpace is assumed already aligned */
+%  if ((CACHESIZE - (bh->cptr/8) - bytes) >= 0) {
+%    /* read from cache */
+%    memcpy(((char*)(&binSpace[0]))+(b/8),&bh->cache[bh->cptr/8],bytes);
+%    bh->cptr += bytes*8;
+%    /* fprintf(stderr,"read from cache\n   "); */
+%  } else {
+%    /* use real file ops, not virtual ones! */
+%    closecache(bh);
+%    vsync(bh);
+%    /* fprintf(stderr,"filetell=%d ",lseek(bh->fd,0,SEEK_CUR)); */
+%    /* fprintf(stderr,"bh->vptr=%d bh->cptr=%d ",bh->vptr,bh->cptr); */
+%    err = read(bh->fd,((char*)(&binSpace[0]))+(b/8),bytes);
+%    /* if (err==0) fprintf(stderr,"errno=%d ",errno); */
+%    opencache(bh);
+%  }
+%  /* update write-pointers into binSpace */
+%  wordPtr = wordPtrOf(b+size);
+%  bitIndx = bitIndxOf(b+size);
+%  /* fprintf(stderr,"binpos=%d value=%d err=%d\n",
+%                  b, *(((char*)(&binSpace[0]))+(b/8)), err); */
+%  #endif
+%result (binPtr p)
+

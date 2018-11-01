@@ -1,0 +1,218 @@
+interface Text.PrettyPrint where {
+infixl  5 Text.PrettyPrint.HughesPJ.$$;
+infixl  5 Text.PrettyPrint.HughesPJ.$+$;
+infixl  6 Text.PrettyPrint.HughesPJ.<>;
+infixl  6 Text.PrettyPrint.HughesPJ.<+>;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! Text.PrettyPrint.HughesPJ
+{-# NEED style #-}
+style{-# 0 #-}::Text.PrettyPrint.HughesPJ.Style;
+
+{-# NEED semi #-}
+semi{-# 0 #-}::Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED colon #-}
+colon{-# 0 #-}::Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED comma #-}
+comma{-# 0 #-}::Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED space #-}
+space{-# 0 #-}::Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED equals #-}
+equals{-# 0 #-}::Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED lparen #-}
+lparen{-# 0 #-}::Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED rparen #-}
+rparen{-# 0 #-}::Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED lbrack #-}
+lbrack{-# 0 #-}::Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED rbrack #-}
+rbrack{-# 0 #-}::Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED lbrace #-}
+lbrace{-# 0 #-}::Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED rbrace #-}
+rbrace{-# 0 #-}::Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED int #-}
+int{-# 1 #-}::(Prelude.Int -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED integer #-}
+integer{-# 1 #-}::(Prelude.Integer -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED float #-}
+float{-# 1 #-}::(Prelude.Float -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED double #-}
+double{-# 1 #-}::(Prelude.Double -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED rational #-}
+rational{-# 1 #-}::(Ratio.Rational -> Text.PrettyPrint.HughesPJ.Doc);
+interface Ratio
+{-# NEED Rational #-}
+type {-# 1 #-} Rational = (Ratio.Ratio Prelude.Integer);
+
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface ! Text.PrettyPrint.HughesPJ
+{-# NEED quotes #-}
+quotes{-# 1 #-}::(Text.PrettyPrint.HughesPJ.Doc -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED doubleQuotes #-}
+doubleQuotes{-# 1 #-}::(Text.PrettyPrint.HughesPJ.Doc -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED parens #-}
+parens{-# 1 #-}::(Text.PrettyPrint.HughesPJ.Doc -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED brackets #-}
+brackets{-# 1 #-}::(Text.PrettyPrint.HughesPJ.Doc -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED braces #-}
+braces{-# 1 #-}::(Text.PrettyPrint.HughesPJ.Doc -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED hcat #-}
+hcat{-# 0 #-}::([Text.PrettyPrint.HughesPJ.Doc] -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED hsep #-}
+hsep{-# 0 #-}::([Text.PrettyPrint.HughesPJ.Doc] -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED vcat #-}
+vcat{-# 0 #-}::([Text.PrettyPrint.HughesPJ.Doc] -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED hang #-}
+hang{-# 3 #-}::(Text.PrettyPrint.HughesPJ.Doc -> (Prelude.Int -> (Text.PrettyPrint.HughesPJ.Doc -> Text.PrettyPrint.HughesPJ.Doc)));
+
+{-# NEED punctuate #-}
+punctuate{-# 2 #-}::(Text.PrettyPrint.HughesPJ.Doc -> ([Text.PrettyPrint.HughesPJ.Doc] -> [Text.PrettyPrint.HughesPJ.Doc]));
+
+{-# NEED empty #-}
+empty{-# 0 #-}::Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED isEmpty #-}
+isEmpty{-# 1 #-}::(Text.PrettyPrint.HughesPJ.Doc -> Prelude.Bool);
+
+{-# NEED char #-}
+char{-# 1 #-}::(Prelude.Char -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED text #-}
+text{-# 1 #-}::(Prelude.String -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED ptext #-}
+ptext{-# 1 #-}::(Prelude.String -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED zeroWidthText #-}
+zeroWidthText{-# 1 #-}::(Prelude.String -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED nest #-}
+nest{-# 2 #-}::(Prelude.Int -> (Text.PrettyPrint.HughesPJ.Doc -> Text.PrettyPrint.HughesPJ.Doc));
+
+{-# NEED ($$) #-}
+($$){-# 2 #-}::(Text.PrettyPrint.HughesPJ.Doc -> (Text.PrettyPrint.HughesPJ.Doc -> Text.PrettyPrint.HughesPJ.Doc));
+
+{-# NEED ($+$) #-}
+($+$){-# 2 #-}::(Text.PrettyPrint.HughesPJ.Doc -> (Text.PrettyPrint.HughesPJ.Doc -> Text.PrettyPrint.HughesPJ.Doc));
+
+{-# NEED (<>) #-}
+(<>){-# 2 #-}::(Text.PrettyPrint.HughesPJ.Doc -> (Text.PrettyPrint.HughesPJ.Doc -> Text.PrettyPrint.HughesPJ.Doc));
+
+{-# NEED (<+>) #-}
+(<+>){-# 2 #-}::(Text.PrettyPrint.HughesPJ.Doc -> (Text.PrettyPrint.HughesPJ.Doc -> Text.PrettyPrint.HughesPJ.Doc));
+
+{-# NEED sep #-}
+sep{-# 0 #-}::([Text.PrettyPrint.HughesPJ.Doc] -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED cat #-}
+cat{-# 0 #-}::([Text.PrettyPrint.HughesPJ.Doc] -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED fsep #-}
+fsep{-# 0 #-}::([Text.PrettyPrint.HughesPJ.Doc] -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED fcat #-}
+fcat{-# 0 #-}::([Text.PrettyPrint.HughesPJ.Doc] -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED renderStyle #-}
+renderStyle{-# 2 #-}::(Text.PrettyPrint.HughesPJ.Style -> (Text.PrettyPrint.HughesPJ.Doc -> Prelude.String));
+
+{-# NEED {Style Style mode lineLength ribbonsPerLine} #-}
+data Style
+  = Style {Text.PrettyPrint.HughesPJ.mode :: Text.PrettyPrint.HughesPJ.Mode} {Text.PrettyPrint.HughesPJ.lineLength :: Prelude.Int} {Text.PrettyPrint.HughesPJ.ribbonsPerLine :: Prelude.Float};
+
+{-# NEED render #-}
+render{-# 1 #-}::(Text.PrettyPrint.HughesPJ.Doc -> Prelude.String);
+
+{-# NEED fullRender #-}
+fullRender{-# 6 #-}::(Text.PrettyPrint.HughesPJ.Mode -> (Prelude.Int -> (Prelude.Float -> ((Text.PrettyPrint.HughesPJ.TextDetails -> (a -> a)) -> (a -> (Text.PrettyPrint.HughesPJ.Doc -> a))))));
+
+{-# NEED Doc #-}
+data Doc;
+
+{-# NEED {TextDetails Chr Str PStr} #-}
+data TextDetails
+  = Chr Prelude.Char
+  | Str Prelude.String
+  | PStr Prelude.String;
+
+{-# NEED {Mode PageMode ZigZagMode LeftMode OneLineMode} #-}
+data Mode
+  = PageMode 
+  | ZigZagMode 
+  | LeftMode 
+  | OneLineMode ;
+}

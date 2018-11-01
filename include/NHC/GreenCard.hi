@@ -1,0 +1,113 @@
+interface NHC.GreenCard where {
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read NHC.PackedString.PackedString;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Addr;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PackedString.PackedString;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Addr;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PackedString.PackedString;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Addr;
+
+{-# NEED #-}
+instance Prelude.Show NHC.PackedString.PackedString;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Addr;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Int;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Float;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Bool;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Double;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Char;
+
+{-# NEED #-}
+instance NHC.FFI.Storable (NHC.FFI.StablePtr a);
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface ! CString
+{-# NEED toCString #-}
+toCString{-# 1 #-}::([Prelude.Char] -> NHC.PackedString.PackedString);
+
+{-# NEED fromCString #-}
+fromCString{-# 1 #-}::(NHC.PackedString.PackedString -> [Prelude.Char]);
+interface ! NHC.PackedString
+{-# NEED PackedString #-}
+data PackedString;
+interface ! NHC.FFI
+{-# NEED Addr #-}
+data Addr;
+
+{-# NEED ForeignObj #-}
+data ForeignObj;
+
+{-# NEED deRefStablePtr #-}
+deRefStablePtr{-# 0 #-}::((NHC.FFI.StablePtr a) -> (NHC.Internal.IO a));
+
+{-# NEED newStablePtr #-}
+newStablePtr{-# 0 #-}::(a -> (NHC.Internal.IO (NHC.FFI.StablePtr a)));
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO;
+
+{-# NEED World #-}
+data World;
+interface ! NHC.FFI
+{-# NEED StablePtr #-}
+data StablePtr a;
+}

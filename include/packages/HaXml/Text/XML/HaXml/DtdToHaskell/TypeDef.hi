@@ -1,0 +1,132 @@
+interface Text.XML.HaXml.DtdToHaskell.TypeDef where {
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq StructType;
+
+{-# NEED #-}
+instance Prelude.Eq TypeDef;
+
+{-# NEED #-}
+instance Prelude.Eq Name;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show StructType;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show Text.PrettyPrint.HughesPJ.Doc;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface ! Text.XML.HaXml.DtdToHaskell.TypeDef
+{-# NEED manglef #-}
+manglef{-# 1 #-}::(Prelude.String -> Prelude.String);
+
+{-# NEED mangle #-}
+mangle{-# 1 #-}::(Prelude.String -> Prelude.String);
+
+{-# NEED name_f #-}
+name_f{-# 2 #-}::(Prelude.String -> (Prelude.String -> Name));
+
+{-# NEED name_ac #-}
+name_ac{-# 3 #-}::(Prelude.String -> (Prelude.String -> (Prelude.String -> Name)));
+
+{-# NEED name_a #-}
+name_a{-# 2 #-}::(Prelude.String -> (Prelude.String -> Name));
+
+{-# NEED name_ #-}
+name_{-# 1 #-}::(Prelude.String -> Name);
+
+{-# NEED name #-}
+name{-# 1 #-}::(Prelude.String -> Name);
+
+{-# NEED ppAName #-}
+ppAName{-# 1 #-}::(Name -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED ppXName #-}
+ppXName{-# 1 #-}::(Name -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED ppHName #-}
+ppHName{-# 1 #-}::(Name -> Text.PrettyPrint.HughesPJ.Doc);
+
+{-# NEED ppTypeDef #-}
+ppTypeDef{-# 1 #-}::(TypeDef -> Text.PrettyPrint.HughesPJ.Doc);
+interface Text.PrettyPrint.HughesPJ
+{-# NEED Doc #-}
+data Doc;
+interface ! Text.XML.HaXml.DtdToHaskell.TypeDef
+{-# NEED {TypeDef DataDef EnumDef} #-}
+data TypeDef
+  = DataDef Prelude.Bool Name AttrFields Constructors
+  | EnumDef Name [Name];
+
+{-# NEED Constructors #-}
+type {-# 1 #-} Constructors = [(Name,[StructType])];
+
+{-# NEED AttrFields #-}
+type {-# 2 #-} AttrFields = [(Name,StructType)];
+
+{-# NEED {StructType Maybe Defaultable List List1 Tuple OneOf Any StringMixed String Defined} #-}
+data StructType
+  = Maybe StructType
+  | Defaultable StructType Prelude.String
+  | List StructType
+  | List1 StructType
+  | Tuple [StructType]
+  | OneOf [StructType]
+  | Any 
+  | StringMixed 
+  | String 
+  | Defined Name;
+
+{-# NEED {Name Name xName hName} #-}
+data Name
+  = Name {xName :: Prelude.String} {hName :: Prelude.String};
+}

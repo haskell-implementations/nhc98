@@ -1,0 +1,234 @@
+<table>
+  <tr>
+    <td align=left>
+      Program
+    </td><td align=right>
+      <em>idl</em>
+    </td><td align=center>
+      ->
+    </td><td align=left>
+      <em>decl_1 ... decl_n</em>
+    </td><td align=left>
+      n >= 1
+    </td>
+  </tr><tr>
+    <td align=left>
+      Declaration
+    </td><td align=right>
+      <em>decl</em>
+    </td><td align=center>
+      ->
+    </td><td align=left>
+      <em>proc</em>
+    </td><td align=left>
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>%const</b></tt> <em>var</em>
+          <tt><b>[</b></tt><em>var_1</em><tt><b>,</b></tt> ...
+               <tt><b>,</b></tt><em>var_n</em><tt><b>]</b></tt>
+    </td><td align=left>
+      Constants, n >= 1
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>%dis</b></tt> <em>var var_1 ... var_n</em> <tt><b>=</b></tt> <em>dis</em>
+    </td><td align=left>
+      n >= 0
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>%prefix</b></tt> <em>var</em>
+    </td><td align=left>
+      Prefix to strip from Haskell function names
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>%C</b></tt> <em>var</em>
+    </td><td align=left>
+      entire line is passed (stripped) to C
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>%-</b></tt> <em>var</em>
+    </td><td align=left>
+      entire line is passed verbatim to C
+    </td>
+  </tr><tr>
+    <td align=left>
+      Procedure
+    </td><td align=right>
+      <em>proc</em>
+    </td><td align=center>
+      ->
+    </td><td align=left>
+      <em>sig [call] [ccode] [result]</em>
+    </td><td align=left>
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      Signature
+    </td><td align=right>
+      <em>sig</em>
+    </td><td align=center>
+      ->
+    </td><td align=left>
+      <tt><b>%fun</b></tt> <em>var</em> <tt><b>::</b></tt> <em>type</em>
+    </td><td align=left>
+      Name and type
+    </td>
+  </tr><tr>
+    <td align=left>
+      Type
+    </td><td align=right>
+      <em>type</em>
+    </td><td align=center>
+      ->
+    </td><td align=left>
+      <em>var</em>
+    </td><td align=left>
+      simple type
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <em>var type</em>
+    </td><td align=left>
+      type application
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <em>type</em> <tt><b>-></b></tt> <em>type</em>
+    </td><td align=left> 
+      function type
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>(</b></tt><em>type_1</em><tt><b>,</b></tt> ...
+            <tt><b>,</b></tt><em>type_n</em><tt><b>)</b></tt>
+    </td><td align=left> 
+      tuple types, n >= 0
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>[</b></tt><em>type</em><tt><b>]</b></tt>
+    </td><td align=left> 
+      list type
+    </td>
+  </tr><tr>
+    <td align=left>
+      Call
+    </td><td align=right>
+      <em>call</em>
+    </td><td align=center>
+      ->
+    </td><td align=left>
+      <tt><b>%call</b></tt> <em>dis_1 ... dis_n</em>
+    </td><td align=left> 
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      Result
+    </td><td align=right>
+      <em>result</em>
+    </td><td align=center>
+      ->
+    </td><td align=left>
+      <tt><b>%fail</b></tt> <em>cexp cexp [result]</em>
+    </td><td align=left> 
+      In I/O monad
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>%result</b></tt> <em>dis</em>
+    </td><td align=left> 
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      C Expression
+    </td><td align=right>
+      <em>cexp</em>
+    </td><td align=center>
+      ->
+    </td><td align=left>
+      <tt><b>"</b></tt> <em>var</em> <tt><b>"</b></tt>
+    </td><td align=left> 
+      string excludes " character
+    </td>
+  </tr><tr>
+    <td align=left>
+      C Code
+    </td><td align=right>
+      <em>ccode</em>
+    </td><td align=center>
+      ->
+    </td><td align=left>
+      <tt><b>%code</b></tt> <em>var</em>
+    </td><td align=left> 
+      
+    </td>
+  </tr>
+</table>

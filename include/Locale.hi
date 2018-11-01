@@ -1,0 +1,18 @@
+interface Locale where {
+
+{-# NEED #-}
+instance Prelude.Eq TimeLocale;
+
+{-# NEED #-}
+instance Prelude.Ord TimeLocale;
+
+{-# NEED #-}
+instance Prelude.Show TimeLocale;
+interface ! Locale
+{-# NEED defaultTimeLocale #-}
+defaultTimeLocale{-# 0 #-}::TimeLocale;
+
+{-# NEED {TimeLocale TimeLocale wDays months amPm dateTimeFmt dateFmt timeFmt time12Fmt} #-}
+data TimeLocale
+  = TimeLocale {wDays :: [(Prelude.String,Prelude.String)]} {months :: [(Prelude.String,Prelude.String)]} {amPm :: (Prelude.String,Prelude.String)} {dateTimeFmt :: Prelude.String} {dateFmt :: Prelude.String} {timeFmt :: Prelude.String} {time12Fmt :: Prelude.String};
+}

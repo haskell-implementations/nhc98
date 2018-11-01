@@ -1,0 +1,122 @@
+interface Foreign.StablePtr where {
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Int;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Float;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Bool;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Double;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Char;
+
+{-# NEED #-}
+instance NHC.FFI.Storable (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance NHC.FFI.Storable (NHC.FFI.StablePtr a);
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface ! NHC.FFI
+{-# NEED castPtrToStablePtr #-}
+castPtrToStablePtr{-# 1 #-}::((NHC.FFI.Ptr ()) -> (NHC.FFI.StablePtr a));
+
+{-# NEED castStablePtrToPtr #-}
+castStablePtrToPtr{-# 1 #-}::((NHC.FFI.StablePtr a) -> (NHC.FFI.Ptr ()));
+interface NHC.FFI
+{-# NEED Ptr #-}
+data Ptr a;
+interface ! NHC.FFI
+{-# NEED freeStablePtr #-}
+freeStablePtr{-# 0 #-}::((NHC.FFI.StablePtr a) -> (NHC.Internal.IO ()));
+
+{-# NEED deRefStablePtr #-}
+deRefStablePtr{-# 0 #-}::((NHC.FFI.StablePtr a) -> (NHC.Internal.IO a));
+
+{-# NEED newStablePtr #-}
+newStablePtr{-# 0 #-}::(a -> (NHC.Internal.IO (NHC.FFI.StablePtr a)));
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! NHC.FFI
+{-# NEED StablePtr #-}
+data StablePtr a;
+}

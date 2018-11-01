@@ -1,0 +1,3 @@
+
+Fail: The class Prelude.Eq has no instance for the type Prelude.5.
+Possible sources for the problem are: 67:38

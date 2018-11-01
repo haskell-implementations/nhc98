@@ -1,0 +1,23 @@
+interface NHC.Vector where {
+interface ! NHC.Vector
+{-# NEED update #-}
+update{-# 3 #-}::((Prelude.Vector a) -> (Prelude.Int -> (a -> (NHC.Internal.IO ()))));
+
+{-# NEED (!) #-}
+(!){-# 0 #-}::((Prelude.Vector a) -> (Prelude.Int -> (NHC.Internal.IO a)));
+
+{-# NEED new #-}
+new{-# 2 #-}::(Prelude.Int -> (a -> (NHC.Internal.IO (Prelude.Vector a))));
+
+{-# NEED copy #-}
+copy{-# 0 #-}::((Prelude.Vector a) -> (NHC.Internal.IO (Prelude.Vector a)));
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+
+{-# NEED World #-}
+data World;
+interface ! Prelude
+{-# NEED Vector #-}
+data Vector a;
+}

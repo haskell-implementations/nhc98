@@ -1,0 +1,24 @@
+#!/bin/sh
+# Starts up the Hood debugging user-interface
+
+NHC98BINDIR=${NHC98BINDIR-ScriptDir}
+NHC98LIBDIR=${NHC98LIBDIR-ExecutableDir}
+MACHINE=`${NHC98BINDIR}/harch`
+
+#if [ ! -d $NHC98LIBDIR/$MACHINE ]
+#then
+#  echo "Warning: nhc98 may not be installed/configured for $MACHINE."
+#  echo "  This might restrict your ability to use the Hood Browser."
+#fi
+
+case $# in
+  1) case $MACHINE in
+       ix86-CYGWIN*) CLASSPATH=`cygpath -w -p $NHC98LIBDIR/hood.jar` ;;
+       *)            CLASSPATH=$NHC98LIBDIR/hood.jar ;;
+     esac
+     export CLASSPATH
+     echo Starting Hood user interface...
+     java Hood "$1" & ;;
+  *) echo "Usage: `basename $0` filename.xml"
+     exit 1 ;;
+esac

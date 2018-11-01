@@ -1,0 +1,71 @@
+interface Data.IORef where {
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! Data.IORef
+{-# NEED atomicModifyIORef #-}
+atomicModifyIORef{-# 2 #-}::((NHC.IOExtras.IORef a) -> ((a -> (a,b)) -> (NHC.Internal.IO b)));
+
+{-# NEED modifyIORef #-}
+modifyIORef{-# 2 #-}::((NHC.IOExtras.IORef a) -> ((a -> a) -> (NHC.Internal.IO ())));
+interface ! NHC.IOExtras
+{-# NEED readIORef #-}
+readIORef{-# 1 #-}::((NHC.IOExtras.IORef a) -> (NHC.Internal.IO a));
+
+{-# NEED writeIORef #-}
+writeIORef{-# 2 #-}::((NHC.IOExtras.IORef a) -> (a -> (NHC.Internal.IO ())));
+
+{-# NEED newIORef #-}
+newIORef{-# 1 #-}::(a -> (NHC.Internal.IO (NHC.IOExtras.IORef a)));
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! NHC.IOExtras
+{-# NEED IORef #-}
+newtype {-#  #-} IORef a;
+}

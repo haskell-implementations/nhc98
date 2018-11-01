@@ -1,0 +1,19 @@
+module NHC.Binary
+  ( alignBin
+  ) where
+
+import NHC.GreenCard
+import BinHandle ({-type-}BinHandle(..))
+
+%-#include "cLowBinary.h"
+
+%fun alignBin :: BinHandle -> IO ()
+%call (binHandle bh)
+%code if (bh->cptr / 8 > CACHESIZE-1) {
+%       nextcache(bh);
+%     } else {
+%       int m = bh->cptr % 8;
+%       if (m) bh->cptr += 8 - m;
+%     }
+%result ()
+

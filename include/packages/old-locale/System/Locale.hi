@@ -1,0 +1,75 @@
+interface System.Locale where {
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord TimeLocale;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq TimeLocale;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show TimeLocale;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! System.Locale
+{-# NEED rfc822DateFormat #-}
+rfc822DateFormat{-# 0 #-}::Prelude.String;
+
+{-# NEED iso8601DateFormat #-}
+iso8601DateFormat{-# 1 #-}::((Prelude.Maybe Prelude.String) -> Prelude.String);
+
+{-# NEED defaultTimeLocale #-}
+defaultTimeLocale{-# 0 #-}::TimeLocale;
+
+{-# NEED {TimeLocale TimeLocale wDays months intervals amPm dateTimeFmt dateFmt timeFmt time12Fmt} #-}
+data TimeLocale
+  = TimeLocale {wDays :: [(Prelude.String,Prelude.String)]} {months :: [(Prelude.String,Prelude.String)]} {intervals :: [(Prelude.String,Prelude.String)]} {amPm :: (Prelude.String,Prelude.String)} {dateTimeFmt :: Prelude.String} {dateFmt :: Prelude.String} {timeFmt :: Prelude.String} {time12Fmt :: Prelude.String};
+}

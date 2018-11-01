@@ -1,0 +1,218 @@
+interface Text.PrettyPrint.HughesPJ where {
+infixl  6 <+>;
+infixl  6 <>;
+infixl  5 $+$;
+infixl  5 $$;
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show Doc;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! Text.PrettyPrint.HughesPJ
+{-# NEED fullRender #-}
+fullRender{-# 6 #-}::(Mode -> (Prelude.Int -> (Prelude.Float -> ((TextDetails -> (a -> a)) -> (a -> (Doc -> a))))));
+
+{-# NEED render #-}
+render{-# 1 #-}::(Doc -> Prelude.String);
+
+{-# NEED renderStyle #-}
+renderStyle{-# 2 #-}::(Style -> (Doc -> Prelude.String));
+
+{-# NEED fcat #-}
+fcat{-# 0 #-}::([Doc] -> Doc);
+
+{-# NEED fsep #-}
+fsep{-# 0 #-}::([Doc] -> Doc);
+
+{-# NEED cat #-}
+cat{-# 0 #-}::([Doc] -> Doc);
+
+{-# NEED sep #-}
+sep{-# 0 #-}::([Doc] -> Doc);
+
+{-# NEED (<+>) #-}
+(<+>){-# 2 #-}::(Doc -> (Doc -> Doc));
+
+{-# NEED (<>) #-}
+(<>){-# 2 #-}::(Doc -> (Doc -> Doc));
+
+{-# NEED ($+$) #-}
+($+$){-# 2 #-}::(Doc -> (Doc -> Doc));
+
+{-# NEED ($$) #-}
+($$){-# 2 #-}::(Doc -> (Doc -> Doc));
+
+{-# NEED nest #-}
+nest{-# 2 #-}::(Prelude.Int -> (Doc -> Doc));
+
+{-# NEED zeroWidthText #-}
+zeroWidthText{-# 1 #-}::(Prelude.String -> Doc);
+
+{-# NEED ptext #-}
+ptext{-# 1 #-}::(Prelude.String -> Doc);
+
+{-# NEED text #-}
+text{-# 1 #-}::(Prelude.String -> Doc);
+
+{-# NEED char #-}
+char{-# 1 #-}::(Prelude.Char -> Doc);
+
+{-# NEED isEmpty #-}
+isEmpty{-# 1 #-}::(Doc -> Prelude.Bool);
+
+{-# NEED empty #-}
+empty{-# 0 #-}::Doc;
+
+{-# NEED {TextDetails Chr Str PStr} #-}
+data TextDetails
+  = Chr Prelude.Char
+  | Str Prelude.String
+  | PStr Prelude.String;
+
+{-# NEED punctuate #-}
+punctuate{-# 2 #-}::(Doc -> ([Doc] -> [Doc]));
+
+{-# NEED hang #-}
+hang{-# 3 #-}::(Doc -> (Prelude.Int -> (Doc -> Doc)));
+
+{-# NEED vcat #-}
+vcat{-# 0 #-}::([Doc] -> Doc);
+
+{-# NEED hsep #-}
+hsep{-# 0 #-}::([Doc] -> Doc);
+
+{-# NEED hcat #-}
+hcat{-# 0 #-}::([Doc] -> Doc);
+
+{-# NEED braces #-}
+braces{-# 1 #-}::(Doc -> Doc);
+
+{-# NEED brackets #-}
+brackets{-# 1 #-}::(Doc -> Doc);
+
+{-# NEED parens #-}
+parens{-# 1 #-}::(Doc -> Doc);
+
+{-# NEED doubleQuotes #-}
+doubleQuotes{-# 1 #-}::(Doc -> Doc);
+
+{-# NEED quotes #-}
+quotes{-# 1 #-}::(Doc -> Doc);
+
+{-# NEED rational #-}
+rational{-# 1 #-}::(Ratio.Rational -> Doc);
+interface Ratio
+{-# NEED Rational #-}
+type {-# 1 #-} Rational = (Ratio.Ratio Prelude.Integer);
+
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface ! Text.PrettyPrint.HughesPJ
+{-# NEED double #-}
+double{-# 1 #-}::(Prelude.Double -> Doc);
+
+{-# NEED float #-}
+float{-# 1 #-}::(Prelude.Float -> Doc);
+
+{-# NEED integer #-}
+integer{-# 1 #-}::(Prelude.Integer -> Doc);
+
+{-# NEED int #-}
+int{-# 1 #-}::(Prelude.Int -> Doc);
+
+{-# NEED rbrace #-}
+rbrace{-# 0 #-}::Doc;
+
+{-# NEED lbrace #-}
+lbrace{-# 0 #-}::Doc;
+
+{-# NEED rbrack #-}
+rbrack{-# 0 #-}::Doc;
+
+{-# NEED lbrack #-}
+lbrack{-# 0 #-}::Doc;
+
+{-# NEED rparen #-}
+rparen{-# 0 #-}::Doc;
+
+{-# NEED lparen #-}
+lparen{-# 0 #-}::Doc;
+
+{-# NEED equals #-}
+equals{-# 0 #-}::Doc;
+
+{-# NEED space #-}
+space{-# 0 #-}::Doc;
+
+{-# NEED comma #-}
+comma{-# 0 #-}::Doc;
+
+{-# NEED colon #-}
+colon{-# 0 #-}::Doc;
+
+{-# NEED semi #-}
+semi{-# 0 #-}::Doc;
+
+{-# NEED Doc #-}
+data Doc;
+
+{-# NEED style #-}
+style{-# 0 #-}::Style;
+
+{-# NEED {Style Style mode lineLength ribbonsPerLine} #-}
+data Style
+  = Style {mode :: Mode} {lineLength :: Prelude.Int} {ribbonsPerLine :: Prelude.Float};
+
+{-# NEED {Mode PageMode ZigZagMode LeftMode OneLineMode} #-}
+data Mode
+  = PageMode 
+  | ZigZagMode 
+  | LeftMode 
+  | OneLineMode ;
+}

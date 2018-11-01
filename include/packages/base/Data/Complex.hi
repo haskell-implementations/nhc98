@@ -1,0 +1,205 @@
+interface Data.Complex where {
+infix   6 :+;
+
+{-# NEED #-}
+instance (Prelude.RealFloat a) => Prelude.Floating (Complex a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.RealFloat a) => Prelude.Fractional (Complex a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.RealFloat a) => Prelude.Num (Complex a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.RealFloat a) => Prelude.Read (Complex a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.RealFloat a) => Prelude.Eq (Complex a);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq Data.Typeable.TyCon;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Typeable.TypeRep;
+
+{-# NEED #-}
+instance (Prelude.RealFloat a) => Prelude.Show (Complex a);
+
+{-# NEED #-}
+instance Prelude.Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show Data.Typeable.TyCon;
+
+{-# NEED #-}
+instance Prelude.Show Data.Typeable.TypeRep;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Complex a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Ordering;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Int;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Integer;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Float;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Bool;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Double;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Char;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable IO.Handle;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Prelude.Maybe a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable ();
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable [a];
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Data.Typeable.TyCon;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Data.Typeable.TypeRep;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (a -> b);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Complex;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Prelude.Maybe;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.Internal.IO;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Ratio.Ratio;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Prelude.[];
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable1 ( (->) a);
+interface Data.Typeable
+{-# NEED TyCon #-}
+data TyCon;
+
+{-# NEED TypeRep #-}
+data TypeRep;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface Data.Typeable
+{-# NEED Typeable #-}
+class Typeable a;
+interface ! Data.Complex
+{-# NEED phase #-}
+phase{-# 1 #-}::(Prelude.RealFloat a) => ((Complex a) -> a);
+
+{-# NEED magnitude #-}
+magnitude{-# 1 #-}::(Prelude.RealFloat a) => ((Complex a) -> a);
+
+{-# NEED polar #-}
+polar{-# 1 #-}::(Prelude.RealFloat a) => ((Complex a) -> (a,a));
+
+{-# NEED cis #-}
+cis{-# 1 #-}::(Prelude.RealFloat a) => (a -> (Complex a));
+
+{-# NEED mkPolar #-}
+mkPolar{-# 2 #-}::(Prelude.RealFloat a) => (a -> (a -> (Complex a)));
+
+{-# NEED conjugate #-}
+conjugate{-# 1 #-}::(Prelude.RealFloat a) => ((Complex a) -> (Complex a));
+
+{-# NEED imagPart #-}
+imagPart{-# 1 #-}::(Prelude.RealFloat a) => ((Complex a) -> a);
+
+{-# NEED realPart #-}
+realPart{-# 1 #-}::(Prelude.RealFloat a) => ((Complex a) -> a);
+
+{-# NEED {Complex (:+)} #-}
+data (Prelude.RealFloat a) => Complex a
+  = (:+) !a !a;
+}

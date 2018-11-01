@@ -1,0 +1,7 @@
+interface Main where {
+{-# NEED main #-}
+main{-# 0 #-}::(NHC.Internal.IO ());
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-# #-} IO;
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Heap profiling with nhc98</title>
+</head>
+<body bgcolor="#ffffff">
+
+<table border="0">
+<tr><td width="500">
+<center><h1>Heap profiling with nhc98</h1></center>
+
+<hr />
+<p>
+Heap profiling allows a programmer to see how heap space is
+being used within their program.  This can enable space "leaks"
+to be identified, and their causes tracked down.
+
+<h3>To obtain a heap profile of a computation:</h3>
+
+<ol>
+<li>
+    <p>Compile all modules of the program with the <tt>-p</tt> option;
+    also specify <tt>-p</tt> at link-time.  Using
+    <tt>hmake&nbsp;-p</tt> does all the necessary compiling and
+    linking automatically.  eg. to compile <tt>MyProg.hs</tt> and
+    everything it depends on for heap profiling simply use
+    <tt>hmake&nbsp;-p&nbsp;MyProg</tt></p></li>
+<li>
+    <p>Run the program with additional runtime arguments:
+    e.g.&nbsp;<tt>./MyProg&nbsp;+RTS&nbsp;-p&nbsp;-RTS</tt>
+    to output "producer" heap profile data to the file
+    <tt>MyProg.hp</tt></p></li>
+<li>
+    <p>Convert the raw profile data to a PostScript graph with
+    the utility <b>hp2graph</b>, and view it in your favorite
+    viewer.
+</ol>
+<br />
+
+<h3>Heap profiling options</h3>
+<table border="0">
+
+<tr><td valign="top">
+  <tt>-i<i>size</i></tt>
+</td><td>
+  set the profiling interval to <tt><i>size</i></tt>
+  (in number of allocations, or in seconds)
+</td></tr>
+
+<tr><td valign="top">
+  <tt>-p</tt>
+</td><td>
+  select producer profiling
+</td></tr>
+
+<tr><td valign="top">
+  <tt>-c</tt>
+</td><td>
+  select construction profiling
+</td></tr>
+
+<tr><td valign="top">
+  <tt>-m</tt>
+</td><td>
+  select per-module profiling
+</td></tr>
+
+<tr><td valign="top">
+  <tt>-r<em>[num]</em></tt>
+</td><td>
+  select retainer profiling - <em>num</em> is maximum retainer set size
+      (default=1)
+</td></tr>
+
+<tr><td valign="top">
+  <tt>-l</tt>
+</td><td>
+  select lifetime profiling
+</td></tr>
+
+<tr><td valign="top">
+  <tt>-b</tt>
+</td><td>
+  select biographical profiling
+</td></tr>
+
+<tr><td valign="top">
+  <tt>-p<em>names</em></tt>
+</td><td>
+  restrict profile to named producers
+</td></tr>
+
+<tr><td valign="top">
+  <tt>-c<em>names</em></tt>
+</td><td>
+  restrict profile to named constructions
+</td></tr>
+
+<tr><td valign="top">
+  <tt>-m<em>names</em></tt>
+</td><td>
+  restrict profile to named modules
+</td></tr>
+
+<tr><td valign="top">
+  <tt>-r<em>names</em></tt>
+</td><td>
+  restrict profile to named retainers
+      (default=1)
+</td></tr>
+
+<tr><td valign="top">
+  <tt>-l<em>nums</em></tt>
+</td><td>
+  restrict profile to numbered lifetimes
+  (<em>min-</em>, <em>-max</em>, or <em>min-max</em>)
+</td></tr>
+
+<tr><td valign="top">
+  <tt>-b<em>name</em></tt>
+</td><td>
+  restrict profile to named biographical phase
+  (<em>lag</em>, <em>drag</em>, <em>void</em>, or <em>use</em>)
+</td></tr>
+
+</table>
+
+<p>
+The first occurrence of
+any of the options <em>pcmrbl</em> determines the primary form of the
+profile.  Subsequent <em>pcmrbl</em> options introduce restrictions on
+the profile, for instance <em>-p -c:</em> asks for a producer profile
+restricted to producers of the `:' (list) construction.  Restrictions
+are almost all orthogonal to each other, and you may have as many as
+you like.  Except for biography and lifetime restrictions, the format
+is of a list of names, separated by commas.  (In general, you may need to
+use quotes around the list to protect special characters from the shell.)
+
+
+
+<hr />
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.haskell.org/nhc98/">
+<tt>http://www.haskell.org/nhc98/</tt></a></p>
+<p>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a>
+</p>
+</td></tr></table>
+</body></html>
+

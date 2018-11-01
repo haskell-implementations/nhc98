@@ -1,0 +1,20 @@
+module NHC.BinArray
+  ( wUBA
+  ) where
+
+import NHC.GreenCard
+import DUnboxedArray ({-type-}UnboxedArray(..))
+import BinPtr        ({-type-}BinPtr(..))
+import Bin           ({-type-}Bin(..))
+
+%-#include "cLowUnboxedArray.h"
+
+%fun wUBA :: UnboxedArray -> Bin a -> Bin a -> IO Int
+%call (unboxedArray uba) (binPtr p) (binPtr end)
+%code
+%  uba->block[uba->write] = htonl(p);
+%  uba->free--;
+%  uba->end = end;
+%  idx = uba->write++;
+%result (int idx)
+

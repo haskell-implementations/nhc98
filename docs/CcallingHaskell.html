@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Calling Haskell from C</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>Calling Haskell from C using <em>GreenCard</em></h1></center>
+
+<hr>
+
+<p>
+Let's say you are working on a software project where different
+components of the system are written in different languages.  Now one
+of your colleagues asks whether she can use your component (written
+as a Haskell library) from her component (written in C) for testing.
+
+<p>
+In this scenario, the controlling part of the application is in C, but
+it should be able to call out to Haskell from time to time, to perform
+some part of the computation.  How can it be done?
+
+<p>
+We provide the necessary hooks in both C and Haskell.  In essence,
+although C is supposedly in control, the program must start in Haskell
+(to initialise the heap and other runtime structures), before passing
+control over completely to C.  Also, the initialisation phase must
+include a stage where C is given some handles on the Haskell functions
+it will later apply and evaluate.
+
+<p>
+The Haskell side is easy - just use <em>GreenCard</em> and pass functions
+across the boundary as stable pointers.  For example:
+
+<pre>
+    module Main where
+
+    %fun registerFn :: Int -> String -> a -> IO ()
+    %call (int arity) (string name) (stable fn)
+
+    %fun handOver :: () -> IO ()
+
+    main = registerFn 2 "plus"  ((+)::Int->Int->Int) >>
+           registerFn 1 "mult5" ((5*)::Int->Int) >>
+           handOver ()
+</pre>
+
+<p>
+The C side is also pretty straightforward.  You need to write an
+appropriate implementation of <tt>registerFn</tt> which stores the Haskell
+values for later use.  All Haskell stable pointers (whether functions
+or data) have a uniform representation as far as C is concerned: they
+are of type <tt>HaskellRef</tt>, which in practice should be treated as an
+abstract datatype.  The C header file <tt>usr/local/lib/nhc98/greencard.h</tt>
+includes all the other facilities that are needed to deal with
+HaskellRefs - to build application closures and evaluate them,
+and to turn ordinary C values into HaskellRefs and vice versa.
+
+<pre>
+----greencard.h----
+    typedef ... HaskellRef;
+
+    extern HaskellRef  buildClosure (int, HaskellRef*);
+    extern void        eval (HaskellRef);
+    extern HaskellRef  makeInt (int);
+    extern int         unmakeInt (HaskellRef);
+    extern HaskellRef  makeBool (int);
+    extern int         unmakeBool (HaskellRef);
+    extern HaskellRef  makeChar (char);
+    extern char        unmakeChar (HaskellRef);
+</pre>
+
+<p>
+Note the following points:
+<ul>
+<li>The arguments to <tt>buildClosure()</tt> are:
+    the arity of the function; and a
+    pointer to a small block of memory containing the the correct sequence
+    of HaskellRefs to form the application.</li>
+<li>Why does <tt>eval()</tt> not return a value?  Because its
+    HaskellRef argument already contains the value - it just
+    happens to be in a more usable form following the call.</li>
+<li>Can I <tt>make</tt> and <tt>unmake</tt> any C values into
+    HaskellRefs or must I use only int char and bool?
+    No, you could use other types too,
+    but I haven't written the make and unmake wrappers yet (because no-one
+    has asked for them yet).  Ask and you shall receive!</li>
+</ul>
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.haskell.org/nhc98/">
+<tt>http://www.haskell.org/nhc98/</tt></a>
+
+<p>
+26 January 1999<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+Malcolm.Wallace@cs.york.ac.uk
+
+</td></tr></table>
+</body></html>
+

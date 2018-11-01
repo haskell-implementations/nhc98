@@ -1,0 +1,27 @@
+module Directory (setPermissions) where
+
+import NHC.GreenCard
+import PatchIOError
+import DPermissions
+
+%-#include <sys/types.h>
+%-#include <sys/stat.h>
+
+%fun setperms :: Permissions -> FilePath -> IO Int
+%call (perms r w x s) (filePath fp)
+%code
+%  struct stat st;
+%  mode_t m;
+%  err = stat(fp,&st);
+%  if (err==0) {
+%    m = st.st_mode & ~(S_IREAD|S_IWRITE|S_IEXEC); /* blank out modes */
+%    if (r)    m |= S_IREAD;
+%    if (w)    m |= S_IWRITE;
+%    if (x||s) m |= S_IEXEC;
+%    err = chmod(fp,m);
+%  }
+%result (int err)
+
+setPermissions :: FilePath -> Permissions -> IO ()
+setPermissions fp ps = patchIOErrorF "setPermissions" fp (setperms ps)
+

@@ -1,0 +1,31 @@
+This file describe how to build nhc13make version 0.05 for Haskell 1.3.
+See the file "README" for instructions for the older Haskell 1.2, and the
+file "Summary" for an explanation of what nhcmake is.
+
+Unix:
+ *  Change the shell script nhc13make according to your preferred
+    installation directories.
+ *  Compile NhcMk and Older, preferably with hbcmake NhcMk Older. It is
+    not yet possible to use nhc13make, because the all-important FileStat
+    library does not yet exist in nhc13.  If hbcmake is not available then
+    run the shell script BuildNew (you will need hbc), or use ordinary
+    `make install'.
+ *  Place NhcMk and Older in the nhc library (already done for you if you used
+    `make install')
+ *  BuildNewR, nhcmakeR, older.c and exfile.c are not used under Unix.
+
+
+RISC OS:
+ (completely untested on Haskell 1.3)
+ *  Compile NhcMk, exfile and older, the later two are C-programs (located
+    in cfiles/, older needs RISC_OSlib).
+    If you don't have an earlier version of nhcmake use BuildNewRC, if
+    you have the necessary c-files. BuildNewR uses the Haskell files a source.
+    Both BuildNewRC and BuildNewR are Obey files.
+ *  Place NhcMk in the nhc library and change the obey file nhcmakeR
+    accordingly.  Put exfile, older and nhcmakeR in your binary
+    directory. Nhcmake will create the files nhcmk_via and __nhcmake in
+    <Wimp$ScrapDir> when used.
+ *  I'm sorry for all the garbage produced on the screen when compiling but
+    that's the way Command files work.
+ *  BuildNew, nhcmake and Older.hs are not used under RISC OS.

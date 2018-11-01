@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>hmake - a make tool for Haskell programs</title></head>
+<body bgcolor=white text=black>
+<table><tr><td width=500>
+
+
+<center>
+<h1>hmake - a make tool for Haskell programs</h1>
+</center>
+<table><tr><td width=200 align=center>
+<a href="hmake.html">What is hmake?</a><br>
+<a href="hmake.html#use">How do I use it?</a><br>
+<a href="interactive.html">hmake interactive (hi)</a><br>
+<a href="hmake-config.html">hmake-config</a><br>
+<a href="runhs.html">runhs</a><br>
+</td><td width=200 align=center>
+<a href="#news">Recent news</a><br>
+<a href="#download">Downloads</a><br>
+<a href="#install">Build and install</a><br>
+<a href="bugs.html">Known bugs</a><br>
+<a href="#who">Contacts</a><br>
+<!-- </td></tr>
+     <tr><td colspan=2 align=center>
+     <a href="#who">Contacts</a><br>
+-->
+</td></tr></table>
+<hr>
+
+<h3>What is hmake?</h3>
+<p>
+<ul>
+<li><em>hmake</em> is a compilation manager for Haskell programs.
+    See <a href="hmake.html">hmake.html</a> for more details.
+<li><em>hmake interactive</em>, or <em>hi</em> for short, is an interactive
+    program development environment for Haskell, rather like <em>Hugs</em>.
+    See <a href="interactive.html">interactive.html</a> for more details.
+<li><em>hmake-config</em> is an auxiliary tool for managing the set
+    of compilers known by <em>hmake</em>, useful when you install a
+    new compiler, or a new version of a compiler.
+    See <a href="hmake-config.html">hmake-config.html</a> for more details.
+<li><em>runhs</em> is a <tt>#!</tt> script 'interpreter' for Haskell, using
+    hmake underneath to build and run the program script.
+    See <a href="runhs.html">runhs.html</a> for more details.
+</ul>
+
+
+<hr>
+<h3><a name="news">Recent News</a></h3>
+
+<p>
+The current version is hmake-3.14 (date 2008-05-21).
+<ul>
+<li> Fix build system for ghc-6.8.x.
+</ul>
+
+<p>
+The previous version was hmake-3.13 (date 2006-11-01).
+
+
+<p>
+See <a href="changes.html">changes.html</a> for the full history of
+versions, bugfixes, and other updates.
+
+<p>
+Currently known bugs are listed in <a href="bugs.html">bugs.html</a>.
+
+
+<hr>
+<h3><a name="download">Download</a></h3>
+<p>
+Download the full <em>hmake</em> sources from<br>
+  <a href="http://www.haskell.org/hmake/hmake-3.14.tar.gz">
+  <tt>http://www.haskell.org/hmake/hmake-3.14.tar.gz</tt></a>
+
+<p>
+Mirror at:<br>
+  <a href="ftp://ftp.cs.york.ac.uk/pub/haskell/hmake/">
+  <tt>ftp://ftp.cs.york.ac.uk/pub/haskell/hmake/</tt></a><br>
+  <a href="http://www.cs.york.ac.uk/fp/hmake/hmake-3.14.tar.gz">
+  <tt>http://www.cs.york.ac.uk/fp/hmake/hmake-3.14.tar.gz</tt></a>
+
+<p>
+Fedora:
+  <a href="http://haskell.org/fedora/">
+  <tt>http://haskell.org/fedora/</tt></a>
+
+<p>
+If you're running the unstable version of Debian GNU/Linux system, you
+can download and install hmake with a command like <tt>apt-get install
+hmake</tt>, or download the package file from:
+  <a href="http://ftp.debian.org/debian/pool/main/h/hmake/">
+  <tt>http://ftp.debian.org/debian/pool/main/h/hmake/</tt></a>
+(The package is not yet available for the stable version of Debian.)
+
+<p>
+(Note: If you have the <em>nhc98</em> compiler, then you already
+have some version of <em>hmake</em>.  However, if you installed another
+compiler after <em>nhc98</em>, you will probably need to run <a
+href="hmake-config.html">hmake-config</a> to add the new compiler to
+<em>hmake</em>'s database.  Also, it is perfectly safe to download a
+newer version of <em>hmake</em> and install it on top of the version
+that came with <em>nhc98</em>.)
+
+
+<hr>
+<h3><a name="install">Configure, compile, and install</a></h3>
+<p>
+<pre>
+  $ ./configure  --prefix=/my/installation
+  $ make
+  $ make install
+</pre>
+
+<p>
+Use
+<pre>
+  $ configure --help
+</pre>
+to discover what options you can change at configuration time.  The
+configuration process actually does quite a good job of detecting what
+Haskell compilers you have, where they live, and anything special they
+might need.  However, should you need to change anything by hand, after
+installation, use the <a href="hmake-config.html"><em>hmake-config</em></a>
+utility.
+
+<p>
+<b>Notes</b>
+<p>
+`harch' is a little script for determining your processor/OS
+combination.  It is supplied because many sites have heterogeneous
+networks of machines all accessing a common filespace.  You only need to
+install one copy of the `hmake' script, which uses `harch' to select the
+correct executables for any particular machine.
+
+<p>
+For <em>hi</em> to work on the Windows/Cygwin platform, you must
+export the SHELL environment variable before starting the interpreter.
+
+<p>
+The system-wide hmakerc configuration file lives in:
+<pre>
+    /usr/local/lib/hmake/$MACHINE/hmakerc
+</pre>
+(Of course, you don't have to use the root location /usr/local for
+your installation.  Just use --prefix= at configuration time to
+reflect your preference.)
+
+<p>
+A personal hmakerc configuration file can live in:
+<pre>
+    $HOME/.hmakerc/$MACHINE
+</pre>
+Normally, a user will simply use the system-wide hmakerc.  If you
+want to make any customisations, for instance to add a new compiler
+or change the default, you first need to create a personal hmakerc
+file with <em>hmake-config new</em>.  Only the person who installs
+hmake can change the system-wide hmakerc.
+
+
+<hr>
+<h3><a name="who">Contacts</a></h3>
+<p>
+Please send bug reports, bug fixes, and suggestions for improvements to
+<tt>Malcolm.Wallace@cs.york.ac.uk</tt>
+
+<p>
+<b>Copyright</b>
+<p>
+hmake is based on code from <em>hbcmake</em> and <em>nhc13make</em>,
+which are both<br>
+&copy; copyright to Thomas Hallgren, 1991-1997,<br>
+with additions and modifications
+&copy; copyright to Malcolm Wallace, 1998-2008.<br>
+Hmake interactive (hi) is
+&copy; copyright to Malcolm Wallace, 2000.<br>
+Hmake-config is
+&copy; copyright to Malcolm Wallace, 2002-2008.<br>
+
+<p>
+You may use, re-distribute, or modify this software under the terms
+of <a href="http://haskell.org/nhc98/copyright.html">this licence</a>.
+<p>
+Some library code is incorporated from
+<a href="http://haskell.org/cpphs">cpphs</a>, which is
+&copy; copyright to Malcolm Wallace, 2004-2006,
+and distributed under a separate licence, the LGPL.
+<p>
+Runhs is
+&copy; copyright to Malcolm Wallace, 2005, and is licensed under
+the GPL.
+
+<hr>
+<p>
+The latest updates to this software are available on the WWW from
+<a href="http://www.haskell.org/hmake/">
+<tt>http://www.haskell.org/hmake/</tt></a> (main site)<br>
+<a href="http://www.cs.york.ac.uk/fp/hmake/">
+<tt>http://www.cs.york.ac.uk/fp/hmake/</tt></a> (mirror)
+
+<p>
+Information last updated: 21st May 2008<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+Malcolm.Wallace@cs.york.ac.uk
+
+</td></tr></table>
+
+</body>
+</html>

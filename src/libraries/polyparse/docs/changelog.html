@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>
+  polyparse change log
+</title>
+</head>
+
+<body bgcolor='#ffffff'>
+
+<center>
+<h1>polyparse change log</h1>
+</center>
+<hr>
+
+<h3>Changes in polyparse-1.4.1</h3>
+<p>
+<ul>
+<li>Bugfix for 'discard', so that in the lazy variation it actually checks
+    that the item to be discarded satisfies the given parser.
+<li>Bugfixes in Text.Parse, such that 'optionalParens' is used more
+    consistently.
+
+<h3>Changes in polyparse-1.4</h3>
+<p>
+<ul>
+<li>New API: the primitive parser 'eof' is now available in all variations of
+    the Poly combinators.
+<li>New implementation of Text.Parse.word - it no longer uses the
+    Haskell'98 Prelude.lex, but provides its own proper lexer, with better
+    error messages.
+<li>New module: Text.ParserCombinators.Poly.ByteString is an instance of
+    the PolyParse class specialised to ByteString input, rather than being
+    polymorphic over the input token type.
+<li>New module: Text.Parse.ByteString, is like Text.Parse but with
+    ByteString input rather than String.
+<li>New API calls: Text.Parse.readByParse and readsPrecByParsePrec,
+    to make it easy to create instances of the old Read class (for
+    backwards compatibility) from your TextParser.
+<li>Bugfix: in Text.Parse, parseInt, parseDec, parseOct, and parseHex had an
+    extra spurious argument that was unused, so it has been removed (API
+    change).  In addition parseLitChar relied on the non-existent use of
+    that argument, so it has been fixed too.
+<li>Bugfix: Text.Parse.parseFloat now accepts a plain integer as a float,
+    to match the H'98 behaviour of readFloat.
+<li>Bugfix: the `discard` combinator now forces the discarded item;
+    previously incorrect parses could hide inside, without triggering an error.
+</ul>
+
+<h3>Changes in polyparse-1.3</h3>
+<p>
+<ul>
+<li>Bugfix: Text.Parse.parseFloat now accepts ordinary floating point
+    notation, in addition to scientific (exponent) notation.
+</ul>
+
+<h3>Changes in polyparse-1.2</h3>
+<p>
+<ul>
+<li>Improves the Text.Parse implementation significantly.  Where
+    previously all the parsers for builtin basic datatype (Int,Float,Char)
+    were just thin wrappers over the H'98 Read instances, now they are all
+    proper parsers, therefore they should (a) be faster; (b) give better
+    error messages.
+<li>Reduced the number of implementation variations to choose from.
+    In particular, NoLeak has become the default implementation, and
+    the previous default has been dropped (because it space-leaks).
+<!--
+<li>[desired] The class interface providing common operations across all
+    implementations, now need be no slower than the previous
+    cut-n-pasted interface, due to compiler specialisation of all the
+    instances.
+<li>[desired] New combinators for parsing infix structures, with
+    associativity and precedence information.
+<li>[desired] Multiple layers of bracketing can be parsed in linear time,
+    rather than the previous exponential solution.
+-->
+</ul>
+
+<h3>Changes in polyparse-1.1</h3>
+<p>
+<ul>
+<li>Much improved the laziness of the PolyLazy combinators.
+<li>Addition of a class-based interface to the Poly libraries, to
+    reduce code duplication amongst the variations, and to allow for
+    more experimentation with different implementations.
+<li>Several new experimental implementations of the interface.
+</ul>
+
+<h3>Changes in polyparse-1.0</h3>
+<p>
+<ul>
+<li>Version number change from 1.00 to 1.0, for silly cabal/hackage.
+<li>Minor fix to parsing strings in Text.Parse.
+</ul>
+
+<h3>Changes in polyparse-1.00</h3>
+<p>
+<ul>
+<li>No changes, but released separately from HaXml
+</ul>
+
+<h3>Changes in HaXml-1.16</h3>
+<p>
+<ul>
+<li> New: lazier parsers
+     <ul>
+     <li> <tt>Text.XML.HaXml.ParseLazy</tt>
+     <li> <tt>Text.XML.HaXml.Html.ParseLazy</tt>
+     <li> <tt>Text.ParserCombinators.PolyLazy</tt>
+     <li> <tt>Text.ParserCombinators.PolyStateLazy</tt>
+     </ul>
+</ul>
+
+<h3>Changes in HaXml-1.15</h3>
+<p>
+<ul>
+<li> New: DrIFT has now been fully updated to
+     produce instances of Text.ParserCombinators.TextParser.Parse.
+<li> New: the parser combinator library Poly has been split into two
+     variations, Poly and PolyState.  They have almost the same API,
+     only the latter includes a running state where the former does not.
+<li> The TextParser library (a replacement for the Haskell'98 Read class)
+     has also been improved with more new combinators.  Really, these
+     parser combinator experiments do not belong in HaXml, and will
+     eventually be split out into a separate package.
+</ul>
+
+</body>
+</html>

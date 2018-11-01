@@ -1,0 +1,131 @@
+interface PackedString where {
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read NHC.PackedString.PackedString;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PackedString.PackedString;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PackedString.PackedString;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show NHC.PackedString.PackedString;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! NHC.PackedString
+{-# NEED unpackPS #-}
+unpackPS{-# 1 #-}::(NHC.PackedString.PackedString -> [Prelude.Char]);
+
+{-# NEED head #-}
+head{-# 1 #-}::(NHC.PackedString.PackedString -> Prelude.Char);
+
+{-# NEED append #-}
+append{-# 2 #-}::(NHC.PackedString.PackedString -> (NHC.PackedString.PackedString -> NHC.PackedString.PackedString));
+
+{-# NEED take #-}
+take{-# 2 #-}::(Prelude.Int -> (NHC.PackedString.PackedString -> NHC.PackedString.PackedString));
+
+{-# NEED takeWhile #-}
+takeWhile{-# 2 #-}::((Prelude.Char -> Prelude.Bool) -> (NHC.PackedString.PackedString -> NHC.PackedString.PackedString));
+
+{-# NEED dropWhile #-}
+dropWhile{-# 2 #-}::((Prelude.Char -> Prelude.Bool) -> (NHC.PackedString.PackedString -> NHC.PackedString.PackedString));
+
+{-# NEED reverse #-}
+reverse{-# 0 #-}::(NHC.PackedString.PackedString -> NHC.PackedString.PackedString);
+
+{-# NEED packString #-}
+packString{-# 1 #-}::(Prelude.String -> NHC.PackedString.PackedString);
+
+{-# NEED length #-}
+length{-# 1 #-}::(NHC.PackedString.PackedString -> Prelude.Int);
+
+{-# NEED break #-}
+break{-# 2 #-}::((Prelude.Char -> Prelude.Bool) -> (NHC.PackedString.PackedString -> (NHC.PackedString.PackedString,NHC.PackedString.PackedString)));
+
+{-# NEED foldl #-}
+foldl{-# 2 #-}::((a -> (Prelude.Char -> a)) -> (a -> (NHC.PackedString.PackedString -> a)));
+
+{-# NEED nil #-}
+nil{-# 0 #-}::NHC.PackedString.PackedString;
+
+{-# NEED tail #-}
+tail{-# 1 #-}::(NHC.PackedString.PackedString -> NHC.PackedString.PackedString);
+
+{-# NEED null #-}
+null{-# 1 #-}::(NHC.PackedString.PackedString -> Prelude.Bool);
+
+{-# NEED span #-}
+span{-# 2 #-}::((Prelude.Char -> Prelude.Bool) -> (NHC.PackedString.PackedString -> (NHC.PackedString.PackedString,NHC.PackedString.PackedString)));
+
+{-# NEED map #-}
+map{-# 1 #-}::((Prelude.Char -> Prelude.Char) -> (NHC.PackedString.PackedString -> NHC.PackedString.PackedString));
+
+{-# NEED drop #-}
+drop{-# 2 #-}::(Prelude.Int -> (NHC.PackedString.PackedString -> NHC.PackedString.PackedString));
+
+{-# NEED foldr #-}
+foldr{-# 2 #-}::((Prelude.Char -> (a -> a)) -> (a -> (NHC.PackedString.PackedString -> a)));
+
+{-# NEED filter #-}
+filter{-# 1 #-}::((Prelude.Char -> Prelude.Bool) -> (NHC.PackedString.PackedString -> NHC.PackedString.PackedString));
+
+{-# NEED substr #-}
+substr{-# 3 #-}::(NHC.PackedString.PackedString -> (Prelude.Int -> (Prelude.Int -> NHC.PackedString.PackedString)));
+
+{-# NEED words #-}
+words{-# 1 #-}::(NHC.PackedString.PackedString -> [NHC.PackedString.PackedString]);
+
+{-# NEED unwords #-}
+unwords{-# 0 #-}::([NHC.PackedString.PackedString] -> NHC.PackedString.PackedString);
+
+{-# NEED lines #-}
+lines{-# 1 #-}::(NHC.PackedString.PackedString -> [NHC.PackedString.PackedString]);
+
+{-# NEED unlines #-}
+unlines{-# 0 #-}::([NHC.PackedString.PackedString] -> NHC.PackedString.PackedString);
+
+{-# NEED cons #-}
+cons{-# 2 #-}::(Prelude.Char -> (NHC.PackedString.PackedString -> NHC.PackedString.PackedString));
+
+{-# NEED splitAt #-}
+splitAt{-# 2 #-}::(Prelude.Int -> (NHC.PackedString.PackedString -> (NHC.PackedString.PackedString,NHC.PackedString.PackedString)));
+
+{-# NEED concat #-}
+concat{-# 1 #-}::([NHC.PackedString.PackedString] -> NHC.PackedString.PackedString);
+
+{-# NEED index #-}
+index{-# 2 #-}::(NHC.PackedString.PackedString -> (Prelude.Int -> Prelude.Char));
+
+{-# NEED PackedString #-}
+data PackedString;
+}

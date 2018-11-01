@@ -1,0 +1,52 @@
+.TH HI 1 "2003-10-16" "nhc98 Suite" "hmake interactive"
+.SH NAME
+hmake interactive (hi) \- an interactive Haskell environment
+
+.SH SYNOPSIS
+.B hi
+[-f FILE] [\fIARG\fR]...
+
+.SH DESCRIPTION
+This manual page documents briefly the
+.BR hi
+command.
+
+.PP
+This manual page was written for the Debian GNU/Linux distribution
+because the original program does not have a manual page.  Instead, it
+has documentation in HTML format; see below.
+
+.PP
+.B hi
+is an interactive Haskell environment which uses one of the Haskell
+compilers (ghc, nhc98 or hbc) to do the work. Expressions to be
+evaluated are given at a prompt in a similar way to hugs and ghci.
+
+.SH OPTIONS
+
+.TP
+.BR \-f " " FILE
+Use FILE, a personal config file, rather than the global config file.
+.PP
+All other argument are passed on to the underlying compiler.
+
+.SH FILES
+.I @LIBDIR@
+
+.SH "SEE ALSO"
+.BR @DOCDIR@ ,
+the hmake homepage
+.UR http://haskell.org/hmake/
+(http://haskell.org/hmake/)
+.UE
+
+.SH COPYRIGHT
+hmake interactive version @VERSION@
+
+Copyright (c) 2000 Malcolm Wallace.
+
+.SH AUTHOR
+This manual page was written by Ian Lynagh
+<igloo@debian.org>, for the Debian GNU/Linux system
+(but may be used by others).
+

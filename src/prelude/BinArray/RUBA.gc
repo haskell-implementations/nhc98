@@ -1,0 +1,16 @@
+module NHC.BinArray
+  ( rUBA
+  ) where
+
+import NHC.GreenCard
+import DUnboxedArray ({-type-}UnboxedArray(..))
+import BinPtr        ({-type-}BinPtr(..))
+import Bin           ({-type-}Bin(..))
+
+%-#include "cLowUnboxedArray.h"
+
+%fun rUBA :: UnboxedArray -> Int -> IO (Bin a)
+%call (unboxedArray uba) (int idx)
+%code
+%result (binPtr "ntohl(uba->block[idx])")
+

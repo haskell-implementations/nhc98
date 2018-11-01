@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>nhc98 status</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=530>
+
+<center><h1>nhc98 status</h1></center>
+
+<hr>
+
+<p>
+The latest stable release is 1.20.  The darcs development tree is now
+at version 1.21.  Bugfixes and important changes to the system are
+described here for the two most recent released versions.
+
+<p>
+
+<hr>
+<h3>nhc98 1.22 (2010-07-09) features</h3>
+<ul>
+<li> There are no new features, just an update to the current set of
+     libraries as of the release date.
+</ul>
+
+<hr>
+<h3>nhc98 1.20 (2007-11-22) features</h3>
+<ul>
+<li> New:     Pattern guards are supported.
+<li> New:     More hierarchical libraries have been added to the base package.
+<li> Bugfix:  Now builds on 64-bit machines (in 32-bit mode)
+<li> Bugfix:  Newer version of hmake (3.13)
+<li> Bugfix:  The evil mangler is now less evil (and more robust)
+<li> Bugfix:  Add a workaround for the hi-membug that caused build failures
+              on many recent Linux platforms.
+<li> Bugfix:  Lexical error on varid _2a is fixed.
+<li> Bugfix:  Renaming bug in newtype A a = A a.
+<li> Bugfix:  hp2graph problem with x-axis resolution in interval (-i) sampling.
+<li> Bugfix:  hp2graph end-of-file parsing bug.
+<li> New:     The runtime system code is now documented using funnelweb.
+</ul>
+
+
+<hr>
+<h3>nhc98 1.18 (2005-03-11) features</h3>
+<ul>
+<li> New:	Several more packages of hierarchical libraries are included in
+		the build: base, parsec, haskell-src, QuickCheck, HaXml,
+		HUnit, Cabal.
+<li> New:	FFI improvements: foreign import "dynamic" is now supported,
+		and named C header-files are now used.
+<li> New:	The compiler now uses cpphs for Haskell source instead of cpp.
+		This removes problems with string gaps, primes in identifiers,
+		and so on.
+<li> New:	In hmake-interactive, if the readline library is not available,
+		the simple line editor now has a history mechanism.
+<li> Bugfix:	hmake's processing of cpp conditional directives is improved
+		also.
+<li> Bugfix:	Evil bugfixes for ghc versions &ge; 6.0
+<li> Bugfix:	More evil bugfixes for gcc versions &ge; 3.3
+<li> Bugfix:	A numeric pattern can now match against a Num newtype.
+<li> Bugfix:	Foreign imports and abstract newtypes now play OK together.
+<li> Bugfix:	Methods in qualified classes no longer need to be qualified
+		in instance decls.
+<li> Bugfix:	GreenCard now accepts &lt;&lt;.../...&gt;&gt; syntax.
+<li> Bugfix:	Numerous internal tidy-ups, including fixes such that nhc98
+		can once again be built by hbc.
+</ul>
+
+<hr>
+<h3>nhc98 1.16 (2003-03-08) features</h3>
+<ul>
+<li> New:	A large subset of the <em>base</em> package of
+		hierarchical libraries is now included in the build.
+<li> New:	The primitive FFI mechanism has been updated to match
+		the latest official spec, and the full Foreign
+		libraries are also included (in hierarchical form).
+<li> Performance: The library function List.sortBy now uses a stable
+		O(n log n) mergesort.
+<li> Bugfix:	nhc98 now works correctly in the presence of gcc-3.x.
+<li> Bugfix:	nhc98 once again builds on Cygwin with ghc.
+<li> Bugfix:	Numerous other small fixes, including revisions to the
+		Haskell'98 standard.
+</ul>
+
+<hr>
+<h3>nhc98 1.14a (2002-08-13) features</h3>
+<ul>
+<li> The only change between 1.14 and 1.14a is that the version of
+     hmake included in the source package has been updated from 3.05
+     to 3.06.
+</ul>
+
+<hr>
+<h3>nhc98 1.14 (2002-06-14) features</h3>
+<ul>
+<li> New:	The Hat tracing system is now entirely separate from
+		the nhc98 compiler.  Hat can now be used with either ghc
+		or nhc98 - you should download and build the Hat system
+		<em>after</em> building nhc98.
+<li> New:	The compiler now supports a simplified version of ghc's
+		package mechanism.  No documentation yet, but Hat relies
+		on it.
+<li> Performance: Various patches for improved time/space usage of the
+		compiler itself, contributed by Thomas Nordin.
+<li> Bugfix:	Various small fixes for OS environments like OpenBSD,
+		ix86-Solaris, etc.
+</ul>
+
+
+<h3><a href=history98.html>Previous release history (nhc98)</a></h3>
+<h3><a href=history.html>Release history of nhc13</a></h3>
+
+
+<hr>
+
+<h3>Status of various components</h3>
+
+<p>
+The basic, stable, components include the compiler itself, the Standard
+Prelude and Libraries, heap profiling facilities, and the tools hmake,
+greencard, and hp2graph.  Relatively recent additions to the system
+are the time profiler and common FFI.
+
+<p>
+<center>
+<table border=1 cellspacing=0 cellpadding=2>
+<tr bgcolor='#ddddff'>
+  <th bgcolor='#eeeeee'>component</th>
+  <td>compiler</td>
+  <td>prelude + libraries</td>
+  <td>hierarchical libraries</td>
+  <td>GreenCard</td>
+  <td>hmake</td>
+  <td>cpphs</td>
+</tr><tr>
+  <th bgcolor='#eeeeee'>quality</th>
+  <td bgcolor='#ddffdd'>release</td>
+  <td bgcolor='#ddffdd'>release</td>
+  <td bgcolor='#ddffdd'>release</td>
+  <td bgcolor='#ddffdd'>release</td>
+  <td bgcolor='#ddffdd'>release</td>
+  <td bgcolor='#ffffdd'>beta</td>
+</tr>
+<tr bgcolor='#ddddff'>
+  <th bgcolor='#eeeeee'>last change</th>
+  <td>2007-07</td>
+  <td>2003-03</td>
+  <td>2007-08</td>
+  <td>2001</td>
+  <td>2005-02</td>
+  <td>2007-11</td>
+</tr>
+</table>
+
+<table border=1 cellspacing=0 cellpadding=2>
+<tr bgcolor='#ddddff'>
+  <th bgcolor='#eeeeee'>component</th>
+  <td>heap profiling</td>
+  <td>hp2graph</td>
+  <td>time profiling</td>
+  <td>common FFI</td>
+  <td><em>hi</em></td>
+  <td>HOOD</td>
+</tr><tr>
+  <th bgcolor='#eeeeee'>quality</th>
+  <td bgcolor='#ddffdd'>release</td>
+  <td bgcolor='#ddffdd'>release</td>
+  <td bgcolor='#ffffdd'>beta</td>
+  <td bgcolor='#ddffdd'>release</td>
+  <td bgcolor='#ddffdd'>release</td>
+</tr>
+<tr bgcolor='#ddddff'>
+  <th bgcolor='#eeeeee'>last change</th>
+  <td>1997</td>
+  <td>1996</td>
+  <td>2001</td>
+  <td>2003-01</td>
+  <td>2000</td>
+  <td>2000</td>
+</tr>
+</table>
+</center>
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.haskell.org/nhc98/">
+<tt>http://www.haskell.org/nhc98/</tt></a>
+
+<p>
+This page last modified: 9 Jul 2010<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+
+</td></tr></table>
+</body></html>
+

@@ -1,0 +1,58 @@
+module Directory (getDirectoryContents) where
+
+import NHC.GreenCard
+import PatchIOError
+
+%-#include <dirent.h>
+
+newtype Dir = Dir ForeignObj
+%dis dir x = Dir (declare "DIR*" x in foreign "hs_closedir" x)
+
+%fun closedir :: Dir -> IO Int
+%call (dir d)
+%code
+%  if (d==NULL) err=0; else err=closedir(d);
+%result (int err)
+
+%fun opendir :: FilePath -> IO (Int,Dir)
+%call (filePath fp)
+%code
+%  d = opendir(fp);
+%  if (d==NULL) err=-1; else err=0;
+%result (int err, dir d)
+
+%fun readdir :: Dir -> IO (Int,FilePath)
+%call (dir d)
+%code
+%  struct dirent *e;
+%  e = readdir(d);
+%  if (e==NULL) {
+%     err=-1;
+%     fp="";
+%  } else {
+%    err=0;
+%    fp=e->d_name;
+%  }
+%result (int err, filePath fp)
+
+getDirectoryContents :: FilePath -> IO [FilePath]
+getDirectoryContents fp = do
+  d <- patchIOErrorFVal "getDirectoryContents" fp opendir
+  lazyDirContents d
+
+-- Despite the name, I'm not entirely sure that this really is lazy.
+lazyDirContents :: Dir -> IO [FilePath]
+lazyDirContents d =
+  catch (do f  <- patchIOErrorVal "readDir" (readdir d)
+            fs <- lazyDirContents d
+            return (f:fs))
+        (\e-> do -- patchIOError "closeDir" (closedir d)
+                 return [])
+  
+
+{-------
+newtype DirEntry = DirEntry ()
+foreign import opendir  :: CString -> IO Addr
+foreign import closedir :: Addr -> IO Int
+foreign import readdir  :: Dir -> IO Ptr
+-}

@@ -1,0 +1,2830 @@
+interface Distribution.Simple.Program where {
+
+{-# NEED #-}
+instance Distribution.Package.Package Distribution.Package.PackageIdentifier;
+
+{-# NEED #-}
+instance Data.Traversable.Traversable (Data.Map.Map a);
+
+{-# NEED #-}
+instance Data.Foldable.Foldable Data.Set.Set;
+
+{-# NEED #-}
+instance Data.Foldable.Foldable (Data.Map.Map a);
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.PosixTypes.Fd;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.PosixTypes.CRLim;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.PosixTypes.CTcflag;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.PosixTypes.CUid;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.PosixTypes.CNlink;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.PosixTypes.CGid;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.PosixTypes.CSsize;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.PosixTypes.CPid;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.PosixTypes.COff;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.PosixTypes.CMode;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.PosixTypes.CIno;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Control.Monad.Fix.MonadFix NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Control.Monad.MonadPlus a) => Control.Applicative.Alternative (Control.Applicative.WrappedMonad a);
+
+{-# NEED #-}
+instance (Control.Arrow.ArrowZero a,Control.Arrow.ArrowPlus a) => Control.Applicative.Alternative (Control.Applicative.WrappedArrow a b);
+
+{-# NEED #-}
+instance Control.Applicative.Applicative Data.Traversable.Id;
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a) => Control.Applicative.Applicative (Control.Applicative.Const a);
+
+{-# NEED #-}
+instance (Prelude.Monad a) => Control.Applicative.Applicative (Control.Applicative.WrappedMonad a);
+
+{-# NEED #-}
+instance (Control.Arrow.Arrow a) => Control.Applicative.Applicative (Control.Applicative.WrappedArrow a b);
+
+{-# NEED #-}
+instance Control.Applicative.Applicative Control.Applicative.ZipList;
+
+{-# NEED #-}
+instance Control.Applicative.Applicative NHC.Internal.IO;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable2 NHC.IOExtras.IOArray;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable2 Data.Map.Map;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable2 Array.Array;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable1 (NHC.IOExtras.IOArray a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.IOExtras.IORef;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Data.Set.Set;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable1 (Data.Map.Map a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.FFI.Ptr;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.FFI.FunPtr;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.FFI.StablePtr;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable1 (Array.Array a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Ratio.Ratio;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.Internal.IO;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CClock;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CTime;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CSize;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CLong;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CULong;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CShort;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CChar;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.PosixTypes.Fd;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.PosixTypes.CRLim;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.PosixTypes.CTcflag;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.PosixTypes.CUid;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.PosixTypes.CNlink;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.PosixTypes.CGid;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.PosixTypes.CSsize;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.PosixTypes.CPid;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.PosixTypes.COff;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.PosixTypes.CMode;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.PosixTypes.CIno;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.PosixTypes.CSpeed;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.PosixTypes.CCc;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.PosixTypes.CDev;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance NHC.FFI.Storable (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance NHC.FFI.Storable (NHC.FFI.FunPtr a);
+
+{-# NEED #-}
+instance NHC.FFI.Storable (NHC.FFI.StablePtr a);
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Word64;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Word32;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Word16;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Word8;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Int8;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Int16;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Int32;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Int64;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Floating NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Floating NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Floating NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.RealFloat NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.RealFloat NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.RealFloat NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Data.Monoid.Monoid ();
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Data.Monoid.Monoid (Data.Set.Set a);
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a) => Data.Monoid.Monoid (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance Data.Monoid.Monoid Data.Monoid.All;
+
+{-# NEED #-}
+instance Data.Monoid.Monoid Data.Monoid.Any;
+
+{-# NEED #-}
+instance (Prelude.Num a) => Data.Monoid.Monoid (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance (Prelude.Num a) => Data.Monoid.Monoid (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Data.Monoid.Monoid (Data.Map.Map a b);
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a,Data.Monoid.Monoid b,Data.Monoid.Monoid c) => Data.Monoid.Monoid (a,b,c);
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a,Data.Monoid.Monoid b) => Data.Monoid.Monoid (a,b);
+
+{-# NEED #-}
+instance Data.Monoid.Monoid Prelude.Ordering;
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a) => Data.Monoid.Monoid (Prelude.Maybe a);
+
+{-# NEED #-}
+instance Data.Monoid.Monoid [a];
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid b) => Data.Monoid.Monoid (a -> b);
+
+{-# NEED #-}
+instance Control.Category.Category ( (->) a);
+
+{-# NEED #-}
+instance Control.Category.Category (Prelude.Monad a);
+
+{-# NEED #-}
+instance Control.Arrow.Arrow ( (->) a);
+
+{-# NEED #-}
+instance Control.Arrow.Arrow (Prelude.Monad a);
+
+{-# NEED #-}
+instance Control.Arrow.ArrowApply ( (->) a);
+
+{-# NEED #-}
+instance Control.Arrow.ArrowApply (Prelude.Monad a);
+
+{-# NEED #-}
+instance Control.Exception.Base.Exception Prelude.IOError;
+
+{-# NEED #-}
+instance Control.Exception.Base.Exception Control.Exception.Base.SomeException;
+
+{-# NEED #-}
+instance Control.Exception.Base.Exception System.ExitCode;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.Package.Dependency;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.Package.PackageIdentifier;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.Package.PackageName;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.ModuleName.ModuleName;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.Version.VersionWildcard;
+
+{-# NEED #-}
+instance Distribution.Text.Text Prelude.Bool;
+
+{-# NEED #-}
+instance Distribution.Text.Text Data.Version.Version;
+
+{-# NEED #-}
+instance Distribution.Text.Text Distribution.Version.VersionRange;
+
+{-# NEED #-}
+instance Prelude.Fractional NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Fractional NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Fractional NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.RealFrac NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.RealFrac NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.RealFrac NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (Prelude.Either a b);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.PosixTypes.Fd;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.PosixTypes.CRLim;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.PosixTypes.CTcflag;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.PosixTypes.CUid;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.PosixTypes.CNlink;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.PosixTypes.CGid;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.PosixTypes.CSsize;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.PosixTypes.CPid;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.PosixTypes.COff;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.PosixTypes.CMode;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.PosixTypes.CIno;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.PosixTypes.CSpeed;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.PosixTypes.CCc;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.PosixTypes.CDev;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (NHC.IOExtras.IOArray a b);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable ();
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Float;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Double;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.IOExtras.IORef a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Data.Typeable.TyCon;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Data.Typeable.TypeRep;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable IO.Handle;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Data.Set.Set a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (Data.Map.Map a b);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.FFI.FunPtr a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.FFI.StablePtr a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Control.Exception.Base.SomeException;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Char;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Bool;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Int;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Ordering;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Integer;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (Array.Array a b);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Data.Version.Version;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Prelude.Maybe a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable [a];
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (a -> b);
+
+{-# NEED #-}
+instance Prelude.Bounded Distribution.Verbosity.Verbosity;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.PosixTypes.Fd;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.PosixTypes.CRLim;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.PosixTypes.CTcflag;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.PosixTypes.CUid;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.PosixTypes.CNlink;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.PosixTypes.CGid;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.PosixTypes.CSsize;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.PosixTypes.CPid;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.PosixTypes.COff;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.PosixTypes.CMode;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.PosixTypes.CIno;
+
+{-# NEED #-}
+instance (Prelude.Bounded a) => Prelude.Bounded (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance Prelude.Bounded Data.Monoid.All;
+
+{-# NEED #-}
+instance Prelude.Bounded Data.Monoid.Any;
+
+{-# NEED #-}
+instance (Prelude.Bounded a) => Prelude.Bounded (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance (Prelude.Bounded a) => Prelude.Bounded (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance Prelude.Bounded IO.IOMode;
+
+{-# NEED #-}
+instance Prelude.Bounded IO.SeekMode;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Bounded Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CClock;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CTime;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Num NHC.PosixTypes.Fd;
+
+{-# NEED #-}
+instance Prelude.Num NHC.PosixTypes.CRLim;
+
+{-# NEED #-}
+instance Prelude.Num NHC.PosixTypes.CTcflag;
+
+{-# NEED #-}
+instance Prelude.Num NHC.PosixTypes.CUid;
+
+{-# NEED #-}
+instance Prelude.Num NHC.PosixTypes.CNlink;
+
+{-# NEED #-}
+instance Prelude.Num NHC.PosixTypes.CGid;
+
+{-# NEED #-}
+instance Prelude.Num NHC.PosixTypes.CSsize;
+
+{-# NEED #-}
+instance Prelude.Num NHC.PosixTypes.CPid;
+
+{-# NEED #-}
+instance Prelude.Num NHC.PosixTypes.COff;
+
+{-# NEED #-}
+instance Prelude.Num NHC.PosixTypes.CMode;
+
+{-# NEED #-}
+instance Prelude.Num NHC.PosixTypes.CIno;
+
+{-# NEED #-}
+instance Prelude.Num NHC.PosixTypes.CSpeed;
+
+{-# NEED #-}
+instance Prelude.Num NHC.PosixTypes.CCc;
+
+{-# NEED #-}
+instance Prelude.Num NHC.PosixTypes.CDev;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Int64;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CClock;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CTime;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Real NHC.PosixTypes.Fd;
+
+{-# NEED #-}
+instance Prelude.Real NHC.PosixTypes.CRLim;
+
+{-# NEED #-}
+instance Prelude.Real NHC.PosixTypes.CTcflag;
+
+{-# NEED #-}
+instance Prelude.Real NHC.PosixTypes.CUid;
+
+{-# NEED #-}
+instance Prelude.Real NHC.PosixTypes.CNlink;
+
+{-# NEED #-}
+instance Prelude.Real NHC.PosixTypes.CGid;
+
+{-# NEED #-}
+instance Prelude.Real NHC.PosixTypes.CSsize;
+
+{-# NEED #-}
+instance Prelude.Real NHC.PosixTypes.CPid;
+
+{-# NEED #-}
+instance Prelude.Real NHC.PosixTypes.COff;
+
+{-# NEED #-}
+instance Prelude.Real NHC.PosixTypes.CMode;
+
+{-# NEED #-}
+instance Prelude.Real NHC.PosixTypes.CIno;
+
+{-# NEED #-}
+instance Prelude.Real NHC.PosixTypes.CSpeed;
+
+{-# NEED #-}
+instance Prelude.Real NHC.PosixTypes.CCc;
+
+{-# NEED #-}
+instance Prelude.Real NHC.PosixTypes.CDev;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Int64;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Enum Distribution.Verbosity.Verbosity;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CClock;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CTime;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.PosixTypes.Fd;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.PosixTypes.CRLim;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.PosixTypes.CTcflag;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.PosixTypes.CUid;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.PosixTypes.CNlink;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.PosixTypes.CGid;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.PosixTypes.CSsize;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.PosixTypes.CPid;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.PosixTypes.COff;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.PosixTypes.CMode;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.PosixTypes.CIno;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.PosixTypes.CSpeed;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.PosixTypes.CCc;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.PosixTypes.CDev;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.Enum DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Enum IO.IOMode;
+
+{-# NEED #-}
+instance Prelude.Enum IO.SeekMode;
+
+{-# NEED #-}
+instance Prelude.Enum (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Int64;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Read ProgramConfiguration;
+
+{-# NEED #-}
+instance Prelude.Read ProgramLocation;
+
+{-# NEED #-}
+instance Prelude.Read ConfiguredProgram;
+
+{-# NEED #-}
+instance Prelude.Read Directory.Permissions;
+
+{-# NEED #-}
+instance Prelude.Read Distribution.Package.Dependency;
+
+{-# NEED #-}
+instance Prelude.Read Distribution.Package.PackageIdentifier;
+
+{-# NEED #-}
+instance Prelude.Read Distribution.Package.PackageName;
+
+{-# NEED #-}
+instance Prelude.Read Distribution.ModuleName.ModuleName;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CClock;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CTime;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Read NHC.PosixTypes.Fd;
+
+{-# NEED #-}
+instance Prelude.Read NHC.PosixTypes.CRLim;
+
+{-# NEED #-}
+instance Prelude.Read NHC.PosixTypes.CTcflag;
+
+{-# NEED #-}
+instance Prelude.Read NHC.PosixTypes.CUid;
+
+{-# NEED #-}
+instance Prelude.Read NHC.PosixTypes.CNlink;
+
+{-# NEED #-}
+instance Prelude.Read NHC.PosixTypes.CGid;
+
+{-# NEED #-}
+instance Prelude.Read NHC.PosixTypes.CSsize;
+
+{-# NEED #-}
+instance Prelude.Read NHC.PosixTypes.CPid;
+
+{-# NEED #-}
+instance Prelude.Read NHC.PosixTypes.COff;
+
+{-# NEED #-}
+instance Prelude.Read NHC.PosixTypes.CMode;
+
+{-# NEED #-}
+instance Prelude.Read NHC.PosixTypes.CIno;
+
+{-# NEED #-}
+instance Prelude.Read NHC.PosixTypes.CSpeed;
+
+{-# NEED #-}
+instance Prelude.Read NHC.PosixTypes.CCc;
+
+{-# NEED #-}
+instance Prelude.Read NHC.PosixTypes.CDev;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.Read IO.BufferMode;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Ord a) => Prelude.Read (Data.Set.Set a);
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance Prelude.Read Data.Monoid.All;
+
+{-# NEED #-}
+instance Prelude.Read Data.Monoid.Any;
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance (Prelude.Read a) => Prelude.Read (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance Prelude.Read IO.IOMode;
+
+{-# NEED #-}
+instance Prelude.Read IO.SeekMode;
+
+{-# NEED #-}
+instance (Prelude.Ord a,Prelude.Read a,Prelude.Read b) => Prelude.Read (Data.Map.Map a b);
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Read System.ExitCode;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Read a,Prelude.Read b) => Prelude.Read (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Read Data.Version.Version;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Read Distribution.Version.VersionRange;
+
+{-# NEED #-}
+instance Prelude.Eq ProgramLocation;
+
+{-# NEED #-}
+instance Prelude.Eq ConfiguredProgram;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Eq Time.ClockTime;
+
+{-# NEED #-}
+instance Prelude.Eq Directory.Permissions;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.Verbosity.Verbosity;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.Package.Dependency;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.Package.PackageIdentifier;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.Package.PackageName;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.ModuleName.ModuleName;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CClock;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CTime;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PosixTypes.Fd;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PosixTypes.CRLim;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PosixTypes.CTcflag;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PosixTypes.CUid;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PosixTypes.CNlink;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PosixTypes.CGid;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PosixTypes.CSsize;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PosixTypes.CPid;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PosixTypes.COff;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PosixTypes.CMode;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PosixTypes.CIno;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PosixTypes.CSpeed;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PosixTypes.CCc;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.PosixTypes.CDev;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Typeable.TyCon;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Typeable.TypeRep;
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Typeable.KeyPr;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Typeable.Key;
+
+{-# NEED #-}
+instance Prelude.Eq Data.HashTable.HashData;
+
+{-# NEED #-}
+instance Prelude.Eq Data.HashTable.Inserts;
+
+{-# NEED #-}
+instance Prelude.Eq IO.HandlePosn;
+
+{-# NEED #-}
+instance Prelude.Eq IO.BufferMode;
+
+{-# NEED #-}
+instance Prelude.Eq (NHC.FFI.ForeignPtr a);
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Data.Set.Set a);
+
+{-# NEED #-}
+instance Prelude.Eq DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance Prelude.Eq Data.Monoid.All;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Monoid.Any;
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance (Prelude.Eq a) => Prelude.Eq (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance Prelude.Eq IO.IOMode;
+
+{-# NEED #-}
+instance Prelude.Eq IO.SeekMode;
+
+{-# NEED #-}
+instance (Prelude.Eq a,Prelude.Eq b) => Prelude.Eq (Data.Map.Map a b);
+
+{-# NEED #-}
+instance Prelude.Eq (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance Prelude.Eq (NHC.FFI.FunPtr a);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Eq System.ExitCode;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Eq b) => Prelude.Eq (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Eq Data.Version.Version;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Eq Distribution.Version.VersionRange;
+
+{-# NEED #-}
+instance Prelude.Ord Time.ClockTime;
+
+{-# NEED #-}
+instance Prelude.Ord Directory.Permissions;
+
+{-# NEED #-}
+instance Prelude.Ord Distribution.Verbosity.Verbosity;
+
+{-# NEED #-}
+instance Prelude.Ord Distribution.Package.PackageIdentifier;
+
+{-# NEED #-}
+instance Prelude.Ord Distribution.Package.PackageName;
+
+{-# NEED #-}
+instance Prelude.Ord Distribution.ModuleName.ModuleName;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CClock;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CTime;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PosixTypes.Fd;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PosixTypes.CRLim;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PosixTypes.CTcflag;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PosixTypes.CUid;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PosixTypes.CNlink;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PosixTypes.CGid;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PosixTypes.CSsize;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PosixTypes.CPid;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PosixTypes.COff;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PosixTypes.CMode;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PosixTypes.CIno;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PosixTypes.CSpeed;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PosixTypes.CCc;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.PosixTypes.CDev;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.Ord IO.BufferMode;
+
+{-# NEED #-}
+instance Prelude.Ord (NHC.FFI.ForeignPtr a);
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Data.Set.Set a);
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance Prelude.Ord Data.Monoid.All;
+
+{-# NEED #-}
+instance Prelude.Ord Data.Monoid.Any;
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance (Prelude.Ord a) => Prelude.Ord (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance Prelude.Ord IO.IOMode;
+
+{-# NEED #-}
+instance Prelude.Ord IO.SeekMode;
+
+{-# NEED #-}
+instance (Prelude.Ord a,Prelude.Ord b) => Prelude.Ord (Data.Map.Map a b);
+
+{-# NEED #-}
+instance Prelude.Ord (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance Prelude.Ord (NHC.FFI.FunPtr a);
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Ord System.ExitCode;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Ord b) => Prelude.Ord (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Ord Data.Version.Version;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Ix.Ix IO.IOMode;
+
+{-# NEED #-}
+instance Ix.Ix IO.SeekMode;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Char;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Bool;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Int;
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m,Ix.Ix n,Ix.Ix o) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m,Ix.Ix n) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m,n);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j) => Ix.Ix (a,b,c,d,e,f,g,h,i,j);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i) => Ix.Ix (a,b,c,d,e,f,g,h,i);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h) => Ix.Ix (a,b,c,d,e,f,g,h);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g) => Ix.Ix (a,b,c,d,e,f,g);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f) => Ix.Ix (a,b,c,d,e,f);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e) => Ix.Ix (a,b,c,d,e);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d) => Ix.Ix (a,b,c,d);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c) => Ix.Ix (a,b,c);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b) => Ix.Ix (a,b);
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Ordering;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Integer;
+
+{-# NEED #-}
+instance Ix.Ix Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.PosixTypes.Fd;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.PosixTypes.CRLim;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.PosixTypes.CTcflag;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.PosixTypes.CUid;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.PosixTypes.CNlink;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.PosixTypes.CGid;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.PosixTypes.CSsize;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.PosixTypes.CPid;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.PosixTypes.COff;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.PosixTypes.CMode;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.PosixTypes.CIno;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus (Text.ParserCombinators.ReadP.ReadPN a);
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus Text.ParserCombinators.ReadP.P;
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus Prelude.Maybe;
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus Prelude.[];
+
+{-# NEED #-}
+instance Prelude.Functor Distribution.ReadE.ReadE;
+
+{-# NEED #-}
+instance Prelude.Functor Data.Traversable.Id;
+
+{-# NEED #-}
+instance Prelude.Functor (Control.Applicative.Const a);
+
+{-# NEED #-}
+instance (Prelude.Monad a) => Prelude.Functor (Control.Applicative.WrappedMonad a);
+
+{-# NEED #-}
+instance (Control.Arrow.Arrow a) => Prelude.Functor (Control.Applicative.WrappedArrow a b);
+
+{-# NEED #-}
+instance Prelude.Functor Control.Applicative.ZipList;
+
+{-# NEED #-}
+instance Prelude.Functor (Data.Map.Map a);
+
+{-# NEED #-}
+instance Prelude.Functor (Distribution.Compat.ReadP.Parser a b);
+
+{-# NEED #-}
+instance (Ix.Ix a) => Prelude.Functor (Array.Array a);
+
+{-# NEED #-}
+instance Prelude.Functor (Text.ParserCombinators.ReadP.ReadPN a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Show ProgramConfiguration;
+
+{-# NEED #-}
+instance Prelude.Show ProgramLocation;
+
+{-# NEED #-}
+instance Prelude.Show ConfiguredProgram;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.ArithException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.ArrayException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.AsyncException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.AssertionFailed;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.PatternMatchFail;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.NoMethodError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.Deadlock;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.BlockedOnDeadMVar;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.BlockedIndefinitely;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.ErrorCall;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.RecConError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.RecSelError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.RecUpdError;
+
+{-# NEED #-}
+instance Prelude.Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Show Time.ClockTime;
+
+{-# NEED #-}
+instance Prelude.Show Directory.Permissions;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.Verbosity.Verbosity;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.Package.Dependency;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.Package.PackageIdentifier;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.Package.PackageName;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.ModuleName.ModuleName;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CClock;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CTime;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CSize;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CLong;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CUInt;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CPtrdiff;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CWchar;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CSigAtomic;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CULLong;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CLLong;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CULong;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CUShort;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CShort;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CUChar;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CSChar;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CChar;
+
+{-# NEED #-}
+instance Prelude.Show NHC.PosixTypes.Fd;
+
+{-# NEED #-}
+instance Prelude.Show NHC.PosixTypes.CRLim;
+
+{-# NEED #-}
+instance Prelude.Show NHC.PosixTypes.CTcflag;
+
+{-# NEED #-}
+instance Prelude.Show NHC.PosixTypes.CUid;
+
+{-# NEED #-}
+instance Prelude.Show NHC.PosixTypes.CNlink;
+
+{-# NEED #-}
+instance Prelude.Show NHC.PosixTypes.CGid;
+
+{-# NEED #-}
+instance Prelude.Show NHC.PosixTypes.CSsize;
+
+{-# NEED #-}
+instance Prelude.Show NHC.PosixTypes.CPid;
+
+{-# NEED #-}
+instance Prelude.Show NHC.PosixTypes.COff;
+
+{-# NEED #-}
+instance Prelude.Show NHC.PosixTypes.CMode;
+
+{-# NEED #-}
+instance Prelude.Show NHC.PosixTypes.CIno;
+
+{-# NEED #-}
+instance Prelude.Show NHC.PosixTypes.CSpeed;
+
+{-# NEED #-}
+instance Prelude.Show NHC.PosixTypes.CCc;
+
+{-# NEED #-}
+instance Prelude.Show NHC.PosixTypes.CDev;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CLDouble;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CDouble;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CFloat;
+
+{-# NEED #-}
+instance Prelude.Show Data.Typeable.TyCon;
+
+{-# NEED #-}
+instance Prelude.Show Data.Typeable.TypeRep;
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance Prelude.Show Data.HashTable.HashData;
+
+{-# NEED #-}
+instance Prelude.Show IO.HandlePosn;
+
+{-# NEED #-}
+instance Prelude.Show IO.BufferMode;
+
+{-# NEED #-}
+instance Prelude.Show (NHC.FFI.ForeignPtr a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Data.Set.Set a);
+
+{-# NEED #-}
+instance Prelude.Show DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Data.Monoid.Dual a);
+
+{-# NEED #-}
+instance Prelude.Show Data.Monoid.All;
+
+{-# NEED #-}
+instance Prelude.Show Data.Monoid.Any;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Data.Monoid.Sum a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (Data.Monoid.Product a);
+
+{-# NEED #-}
+instance Prelude.Show IO.IOMode;
+
+{-# NEED #-}
+instance Prelude.Show IO.SeekMode;
+
+{-# NEED #-}
+instance (Prelude.Show a,Prelude.Show b) => Prelude.Show (Data.Map.Map a b);
+
+{-# NEED #-}
+instance Prelude.Show (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance Prelude.Show (NHC.FFI.FunPtr a);
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.SomeException;
+
+{-# NEED #-}
+instance Prelude.Show System.ExitCode;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Show a,Prelude.Show b) => Prelude.Show (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Show Data.Version.Version;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Show Text.PrettyPrint.HughesPJ.Doc;
+
+{-# NEED #-}
+instance Prelude.Show Distribution.Version.VersionRange;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Control.Arrow.ArrowApply a) => Prelude.Monad (Control.Arrow.ArrowMonad a);
+
+{-# NEED #-}
+instance Prelude.Monad (Distribution.Compat.ReadP.Parser a b);
+
+{-# NEED #-}
+instance Prelude.Monad (Text.ParserCombinators.ReadP.ReadPN a);
+
+{-# NEED #-}
+instance Prelude.Monad Text.ParserCombinators.ReadP.P;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+interface Control.Monad
+{-# NEED MonadPlus #-}
+class (Prelude.Monad a) => MonadPlus a;
+interface Control.Arrow
+{-# NEED #-}
+
+{-# NEED #-}
+interface Data.Monoid
+{-# NEED Monoid #-}
+class Monoid a;
+interface Distribution.Version
+{-# NEED VersionWildcard #-}
+newtype {-#  #-} VersionWildcard;
+interface NHC.IOExtras
+{-# NEED IOArray #-}
+data (Ix.Ix a) => IOArray a b;
+
+{-# NEED IORef #-}
+newtype {-#  #-} IORef a;
+interface NHC.FFI
+{-# NEED StablePtr #-}
+data StablePtr a;
+interface Data.Typeable
+{-# NEED Typeable #-}
+class Typeable a;
+
+{-# NEED KeyPr #-}
+data KeyPr;
+
+{-# NEED Key #-}
+newtype {-#  #-} Key;
+interface Data.HashTable
+{-# NEED Inserts #-}
+data Inserts;
+interface Distribution.ReadE
+{-# NEED ReadE #-}
+newtype {-#  #-} ReadE a;
+interface Data.Traversable
+{-# NEED Id #-}
+newtype {-#  #-} Id a;
+interface Control.Applicative
+{-# NEED Const #-}
+newtype {-#  #-} Const a b;
+
+{-# NEED WrappedMonad #-}
+newtype {-#  #-} WrappedMonad a b;
+
+{-# NEED WrappedArrow #-}
+newtype {-#  #-} WrappedArrow a b c;
+
+{-# NEED ZipList #-}
+newtype {-#  #-} ZipList a;
+interface Control.Exception.Base
+{-# NEED ArithException #-}
+data ArithException;
+
+{-# NEED ArrayException #-}
+data ArrayException;
+
+{-# NEED AsyncException #-}
+data AsyncException;
+
+{-# NEED AssertionFailed #-}
+data AssertionFailed;
+
+{-# NEED PatternMatchFail #-}
+data PatternMatchFail;
+
+{-# NEED NoMethodError #-}
+data NoMethodError;
+
+{-# NEED Deadlock #-}
+data Deadlock;
+
+{-# NEED BlockedOnDeadMVar #-}
+data BlockedOnDeadMVar;
+
+{-# NEED BlockedIndefinitely #-}
+data BlockedIndefinitely;
+
+{-# NEED ErrorCall #-}
+data ErrorCall;
+
+{-# NEED RecConError #-}
+data RecConError;
+
+{-# NEED RecSelError #-}
+data RecSelError;
+
+{-# NEED RecUpdError #-}
+data RecUpdError;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface Time
+{-# NEED ClockTime #-}
+data ClockTime;
+interface Directory
+{-# NEED Permissions #-}
+data Permissions;
+interface Distribution.Package
+{-# NEED Dependency #-}
+data Dependency;
+
+{-# NEED PackageIdentifier #-}
+data PackageIdentifier;
+
+{-# NEED PackageName #-}
+newtype {-#  #-} PackageName;
+interface Distribution.ModuleName
+{-# NEED ModuleName #-}
+newtype {-#  #-} ModuleName;
+interface NHC.FFI
+{-# NEED CClock #-}
+newtype {-#  #-} CClock;
+
+{-# NEED CTime #-}
+newtype {-#  #-} CTime;
+
+{-# NEED CSize #-}
+newtype {-#  #-} CSize;
+
+{-# NEED CLong #-}
+newtype {-#  #-} CLong;
+
+{-# NEED CUInt #-}
+newtype {-#  #-} CUInt;
+
+{-# NEED CPtrdiff #-}
+newtype {-#  #-} CPtrdiff;
+
+{-# NEED CWchar #-}
+newtype {-#  #-} CWchar;
+
+{-# NEED CSigAtomic #-}
+newtype {-#  #-} CSigAtomic;
+
+{-# NEED CULLong #-}
+newtype {-#  #-} CULLong;
+
+{-# NEED CLLong #-}
+newtype {-#  #-} CLLong;
+
+{-# NEED CULong #-}
+newtype {-#  #-} CULong;
+
+{-# NEED CUShort #-}
+newtype {-#  #-} CUShort;
+
+{-# NEED CShort #-}
+newtype {-#  #-} CShort;
+
+{-# NEED CUChar #-}
+newtype {-#  #-} CUChar;
+
+{-# NEED CSChar #-}
+newtype {-#  #-} CSChar;
+
+{-# NEED CChar #-}
+newtype {-#  #-} CChar;
+interface NHC.PosixTypes
+{-# NEED Fd #-}
+newtype {-#  #-} Fd;
+
+{-# NEED CRLim #-}
+newtype {-#  #-} CRLim;
+
+{-# NEED CTcflag #-}
+newtype {-#  #-} CTcflag;
+
+{-# NEED CUid #-}
+newtype {-#  #-} CUid;
+
+{-# NEED CNlink #-}
+newtype {-#  #-} CNlink;
+
+{-# NEED CGid #-}
+newtype {-#  #-} CGid;
+
+{-# NEED CSsize #-}
+newtype {-#  #-} CSsize;
+
+{-# NEED CPid #-}
+newtype {-#  #-} CPid;
+
+{-# NEED COff #-}
+newtype {-#  #-} COff;
+
+{-# NEED CMode #-}
+newtype {-#  #-} CMode;
+
+{-# NEED CIno #-}
+newtype {-#  #-} CIno;
+
+{-# NEED CSpeed #-}
+newtype {-#  #-} CSpeed;
+
+{-# NEED CCc #-}
+newtype {-#  #-} CCc;
+
+{-# NEED CDev #-}
+newtype {-#  #-} CDev;
+interface NHC.FFI
+{-# NEED CLDouble #-}
+newtype {-#  #-} CLDouble;
+
+{-# NEED CDouble #-}
+newtype {-#  #-} CDouble;
+
+{-# NEED CFloat #-}
+newtype {-#  #-} CFloat;
+interface Data.Typeable
+{-# NEED TyCon #-}
+data TyCon;
+
+{-# NEED TypeRep #-}
+data TypeRep;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface Data.HashTable
+{-# NEED HashData #-}
+data HashData;
+interface IO
+{-# NEED HandlePosn #-}
+data HandlePosn;
+
+{-# NEED BufferMode #-}
+data BufferMode;
+interface NHC.FFI
+{-# NEED ForeignPtr #-}
+data ForeignPtr a;
+interface Data.Set
+{-# NEED Set #-}
+data Set a;
+interface DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface Data.Monoid
+{-# NEED Dual #-}
+newtype {-#  #-} Dual a;
+
+{-# NEED All #-}
+newtype {-#  #-} All;
+
+{-# NEED Any #-}
+newtype {-#  #-} Any;
+
+{-# NEED Sum #-}
+newtype {-#  #-} Sum a;
+
+{-# NEED Product #-}
+newtype {-#  #-} Product a;
+interface IO
+{-# NEED IOMode #-}
+data IOMode;
+
+{-# NEED SeekMode #-}
+data SeekMode;
+interface Data.Map
+{-# NEED Map #-}
+data Map a b;
+interface NHC.FFI
+{-# NEED Ptr #-}
+data Ptr a;
+
+{-# NEED FunPtr #-}
+data FunPtr a;
+
+{-# NEED Word64 #-}
+data Word64;
+
+{-# NEED Word32 #-}
+data Word32;
+
+{-# NEED Word16 #-}
+data Word16;
+
+{-# NEED Word8 #-}
+data Word8;
+
+{-# NEED Int8 #-}
+data Int8;
+
+{-# NEED Int16 #-}
+data Int16;
+
+{-# NEED Int32 #-}
+data Int32;
+
+{-# NEED Int64 #-}
+data Int64;
+interface Control.Exception.Base
+{-# NEED SomeException #-}
+data SomeException;
+interface System
+{-# NEED ExitCode #-}
+data ExitCode;
+interface Array
+{-# NEED Array #-}
+data (Ix.Ix a) => Array a b;
+interface Ix
+{-# NEED Ix #-}
+class (Prelude.Ord a) => Ix a;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface Data.Char
+{-# NEED GeneralCategory #-}
+data GeneralCategory;
+interface NHC.FFI
+{-# NEED CInt #-}
+newtype {-#  #-} CInt;
+interface Text.PrettyPrint.HughesPJ
+{-# NEED Doc #-}
+data Doc;
+interface Control.Arrow
+{-# NEED ArrowMonad #-}
+newtype {-#  #-} (Control.Arrow.ArrowApply a) => ArrowMonad a b;
+
+{-# NEED ArrowApply #-}
+class (Control.Arrow.Arrow a) => ArrowApply a;
+
+{-# NEED Arrow #-}
+class (Control.Category.Category a) => Arrow a;
+interface Control.Category
+{-# NEED Category #-}
+class Category a;
+interface Distribution.Compat.ReadP
+{-# NEED Parser #-}
+newtype {-#  #-} Parser a b c;
+interface Text.ParserCombinators.ReadP
+{-# NEED ReadPN #-}
+newtype {-#  #-} ReadPN a b;
+
+{-# NEED P #-}
+data P a;
+interface ! Distribution.Simple.Program
+{-# NEED pkgConfigProgram #-}
+pkgConfigProgram{-# 0 #-}::Program;
+
+{-# NEED cppProgram #-}
+cppProgram{-# 0 #-}::Program;
+
+{-# NEED tarProgram #-}
+tarProgram{-# 0 #-}::Program;
+
+{-# NEED ldProgram #-}
+ldProgram{-# 0 #-}::Program;
+
+{-# NEED greencardProgram #-}
+greencardProgram{-# 0 #-}::Program;
+
+{-# NEED haddockProgram #-}
+haddockProgram{-# 0 #-}::Program;
+
+{-# NEED hscolourProgram #-}
+hscolourProgram{-# 0 #-}::Program;
+
+{-# NEED cpphsProgram #-}
+cpphsProgram{-# 0 #-}::Program;
+
+{-# NEED c2hsProgram #-}
+c2hsProgram{-# 0 #-}::Program;
+
+{-# NEED hsc2hsProgram #-}
+hsc2hsProgram{-# 0 #-}::Program;
+
+{-# NEED stripProgram #-}
+stripProgram{-# 0 #-}::Program;
+
+{-# NEED arProgram #-}
+arProgram{-# 0 #-}::Program;
+
+{-# NEED ranlibProgram #-}
+ranlibProgram{-# 0 #-}::Program;
+
+{-# NEED gccProgram #-}
+gccProgram{-# 0 #-}::Program;
+
+{-# NEED alexProgram #-}
+alexProgram{-# 0 #-}::Program;
+
+{-# NEED happyProgram #-}
+happyProgram{-# 0 #-}::Program;
+
+{-# NEED ffihugsProgram #-}
+ffihugsProgram{-# 0 #-}::Program;
+
+{-# NEED hugsProgram #-}
+hugsProgram{-# 0 #-}::Program;
+
+{-# NEED jhcProgram #-}
+jhcProgram{-# 0 #-}::Program;
+
+{-# NEED hmakeProgram #-}
+hmakeProgram{-# 0 #-}::Program;
+
+{-# NEED nhcProgram #-}
+nhcProgram{-# 0 #-}::Program;
+
+{-# NEED ghcPkgProgram #-}
+ghcPkgProgram{-# 0 #-}::Program;
+
+{-# NEED ghcProgram #-}
+ghcProgram{-# 0 #-}::Program;
+
+{-# NEED builtinPrograms #-}
+builtinPrograms{-# 0 #-}::[Program];
+
+{-# NEED rawSystemProgramStdoutConf #-}
+rawSystemProgramStdoutConf{-# 4 #-}::(Distribution.Verbosity.Verbosity -> (Program -> (ProgramConfiguration -> ([ProgArg] -> (NHC.Internal.IO Prelude.String)))));
+
+{-# NEED rawSystemProgramConf #-}
+rawSystemProgramConf{-# 4 #-}::(Distribution.Verbosity.Verbosity -> (Program -> (ProgramConfiguration -> ([ProgArg] -> (NHC.Internal.IO ())))));
+
+{-# NEED rawSystemProgramStdout #-}
+rawSystemProgramStdout{-# 3 #-}::(Distribution.Verbosity.Verbosity -> (ConfiguredProgram -> ([ProgArg] -> (NHC.Internal.IO Prelude.String))));
+
+{-# NEED rawSystemProgram #-}
+rawSystemProgram{-# 3 #-}::(Distribution.Verbosity.Verbosity -> (ConfiguredProgram -> ([ProgArg] -> (NHC.Internal.IO ()))));
+
+{-# NEED requireProgram #-}
+requireProgram{-# 4 #-}::(Distribution.Verbosity.Verbosity -> (Program -> (Distribution.Version.VersionRange -> (ProgramConfiguration -> (NHC.Internal.IO (ConfiguredProgram,ProgramConfiguration))))));
+interface Distribution.Version
+{-# NEED VersionRange #-}
+data VersionRange;
+interface ! Distribution.Simple.Program
+{-# NEED reconfigurePrograms #-}
+reconfigurePrograms{-# 4 #-}::(Distribution.Verbosity.Verbosity -> ([(Prelude.String,Prelude.FilePath)] -> ([(Prelude.String,[ProgArg])] -> (ProgramConfiguration -> (NHC.Internal.IO ProgramConfiguration)))));
+
+{-# NEED configureAllKnownPrograms #-}
+configureAllKnownPrograms{-# 2 #-}::(Distribution.Verbosity.Verbosity -> (ProgramConfiguration -> (NHC.Internal.IO ProgramConfiguration)));
+
+{-# NEED configureProgram #-}
+configureProgram{-# 3 #-}::(Distribution.Verbosity.Verbosity -> (Program -> (ProgramConfiguration -> (NHC.Internal.IO ProgramConfiguration))));
+
+{-# NEED updateProgram #-}
+updateProgram{-# 1 #-}::(ConfiguredProgram -> (ProgramConfiguration -> ProgramConfiguration));
+
+{-# NEED lookupProgram #-}
+lookupProgram{-# 1 #-}::(Program -> (ProgramConfiguration -> (Prelude.Maybe ConfiguredProgram)));
+
+{-# NEED userSpecifiedArgs #-}
+userSpecifiedArgs{-# 1 #-}::(Program -> (ProgramConfiguration -> [ProgArg]));
+
+{-# NEED userSpecifyArgss #-}
+userSpecifyArgss{-# 2 #-}::([(Prelude.String,[ProgArg])] -> (ProgramConfiguration -> ProgramConfiguration));
+
+{-# NEED userSpecifyPaths #-}
+userSpecifyPaths{-# 2 #-}::([(Prelude.String,Prelude.FilePath)] -> (ProgramConfiguration -> ProgramConfiguration));
+
+{-# NEED userSpecifyArgs #-}
+userSpecifyArgs{-# 2 #-}::(Prelude.String -> ([ProgArg] -> (ProgramConfiguration -> ProgramConfiguration)));
+
+{-# NEED userMaybeSpecifyPath #-}
+userMaybeSpecifyPath{-# 3 #-}::(Prelude.String -> ((Prelude.Maybe Prelude.FilePath) -> (ProgramConfiguration -> ProgramConfiguration)));
+
+{-# NEED userSpecifyPath #-}
+userSpecifyPath{-# 2 #-}::(Prelude.String -> (Prelude.FilePath -> (ProgramConfiguration -> ProgramConfiguration)));
+
+{-# NEED knownPrograms #-}
+knownPrograms{-# 1 #-}::(ProgramConfiguration -> [(Program,(Prelude.Maybe ConfiguredProgram))]);
+
+{-# NEED lookupKnownProgram #-}
+lookupKnownProgram{-# 1 #-}::(Prelude.String -> (ProgramConfiguration -> (Prelude.Maybe Program)));
+
+{-# NEED addKnownPrograms #-}
+addKnownPrograms{-# 2 #-}::([Program] -> (ProgramConfiguration -> ProgramConfiguration));
+
+{-# NEED addKnownProgram #-}
+addKnownProgram{-# 1 #-}::(Program -> (ProgramConfiguration -> ProgramConfiguration));
+
+{-# NEED restoreProgramConfiguration #-}
+restoreProgramConfiguration{-# 0 #-}::([Program] -> (ProgramConfiguration -> ProgramConfiguration));
+
+{-# NEED defaultProgramConfiguration #-}
+defaultProgramConfiguration{-# 0 #-}::ProgramConfiguration;
+
+{-# NEED emptyProgramConfiguration #-}
+emptyProgramConfiguration{-# 0 #-}::ProgramConfiguration;
+
+{-# NEED ProgramConfiguration #-}
+data ProgramConfiguration;
+
+{-# NEED findProgramVersion #-}
+findProgramVersion{-# 4 #-}::(ProgArg -> ((Prelude.String -> Prelude.String) -> (Distribution.Verbosity.Verbosity -> (Prelude.FilePath -> (NHC.Internal.IO (Prelude.Maybe Data.Version.Version))))));
+
+{-# NEED findProgramOnPath #-}
+findProgramOnPath{-# 2 #-}::(Prelude.FilePath -> (Distribution.Verbosity.Verbosity -> (NHC.Internal.IO (Prelude.Maybe Prelude.FilePath))));
+
+{-# NEED simpleProgram #-}
+simpleProgram{-# 1 #-}::(Prelude.String -> Program);
+
+{-# NEED programPath #-}
+programPath{-# 0 #-}::(ConfiguredProgram -> Prelude.FilePath);
+
+{-# NEED {ConfiguredProgram ConfiguredProgram programId programVersion programArgs programLocation} #-}
+data ConfiguredProgram
+  = ConfiguredProgram {programId :: Prelude.String} {programVersion :: (Prelude.Maybe Data.Version.Version)} {programArgs :: [ProgArg]} {programLocation :: ProgramLocation};
+
+{-# NEED {ProgramLocation UserSpecified locationPath FoundOnSystem locationPath} #-}
+data ProgramLocation
+  = UserSpecified {locationPath :: Prelude.FilePath}
+  | FoundOnSystem {locationPath :: Prelude.FilePath};
+
+{-# NEED ProgArg #-}
+type {-# 2 #-} ProgArg = Prelude.String;
+
+{-# NEED {Program Program programName programFindLocation programFindVersion} #-}
+data Program
+  = Program {programName :: Prelude.String} {programFindLocation :: (Distribution.Verbosity.Verbosity -> (NHC.Internal.IO (Prelude.Maybe Prelude.FilePath)))} {programFindVersion :: (Distribution.Verbosity.Verbosity -> (Prelude.FilePath -> (NHC.Internal.IO (Prelude.Maybe Data.Version.Version))))};
+interface Data.Version
+{-# NEED Version #-}
+data Version;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+
+{-# NEED World #-}
+data World;
+interface Distribution.Verbosity
+{-# NEED Verbosity #-}
+data Verbosity;
+}

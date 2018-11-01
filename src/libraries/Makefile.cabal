@@ -1,0 +1,138 @@
+# This Makefile.common is used only in an nhc98 build of the libraries.
+# It is included from each package's individual Makefile.nhc98.
+# Most of the necessary information is extracted from the .cabal file.
+# However we assume the following definitions might be added in
+# the importing Makefile.
+#
+# EXTRA_H_FLAGS = e.g. -prelude
+# EXTRA_C_FLAGS = e.g. -I../Binary
+include ../Makefile.inc
+
+
+CABALFILE  = $(shell ls *.cabal | head -n 1 )
+READ       = $(CABALPARSE) $(CABALFILE) -quiet
+MAP        = $(LOCAL)map
+
+THISPKG    = $(shell $(READ) name | cut -c2- )
+VERSION    = $(shell $(READ) version)
+LOCATION   = $(shell $(READ) hs-source-dir hs-source-dirs | head -1)
+SEARCH     = $(shell $(READ) build-depends  | $(MAP) "echo -package" ) \
+             $(shell $(READ) include-dirs   | $(MAP) "echo -i" | cut -c1,2,4-) \
+             $(shell $(READ) hs-source-dir  | $(MAP) "echo -I" | cut -c1,2,4-) \
+             $(shell $(READ) hs-source-dirs | $(MAP) "echo -I" | cut -c1,2,4-)
+CINCLUDES  = $(shell $(READ) include-dirs   | $(MAP) "echo -I" | cut -c1,2,4-)
+SRCS       = $(shell $(READ) -slash exposed-modules)
+EXTRA_SRCS = $(shell $(READ) -slash other-modules)
+SRCS_C     = $(shell $(READ) c-sources)
+DIRS       = $(shell $(READ) -slash exposed-modules other-modules \
+                     | $(MAP) dirname | sort | uniq )
+CDIRS      = $(shell $(READ) c-sources | $(MAP) dirname | sort | uniq )
+EXTRA_C_FLAGS = $(shell $(READ) cc-options cpp-options)
+EXTRA_H_FLAGS = $(shell $(READ) nhc98-options cpp-options)
+
+
+# ----
+OBJDIR   = ${BUILDDIR}/${OBJ}/libraries/${THISPKG}
+OBJDIRS  = $(patsubst %, ${OBJDIR}/%, ${DIRS} ${CDIRS})
+FINALLIB = ${DST}/libHS${THISPKG}.$A
+INCDIRS  = ${INCDIR}/packages/${THISPKG} \
+	   $(patsubst %, ${INCDIR}/packages/${THISPKG}/%, ${DIRS})
+# ----
+.SUFFIXES: # to remove builtin rules
+.SUFFIXES: .hi .hs .lhs .o .gc .hc .hsc
+#.SUFFIXES: .hi .hs .lhs .o .gc .c .hc .p.o .p.c .z.o .z.c .hsc
+
+OBJS_HASK= $(patsubst %,   $(OBJDIR)/%.$O, ${SRCS})
+OBJS_C   = $(patsubst %.c, ${OBJDIR}/%.$O, ${SRCS_C})
+OBJS     = $(OBJS_HASK) $(OBJS_C)
+
+CFILES_GEN  = $(patsubst %, %.$C, ${SRCS})
+
+ifeq "p" "${PROFILING}"
+HC += -p
+endif
+ 
+ifeq "z" "${TPROF}"
+HC += -z
+endif
+
+#debug:
+#	@echo name: $(THISPKG)
+#	@echo version: $(VERSION)
+#	@echo search: $(SEARCH)
+#	@echo srcs: $(SRCS)
+#	@echo extra_srcs: $(EXTRA_SRCS)
+#	@echo srcs_c: $(SRCS_C)
+#	@echo dirs: $(DIRS)
+all: ${OBJDIR} ${OBJDIRS} ${INCDIRS} extra ${OBJS} ${FINALLIB} cabalfile
+extra:
+cfiles: extracfiles generatedCfiles #${CFILES_GEN}
+extracfiles:
+fromC: ${OBJDIR} ${OBJDIRS} ${OBJS_C} cabalfile
+	echo in fromC
+	[ -d "$(LOCATION)" ] && cd $(LOCATION); \
+	$(HC) -c -d $(OBJDIR) $(EXTRA_C_FLAGS) ${SEARCH} ${CFILES_GEN}
+	echo $(OBJS) | xargs ar cr ${FINALLIB}
+objdir: ${OBJDIR} ${OBJDIRS} ${INCDIRS}
+${OBJDIR} ${OBJDIRS} ${INCDIRS}:
+	mkdir -p $@
+${FINALLIB}: ${OBJS}
+	echo $(OBJS) | xargs ar cr $@
+cabalfile:
+	cp $(CABALFILE) $(INCDIR)/packages/$(THISPKG).cabal
+cleanhi:
+	-rm -f $(patsubst %, %/*.hi, ${DIRS})
+cleanC: cleanExtraC
+	-rm -f ${CFILES_GEN} ${CFILES_XS} generatedCfiles
+clean:	cleanhi cleanC
+	-rm -f $(patsubst %, ${OBJDIR}/%/*.$O, ${DIRS})
+cleanExtraC:
+
+# general build rules for making objects from Haskell files
+$(OBJS_HASK): # $(SRCS) $(EXTRA_SRCS) # $(OBJDIR) $(OBJDIRS)
+	[ -d "$(LOCATION)" ] && cd $(LOCATION); \
+	for src in $(SRCS); \
+	do $(LOCAL)hmake -hc=$(HC) -hidir $(INCDIR)/packages/$(THISPKG) \
+		$(filter -D%, $(EXTRA_C_FLAGS)) \
+		$(SEARCH) $(EXTRA_H_FLAGS) -d$(OBJDIR) $$src.hs; \
+	done
+
+# general build rule for making objects from C files
+${OBJS_C}: ${OBJDIR}/%.$O : %.c
+	$(CC) -c -I$(INCDIR) $(ENDIAN) $(ARCH) $(CINCLUDES) \
+		$(shell echo ${COPTS}) $(EXTRA_C_FLAGS) -o $@ $<
+
+# general build rules for making bootstrap C files from Haskell files
+#$(CFILES_GEN): # $(SRCS) $(EXTRA_SRCS)
+generatedCfiles: # $(SRCS) $(EXTRA_SRCS)
+	[ -d "$(LOCATION)" ] && cd $(LOCATION); \
+	for src in $(SRCS); \
+	do $(LOCAL)hmake -hc=$(HC) -C -hidir $(INCDIR)/packages/$(THISPKG) \
+		$(filter -D%, $(EXTRA_C_FLAGS)) \
+		$(SEARCH) $(EXTRA_H_FLAGS) $$src.hs; \
+	done
+	for src in $(SRCS); \
+	do $(LOCAL)hmake -hc=$(HC) -p -C -hidir $(INCDIR)/packages/$(THISPKG) \
+		$(filter -D%, $(EXTRA_C_FLAGS)) \
+		$(SEARCH) $(EXTRA_H_FLAGS) $$src.hs; \
+	done
+	for src in $(SRCS); \
+	do $(LOCAL)hmake -hc=$(HC) -z -C -hidir $(INCDIR)/packages/$(THISPKG) \
+		$(filter -D%, $(EXTRA_C_FLAGS)) \
+		$(SEARCH) $(EXTRA_H_FLAGS) $$src.hs; \
+	done
+	touch generatedCfiles
+
+# hack to get round mutual recursion between libraries
+HIFILES = $(patsubst %.hs,../${THISLIB}/%.${HISUFFIX},$(filter %.hs, ${SRCS}))
+${HIFILES}: ../${THISLIB}/%.${HISUFFIX} : %.hs
+	$(HC) -c $(PART_FLAGS) -o /dev/null $<
+
+# The importing Makefile may now define extra individual dependencies
+#    e.g.
+# ${OBJDIR}/Function.$O: Function.hs ${OBJDIR}/Other.$O
+#
+# and C-files dependencies likewise
+#    e.g.
+# AlignBin.c:    BinHandle.c
+

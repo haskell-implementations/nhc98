@@ -1,0 +1,366 @@
+Probably the easiest way to explain nhc98's bytecode is to go through
+a section of generated code and examine it piece by piece.  As an
+example, let's take the Prelude function 'sum', defined as
+
+    sum :: (Num a) => [a] -> a
+    sum = foldl (+) 0
+
+This ends up as the following bytecode (in src/prelude/PreludeList/Sum.hc):
+
+> #define CT_v158 ((void*)startLabel+44)
+> extern Node FN_Prelude_46_43[];
+> extern Node FN_Prelude_46fromInteger[];
+> extern Node FN_NHC_46Internal_46_95apply1[];
+> extern Node FN_Prelude_46foldl[];
+> 
+> static Node startLabel[] = {
+>   bytes2word(1,0,0,1)
+> , useLabel(CT_v158)
+> ,};
+> Node FN_Prelude_46sum[] = {
+>   bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,HEAP_ARG,1)
+> , bytes2word(HEAP_CVAL_I4,HEAP_ARG,1,HEAP_CVAL_I5)
+> , bytes2word(HEAP_OFF_N1,3,HEAP_CADR_N1,1)
+> , bytes2word(PUSH_HEAP,HEAP_CVAL_P1,6,HEAP_OFF_N1)
+> , bytes2word(8,HEAP_OFF_N1,5,RETURN)
+> , bytes2word(ENDCODE,0,0,0)
+> , bytes2word(0,0,0,0)
+> , 0
+> , CONSTRW(0,0)
+> ,       /* CT_v158: (byte 0) */
+>   HW(4,1)
+> , 0
+> ,};
+> Node F0_Prelude_46sum[] = {
+>   CAPTAG(useLabel(FN_Prelude_46sum),1)
+> , VAPTAG(useLabel(FN_Prelude_46_43))
+> , VAPTAG(useLabel(FN_Prelude_46fromInteger))
+> , VAPTAG(useLabel(FN_NHC_46Internal_46_95apply1))
+> , CAPTAG(useLabel(FN_Prelude_46foldl),1)
+> ,};
+
+As you probably know, the file just defines a big array of int words,
+which is later interpreted by the mutator as a sequence of bytes.
+Let's look at each section in turn.
+
+> #define CT_v158 ((void*)startLabel+44)
+> extern Node FN_Prelude_46_43[];
+> extern Node FN_Prelude_46fromInteger[];
+> extern Node FN_NHC_46Internal_46_95apply1[];
+> extern Node FN_Prelude_46foldl[];
+
+Starting at the top, the C compiler needs forward declarations of
+labels that will be stored in amongst the bytecodes.  Labels declared
+'extern' are globally visible in the program (in most cases defined
+in other bytecode files, but possibly defined in this file with the
+intention they be used before their real definition), whilst labels
+declared with #define are entirely local to this file.
+
+> static Node startLabel[] = {
+>   bytes2word(1,0,0,1)
+> , useLabel(CT_v158)
+> ,};
+> Node FN_Prelude_46sum[] = {
+
+Now for the bytecodes themselves.  The code for a function is
+always labelled with the FN_ prefix, e.g. FN_Prelude_46sum here.
+Legal Haskell punctuation characters in the identifier name are
+translated into _nn (where nn is the ASCII code for the character)
+to ensure that they are legal in C.
+
+The label is always immediately preceded by a pointer to the "constant
+table" for this function, in this case CT_v158.  The constant table
+essentially holds the environment for this function - pointers
+to the functions it calls, but also any numeric values or literal
+constructors.
+
+Preceding the constant table pointer, is a series of pairs of bytes
+that indicate the arity of the function.  In this case, the pair (1,0)
+indicates that one argument is missing, none have been bound, then
+(0,1) indicates that no arguments are missing, one has been bound.
+When a heap closure is built, the function pointer which you might
+expect to point directly at the FN_ symbol actually points to
+the appropriate byte pair that confirms whether it is a saturated
+application or not (and incidentally tells the runtime system how
+many words to expect in the application heap cell).
+
+(In this example, the function 'sum' has arity 1 because it is
+overloaded - the numeric dictionary is the relevant argument.)
+
+>   bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,HEAP_ARG,1)
+> , bytes2word(HEAP_CVAL_I4,HEAP_ARG,1,HEAP_CVAL_I5)
+> , bytes2word(HEAP_OFF_N1,3,HEAP_CADR_N1,1)
+> , bytes2word(PUSH_HEAP,HEAP_CVAL_P1,6,HEAP_OFF_N1)
+> , bytes2word(8,HEAP_OFF_N1,5,RETURN)
+> , bytes2word(ENDCODE,0,0,0)
+> , bytes2word(0,0,0,0)
+
+Starting at the FN_ symbol proper are the bytecodes for the mutator to
+interpret.  I'll explain these later.  The end of the bytecode sequence
+is padded with zeros to bring it up to the next 2-word boundary.
+
+> , 0
+> , CONSTRW(0,0)
+> ,       /* CT_v158: (byte 0) */
+>   HW(4,1)
+> , 0
+> ,};
+> Node F0_Prelude_46sum[] = {
+>   CAPTAG(useLabel(FN_Prelude_46sum),1)
+> , VAPTAG(useLabel(FN_Prelude_46_43))
+> , VAPTAG(useLabel(FN_Prelude_46fromInteger))
+> , VAPTAG(useLabel(FN_NHC_46Internal_46_95apply1))
+> , CAPTAG(useLabel(FN_Prelude_46foldl),1)
+> ,};
+
+Finally, the bytecodes are followed by the constant table.  You will
+see that the CT_v158 symbol is preceded by two words.  The immediately
+preceding word is a tagged representation of a constant numeric value
+(0), built as a CONSTRW (constructor word).  For the moment, we can
+ignore the other one, and likewise the zeroth and first words of the
+constant table itself.
+
+The label of the function itself is nearly always the second entry
+in the table, and is itself labelled with an F0_ label and a CAPTAG.
+The F0_ prefix indicates the completely unapplied version of the
+function, which in other words is actually a pointer to the (1,0)
+pair prefixing the FN_ symbol.  This offset is calculated by the
+CAPTAG macro.  The F0_ symbol is not used in this file, but it may
+well be used by other files that call 'sum'.
+
+Then follow the remaining function references, in this case to
+Prelude.+, Prelude.fromInteger, NHC.Internal.apply1, and Prelude.foldl.
+Some are wrapped by the VAPTAG macro, which calculates the "fully
+applied vector application pointer", rather than CAPTAG, the "partially
+application pointer" - so for instance, the use of 'foldl' here still
+lacks one argument.
+
+Now, to take the example and work through the bytecodes,
+
+>   bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,HEAP_ARG,1)
+
+Check that there are at least 32 heap words available, and if not, do
+a garbage collection.  (The compiler does a proper analysis of how much
+heap is really needed, but for values smaller than 32, it just assumes
+that a GC will be needed soon anyway.)
+
+Allocate a heap cell containing the third value from the constant table.
+(Prelude.+)
+
+    | + |
+
+Allocate a heap cell containing the function's first argument.  (dictionary
+Num)
+
+    | + | dict |
+
+> , bytes2word(HEAP_CVAL_I4,HEAP_ARG,1,HEAP_CVAL_I5)
+
+Allocate a heap cell containing the fourth value from the constant table.
+(fromInteger)
+
+    | + | dict | fromInteger |
+
+Allocate a heap cell containing the function's first argument.  (dictionary
+Num)
+
+    | + | dict | fromInteger | dict |
+
+Allocate a heap cell containing the fifth value from the constant table.
+(Prelude.apply1)
+
+    | + | dict | fromInteger | dict | apply1 |
+
+> , bytes2word(HEAP_OFF_N1,3,HEAP_CADR_N1,1)
+
+Allocate a heap cell pointing backwards 3 cells.  (the application (fromInteger
+dict))
+
+    | + | dict | fromInteger | dict | apply1 | .  |
+                ^------------------------------/
+
+Allocate a heap cell containing a pointer to the first word preceding
+the constant table.  (In this case, the value CONSTRW(0,0), which is
+a tagged representation of the the integer value 0.)
+
+    | + | dict | fromInteger | dict | apply1 | .  | 0 |
+                ^------------------------------/
+
+> , bytes2word(PUSH_HEAP,HEAP_CVAL_P1,6,HEAP_OFF_N1)
+
+Push the current heap pointer onto the stack.  This heap cell is
+still empty, but will end up containing the application we are about to build.
+
+Allocate a heap cell containing the sixth value from the constant table.
+(foldl)
+
+    | + | dict | fromInteger | dict | apply1 | .  | 0 | foldl |
+                ^------------------------------/
+
+> , bytes2word(8,HEAP_OFF_N1,5,RETURN)
+
+Allocate a heap cell pointing backwards 8 cells.  (to the application (+ dict))
+
+    | + | dict | fromInteger | dict | apply1 | .  | 0 | foldl | . |
+      ^         ^------------------------------/                /
+       \--------------------------------------------------------
+
+Allocate a heap cell pointing backwards 5 cells.
+(to the application (apply1 (fromInteger) 0))
+
+    | + | dict | fromInteger | dict | apply1 | .  | 0 | foldl | . | . |
+      ^         ^------------------------^-----/                /   /
+       \---------------------------------|----------------------   /
+                                          \------------------------
+
+Return the current stack.  The top of the stack holds the address of
+the cell containing foldl in the diagram, hence the application:
+   (foldl (+ dict) (apply1 (fromInteger dict) 0))
+
+> , bytes2word(ENDCODE,0,0,0)
+> , bytes2word(0,0,0,0)
+
+And we're done with this example.
+
+Now, of course there are variations on the exact kind of information
+that can be stored before and after the bytecodes, and constant tables.
+So at this stage it might be useful to go through the main runtime
+system header files and explain some of the macros found there.
+
+include/newmacros.h is the place to start.
+
+> #define CON_DATA  0x00   /* Must NOT contain CON_PTRS */
+> #define CON_PTRS  0x04   /* Must     contain CON_PTRS */
+> #define CON_CDATA 0x08   /* Must NOT contain CON_PTRS */
+> #define CON_WORDS 0x0c   /* Must     contain CON_PTRS */
+
+There are four basic kinds of heap cell, marked with these tags.
+The tag occupies the least significant two bits of the leading word
+of the section of memory.  Heap cells are of variable size, and the
+leading word usually indicates how many words follow.
+
+> #define CONSTR(c,s,ws)   ( ((s)<<24) | (((s)-(ws))<<16) | ((c)<<4) | CON_DATA
+| CON_TAG)
+> #define CONSTRR(c,s,ws)  ( ((s)<<24) | (((s)-(ws))<<16) | MASK_R | ((c)<<4) |
+CON_DATA | CON_TAG)
+> #define CONSTRT(c,s,ws)  ( ((s)<<24) | (((s)-(ws))<<16) | MASK_TRACE |
+((c)<<4) | CON_DATA | CON_TAG)
+> #define CONSTRC(c,s,ws)  ( ((s)<<24) | (((s)-(ws))<<16) | ((c)<<4) |
+CON_CDATA | CON_TAG)
+> #define CONSTRW(s,e)   ( ((s)<<(4+LARGE_EXTRA)) |
+(((e)&((1<<LARGE_EXTRA)-1))<<4) | CON_WORDS | CON_TAG)
+> #define CONSTRP(s,e)   ( ((s)<<(4+LARGE_EXTRA)) |
+(((e)&((1<<LARGE_EXTRA)-1))<<4) | CON_PTRS | CON_TAG)
+
+The basic ways to build a heap representation of a Haskell value
+are CONSTR(), CONSTRW(), and CONSTRP(), corresponding to three of
+the four tags just mentioned above (CON_DATA, CON_WORDS, CON_PTR).
+The variants CONSTRR() and CONSTRT() are now obsolete - they originally
+belonged to the Hat tracing system before it was separated from the
+nhc98 compiler - and CONSTRC() is also obsolete for different reasons.
+
+  CONSTR(c,s,ws)	The value is a constructor c with s fields, of which
+			ws are pointers.  In the heap cell layout, the pointer
+			fields all precede the non-pointer fields.
+  CONSTRW(s,e)		The value is of a type that has only one constructor,
+			there are s fields, and they are all plain words
+			(non-pointers).
+  CONSTRP(s,e)		The value is of a type that has only one constructor,
+			there are s fields, and they are all pointers.
+
+The tag word needs to indicate how many pointer words follow, for
+the garbage collector to distinguish real heap or code pointers from
+plain words that represent e.g. integers.
+
+Pointers can refer to other heap cells, or to the location of function
+bytecodes.  There are two ways of creating a pointer to some function
+code: VAPTAG() and CAPTAG().
+
+> #define VAPTAG(fun)       useLabel(fun) - (NS + 2) + VAP_TAG
+> #define CAPTAG(fun,need)  useLabel(fun) - (NS + 2 + (2 * need)) + VAP_TAG
+
+These calculate a byte position preceding the actual function code
+symbol (FN_).  So VAPTAG() calculates five bytes before the symbol,
+which if you recall is the last byte of the pairs that indicate arity,
+and hence gives the exact arity this function requires, meaning
+that applications built with a VAPTAG()'d function must be saturated.
+On the other hand, CAPTAG() calculates further backwards by two bytes
+for every argument that is still required for saturation, and must
+be used only to build partial applications.
+
+Incidentally, a truly horrendous tangle of cpp hackery is used to
+switch between the individual bytes of the pair when it comes time
+to interpret the function code pointer.  Look at include/node.h for
+the gory details, which include EXT_HADDRESS and FINFO_CODE.
+
+Now for the bytecodes themselves, here is a basic summary:
+
+    NEEDHEAP i		ensure there is at least n words free heap space
+    NEEDSTACK i		ensure there is at least n words free stack
+    JUMP i j		unconditional jump (16-bit)
+    JUMPFALSE		pop from the stack and jump if false, otherwise continue
+    NOP			do nothing
+    PRIMITIVE p		call a primitive function p (written in C)
+    ZAP_ARG i		overwrite a function argument with a special value
+			  to indicate it is under evaluation
+			  (this creates a black-hole to detect a loop)
+    ZAP_STACK i		overwrite a stack entry with a black-hole
+    PUSH_CADR i		push address of a constant from the constant table
+    PUSH_CVAL i		push value of a constant from the constant table
+    PUSH_INT i		push a literal Int i onto the stack (suitably padded)
+    PUSH_CHAR i		push a literal Char i onto the stack
+    PUSH_ARG i		push argument i of the current function closure (vapptr)
+    PUSH_ZAP_ARG i	push argument i of the current function closure (vapptr)
+			  and blackhole it immediately afterwards
+			  (essentially a PUSH followed by a ZAP)
+    PUSH_HEAP		push the current heap pointer
+    PUSH i		push (copy) the i'th stack entry to the top of the stack
+    POP i		remove i elements from the stack
+    SLIDE i		remove (i-1) elements from just below the current top
+			  of stack, i.e. slide the top element down by i places
+    SELECT i		interpreting the TOS as a heap pointer, replace the TOS
+                          by its i'th argument
+    UNPACK i		interpreting the TOS as a heap pointer, push the first i
+                          arguments, in right-to-left order
+    APPLY i		build an application of the TOS to the next i stack
+			  elements
+
+    SELECTOR_EVAL
+    EVAL
+    RETURN
+    RETURN_EVAL
+
+    HEAP_OFF i
+    HEAP_CADR i
+    HEAP_CVAL i
+    HEAP_INT i
+    HEAP_CHAR i
+    HEAP_ARG i
+    HEAP i
+
+    ORD			convert TOS from enumeration constructor to int
+    CHR			convert TOS from int to enumeration constructor
+    STRING		interpret TOS as a C string pointer, and convert it
+			   to a Haskell cons-char cell (lazily)
+    HGETS		read a string from Handle on top of stack
+    HGETC		read a char from Handle on top of stack
+    HPUTC		write a char to given Handle
+    EXIT		abnormal termination
+
+    TABLESWITCH i
+
+is followed by an aligned table of 16-bit relative jumps.  The
+constructor from the value on the top of stack is used to index into
+the table, which is of size i.  For instance, to distinguish Nothing
+and (Just a), you might have TABLESWITCH 2 (04) (08), and if the TOS
+value is a Nothing, you jump 4 forward, but for a Just constructor,
+jump 8 forward.
+
+    LOOKUPSWITCH i
+
+is similar to TABLESWITCH, except that the TOS is interpreted as a
+16-bit Int, and each jump address is paired with a 16-bit Int key.
+The argument i says how big the table is, and the mutator searches
+linearly through the table comparing with keys until a match is found,
+then it selects that jump.
+

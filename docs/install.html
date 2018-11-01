@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Building/installing nhc98</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center><h1>Building/installing nhc98</h1></center>
+
+<hr>
+<h3>The Brief Version</h3>
+<p>
+If you are in a hurry to get started, here's the brief version of the
+install procedure:
+<pre>
+    $ ./configure  [ --prefix=/usr/local ]
+    $ make [ all ]
+    [ perhaps become root ]
+    $ make install
+</pre>
+
+<h3>Upgrading from an earlier version</h3>
+<p>
+If you already have an older version of <i>nhc98</i> installed, you do
+not need to do anything special when upgrading to a newer version - the
+newer will overwrite the older.
+
+<h3>System Requirements</h3>
+<p>
+Currently, nhc98 assumes a 32-bit processor, or a 32-bit emulation mode
+on a 64-bit processor.  Basically, if your C compiler accepts the -m32
+flag, then you will be OK.  (If it doesn't, you will see build errors
+pretty immediately!)
+
+<p>
+Users of Windows 95/98/SE/Me/NT/2k/XP/Vista/7/etc, please see these
+<a href="windows.html">special Windows instructions</a> first.
+
+<p>
+For the binary release, we assume you have a good C compiler (usually
+<em>gcc</em>), and a <em>sh</em> compatible with the Bourne shell.
+
+<p>
+If you want to use the graphical debugging tool <em>hood</em>, you
+will need to have Java on your PATH.
+
+<p>
+For the source release, you need the usual C compilation management
+tools (<em>gcc</em>, <em>ar</em>, GNU <em>make</em>, etc.).  To build
+<em>nhc98</em> without another Haskell compiler, you need at least
+16Mb of memory, and about 150Mb of disk space (300Mb if you build for
+all forms of profiling as well).  If you already have another Haskell
+compiler, <em>ghc-6.6</em> or later (ensure you have the filepath
+package), then building <em>nhc98</em> will require at least 64Mb of
+memory, and 300Mb of free disk space.  If you don't have
+<em>ghc</em> for your machine, then don't worry, <em>nhc98</em> will
+build quite happily using just a C compiler.  (The basic build is much
+faster, but the resulting compiler will be slower.)  You can also build
+<em>nhc98</em> using an earlier version of <em>nhc98</em> if you want,
+but we don't do that by default because the build time can be slow.
+
+<h3>Download it</h3>
+<p>
+You have the option of building <em>nhc98</em> from a source tree, or
+installing a binary-only distribution.  You only need to collect the
+single package you require.
+
+<p>
+The current distribution packages can be found at
+<pre>
+    <a href="http://www.cs.york.ac.uk/fp/nhc98/download.html">http://www.cs.york.ac.uk/fp/nhc98/download.html</a>
+</pre>
+Using <em>tar</em> and <em>gunzip</em>, unpack your chosen package, and
+<em>cd</em> to the base directory (called nhc98-x.xx, where the x's are the
+version number).  Note that all the documentation available on the web
+is also included in all packages, although the web versions will of course
+be more up-to-date.  Your local copy of the release notes is
+in <a href="status.html">docs/status.html</a>.
+
+<h3>Configuration</h3>
+<p>
+An automatic configuration utility is supplied, called
+<em>configure</em>.  In brief, the default behaviour is to build under
+<em>targets</em> in the current directory, and to install various
+components under <em>/usr/local</em>, in the subdirectories
+<em>bin</em>, <em>lib/nhc98</em>, <em>include/nhc98</em>, and
+<em>man/man1</em>.  The config script has several useful options to
+override the default build and installation behaviours.  Use the
+<em>--help</em> option for brief details, and see the page about
+<a href=config.html>configuration options</a> for full details.
+
+<p>
+<b>Important:</b> The config script searches your system for other
+Haskell compilers.  If it guesses wrongly, you can edit the file
+<em>script/hmake.config</em> to fix things up, then re-run
+<em>configure</em>.  Your changes will not be undone.
+
+<h3>Installing from a binary distribution</h3>
+<p>
+Simply run
+<pre>
+    ./configure
+    make install
+</pre>
+to install <em>nhc98</em>.  The default location is under
+<em>/usr/local</em>, but you may alter the installation location using
+either of the <em>--prefix=</em> or <em>--installdir=</em> options
+to <em>configure</em>.  There are various other
+<a href=config.html>configuration options</a> also.
+
+
+
+<h3>Building and installing from sources</h3>
+<p>
+All object files are created in a separate directory tree from
+the sources.  This means it is possible to build concurrently for
+different machines from the same shared source tree.  You can also
+build the heap profiling and time profiling versions of the prelude
+and runtime system concurrently if you wish.
+
+<p>
+The current distribution of the compiler will build for any machine
+with 32-bit words.  (Sorry, no 64-bit support yet.)  All questions of
+machine endian-ness are handled automatically during configuration.
+If you are not using <em>gcc</em> as your C compiler, please ensure
+that your <em>CC</em> environment variable is set appropriately at
+the configuration stage.  (The C compiler is used as a portable
+backend for nhc98, and is always required.)  For instance,
+<pre>    CC=cc   ./configure --buildwith=...</pre>
+
+<p>
+Run <em>./configure</em> with any <a href=config.html>options</a> you
+require.  (You should supply installation directory options at this
+stage.)  This will attempt to detect any existing Haskell compilers and
+guess which one to build <em>nhc98</em> with.  If you have more than one
+available, we will choose, in order of preference, <em>ghc</em>, then
+<em>hbc</em>.  If neither of these is found, <em>nhc98</em> will be
+built from the bootstrapping C sources included in the package.  (You
+can build <em>nhc98</em> using an earlier version of <em>nhc98</em> if
+you want using the configure options, but it is not selected by default.)
+
+<p>
+Decide what profiling features you want to use -
+<em>make help</em> gives a list of useful individual targets,
+such as <em>basic</em>, <em>heapprofile</em>, and <em>timeprofile</em>.
+
+<p>
+Then run <em>make</em> with your chosen targets, or <em>make all</em>
+to build all the possible facilities.  (A simple <em>make</em>
+without targets builds everything.)
+
+<p>
+The time taken to build nhc98 depends on your machine, operating
+system, which compiler you are using, and whether you have asked for
+just the basic libraries or extra profiling libraries.  Here are some
+sample build times:
+
+<center>
+<table border=1><tr>
+    <td></td>
+    <td colspan=6>ix86 machine:</td>
+    <td colspan=2>powerpc machine:</td>
+</tr><tr>
+    <th></th>
+    <th colspan=2>Linux<br>500MHz</th>
+    <th colspan=2>Linux<br>2.4GHz</th>
+    <th colspan=2>Cygwin<br>2.4GHz</th>
+    <th colspan=2>MacOS X<br>1.3GHz</th>
+</tr><tr>
+    <th>build<br>compiler</th>
+    <th>basic</th><th>all</th>
+    <th>basic</th><th>all</th>
+    <th>basic</th><th>all</th>
+    <th>basic</th><th>all</th>
+</tr><tr>
+    <td>gcc</td><td align="right">9m</td><td align="right">26m</td>
+                <td align="right">4m</td><td align="right">12m</td>
+                <td align="right">22m</td><td align="right">-</td>
+                <td align="right">9m</td><td align="right">26m</td>
+</tr><tr>
+    <td>ghc</td><td align="right">31m</td><td align="right">1h11</td>
+                <td align="right">10m</td><td align="right">26m</td>
+                <td align="right">37m</td><td align="right">118m</td>
+                <td align="right">23m</td><td align="right">-</td>
+</tr><tr>
+    <td>hbc</td><td align="right">-</td><td align="right">-</td>
+                <td align="right">12m</td><td align="right">27m</td>
+                <td align="right">-</td><td align="right">-</td>
+                <td align="right">-</td><td align="right">-</td>
+</tr><tr>
+    <td>nhc98</td><td align="right">50m</td><td align="right">3h33</td>
+                  <td align="right">23m</td><td align="right">1h15</td>
+                  <td align="right">-</td><td align="right">-</td>
+                  <td align="right">-</td><td align="right">-</td>
+</tr></table>
+</center>
+
+<p>
+Finally, when you have built all the components you require, type
+<em>make install</em> to copy the components to their final location.
+(You may need to become root for this step, depending on the final
+location you selected at configure time.)  As an alternative to
+installing in a system-wide location, it is also possible to use all
+the <em>nhc98</em> tools in-place in the build tree by adding the
+<em>script</em> directory to your PATH - if you wish to conserve disk
+space by removing temporary intermediate files from the build tree,
+use <em>make clean</em>.
+
+<h4>Cross-compiling</h4>
+
+<p>Nhc98 can now be built to work as a cross-compiler, using an
+already present toolchain as backend, that will be remembered by
+binaries and scripts after installation.
+</p>
+
+<p>If you ever change your tool chain, you may edit the bin/nhc98
+script, whereas you may be better off rebuilding everything.</p>
+
+<p>The cross-compiler mode is activated by the <b>--target</b> flag who
+takes the name of the target architecture as parameter. This
+argument is actually free, but you should follow the established
+convention: naming after the processor-OS-vendor. A good bet is to
+use whatever prefix your cross-compiler has.</p>
+
+<p>Some other options are mandatory when the target flag is set. Run <b>./configure --help</b>
+to know which.</p>
+
+<p>A typical invocation would look like:</p> 
+
+<p> <code>$CC=/usr/local/uclibc-0.9.28-3/arm/bin/arm-linux-gcc 
+STRIP=/usr/local/uclibc-0.9.28-3/arm/bin/arm-linux-strip 
+./configure --target=arm-linux --endian=-DLOW_BYTE_FIRST 
+--ccoption="-O3" --ldoption="" 
+--cabal-parse=/home/sylvain/bin/nhc98/lib/nhc98/ix86-Linux/cabal-parse 
+--hostcc=gcc --hoststrip=strip --prefix=/home/sylvain/bin/nhc98-arm-linux 
+--installdir=/home/sylvain/bin/nhc98-arm-linux
+</code> </p>
+
+<p> <code>$make</code> </p>
+<p> <code>$make install</code> </p>
+
+<h3>Problems?</h3>
+<p>
+Ok, so now you should have all the components of a working compiler.
+If you have any problems, mail <a href="mailto:nhc-bugs@haskell.org">
+<tt>nhc-bugs@haskell.org</tt></a> with a description (and a
+bugfix if you have one!).
+
+<h4>Common gotchas</h4>
+<ul>
+<li> You cannot build nhc98 from a directory with spaces in it.
+<li> If you bootstrap from C sources, and the build segfaults, check
+     the output of '<tt>ulimit -s</tt>'.  If the user process
+     stacksize is set to 8192 or less, this is the cause.  Increase it,
+     either with '<tt>ulimit -s unlimited</tt>', or if that fails,
+     '<tt>ulimit -s hard</tt>'.
+</ul>
+
+<h3>Can you help us?</h3>
+<p>
+If you have built <em>nhc98</em> for a machine not currently listed on the
+<a href=download.html>download page</a> and would like to contribute
+it as a binary package for others to download, it is very easy to do.
+After building and installing, type `<em>make binDist</em>' <u>before</u>
+you tidy up with `<em>make clean</em>'.  Then upload the resulting tarfile
+to somewhere we can access it, send an email to let us know about it, and
+we will copy it to our central download site.
+
+<h3>Keeping up-to-date</h3>
+<p>
+If you use <em>nhc98</em> regularly, please join the <a href="maillist.html">
+nhc-users</a> mailing list for discussion of features, bugfixes, and so on.
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.haskell.org/nhc98/">
+<tt>http://www.haskell.org/nhc98/</tt></a>
+
+<p>
+This page last modified: 27th August 2008<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+
+</td></tr></table>
+</body></html>
+

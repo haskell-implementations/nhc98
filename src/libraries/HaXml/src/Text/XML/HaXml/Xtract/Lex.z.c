@@ -1,0 +1,3041 @@
+#include "newmacros.h"
+#include "runtime.h"
+
+#define FN_Text_46XML_46HaXml_46Xtract_46Lex_46lexerror	((void*)startLabel+16)
+#define CT_v923	((void*)startLabel+96)
+#define F0_Text_46XML_46HaXml_46Xtract_46Lex_46lexerror	((void*)startLabel+104)
+#define FN_LAMBDA894	((void*)startLabel+136)
+#define CT_v926	((void*)startLabel+168)
+#define CF_LAMBDA894	((void*)startLabel+176)
+#define FN_LAMBDA893	((void*)startLabel+188)
+#define CT_v929	((void*)startLabel+220)
+#define CF_LAMBDA893	((void*)startLabel+228)
+#define FN_LAMBDA892	((void*)startLabel+240)
+#define CT_v932	((void*)startLabel+272)
+#define CF_LAMBDA892	((void*)startLabel+280)
+#define FN_Text_46XML_46HaXml_46Xtract_46Lex_46emit	((void*)startLabel+296)
+#define CT_v934	((void*)startLabel+344)
+#define F0_Text_46XML_46HaXml_46Xtract_46Lex_46emit	((void*)startLabel+352)
+#define FN_Text_46XML_46HaXml_46Xtract_46Lex_46Prelude_46204_46forcep	((void*)startLabel+376)
+#define CT_v936	((void*)startLabel+400)
+#define F0_Text_46XML_46HaXml_46Xtract_46Lex_46Prelude_46204_46forcep	((void*)startLabel+408)
+#define FN_Text_46XML_46HaXml_46Xtract_46Lex_46tab	((void*)startLabel+420)
+#define CT_v941	((void*)startLabel+472)
+#define F0_Text_46XML_46HaXml_46Xtract_46Lex_46tab	((void*)startLabel+480)
+#define FN_Text_46XML_46HaXml_46Xtract_46Lex_46addcol	((void*)startLabel+508)
+#define CT_v946	((void*)startLabel+552)
+#define F0_Text_46XML_46HaXml_46Xtract_46Lex_46addcol	((void*)startLabel+560)
+#define FN_Text_46XML_46HaXml_46Xtract_46Lex_46white	((void*)startLabel+576)
+#define v956	((void*)startLabel+608)
+#define v950	((void*)startLabel+612)
+#define v951	((void*)startLabel+616)
+#define v952	((void*)startLabel+622)
+#define v953	((void*)startLabel+628)
+#define v954	((void*)startLabel+634)
+#define v947	((void*)startLabel+640)
+#define CT_v957	((void*)startLabel+660)
+#define F0_Text_46XML_46HaXml_46Xtract_46Lex_46white	((void*)startLabel+668)
+#define FN_LAMBDA895	((void*)startLabel+696)
+#define CT_v960	((void*)startLabel+728)
+#define CF_LAMBDA895	((void*)startLabel+736)
+#define FN_Text_46XML_46HaXml_46Xtract_46Lex_46accumulateUntil	((void*)startLabel+760)
+#define v964	((void*)startLabel+776)
+#define v965	((void*)startLabel+807)
+#define v966	((void*)startLabel+867)
+#define v968	((void*)startLabel+907)
+#define v970	((void*)startLabel+941)
+#define v961	((void*)startLabel+946)
+#define CT_v974	((void*)startLabel+976)
+#define F0_Text_46XML_46HaXml_46Xtract_46Lex_46accumulateUntil	((void*)startLabel+984)
+#define FN_LAMBDA898	((void*)startLabel+1060)
+#define CT_v977	((void*)startLabel+1092)
+#define CF_LAMBDA898	((void*)startLabel+1100)
+#define FN_LAMBDA897	((void*)startLabel+1112)
+#define CT_v980	((void*)startLabel+1144)
+#define CF_LAMBDA897	((void*)startLabel+1152)
+#define FN_LAMBDA896	((void*)startLabel+1164)
+#define CT_v983	((void*)startLabel+1196)
+#define CF_LAMBDA896	((void*)startLabel+1204)
+#define FN_Text_46XML_46HaXml_46Xtract_46Lex_46gatherNum	((void*)startLabel+1224)
+#define v991	((void*)startLabel+1240)
+#define v987	((void*)startLabel+1244)
+#define v988	((void*)startLabel+1276)
+#define v984	((void*)startLabel+1281)
+#define CT_v992	((void*)startLabel+1340)
+#define F0_Text_46XML_46HaXml_46Xtract_46Lex_46gatherNum	((void*)startLabel+1348)
+#define FN_Text_46XML_46HaXml_46Xtract_46Lex_46gatherName	((void*)startLabel+1408)
+#define v1000	((void*)startLabel+1424)
+#define v996	((void*)startLabel+1428)
+#define v997	((void*)startLabel+1483)
+#define v993	((void*)startLabel+1488)
+#define CT_v1001	((void*)startLabel+1548)
+#define F0_Text_46XML_46HaXml_46Xtract_46Lex_46gatherName	((void*)startLabel+1556)
+#define FN_LAMBDA899	((void*)startLabel+1612)
+#define CT_v1004	((void*)startLabel+1644)
+#define CF_LAMBDA899	((void*)startLabel+1652)
+#define FN_Text_46XML_46HaXml_46Xtract_46Lex_46syms	((void*)startLabel+1664)
+#define CT_v1006	((void*)startLabel+1688)
+#define CF_Text_46XML_46HaXml_46Xtract_46Lex_46syms	((void*)startLabel+1696)
+#define FN_LAMBDA900	((void*)startLabel+1712)
+#define CT_v1009	((void*)startLabel+1744)
+#define CF_LAMBDA900	((void*)startLabel+1752)
+#define FN_Text_46XML_46HaXml_46Xtract_46Lex_46newline	((void*)startLabel+1764)
+#define CT_v1014	((void*)startLabel+1808)
+#define F0_Text_46XML_46HaXml_46Xtract_46Lex_46newline	((void*)startLabel+1816)
+#define FN_Text_46XML_46HaXml_46Xtract_46Lex_46blank	((void*)startLabel+1836)
+#define v1018	((void*)startLabel+1850)
+#define v1019	((void*)startLabel+1854)
+#define v1030	((void*)startLabel+1884)
+#define v1023	((void*)startLabel+1888)
+#define v1024	((void*)startLabel+1900)
+#define v1025	((void*)startLabel+1912)
+#define v1026	((void*)startLabel+1920)
+#define v1027	((void*)startLabel+1935)
+#define v1020	((void*)startLabel+1950)
+#define v1015	((void*)startLabel+1955)
+#define CT_v1031	((void*)startLabel+1988)
+#define F0_Text_46XML_46HaXml_46Xtract_46Lex_46blank	((void*)startLabel+1996)
+#define FN_Text_46XML_46HaXml_46Xtract_46Lex_46selAny	((void*)startLabel+2028)
+#define v1035	((void*)startLabel+2042)
+#define v1036	((void*)startLabel+2046)
+#define v1163	((void*)startLabel+2092)
+#define v1040	((void*)startLabel+2096)
+#define v1164	((void*)startLabel+2106)
+#define v1044	((void*)startLabel+2110)
+#define v1165	((void*)startLabel+2124)
+#define v1048	((void*)startLabel+2128)
+#define v1045	((void*)startLabel+2159)
+#define v1049	((void*)startLabel+2164)
+#define v1050	((void*)startLabel+2215)
+#define v1051	((void*)startLabel+2266)
+#define v1166	((void*)startLabel+2276)
+#define v1055	((void*)startLabel+2280)
+#define v1167	((void*)startLabel+2310)
+#define v1059	((void*)startLabel+2314)
+#define v1168	((void*)startLabel+2324)
+#define v1063	((void*)startLabel+2328)
+#define v1169	((void*)startLabel+2342)
+#define v1067	((void*)startLabel+2346)
+#define v1170	((void*)startLabel+2356)
+#define v1071	((void*)startLabel+2360)
+#define v1171	((void*)startLabel+2374)
+#define v1075	((void*)startLabel+2378)
+#define v1072	((void*)startLabel+2410)
+#define v1064	((void*)startLabel+2415)
+#define v1076	((void*)startLabel+2420)
+#define v1077	((void*)startLabel+2452)
+#define v1172	((void*)startLabel+2462)
+#define v1081	((void*)startLabel+2466)
+#define v1173	((void*)startLabel+2484)
+#define v1085	((void*)startLabel+2488)
+#define v1086	((void*)startLabel+2520)
+#define v1174	((void*)startLabel+2530)
+#define v1090	((void*)startLabel+2534)
+#define v1175	((void*)startLabel+2548)
+#define v1094	((void*)startLabel+2552)
+#define v1091	((void*)startLabel+2584)
+#define v1082	((void*)startLabel+2589)
+#define v1095	((void*)startLabel+2594)
+#define v1176	((void*)startLabel+2604)
+#define v1099	((void*)startLabel+2608)
+#define v1177	((void*)startLabel+2622)
+#define v1103	((void*)startLabel+2626)
+#define v1100	((void*)startLabel+2658)
+#define v1104	((void*)startLabel+2663)
+#define v1178	((void*)startLabel+2674)
+#define v1108	((void*)startLabel+2678)
+#define v1179	((void*)startLabel+2696)
+#define v1112	((void*)startLabel+2700)
+#define v1113	((void*)startLabel+2732)
+#define v1180	((void*)startLabel+2742)
+#define v1117	((void*)startLabel+2746)
+#define v1181	((void*)startLabel+2760)
+#define v1121	((void*)startLabel+2764)
+#define v1118	((void*)startLabel+2796)
+#define v1109	((void*)startLabel+2801)
+#define v1056	((void*)startLabel+2806)
+#define v1122	((void*)startLabel+2811)
+#define v1182	((void*)startLabel+2822)
+#define v1126	((void*)startLabel+2826)
+#define v1183	((void*)startLabel+2840)
+#define v1130	((void*)startLabel+2844)
+#define v1127	((void*)startLabel+2876)
+#define v1131	((void*)startLabel+2881)
+#define v1132	((void*)startLabel+2912)
+#define v1184	((void*)startLabel+2922)
+#define v1136	((void*)startLabel+2926)
+#define v1185	((void*)startLabel+2940)
+#define v1140	((void*)startLabel+2944)
+#define v1137	((void*)startLabel+2976)
+#define v1141	((void*)startLabel+2981)
+#define v1186	((void*)startLabel+2992)
+#define v1145	((void*)startLabel+2996)
+#define v1187	((void*)startLabel+3010)
+#define v1149	((void*)startLabel+3014)
+#define v1146	((void*)startLabel+3046)
+#define v1150	((void*)startLabel+3051)
+#define v1037	((void*)startLabel+3082)
+#define v1151	((void*)startLabel+3135)
+#define v1153	((void*)startLabel+3163)
+#define v1155	((void*)startLabel+3207)
+#define v1157	((void*)startLabel+3249)
+#define v1159	((void*)startLabel+3267)
+#define v1032	((void*)startLabel+3272)
+#define CT_v1188	((void*)startLabel+3312)
+#define F0_Text_46XML_46HaXml_46Xtract_46Lex_46selAny	((void*)startLabel+3320)
+#define FN_LAMBDA919	((void*)startLabel+3480)
+#define CT_v1191	((void*)startLabel+3512)
+#define CF_LAMBDA919	((void*)startLabel+3520)
+#define FN_LAMBDA918	((void*)startLabel+3532)
+#define CT_v1194	((void*)startLabel+3564)
+#define CF_LAMBDA918	((void*)startLabel+3572)
+#define FN_LAMBDA917	((void*)startLabel+3584)
+#define CT_v1197	((void*)startLabel+3616)
+#define CF_LAMBDA917	((void*)startLabel+3624)
+#define FN_LAMBDA916	((void*)startLabel+3636)
+#define CT_v1200	((void*)startLabel+3668)
+#define CF_LAMBDA916	((void*)startLabel+3676)
+#define FN_LAMBDA915	((void*)startLabel+3688)
+#define CT_v1203	((void*)startLabel+3720)
+#define CF_LAMBDA915	((void*)startLabel+3728)
+#define FN_LAMBDA914	((void*)startLabel+3740)
+#define CT_v1206	((void*)startLabel+3772)
+#define CF_LAMBDA914	((void*)startLabel+3780)
+#define FN_LAMBDA913	((void*)startLabel+3792)
+#define CT_v1209	((void*)startLabel+3824)
+#define CF_LAMBDA913	((void*)startLabel+3832)
+#define FN_LAMBDA912	((void*)startLabel+3844)
+#define CT_v1212	((void*)startLabel+3876)
+#define CF_LAMBDA912	((void*)startLabel+3884)
+#define FN_LAMBDA911	((void*)startLabel+3896)
+#define CT_v1215	((void*)startLabel+3928)
+#define CF_LAMBDA911	((void*)startLabel+3936)
+#define FN_LAMBDA910	((void*)startLabel+3948)
+#define CT_v1218	((void*)startLabel+3980)
+#define CF_LAMBDA910	((void*)startLabel+3988)
+#define FN_LAMBDA909	((void*)startLabel+4000)
+#define CT_v1221	((void*)startLabel+4032)
+#define CF_LAMBDA909	((void*)startLabel+4040)
+#define FN_LAMBDA908	((void*)startLabel+4052)
+#define CT_v1224	((void*)startLabel+4084)
+#define CF_LAMBDA908	((void*)startLabel+4092)
+#define FN_LAMBDA907	((void*)startLabel+4104)
+#define CT_v1227	((void*)startLabel+4136)
+#define CF_LAMBDA907	((void*)startLabel+4144)
+#define FN_LAMBDA906	((void*)startLabel+4156)
+#define CT_v1230	((void*)startLabel+4188)
+#define CF_LAMBDA906	((void*)startLabel+4196)
+#define FN_LAMBDA905	((void*)startLabel+4208)
+#define CT_v1233	((void*)startLabel+4240)
+#define CF_LAMBDA905	((void*)startLabel+4248)
+#define FN_LAMBDA904	((void*)startLabel+4260)
+#define CT_v1235	((void*)startLabel+4292)
+#define CF_LAMBDA904	((void*)startLabel+4300)
+#define FN_LAMBDA903	((void*)startLabel+4312)
+#define CT_v1238	((void*)startLabel+4344)
+#define CF_LAMBDA903	((void*)startLabel+4352)
+#define FN_LAMBDA902	((void*)startLabel+4364)
+#define CT_v1240	((void*)startLabel+4396)
+#define CF_LAMBDA902	((void*)startLabel+4404)
+#define FN_LAMBDA901	((void*)startLabel+4416)
+#define CT_v1243	((void*)startLabel+4448)
+#define CF_LAMBDA901	((void*)startLabel+4456)
+#define CT_v1245	((void*)startLabel+4504)
+#define v1247	((void*)startLabel+4550)
+#define v1248	((void*)startLabel+4561)
+#define v1249	((void*)startLabel+4572)
+#define CT_v1252	((void*)startLabel+4600)
+#define CT_v1254	((void*)startLabel+4656)
+#define CT_v1256	((void*)startLabel+4708)
+#define CT_v1258	((void*)startLabel+4760)
+#define CT_v1263	((void*)startLabel+4840)
+#define FN_LAMBDA920	((void*)startLabel+4884)
+#define CT_v1266	((void*)startLabel+4916)
+#define CF_LAMBDA920	((void*)startLabel+4924)
+#define CT_v1268	((void*)startLabel+4960)
+#define CT_v1270	((void*)startLabel+5012)
+#define CT_v1272	((void*)startLabel+5064)
+#define CT_v1280	((void*)startLabel+5136)
+#define CT_v1282	((void*)startLabel+5184)
+#define v1286	((void*)startLabel+5232)
+#define v1303	((void*)startLabel+5246)
+#define v1290	((void*)startLabel+5250)
+#define v1287	((void*)startLabel+5258)
+#define v1291	((void*)startLabel+5262)
+#define v1304	((void*)startLabel+5276)
+#define v1295	((void*)startLabel+5280)
+#define v1292	((void*)startLabel+5288)
+#define v1296	((void*)startLabel+5292)
+#define v1305	((void*)startLabel+5306)
+#define v1300	((void*)startLabel+5310)
+#define v1297	((void*)startLabel+5317)
+#define v1283	((void*)startLabel+5321)
+#define CT_v1306	((void*)startLabel+5348)
+#define CT_v1308	((void*)startLabel+5408)
+#define CT_v1310	((void*)startLabel+5468)
+#define CT_v1312	((void*)startLabel+5528)
+#define CT_v1314	((void*)startLabel+5592)
+#define CT_v1316	((void*)startLabel+5664)
+#define ST_v925	((void*)startLabel+5692)
+#define ST_v979	((void*)startLabel+5694)
+#define ST_v1242	((void*)startLabel+5722)
+#define ST_v1237	((void*)startLabel+5725)
+#define ST_v1232	((void*)startLabel+5727)
+#define ST_v1003	((void*)startLabel+5729)
+#define ST_v1229	((void*)startLabel+5733)
+#define ST_v1226	((void*)startLabel+5738)
+#define ST_v1223	((void*)startLabel+5741)
+#define ST_v1220	((void*)startLabel+5745)
+#define ST_v1217	((void*)startLabel+5750)
+#define ST_v1214	((void*)startLabel+5754)
+#define ST_v1211	((void*)startLabel+5758)
+#define ST_v1208	((void*)startLabel+5763)
+#define ST_v1008	((void*)startLabel+5766)
+#define ST_v1205	((void*)startLabel+5784)
+#define ST_v928	((void*)startLabel+5786)
+#define ST_v1202	((void*)startLabel+5789)
+#define ST_v1199	((void*)startLabel+5792)
+#define ST_v931	((void*)startLabel+5795)
+#define ST_v1311	((void*)startLabel+5834)
+#define ST_v1281	((void*)startLabel+5876)
+#define ST_v1277	((void*)startLabel+5921)
+#define ST_v1309	((void*)startLabel+5966)
+#define ST_v1307	((void*)startLabel+6010)
+#define ST_v1301	((void*)startLabel+6057)
+#define ST_v1313	((void*)startLabel+6104)
+#define ST_v1267	((void*)startLabel+6148)
+#define ST_v1271	((void*)startLabel+6197)
+#define ST_v1261	((void*)startLabel+6250)
+#define ST_v1264	((void*)startLabel+6304)
+#define ST_v1269	((void*)startLabel+6370)
+#define ST_v1315	((void*)startLabel+6424)
+#define ST_v1253	((void*)startLabel+6470)
+#define ST_v1257	((void*)startLabel+6521)
+#define ST_v1250	((void*)startLabel+6576)
+#define ST_v1255	((void*)startLabel+6632)
+#define ST_v921	((void*)startLabel+6688)
+#define ST_v972	((void*)startLabel+6714)
+#define ST_v975	((void*)startLabel+6756)
+#define ST_v981	((void*)startLabel+6811)
+#define ST_v978	((void*)startLabel+6867)
+#define ST_v944	((void*)startLabel+6923)
+#define ST_v1028	((void*)startLabel+6956)
+#define ST_v933	((void*)startLabel+6988)
+#define ST_v935	((void*)startLabel+7019)
+#define ST_v999	((void*)startLabel+7061)
+#define ST_v1002	((void*)startLabel+7098)
+#define ST_v990	((void*)startLabel+7149)
+#define ST_v1244	((void*)startLabel+7185)
+#define ST_v922	((void*)startLabel+7221)
+#define ST_v930	((void*)startLabel+7256)
+#define ST_v927	((void*)startLabel+7303)
+#define ST_v924	((void*)startLabel+7350)
+#define ST_v1012	((void*)startLabel+7397)
+#define ST_v1161	((void*)startLabel+7431)
+#define ST_v1213	((void*)startLabel+7464)
+#define ST_v1210	((void*)startLabel+7511)
+#define ST_v1225	((void*)startLabel+7558)
+#define ST_v1192	((void*)startLabel+7605)
+#define ST_v1189	((void*)startLabel+7652)
+#define ST_v1207	((void*)startLabel+7697)
+#define ST_v1241	((void*)startLabel+7742)
+#define ST_v1201	((void*)startLabel+7787)
+#define ST_v1198	((void*)startLabel+7832)
+#define ST_v1234	((void*)startLabel+7877)
+#define ST_v1231	((void*)startLabel+7922)
+#define ST_v1239	((void*)startLabel+7967)
+#define ST_v1236	((void*)startLabel+8012)
+#define ST_v1195	((void*)startLabel+8057)
+#define ST_v1204	((void*)startLabel+8102)
+#define ST_v1216	((void*)startLabel+8147)
+#define ST_v1228	((void*)startLabel+8192)
+#define ST_v1222	((void*)startLabel+8237)
+#define ST_v1219	((void*)startLabel+8282)
+#define ST_v1005	((void*)startLabel+8327)
+#define ST_v1007	((void*)startLabel+8358)
+#define ST_v939	((void*)startLabel+8400)
+#define ST_v955	((void*)startLabel+8430)
+#define ST_v958	((void*)startLabel+8462)
+#define ST_v976	((void*)startLabel+8505)
+#define ST_v959	((void*)startLabel+8583)
+#define ST_v1190	((void*)startLabel+8659)
+#define ST_v1196	((void*)startLabel+8736)
+#define ST_v1265	((void*)startLabel+8738)
+#define ST_v982	((void*)startLabel+8748)
+#define ST_v1193	((void*)startLabel+8788)
+extern Node TM_Text_46XML_46HaXml_46Xtract_46Lex[];
+extern Node FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46show[];
+extern Node FN_Prelude_46_43_43[];
+extern Node TMSUB_Text_46XML_46HaXml_46Xtract_46Lex[];
+extern Node FN_NHC_46Internal_46_95apply1[];
+extern Node FN_Prelude_46seq[];
+extern Node FN_Prelude_46Integral_46Prelude_46Int_46div[];
+extern Node FN_Prelude_46Num_46Prelude_46Int_46_43[];
+extern Node FN_Prelude_46Num_46Prelude_46Int_46_42[];
+extern Node FN_NHC_46Internal_46_95patternMatchFail[];
+extern Node FN_Prelude_46reverse[];
+extern Node FN_NHC_46Internal_46_95apply2[];
+extern Node FN_Char_46isSpace[];
+extern Node CF_Prelude_46otherwise[];
+extern Node FN_Char_46isHexDigit[];
+extern Node FN_Prelude_46read[];
+extern Node CF_Prelude_46Read_46Prelude_46Integer[];
+extern Node FN_Char_46isAlphaNum[];
+extern Node FN_Prelude_46elem[];
+extern Node CF_Prelude_46Eq_46Prelude_46Char[];
+extern Node FN_Prelude_46_124_124[];
+extern Node FN_Char_46isAlpha[];
+extern Node FN_Char_46isDigit[];
+extern Node FN_Prelude_46showString[];
+extern Node FN_Prelude_46shows[];
+extern Node CF_Prelude_46Show_46Prelude_46Integer[];
+extern Node FN_Prelude_46_95_46show[];
+extern Node CF_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT[];
+extern Node FN_Prelude_46_95_46showsType[];
+extern Node FN_Prelude_46_95_46showList[];
+extern Node CF_Prelude_46Show_46Prelude_46Int[];
+extern Node FN_Prelude_46_46[];
+extern Node CF_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn[];
+extern Node FN_Prelude_46_95_46_47_61[];
+extern Node CF_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn[];
+extern Node FN_Prelude_46Eq_46Prelude_46_91_93_46_61_61[];
+extern Node FN_Prelude_46Eq_46Prelude_46Integer_46_61_61[];
+extern Node CF_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT[];
+
+static Node startLabel[] = {
+  42
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v923)
+,	/* FN_Text_46XML_46HaXml_46Xtract_46Lex_46lexerror: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,HEAP_CVAL_I4,HEAP_ARG)
+, bytes2word(2,HEAP_CVAL_I5,HEAP_CVAL_P1,6)
+, bytes2word(HEAP_CVAL_P1,7,HEAP_ARG,1)
+, bytes2word(HEAP_OFF_N1,3,HEAP_CVAL_P1,7)
+, bytes2word(HEAP_OFF_N1,6,HEAP_OFF_N1,5)
+, bytes2word(HEAP_CVAL_P1,7,HEAP_OFF_N1,11)
+, bytes2word(HEAP_OFF_N1,5,HEAP_CVAL_P1,7)
+, bytes2word(HEAP_OFF_N1,15,HEAP_OFF_N1,5)
+, bytes2word(HEAP_CVAL_IN3,HEAP_OFF_N1,4,HEAP_CVAL_N1)
+, bytes2word(4,PUSH_HEAP,HEAP_CVAL_N1,5)
+, bytes2word(HEAP_OFF_N1,4,HEAP_OFF_N1,3)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(1,2,0)
+, CONSTR(0,0,0)
+, CONSTR(0,1,0)
+, 430001
+, useLabel(ST_v922)
+,	/* CT_v923: (byte 0) */
+  HW(5,2)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Xtract_46Lex_46lexerror: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46lexerror),2)
+, VAPTAG(useLabel(FN_LAMBDA892))
+, VAPTAG(useLabel(FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46show))
+, VAPTAG(useLabel(FN_LAMBDA893))
+, VAPTAG(useLabel(FN_LAMBDA894))
+, VAPTAG(useLabel(FN_Prelude_46_43_43))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v926)
+,	/* FN_LAMBDA894: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v925)
+, 440029
+, useLabel(ST_v924)
+,	/* CT_v926: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA894: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA894))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v929)
+,	/* FN_LAMBDA893: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v928)
+, 430073
+, useLabel(ST_v927)
+,	/* CT_v929: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA893: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA893))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v932)
+,	/* FN_LAMBDA892: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v931)
+, 430023
+, useLabel(ST_v930)
+,	/* CT_v932: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA892: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA892))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v934)
+,	/* FN_Text_46XML_46HaXml_46Xtract_46Lex_46emit: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,HEAP_CVAL_I3,HEAP_CVAL_I4,HEAP_OFF_N1)
+, bytes2word(2,HEAP_ARG,2,HEAP_CVAL_IN3)
+, bytes2word(HEAP_ARG_ARG,2,1,HEAP_CVAL_N1)
+, bytes2word(4,HEAP_OFF_N1,4,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_I5,HEAP_OFF_N1,9,HEAP_OFF_N1)
+, bytes2word(4,RETURN_EVAL,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, CONSTR(1,1,0)
+, CONSTR(0,2,0)
+, 390001
+, useLabel(ST_v933)
+,	/* CT_v934: (byte 0) */
+  HW(3,2)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Xtract_46Lex_46emit: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46emit),2)
+, CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46Prelude_46204_46forcep),1)
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95apply1))
+, VAPTAG(useLabel(FN_Prelude_46seq))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v936)
+,	/* FN_Text_46XML_46HaXml_46Xtract_46Lex_46Prelude_46204_46forcep: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDSTACK_I16,SELECTOR_EVAL,SELECT,1)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, 400009
+, useLabel(ST_v935)
+,	/* CT_v936: (byte 0) */
+  HW(0,1)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Xtract_46Lex_46Prelude_46204_46forcep: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46Prelude_46204_46forcep),1)
+, bytes2word(1,0,0,1)
+, useLabel(CT_v941)
+,	/* FN_Text_46XML_46HaXml_46Xtract_46Lex_46tab: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(UNPACK,1,HEAP_CVAL_I3,HEAP_P1)
+, bytes2word(0,HEAP_INT_P1,8,HEAP_CVAL_I4)
+, bytes2word(HEAP_OFF_N1,4,HEAP_INT_P1,1)
+, bytes2word(HEAP_CVAL_I5,HEAP_OFF_N1,4,HEAP_INT_P1)
+, bytes2word(8,PUSH_HEAP,HEAP_CVAL_IN3,HEAP_OFF_N1)
+, bytes2word(4,RETURN,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,1,0)
+, 510001
+, useLabel(ST_v939)
+,	/* CT_v941: (byte 0) */
+  HW(3,1)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Xtract_46Lex_46tab: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46tab),1)
+, VAPTAG(useLabel(FN_Prelude_46Integral_46Prelude_46Int_46div))
+, VAPTAG(useLabel(FN_Prelude_46Num_46Prelude_46Int_46_43))
+, VAPTAG(useLabel(FN_Prelude_46Num_46Prelude_46Int_46_42))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v946)
+,	/* FN_Text_46XML_46HaXml_46Xtract_46Lex_46addcol: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I2,EVAL,NEEDHEAP_I32)
+, bytes2word(UNPACK,1,HEAP_CVAL_I3,HEAP_P1)
+, bytes2word(0,HEAP_ARG,1,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_IN3,HEAP_OFF_N1,4,RETURN)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,1,0)
+, 470001
+, useLabel(ST_v944)
+,	/* CT_v946: (byte 0) */
+  HW(1,2)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Xtract_46Lex_46addcol: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46addcol),2)
+, VAPTAG(useLabel(FN_Prelude_46Num_46Prelude_46Int_46_43))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v957)
+,	/* FN_Text_46XML_46HaXml_46Xtract_46Lex_46white: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(LOOKUPSWITCH,5,TOP(9),BOT(9))
+, bytes2word(TOP(26),BOT(26),TOP(10),BOT(10))
+, bytes2word(TOP(30),BOT(30),TOP(13),BOT(13))
+, bytes2word(TOP(36),BOT(36),TOP(32),BOT(32))
+, bytes2word(TOP(42),BOT(42),TOP(160),BOT(160))
+,	/* v956: (byte 4) */
+  bytes2word(TOP(48),BOT(48),TOP(22),BOT(22))
+,	/* v950: (byte 4) */
+  bytes2word(POP_I1,JUMP,30,0)
+,	/* v951: (byte 4) */
+  bytes2word(POP_I1,PUSH_CVAL_P1,3,RETURN_EVAL)
+, bytes2word(POP_I1,PUSH_HEAP,HEAP_CVAL_I4,HEAP_INT_P1)
+,	/* v952: (byte 2) */
+  bytes2word(1,RETURN,POP_I1,PUSH_HEAP)
+,	/* v953: (byte 4) */
+  bytes2word(HEAP_CVAL_I4,HEAP_INT_P1,1,RETURN)
+, bytes2word(POP_I1,PUSH_HEAP,HEAP_CVAL_I4,HEAP_INT_P1)
+,	/* v954: (byte 2) */
+  bytes2word(1,RETURN,POP_I1,PUSH_HEAP)
+,	/* v947: (byte 4) */
+  bytes2word(HEAP_CVAL_I4,HEAP_INT_P1,1,RETURN)
+, bytes2word(HEAP_CVAL_I5,PUSH_HEAP,HEAP_CVAL_P1,6)
+, bytes2word(HEAP_OFF_N1,2,RETURN_EVAL,ENDCODE)
+, bytes2word(0,0,0,0)
+, 540001
+, useLabel(ST_v955)
+,	/* CT_v957: (byte 0) */
+  HW(4,1)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Xtract_46Lex_46white: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46white),1)
+, useLabel(F0_Text_46XML_46HaXml_46Xtract_46Lex_46tab)
+, CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46addcol),1)
+, VAPTAG(useLabel(FN_LAMBDA895))
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95patternMatchFail))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v960)
+,	/* FN_LAMBDA895: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v959)
+, 540001
+, useLabel(ST_v958)
+,	/* CT_v960: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA895: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA895))
+, bytes2word(7,0,6,1)
+, bytes2word(5,2,4,3)
+, bytes2word(3,4,2,5)
+, bytes2word(1,6,0,7)
+, useLabel(CT_v974)
+,	/* FN_Text_46XML_46HaXml_46Xtract_46Lex_46accumulateUntil: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG,6,EVAL)
+, bytes2word(NEEDHEAP_I32,TABLESWITCH,2,NOP)
+,	/* v964: (byte 4) */
+  bytes2word(TOP(4),BOT(4),TOP(35),BOT(35))
+, bytes2word(POP_I1,HEAP_CVAL_I3,HEAP_CVAL_I4,HEAP_CVAL_I5)
+, bytes2word(HEAP_ARG,4,HEAP_CVAL_P1,6)
+, bytes2word(HEAP_OFF_N1,4,HEAP_OFF_N1,4)
+, bytes2word(HEAP_CVAL_IN3,HEAP_ARG,1,HEAP_OFF_N1)
+, bytes2word(5,HEAP_CVAL_P1,6,HEAP_OFF_N1)
+, bytes2word(11,HEAP_OFF_N1,5,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_P1,7,HEAP_OFF_N1,4)
+,	/* v965: (byte 3) */
+  bytes2word(HEAP_ARG,5,RETURN_EVAL,UNPACK)
+, bytes2word(2,PUSH_P1,0,EVAL)
+, bytes2word(PUSH_ARG_I1,EVAL,NEEDHEAP_I32,EQ_W)
+, bytes2word(JUMPFALSE,50,0,HEAP_CVAL_P1)
+, bytes2word(8,HEAP_CVAL_P1,9,HEAP_OFF_N1)
+, bytes2word(2,HEAP_ARG,3,HEAP_CVAL_N1)
+, bytes2word(4,HEAP_OFF_N1,4,HEAP_CVAL_P1)
+, bytes2word(10,HEAP_OFF_N1,3,HEAP_ARG)
+, bytes2word(4,HEAP_CVAL_P1,10,HEAP_ARG_ARG)
+, bytes2word(2,5,HEAP_CVAL_P1,11)
+, bytes2word(HEAP_INT_P1,1,HEAP_ARG,5)
+, bytes2word(HEAP_CVAL_P1,12,HEAP_ARG,7)
+, bytes2word(HEAP_OFF_N1,5,HEAP_I1,HEAP_CVAL_IN3)
+, bytes2word(HEAP_OFF_N1,11,HEAP_OFF_N1,6)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_IN3,HEAP_OFF_N1,17)
+,	/* v966: (byte 3) */
+  bytes2word(HEAP_OFF_N1,5,RETURN,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_P1,13,HEAP_I1,EVAL)
+, bytes2word(NEEDHEAP_I32,JUMPFALSE,33,0)
+, bytes2word(HEAP_CVAL_IN3,HEAP_P1,0,HEAP_ARG)
+, bytes2word(3,HEAP_CVAL_P1,14,HEAP_P1)
+, bytes2word(0,HEAP_CVAL_P1,9,HEAP_OFF_N1)
+, bytes2word(3,HEAP_ARG,5,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_P1,15,HEAP_ARG_ARG,1)
+, bytes2word(2,HEAP_OFF_N1,11,HEAP_ARG)
+, bytes2word(4,HEAP_OFF_N1,8,HEAP_I2)
+,	/* v968: (byte 3) */
+  bytes2word(HEAP_ARG,7,RETURN_EVAL,PUSH_CVAL_P1)
+, bytes2word(16,EVAL,NEEDHEAP_I32,JUMPFALSE)
+, bytes2word(29,0,HEAP_CVAL_IN3,HEAP_P1)
+, bytes2word(0,HEAP_ARG,3,HEAP_CVAL_P1)
+, bytes2word(11,HEAP_INT_P1,1,HEAP_ARG)
+, bytes2word(5,PUSH_HEAP,HEAP_CVAL_P1,15)
+, bytes2word(HEAP_ARG_ARG,1,2,HEAP_OFF_N1)
+, bytes2word(9,HEAP_ARG,4,HEAP_OFF_N1)
+, bytes2word(8,HEAP_I2,HEAP_ARG,7)
+,	/* v970: (byte 1) */
+  bytes2word(RETURN_EVAL,POP_P1,2,JUMP)
+,	/* v961: (byte 2) */
+  bytes2word(2,0,HEAP_CVAL_P1,17)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_P1,18,HEAP_OFF_N1)
+, bytes2word(2,RETURN_EVAL,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, CONSTR(1,1,0)
+, CONSTR(1,2,0)
+, 1270001
+, useLabel(ST_v972)
+,	/* CT_v974: (byte 0) */
+  HW(16,7)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Xtract_46Lex_46accumulateUntil: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46accumulateUntil),7)
+, VAPTAG(useLabel(FN_LAMBDA896))
+, VAPTAG(useLabel(FN_LAMBDA897))
+, VAPTAG(useLabel(FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46show))
+, VAPTAG(useLabel(FN_Prelude_46_43_43))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46lexerror))
+, VAPTAG(useLabel(FN_Prelude_46reverse))
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95apply1))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46emit))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46addcol))
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95apply2))
+, VAPTAG(useLabel(FN_Char_46isSpace))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46white))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46accumulateUntil))
+, useLabel(CF_Prelude_46otherwise)
+, VAPTAG(useLabel(FN_LAMBDA898))
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95patternMatchFail))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v977)
+,	/* FN_LAMBDA898: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v976)
+, 1270001
+, useLabel(ST_v975)
+,	/* CT_v977: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA898: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA898))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v980)
+,	/* FN_LAMBDA897: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v979)
+, 1290016
+, useLabel(ST_v978)
+,	/* CT_v980: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA897: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA897))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v983)
+,	/* FN_LAMBDA896: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v982)
+, 1280015
+, useLabel(ST_v981)
+,	/* CT_v983: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA896: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA896))
+, bytes2word(5,0,4,1)
+, bytes2word(3,2,2,3)
+, bytes2word(1,4,0,5)
+, useLabel(CT_v992)
+,	/* FN_Text_46XML_46HaXml_46Xtract_46Lex_46gatherNum: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDSTACK_I16,PUSH_ARG,4,EVAL)
+, bytes2word(NEEDHEAP_I32,TABLESWITCH,2,NOP)
+,	/* v991: (byte 4) */
+  bytes2word(TOP(4),BOT(4),TOP(8),BOT(8))
+,	/* v987: (byte 4) */
+  bytes2word(POP_I1,JUMP,39,0)
+, bytes2word(UNPACK,2,PUSH_HEAP,HEAP_CVAL_I3)
+, bytes2word(HEAP_I1,EVAL,NEEDHEAP_I32,JUMPFALSE)
+, bytes2word(24,0,HEAP_CVAL_IN3,HEAP_P1)
+, bytes2word(0,HEAP_ARG,1,HEAP_CVAL_I4)
+, bytes2word(HEAP_INT_P1,1,HEAP_ARG,3)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I5,HEAP_OFF_N1,7)
+, bytes2word(HEAP_ARG,2,HEAP_OFF_N1,6)
+,	/* v988: (byte 4) */
+  bytes2word(HEAP_I2,HEAP_ARG,5,RETURN_EVAL)
+, bytes2word(POP_P1,2,JUMP,2)
+,	/* v984: (byte 1) */
+  bytes2word(0,HEAP_CVAL_P1,6,HEAP_CVAL_P1)
+, bytes2word(7,HEAP_OFF_N1,2,HEAP_ARG)
+, bytes2word(1,HEAP_CVAL_P1,8,HEAP_CVAL_P1)
+, bytes2word(9,HEAP_OFF_N1,5,HEAP_CVAL_N1)
+, bytes2word(4,HEAP_OFF_N1,4,HEAP_CVAL_P1)
+, bytes2word(10,HEAP_OFF_N1,3,HEAP_ARG)
+, bytes2word(2,HEAP_CVAL_P1,11,HEAP_ARG_ARG)
+, bytes2word(5,3,HEAP_ARG,4)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_IN3,HEAP_OFF_N1,8)
+, bytes2word(HEAP_OFF_N1,6,RETURN_EVAL,ENDCODE)
+, bytes2word(0,0,0,0)
+, CONSTR(2,1,0)
+, CONSTR(1,2,0)
+, 1200001
+, useLabel(ST_v990)
+,	/* CT_v992: (byte 0) */
+  HW(9,5)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Xtract_46Lex_46gatherNum: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46gatherNum),5)
+, VAPTAG(useLabel(FN_Char_46isHexDigit))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46addcol))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46gatherNum))
+, VAPTAG(useLabel(FN_Prelude_46reverse))
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95apply1))
+, VAPTAG(useLabel(FN_Prelude_46read))
+, useLabel(CF_Prelude_46Read_46Prelude_46Integer)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46emit))
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95apply2))
+, bytes2word(0,0,6,0)
+, bytes2word(5,1,4,2)
+, bytes2word(3,3,2,4)
+, bytes2word(1,5,0,6)
+, useLabel(CT_v1001)
+,	/* FN_Text_46XML_46HaXml_46Xtract_46Lex_46gatherName: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDSTACK_I16,PUSH_ARG,5,EVAL)
+, bytes2word(NEEDHEAP_I32,TABLESWITCH,2,NOP)
+,	/* v1000: (byte 4) */
+  bytes2word(TOP(4),BOT(4),TOP(8),BOT(8))
+,	/* v996: (byte 4) */
+  bytes2word(POP_I1,JUMP,62,0)
+, bytes2word(UNPACK,2,HEAP_CVAL_I3,HEAP_P1)
+, bytes2word(0,HEAP_CVAL_I4,HEAP_CVAL_I5,HEAP_P1)
+, bytes2word(0,HEAP_CVAL_P1,6,HEAP_CVAL_P1)
+, bytes2word(7,HEAP_OFF_N1,5,HEAP_OFF_N1)
+, bytes2word(3,PUSH_HEAP,HEAP_CVAL_P1,8)
+, bytes2word(HEAP_OFF_N1,10,HEAP_OFF_N1,5)
+, bytes2word(EVAL,NEEDHEAP_I32,JUMPFALSE,28)
+, bytes2word(0,HEAP_CVAL_IN3,HEAP_P1,0)
+, bytes2word(HEAP_ARG,2,HEAP_CVAL_P1,9)
+, bytes2word(HEAP_INT_P1,1,HEAP_ARG,4)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_P1,10,HEAP_ARG)
+, bytes2word(1,HEAP_OFF_N1,8,HEAP_ARG)
+, bytes2word(3,HEAP_OFF_N1,7,HEAP_I2)
+,	/* v997: (byte 3) */
+  bytes2word(HEAP_ARG,6,RETURN_EVAL,POP_P1)
+,	/* v993: (byte 4) */
+  bytes2word(2,JUMP,2,0)
+, bytes2word(HEAP_CVAL_P1,11,HEAP_CVAL_P1,7)
+, bytes2word(HEAP_OFF_N1,2,HEAP_ARG,2)
+, bytes2word(HEAP_CVAL_P1,7,HEAP_ARG,1)
+, bytes2word(HEAP_OFF_N1,5,HEAP_CVAL_N1,4)
+, bytes2word(HEAP_OFF_N1,4,HEAP_CVAL_P1,12)
+, bytes2word(HEAP_OFF_N1,3,HEAP_ARG,3)
+, bytes2word(HEAP_CVAL_P1,13,HEAP_ARG_ARG,6)
+, bytes2word(4,HEAP_ARG,5,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_IN3,HEAP_OFF_N1,8,HEAP_OFF_N1)
+, bytes2word(6,RETURN_EVAL,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, CONSTR(1,1,0)
+, CONSTR(1,2,0)
+, 1130001
+, useLabel(ST_v999)
+,	/* CT_v1001: (byte 0) */
+  HW(11,6)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Xtract_46Lex_46gatherName: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46gatherName),6)
+, VAPTAG(useLabel(FN_Char_46isAlphaNum))
+, VAPTAG(useLabel(FN_Prelude_46elem))
+, useLabel(CF_Prelude_46Eq_46Prelude_46Char)
+, VAPTAG(useLabel(FN_LAMBDA899))
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95apply1))
+, VAPTAG(useLabel(FN_Prelude_46_124_124))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46addcol))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46gatherName))
+, VAPTAG(useLabel(FN_Prelude_46reverse))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46emit))
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95apply2))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1004)
+,	/* FN_LAMBDA899: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1003)
+, 1140030
+, useLabel(ST_v1002)
+,	/* CT_v1004: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA899: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA899))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1006)
+,	/* FN_Text_46XML_46HaXml_46Xtract_46Lex_46syms: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_HEAP,HEAP_CVAL_I3,RETURN_EVAL)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, 780001
+, useLabel(ST_v1005)
+,	/* CT_v1006: (byte 0) */
+  HW(1,0)
+, 0
+,	/* CF_Text_46XML_46HaXml_46Xtract_46Lex_46syms: (byte 0) */
+  VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46syms))
+, VAPTAG(useLabel(FN_LAMBDA900))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1009)
+,	/* FN_LAMBDA900: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1008)
+, 780008
+, useLabel(ST_v1007)
+,	/* CT_v1009: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA900: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA900))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1014)
+,	/* FN_Text_46XML_46HaXml_46Xtract_46Lex_46newline: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(UNPACK,1,HEAP_CVAL_I3,HEAP_P1)
+, bytes2word(0,HEAP_INT_P1,1,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_IN3,HEAP_OFF_N1,4,RETURN)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,1,0)
+, 500001
+, useLabel(ST_v1012)
+,	/* CT_v1014: (byte 0) */
+  HW(1,1)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Xtract_46Lex_46newline: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46newline),1)
+, VAPTAG(useLabel(FN_Prelude_46Num_46Prelude_46Int_46_43))
+, bytes2word(3,0,2,1)
+, bytes2word(1,2,0,3)
+, useLabel(CT_v1031)
+,	/* FN_Text_46XML_46HaXml_46Xtract_46Lex_46blank: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDSTACK_I16,PUSH_ARG_I3,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,2,TOP(4),BOT(4))
+,	/* v1018: (byte 2) */
+  bytes2word(TOP(8),BOT(8),POP_I1,PUSH_HEAP)
+,	/* v1019: (byte 2) */
+  bytes2word(HEAP_CVAL_IN3,RETURN,UNPACK,2)
+, bytes2word(PUSH_P1,0,EVAL,NEEDHEAP_I32)
+, bytes2word(LOOKUPSWITCH,5,TOP(9),BOT(9))
+, bytes2word(TOP(26),BOT(26),TOP(10),BOT(10))
+, bytes2word(TOP(38),BOT(38),TOP(13),BOT(13))
+, bytes2word(TOP(50),BOT(50),TOP(32),BOT(32))
+, bytes2word(TOP(58),BOT(58),TOP(160),BOT(160))
+,	/* v1030: (byte 4) */
+  bytes2word(TOP(73),BOT(73),TOP(22),BOT(22))
+,	/* v1023: (byte 4) */
+  bytes2word(POP_I1,JUMP,64,0)
+, bytes2word(POP_I1,HEAP_CVAL_I3,HEAP_ARG,2)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I4,HEAP_ARG,1)
+,	/* v1024: (byte 4) */
+  bytes2word(HEAP_OFF_N1,4,HEAP_I2,RETURN_EVAL)
+, bytes2word(POP_I1,HEAP_CVAL_I5,HEAP_ARG,2)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I4,HEAP_ARG,1)
+,	/* v1025: (byte 4) */
+  bytes2word(HEAP_OFF_N1,4,HEAP_I2,RETURN_EVAL)
+, bytes2word(POP_I1,PUSH_HEAP,HEAP_CVAL_I4,HEAP_ARG_ARG)
+,	/* v1026: (byte 4) */
+  bytes2word(1,2,HEAP_I2,RETURN_EVAL)
+, bytes2word(POP_I1,HEAP_CVAL_P1,6,HEAP_INT_P1)
+, bytes2word(1,HEAP_ARG,2,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_I4,HEAP_ARG,1,HEAP_OFF_N1)
+,	/* v1027: (byte 3) */
+  bytes2word(5,HEAP_I2,RETURN_EVAL,POP_I1)
+, bytes2word(HEAP_CVAL_P1,6,HEAP_INT_P1,1)
+, bytes2word(HEAP_ARG,2,PUSH_HEAP,HEAP_CVAL_I4)
+, bytes2word(HEAP_ARG,1,HEAP_OFF_N1,5)
+,	/* v1020: (byte 2) */
+  bytes2word(HEAP_I2,RETURN_EVAL,POP_P1,2)
+,	/* v1015: (byte 3) */
+  bytes2word(JUMP,2,0,PUSH_ARG_I3)
+, bytes2word(PUSH_ARG_I2,PUSH_ZAP_ARG_I1,ZAP_ARG_I2,ZAP_ARG_I3)
+, bytes2word(EVAL,NEEDHEAP_I32,APPLY,2)
+, bytes2word(RETURN_EVAL,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,0,0)
+, 610001
+, useLabel(ST_v1028)
+,	/* CT_v1031: (byte 0) */
+  HW(4,3)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Xtract_46Lex_46blank: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46blank),3)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46tab))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46blank))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46newline))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46addcol))
+, bytes2word(3,0,2,1)
+, bytes2word(1,2,0,3)
+, useLabel(CT_v1188)
+,	/* FN_Text_46XML_46HaXml_46Xtract_46Lex_46selAny: (byte 0) */
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I3,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,2,TOP(4),BOT(4))
+,	/* v1035: (byte 2) */
+  bytes2word(TOP(8),BOT(8),POP_I1,PUSH_HEAP)
+,	/* v1036: (byte 2) */
+  bytes2word(HEAP_CVAL_IN3,RETURN,UNPACK,2)
+, bytes2word(PUSH_P1,0,EVAL,NEEDHEAP_I32)
+, bytes2word(LOOKUPSWITCH,9,TOP(33),BOT(33))
+, bytes2word(TOP(42),BOT(42),TOP(34),BOT(34))
+, bytes2word(TOP(110),BOT(110),TOP(39),BOT(39))
+, bytes2word(TOP(161),BOT(161),TOP(46),BOT(46))
+, bytes2word(TOP(212),BOT(212),TOP(47),BOT(47))
+, bytes2word(TOP(757),BOT(757),TOP(58),BOT(58))
+, bytes2word(TOP(827),BOT(827),TOP(60),BOT(60))
+, bytes2word(TOP(858),BOT(858),TOP(62),BOT(62))
+, bytes2word(TOP(927),BOT(927),TOP(95),BOT(95))
+,	/* v1163: (byte 4) */
+  bytes2word(TOP(997),BOT(997),TOP(38),BOT(38))
+,	/* v1040: (byte 4) */
+  bytes2word(POP_I1,JUMP,220,3)
+, bytes2word(POP_I1,PUSH_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,2,TOP(4),BOT(4))
+,	/* v1164: (byte 2) */
+  bytes2word(TOP(8),BOT(8),POP_I1,JUMP)
+,	/* v1044: (byte 2) */
+  bytes2word(206,3,UNPACK,2)
+, bytes2word(PUSH_P1,0,EVAL,NEEDHEAP_I32)
+, bytes2word(LOOKUPSWITCH,1,TOP(61),BOT(61))
+,	/* v1165: (byte 4) */
+  bytes2word(TOP(10),BOT(10),TOP(6),BOT(6))
+,	/* v1048: (byte 4) */
+  bytes2word(POP_I1,JUMP,33,0)
+, bytes2word(POP_I1,HEAP_CVAL_I3,HEAP_CVAL_N1,4)
+, bytes2word(HEAP_OFF_N1,2,HEAP_CVAL_I4,HEAP_OFF_N1)
+, bytes2word(3,HEAP_ARG,2,HEAP_CVAL_I5)
+, bytes2word(HEAP_INT_P1,2,HEAP_ARG,2)
+, bytes2word(HEAP_CVAL_P1,6,HEAP_ARG,1)
+, bytes2word(HEAP_OFF_N1,5,HEAP_I1,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_N1,5,HEAP_OFF_N1,11)
+,	/* v1045: (byte 3) */
+  bytes2word(HEAP_OFF_N1,6,RETURN,POP_P1)
+,	/* v1049: (byte 4) */
+  bytes2word(2,JUMP,152,3)
+, bytes2word(POP_I1,HEAP_CVAL_P1,7,HEAP_CVAL_N1)
+, bytes2word(4,HEAP_OFF_N1,2,HEAP_CVAL_I4)
+, bytes2word(HEAP_OFF_N1,3,HEAP_ARG,2)
+, bytes2word(HEAP_CVAL_P1,8,HEAP_CVAL_N1,4)
+, bytes2word(HEAP_OFF_N1,2,HEAP_CVAL_IN3,HEAP_CVAL_I5)
+, bytes2word(HEAP_INT_P1,1,HEAP_ARG,2)
+, bytes2word(HEAP_CVAL_P1,9,HEAP_ARG,1)
+, bytes2word(HEAP_CVAL_P1,10,HEAP_CHAR_P1,34)
+, bytes2word(HEAP_OFF_N1,10,HEAP_OFF_N1,9)
+, bytes2word(HEAP_ARG,2,HEAP_OFF_N1,10)
+, bytes2word(HEAP_I1,HEAP_OFF_N1,9,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_N1,5,HEAP_OFF_N1,21)
+,	/* v1050: (byte 3) */
+  bytes2word(HEAP_OFF_N1,10,RETURN,POP_I1)
+, bytes2word(HEAP_CVAL_P1,11,HEAP_CVAL_N1,4)
+, bytes2word(HEAP_OFF_N1,2,HEAP_CVAL_I4,HEAP_OFF_N1)
+, bytes2word(3,HEAP_ARG,2,HEAP_CVAL_P1)
+, bytes2word(12,HEAP_CVAL_N1,4,HEAP_OFF_N1)
+, bytes2word(2,HEAP_CVAL_IN3,HEAP_CVAL_I5,HEAP_INT_P1)
+, bytes2word(1,HEAP_ARG,2,HEAP_CVAL_P1)
+, bytes2word(9,HEAP_ARG,1,HEAP_CVAL_P1)
+, bytes2word(10,HEAP_CHAR_P1,39,HEAP_OFF_N1)
+, bytes2word(10,HEAP_OFF_N1,9,HEAP_ARG)
+, bytes2word(2,HEAP_OFF_N1,10,HEAP_I1)
+, bytes2word(HEAP_OFF_N1,9,PUSH_HEAP,HEAP_CVAL_N1)
+, bytes2word(5,HEAP_OFF_N1,21,HEAP_OFF_N1)
+,	/* v1051: (byte 2) */
+  bytes2word(10,RETURN,POP_I1,PUSH_I1)
+, bytes2word(EVAL,NEEDHEAP_I32,TABLESWITCH,2)
+,	/* v1166: (byte 4) */
+  bytes2word(TOP(4),BOT(4),TOP(8),BOT(8))
+,	/* v1055: (byte 4) */
+  bytes2word(POP_I1,JUMP,36,3)
+, bytes2word(UNPACK,2,PUSH_P1,0)
+, bytes2word(EVAL,NEEDHEAP_I32,LOOKUPSWITCH,5)
+, bytes2word(TOP(33),BOT(33),TOP(26),BOT(26))
+, bytes2word(TOP(47),BOT(47),TOP(132),BOT(132))
+, bytes2word(TOP(60),BOT(60),TOP(164),BOT(164))
+, bytes2word(TOP(61),BOT(61),TOP(306),BOT(306))
+, bytes2word(TOP(62),BOT(62),TOP(375),BOT(375))
+,	/* v1167: (byte 2) */
+  bytes2word(TOP(22),BOT(22),POP_I1,JUMP)
+,	/* v1059: (byte 2) */
+  bytes2word(238,1,POP_I1,PUSH_I1)
+, bytes2word(EVAL,NEEDHEAP_I32,TABLESWITCH,2)
+,	/* v1168: (byte 4) */
+  bytes2word(TOP(4),BOT(4),TOP(8),BOT(8))
+,	/* v1063: (byte 4) */
+  bytes2word(POP_I1,JUMP,224,1)
+, bytes2word(UNPACK,2,PUSH_P1,0)
+, bytes2word(EVAL,NEEDHEAP_I32,LOOKUPSWITCH,1)
+, bytes2word(TOP(61),BOT(61),TOP(10),BOT(10))
+,	/* v1169: (byte 2) */
+  bytes2word(TOP(6),BOT(6),POP_I1,JUMP)
+,	/* v1067: (byte 2) */
+  bytes2word(71,0,POP_I1,PUSH_I1)
+, bytes2word(EVAL,NEEDHEAP_I32,TABLESWITCH,2)
+,	/* v1170: (byte 4) */
+  bytes2word(TOP(4),BOT(4),TOP(8),BOT(8))
+,	/* v1071: (byte 4) */
+  bytes2word(POP_I1,JUMP,57,0)
+, bytes2word(UNPACK,2,PUSH_P1,0)
+, bytes2word(EVAL,NEEDHEAP_I32,LOOKUPSWITCH,1)
+, bytes2word(TOP(46),BOT(46),TOP(10),BOT(10))
+,	/* v1171: (byte 2) */
+  bytes2word(TOP(6),BOT(6),POP_I1,JUMP)
+,	/* v1075: (byte 2) */
+  bytes2word(34,0,POP_I1,HEAP_CVAL_P1)
+, bytes2word(13,HEAP_CVAL_N1,4,HEAP_OFF_N1)
+, bytes2word(2,HEAP_CVAL_I4,HEAP_OFF_N1,3)
+, bytes2word(HEAP_ARG,2,HEAP_CVAL_I5,HEAP_INT_P1)
+, bytes2word(4,HEAP_ARG,2,HEAP_CVAL_P1)
+, bytes2word(6,HEAP_ARG,1,HEAP_OFF_N1)
+, bytes2word(5,HEAP_I1,PUSH_HEAP,HEAP_CVAL_N1)
+, bytes2word(5,HEAP_OFF_N1,11,HEAP_OFF_N1)
+,	/* v1072: (byte 2) */
+  bytes2word(6,RETURN,POP_P1,2)
+,	/* v1064: (byte 3) */
+  bytes2word(JUMP,2,0,POP_P1)
+,	/* v1076: (byte 4) */
+  bytes2word(2,JUMP,132,1)
+, bytes2word(POP_I1,HEAP_CVAL_P1,14,HEAP_CVAL_N1)
+, bytes2word(4,HEAP_OFF_N1,2,HEAP_CVAL_I4)
+, bytes2word(HEAP_OFF_N1,3,HEAP_ARG,2)
+, bytes2word(HEAP_CVAL_I5,HEAP_INT_P1,2,HEAP_ARG)
+, bytes2word(2,HEAP_CVAL_P1,6,HEAP_ARG)
+, bytes2word(1,HEAP_OFF_N1,5,HEAP_I1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_N1,5,HEAP_OFF_N1)
+,	/* v1077: (byte 4) */
+  bytes2word(11,HEAP_OFF_N1,6,RETURN)
+, bytes2word(POP_I1,PUSH_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,2,TOP(4),BOT(4))
+,	/* v1172: (byte 2) */
+  bytes2word(TOP(8),BOT(8),POP_I1,JUMP)
+,	/* v1081: (byte 2) */
+  bytes2word(86,1,UNPACK,2)
+, bytes2word(PUSH_P1,0,EVAL,NEEDHEAP_I32)
+, bytes2word(LOOKUPSWITCH,2,TOP(46),BOT(46))
+, bytes2word(TOP(14),BOT(14),TOP(61),BOT(61))
+,	/* v1173: (byte 4) */
+  bytes2word(TOP(46),BOT(46),TOP(10),BOT(10))
+,	/* v1085: (byte 4) */
+  bytes2word(POP_I1,JUMP,103,0)
+, bytes2word(POP_I1,HEAP_CVAL_P1,15,HEAP_CVAL_N1)
+, bytes2word(4,HEAP_OFF_N1,2,HEAP_CVAL_I4)
+, bytes2word(HEAP_OFF_N1,3,HEAP_ARG,2)
+, bytes2word(HEAP_CVAL_I5,HEAP_INT_P1,3,HEAP_ARG)
+, bytes2word(2,HEAP_CVAL_P1,6,HEAP_ARG)
+, bytes2word(1,HEAP_OFF_N1,5,HEAP_I1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_N1,5,HEAP_OFF_N1)
+,	/* v1086: (byte 4) */
+  bytes2word(11,HEAP_OFF_N1,6,RETURN)
+, bytes2word(POP_I1,PUSH_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,2,TOP(4),BOT(4))
+,	/* v1174: (byte 2) */
+  bytes2word(TOP(8),BOT(8),POP_I1,JUMP)
+,	/* v1090: (byte 2) */
+  bytes2word(57,0,UNPACK,2)
+, bytes2word(PUSH_P1,0,EVAL,NEEDHEAP_I32)
+, bytes2word(LOOKUPSWITCH,1,TOP(46),BOT(46))
+,	/* v1175: (byte 4) */
+  bytes2word(TOP(10),BOT(10),TOP(6),BOT(6))
+,	/* v1094: (byte 4) */
+  bytes2word(POP_I1,JUMP,34,0)
+, bytes2word(POP_I1,HEAP_CVAL_P1,16,HEAP_CVAL_N1)
+, bytes2word(4,HEAP_OFF_N1,2,HEAP_CVAL_I4)
+, bytes2word(HEAP_OFF_N1,3,HEAP_ARG,2)
+, bytes2word(HEAP_CVAL_I5,HEAP_INT_P1,4,HEAP_ARG)
+, bytes2word(2,HEAP_CVAL_P1,6,HEAP_ARG)
+, bytes2word(1,HEAP_OFF_N1,5,HEAP_I1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_N1,5,HEAP_OFF_N1)
+,	/* v1091: (byte 4) */
+  bytes2word(11,HEAP_OFF_N1,6,RETURN)
+, bytes2word(POP_P1,2,JUMP,2)
+,	/* v1082: (byte 1) */
+  bytes2word(0,POP_P1,2,JUMP)
+,	/* v1095: (byte 2) */
+  bytes2word(214,0,POP_I1,PUSH_I1)
+, bytes2word(EVAL,NEEDHEAP_I32,TABLESWITCH,2)
+,	/* v1176: (byte 4) */
+  bytes2word(TOP(4),BOT(4),TOP(8),BOT(8))
+,	/* v1099: (byte 4) */
+  bytes2word(POP_I1,JUMP,200,0)
+, bytes2word(UNPACK,2,PUSH_P1,0)
+, bytes2word(EVAL,NEEDHEAP_I32,LOOKUPSWITCH,1)
+, bytes2word(TOP(46),BOT(46),TOP(10),BOT(10))
+,	/* v1177: (byte 2) */
+  bytes2word(TOP(6),BOT(6),POP_I1,JUMP)
+,	/* v1103: (byte 2) */
+  bytes2word(34,0,POP_I1,HEAP_CVAL_P1)
+, bytes2word(17,HEAP_CVAL_N1,4,HEAP_OFF_N1)
+, bytes2word(2,HEAP_CVAL_I4,HEAP_OFF_N1,3)
+, bytes2word(HEAP_ARG,2,HEAP_CVAL_I5,HEAP_INT_P1)
+, bytes2word(3,HEAP_ARG,2,HEAP_CVAL_P1)
+, bytes2word(6,HEAP_ARG,1,HEAP_OFF_N1)
+, bytes2word(5,HEAP_I1,PUSH_HEAP,HEAP_CVAL_N1)
+, bytes2word(5,HEAP_OFF_N1,11,HEAP_OFF_N1)
+,	/* v1100: (byte 2) */
+  bytes2word(6,RETURN,POP_P1,2)
+,	/* v1104: (byte 3) */
+  bytes2word(JUMP,145,0,POP_I1)
+, bytes2word(PUSH_I1,EVAL,NEEDHEAP_I32,TABLESWITCH)
+, bytes2word(2,NOP,TOP(4),BOT(4))
+,	/* v1178: (byte 2) */
+  bytes2word(TOP(8),BOT(8),POP_I1,JUMP)
+,	/* v1108: (byte 2) */
+  bytes2word(130,0,UNPACK,2)
+, bytes2word(PUSH_P1,0,EVAL,NEEDHEAP_I32)
+, bytes2word(LOOKUPSWITCH,2,TOP(46),BOT(46))
+, bytes2word(TOP(14),BOT(14),TOP(61),BOT(61))
+,	/* v1179: (byte 4) */
+  bytes2word(TOP(46),BOT(46),TOP(10),BOT(10))
+,	/* v1112: (byte 4) */
+  bytes2word(POP_I1,JUMP,103,0)
+, bytes2word(POP_I1,HEAP_CVAL_P1,18,HEAP_CVAL_N1)
+, bytes2word(4,HEAP_OFF_N1,2,HEAP_CVAL_I4)
+, bytes2word(HEAP_OFF_N1,3,HEAP_ARG,2)
+, bytes2word(HEAP_CVAL_I5,HEAP_INT_P1,3,HEAP_ARG)
+, bytes2word(2,HEAP_CVAL_P1,6,HEAP_ARG)
+, bytes2word(1,HEAP_OFF_N1,5,HEAP_I1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_N1,5,HEAP_OFF_N1)
+,	/* v1113: (byte 4) */
+  bytes2word(11,HEAP_OFF_N1,6,RETURN)
+, bytes2word(POP_I1,PUSH_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,2,TOP(4),BOT(4))
+,	/* v1180: (byte 2) */
+  bytes2word(TOP(8),BOT(8),POP_I1,JUMP)
+,	/* v1117: (byte 2) */
+  bytes2word(57,0,UNPACK,2)
+, bytes2word(PUSH_P1,0,EVAL,NEEDHEAP_I32)
+, bytes2word(LOOKUPSWITCH,1,TOP(46),BOT(46))
+,	/* v1181: (byte 4) */
+  bytes2word(TOP(10),BOT(10),TOP(6),BOT(6))
+,	/* v1121: (byte 4) */
+  bytes2word(POP_I1,JUMP,34,0)
+, bytes2word(POP_I1,HEAP_CVAL_P1,19,HEAP_CVAL_N1)
+, bytes2word(4,HEAP_OFF_N1,2,HEAP_CVAL_I4)
+, bytes2word(HEAP_OFF_N1,3,HEAP_ARG,2)
+, bytes2word(HEAP_CVAL_I5,HEAP_INT_P1,4,HEAP_ARG)
+, bytes2word(2,HEAP_CVAL_P1,6,HEAP_ARG)
+, bytes2word(1,HEAP_OFF_N1,5,HEAP_I1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_N1,5,HEAP_OFF_N1)
+,	/* v1118: (byte 4) */
+  bytes2word(11,HEAP_OFF_N1,6,RETURN)
+, bytes2word(POP_P1,2,JUMP,2)
+,	/* v1109: (byte 1) */
+  bytes2word(0,POP_P1,2,JUMP)
+,	/* v1056: (byte 2) */
+  bytes2word(2,0,POP_P1,2)
+,	/* v1122: (byte 3) */
+  bytes2word(JUMP,17,1,POP_I1)
+, bytes2word(PUSH_I1,EVAL,NEEDHEAP_I32,TABLESWITCH)
+, bytes2word(2,NOP,TOP(4),BOT(4))
+,	/* v1182: (byte 2) */
+  bytes2word(TOP(8),BOT(8),POP_I1,JUMP)
+,	/* v1126: (byte 2) */
+  bytes2word(2,1,UNPACK,2)
+, bytes2word(PUSH_P1,0,EVAL,NEEDHEAP_I32)
+, bytes2word(LOOKUPSWITCH,1,TOP(47),BOT(47))
+,	/* v1183: (byte 4) */
+  bytes2word(TOP(10),BOT(10),TOP(6),BOT(6))
+,	/* v1130: (byte 4) */
+  bytes2word(POP_I1,JUMP,34,0)
+, bytes2word(POP_I1,HEAP_CVAL_P1,20,HEAP_CVAL_N1)
+, bytes2word(4,HEAP_OFF_N1,2,HEAP_CVAL_I4)
+, bytes2word(HEAP_OFF_N1,3,HEAP_ARG,2)
+, bytes2word(HEAP_CVAL_I5,HEAP_INT_P1,2,HEAP_ARG)
+, bytes2word(2,HEAP_CVAL_P1,6,HEAP_ARG)
+, bytes2word(1,HEAP_OFF_N1,5,HEAP_I1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_N1,5,HEAP_OFF_N1)
+,	/* v1127: (byte 4) */
+  bytes2word(11,HEAP_OFF_N1,6,RETURN)
+, bytes2word(POP_P1,2,JUMP,203)
+,	/* v1131: (byte 1) */
+  bytes2word(0,POP_I1,HEAP_CVAL_P1,21)
+, bytes2word(HEAP_CVAL_I5,HEAP_INT_P1,1,HEAP_ARG)
+, bytes2word(2,HEAP_CVAL_P1,9,HEAP_ARG)
+, bytes2word(1,HEAP_CVAL_P1,22,HEAP_OFF_N1)
+, bytes2word(3,PUSH_HEAP,HEAP_CVAL_P1,23)
+, bytes2word(HEAP_ARG,1,HEAP_OFF_N1,10)
+, bytes2word(HEAP_ARG,2,HEAP_OFF_N1,11)
+,	/* v1132: (byte 4) */
+  bytes2word(HEAP_I2,HEAP_OFF_N1,8,RETURN_EVAL)
+, bytes2word(POP_I1,PUSH_I1,EVAL,NEEDHEAP_I32)
+, bytes2word(TABLESWITCH,2,TOP(4),BOT(4))
+,	/* v1184: (byte 2) */
+  bytes2word(TOP(8),BOT(8),POP_I1,JUMP)
+,	/* v1136: (byte 2) */
+  bytes2word(158,0,UNPACK,2)
+, bytes2word(PUSH_P1,0,EVAL,NEEDHEAP_I32)
+, bytes2word(LOOKUPSWITCH,1,TOP(61),BOT(61))
+,	/* v1185: (byte 4) */
+  bytes2word(TOP(10),BOT(10),TOP(6),BOT(6))
+,	/* v1140: (byte 4) */
+  bytes2word(POP_I1,JUMP,34,0)
+, bytes2word(POP_I1,HEAP_CVAL_P1,24,HEAP_CVAL_N1)
+, bytes2word(4,HEAP_OFF_N1,2,HEAP_CVAL_I4)
+, bytes2word(HEAP_OFF_N1,3,HEAP_ARG,2)
+, bytes2word(HEAP_CVAL_I5,HEAP_INT_P1,2,HEAP_ARG)
+, bytes2word(2,HEAP_CVAL_P1,6,HEAP_ARG)
+, bytes2word(1,HEAP_OFF_N1,5,HEAP_I1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_N1,5,HEAP_OFF_N1)
+,	/* v1137: (byte 4) */
+  bytes2word(11,HEAP_OFF_N1,6,RETURN)
+, bytes2word(POP_P1,2,JUMP,103)
+,	/* v1141: (byte 1) */
+  bytes2word(0,POP_I1,PUSH_I1,EVAL)
+, bytes2word(NEEDHEAP_I32,TABLESWITCH,2,NOP)
+,	/* v1186: (byte 4) */
+  bytes2word(TOP(4),BOT(4),TOP(8),BOT(8))
+,	/* v1145: (byte 4) */
+  bytes2word(POP_I1,JUMP,88,0)
+, bytes2word(UNPACK,2,PUSH_P1,0)
+, bytes2word(EVAL,NEEDHEAP_I32,LOOKUPSWITCH,1)
+, bytes2word(TOP(61),BOT(61),TOP(10),BOT(10))
+,	/* v1187: (byte 2) */
+  bytes2word(TOP(6),BOT(6),POP_I1,JUMP)
+,	/* v1149: (byte 2) */
+  bytes2word(34,0,POP_I1,HEAP_CVAL_P1)
+, bytes2word(25,HEAP_CVAL_N1,4,HEAP_OFF_N1)
+, bytes2word(2,HEAP_CVAL_I4,HEAP_OFF_N1,3)
+, bytes2word(HEAP_ARG,2,HEAP_CVAL_I5,HEAP_INT_P1)
+, bytes2word(2,HEAP_ARG,2,HEAP_CVAL_P1)
+, bytes2word(6,HEAP_ARG,1,HEAP_OFF_N1)
+, bytes2word(5,HEAP_I1,PUSH_HEAP,HEAP_CVAL_N1)
+, bytes2word(5,HEAP_OFF_N1,11,HEAP_OFF_N1)
+,	/* v1146: (byte 2) */
+  bytes2word(6,RETURN,POP_P1,2)
+,	/* v1150: (byte 3) */
+  bytes2word(JUMP,33,0,POP_I1)
+, bytes2word(HEAP_CVAL_P1,26,HEAP_CVAL_I5,HEAP_INT_P1)
+, bytes2word(1,HEAP_ARG,2,HEAP_CVAL_P1)
+, bytes2word(9,HEAP_ARG,1,HEAP_CVAL_P1)
+, bytes2word(22,HEAP_OFF_N1,3,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_P1,23,HEAP_ARG,1)
+, bytes2word(HEAP_OFF_N1,10,HEAP_ARG,2)
+, bytes2word(HEAP_OFF_N1,11,HEAP_I2,HEAP_OFF_N1)
+,	/* v1037: (byte 2) */
+  bytes2word(8,RETURN_EVAL,PUSH_CVAL_P1,27)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_P1,28,HEAP_CVAL_P1)
+, bytes2word(29,HEAP_I2,EVAL,NEEDHEAP_I32)
+, bytes2word(APPLY,1,EVAL,NEEDHEAP_I32)
+, bytes2word(JUMPFALSE,38,0,HEAP_CVAL_IN3)
+, bytes2word(HEAP_CVAL_N1,5,HEAP_P1,0)
+, bytes2word(HEAP_OFF_N1,3,HEAP_CVAL_N1,4)
+, bytes2word(HEAP_OFF_N1,4,HEAP_CVAL_I4,HEAP_OFF_N1)
+, bytes2word(3,HEAP_ARG,2,HEAP_CVAL_I5)
+, bytes2word(HEAP_INT_P1,1,HEAP_ARG,2)
+, bytes2word(HEAP_CVAL_P1,6,HEAP_ARG,1)
+, bytes2word(HEAP_OFF_N1,5,HEAP_I1,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_N1,5,HEAP_OFF_N1,11)
+,	/* v1151: (byte 3) */
+  bytes2word(HEAP_OFF_N1,6,RETURN,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_P1,30,HEAP_I1,EVAL)
+, bytes2word(NEEDHEAP_I32,JUMPFALSE,21,0)
+, bytes2word(HEAP_CVAL_P1,9,HEAP_ARG,1)
+, bytes2word(HEAP_CVAL_N1,5,HEAP_P1,0)
+, bytes2word(HEAP_I1,PUSH_HEAP,HEAP_CVAL_P1,31)
+, bytes2word(HEAP_OFF_N1,6,HEAP_ARG,2)
+,	/* v1153: (byte 3) */
+  bytes2word(HEAP_OFF_N1,6,RETURN_EVAL,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_P1,32,HEAP_I1,EVAL)
+, bytes2word(NEEDHEAP_I32,JUMPFALSE,37,0)
+, bytes2word(HEAP_CVAL_IN3,HEAP_CVAL_N1,5,HEAP_P1)
+, bytes2word(0,HEAP_OFF_N1,3,HEAP_CVAL_I5)
+, bytes2word(HEAP_INT_P1,1,HEAP_ARG,2)
+, bytes2word(HEAP_CVAL_P1,9,HEAP_ARG,1)
+, bytes2word(HEAP_CVAL_P1,22,HEAP_OFF_N1,3)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_P1,23,HEAP_ARG)
+, bytes2word(1,HEAP_OFF_N1,12,HEAP_ARG)
+, bytes2word(2,HEAP_OFF_N1,11,HEAP_I2)
+,	/* v1155: (byte 3) */
+  bytes2word(HEAP_OFF_N1,8,RETURN_EVAL,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_P1,33,HEAP_I1,EVAL)
+, bytes2word(NEEDHEAP_I32,JUMPFALSE,35,0)
+, bytes2word(HEAP_CVAL_IN3,HEAP_CVAL_N1,5,HEAP_P1)
+, bytes2word(0,HEAP_OFF_N1,3,HEAP_CVAL_I5)
+, bytes2word(HEAP_INT_P1,1,HEAP_ARG,2)
+, bytes2word(HEAP_CVAL_P1,9,HEAP_ARG,1)
+, bytes2word(HEAP_CVAL_P1,22,HEAP_OFF_N1,3)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_P1,34,HEAP_OFF_N1)
+, bytes2word(11,HEAP_ARG,2,HEAP_OFF_N1)
+, bytes2word(10,HEAP_I2,HEAP_OFF_N1,7)
+,	/* v1157: (byte 1) */
+  bytes2word(RETURN_EVAL,PUSH_CVAL_P1,35,ZAP_ARG_I1)
+, bytes2word(EVAL,NEEDHEAP_I32,JUMPFALSE,12)
+, bytes2word(0,HEAP_CVAL_P1,36,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_P1,37,HEAP_OFF_N1,2)
+,	/* v1159: (byte 3) */
+  bytes2word(HEAP_ARG,2,RETURN_EVAL,POP_P1)
+,	/* v1032: (byte 4) */
+  bytes2word(2,JUMP,2,0)
+, bytes2word(HEAP_CVAL_P1,38,PUSH_HEAP,HEAP_CVAL_P1)
+, bytes2word(39,HEAP_OFF_N1,2,RETURN_EVAL)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(1,2,0)
+, CONSTR(0,1,0)
+, CONSTR(0,0,0)
+, 810001
+, useLabel(ST_v1161)
+,	/* CT_v1188: (byte 0) */
+  HW(37,3)
+, 0
+,	/* F0_Text_46XML_46HaXml_46Xtract_46Lex_46selAny: (byte 0) */
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46selAny),3)
+, VAPTAG(useLabel(FN_LAMBDA901))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46emit))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46addcol))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46selAny))
+, VAPTAG(useLabel(FN_LAMBDA902))
+, VAPTAG(useLabel(FN_LAMBDA903))
+, CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46selAny),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46accumulateUntil))
+, VAPTAG(useLabel(FN_LAMBDA904))
+, VAPTAG(useLabel(FN_LAMBDA905))
+, VAPTAG(useLabel(FN_LAMBDA906))
+, VAPTAG(useLabel(FN_LAMBDA907))
+, VAPTAG(useLabel(FN_LAMBDA908))
+, VAPTAG(useLabel(FN_LAMBDA909))
+, VAPTAG(useLabel(FN_LAMBDA910))
+, VAPTAG(useLabel(FN_LAMBDA911))
+, VAPTAG(useLabel(FN_LAMBDA912))
+, VAPTAG(useLabel(FN_LAMBDA913))
+, VAPTAG(useLabel(FN_LAMBDA914))
+, CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46blank),2)
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46gatherName))
+, VAPTAG(useLabel(FN_LAMBDA915))
+, VAPTAG(useLabel(FN_LAMBDA916))
+, VAPTAG(useLabel(FN_LAMBDA917))
+, useLabel(CF_Text_46XML_46HaXml_46Xtract_46Lex_46syms)
+, VAPTAG(useLabel(FN_Prelude_46elem))
+, useLabel(CF_Prelude_46Eq_46Prelude_46Char)
+, VAPTAG(useLabel(FN_Char_46isSpace))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46blank))
+, VAPTAG(useLabel(FN_Char_46isAlpha))
+, VAPTAG(useLabel(FN_Char_46isDigit))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46gatherNum))
+, useLabel(CF_Prelude_46otherwise)
+, VAPTAG(useLabel(FN_LAMBDA918))
+, VAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46lexerror))
+, VAPTAG(useLabel(FN_LAMBDA919))
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95patternMatchFail))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1191)
+,	/* FN_LAMBDA919: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1190)
+, 810001
+, useLabel(ST_v1189)
+,	/* CT_v1191: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA919: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA919))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1194)
+,	/* FN_LAMBDA918: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1193)
+, 1090034
+, useLabel(ST_v1192)
+,	/* CT_v1194: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA918: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA918))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1197)
+,	/* FN_LAMBDA917: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1196)
+, 920040
+, useLabel(ST_v1195)
+,	/* CT_v1197: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA917: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA917))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1200)
+,	/* FN_LAMBDA916: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1199)
+, 850040
+, useLabel(ST_v1198)
+,	/* CT_v1200: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA916: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA916))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1203)
+,	/* FN_LAMBDA915: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1202)
+, 840040
+, useLabel(ST_v1201)
+,	/* CT_v1203: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA915: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA915))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1206)
+,	/* FN_LAMBDA914: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1205)
+, 930040
+, useLabel(ST_v1204)
+,	/* CT_v1206: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA914: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA914))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1209)
+,	/* FN_LAMBDA913: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1208)
+, 820040
+, useLabel(ST_v1207)
+,	/* CT_v1209: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA913: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA913))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1212)
+,	/* FN_LAMBDA912: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1211)
+, 1020044
+, useLabel(ST_v1210)
+,	/* CT_v1212: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA912: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA912))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1215)
+,	/* FN_LAMBDA911: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1214)
+, 1000044
+, useLabel(ST_v1213)
+,	/* CT_v1215: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA911: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA911))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1218)
+,	/* FN_LAMBDA910: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1217)
+, 940044
+, useLabel(ST_v1216)
+,	/* CT_v1218: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA910: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA910))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1221)
+,	/* FN_LAMBDA909: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1220)
+, 990044
+, useLabel(ST_v1219)
+,	/* CT_v1221: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA909: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA909))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1224)
+,	/* FN_LAMBDA908: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1223)
+, 970044
+, useLabel(ST_v1222)
+,	/* CT_v1224: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA908: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA908))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1227)
+,	/* FN_LAMBDA907: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1226)
+, 1030044
+, useLabel(ST_v1225)
+,	/* CT_v1227: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA907: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA907))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1230)
+,	/* FN_LAMBDA906: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1229)
+, 960044
+, useLabel(ST_v1228)
+,	/* CT_v1230: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA906: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA906))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1233)
+,	/* FN_LAMBDA905: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1232)
+, 870056
+, useLabel(ST_v1231)
+,	/* CT_v1233: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA905: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA905))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1235)
+,	/* FN_LAMBDA904: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1232)
+, 860040
+, useLabel(ST_v1234)
+,	/* CT_v1235: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA904: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA904))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1238)
+,	/* FN_LAMBDA903: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1237)
+, 900055
+, useLabel(ST_v1236)
+,	/* CT_v1238: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA903: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA903))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1240)
+,	/* FN_LAMBDA902: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1237)
+, 890040
+, useLabel(ST_v1239)
+,	/* CT_v1240: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA902: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA902))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1243)
+,	/* FN_LAMBDA901: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1242)
+, 830040
+, useLabel(ST_v1241)
+,	/* CT_v1243: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA901: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA901))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1245)
+,};
+Node FN_Text_46XML_46HaXml_46Xtract_46Lex_46lexXtract[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,HEAP_CVAL_IN3,HEAP_INT_P1,1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I3,HEAP_ARG,1)
+, bytes2word(HEAP_OFF_N1,4,RETURN,ENDCODE)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,1,0)
+, 750001
+, useLabel(ST_v1244)
+,	/* CT_v1245: (byte 0) */
+  HW(1,1)
+, 0
+,};
+Node F0_Text_46XML_46HaXml_46Xtract_46Lex_46lexXtract[] = {
+  CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46lexXtract),1)
+, CAPTAG(useLabel(FN_Text_46XML_46HaXml_46Xtract_46Lex_46selAny),1)
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1252)
+,};
+Node FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46showsPrec[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(ZAP_ARG_I1,NEEDSTACK_I16,PUSH_ZAP_ARG_I2,EVAL)
+, bytes2word(NEEDHEAP_I32,TABLESWITCH,3,NOP)
+, bytes2word(TOP(6),BOT(6),TOP(17),BOT(17))
+,	/* v1247: (byte 2) */
+  bytes2word(TOP(28),BOT(28),UNPACK,1)
+, bytes2word(PUSH_P1,0,PUSH_HEAP,HEAP_CVAL_I3)
+, bytes2word(EVAL,NEEDHEAP_I32,APPLY,1)
+,	/* v1248: (byte 1) */
+  bytes2word(RETURN_EVAL,UNPACK,1,PUSH_P1)
+, bytes2word(0,PUSH_HEAP,HEAP_CVAL_I3,EVAL)
+,	/* v1249: (byte 4) */
+  bytes2word(NEEDHEAP_I32,APPLY,1,RETURN_EVAL)
+, bytes2word(UNPACK,1,PUSH_P1,0)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I4,HEAP_CVAL_I5,ZAP_STACK_P1)
+, bytes2word(2,EVAL,NEEDHEAP_I32,APPLY)
+, bytes2word(1,RETURN_EVAL,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, 340005
+, useLabel(ST_v1250)
+,	/* CT_v1252: (byte 0) */
+  HW(3,2)
+, 0
+,};
+Node F0_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46showsPrec[] = {
+  CAPTAG(useLabel(FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46showsPrec),2)
+, VAPTAG(useLabel(FN_Prelude_46showString))
+, VAPTAG(useLabel(FN_Prelude_46shows))
+, useLabel(CF_Prelude_46Show_46Prelude_46Integer)
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1254)
+,};
+Node FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46show[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_HEAP,HEAP_CVAL_I3,HEAP_CVAL_I4)
+, bytes2word(HEAP_ARG,1,RETURN_EVAL,ENDCODE)
+, bytes2word(0,0,0,0)
+, 330010
+, useLabel(ST_v1253)
+,	/* CT_v1254: (byte 0) */
+  HW(2,1)
+, 0
+,};
+Node F0_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46show[] = {
+  CAPTAG(useLabel(FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46show),1)
+, VAPTAG(useLabel(FN_Prelude_46_95_46show))
+, useLabel(CF_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT)
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1256)
+,};
+Node FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46showsType[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_HEAP,HEAP_CVAL_I3,HEAP_CVAL_I4)
+, bytes2word(HEAP_ARG,1,RETURN_EVAL,ENDCODE)
+, bytes2word(0,0,0,0)
+, 330010
+, useLabel(ST_v1255)
+,	/* CT_v1256: (byte 0) */
+  HW(2,1)
+, 0
+,};
+Node F0_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46showsType[] = {
+  CAPTAG(useLabel(FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46showsType),1)
+, VAPTAG(useLabel(FN_Prelude_46_95_46showsType))
+, useLabel(CF_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT)
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1258)
+,};
+Node FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46showList[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_HEAP,HEAP_CVAL_I3,HEAP_CVAL_I4)
+, bytes2word(HEAP_ARG,1,RETURN_EVAL,ENDCODE)
+, bytes2word(0,0,0,0)
+, 330010
+, useLabel(ST_v1257)
+,	/* CT_v1258: (byte 0) */
+  HW(2,1)
+, 0
+,};
+Node F0_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46showList[] = {
+  CAPTAG(useLabel(FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46showList),1)
+, VAPTAG(useLabel(FN_Prelude_46_95_46showList))
+, useLabel(CF_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT)
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1263)
+,};
+Node FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46showsPrec[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(ZAP_ARG_I1,NEEDSTACK_I16,PUSH_ZAP_ARG_I2,EVAL)
+, bytes2word(NEEDHEAP_I32,UNPACK,1,HEAP_CVAL_I3)
+, bytes2word(HEAP_CVAL_I4,HEAP_CVAL_I5,HEAP_OFF_N1,3)
+, bytes2word(HEAP_OFF_N1,3,HEAP_CVAL_P1,6)
+, bytes2word(HEAP_CVAL_P1,7,HEAP_CVAL_I5,HEAP_OFF_N1)
+, bytes2word(3,HEAP_P1,0,PUSH_HEAP)
+, bytes2word(HEAP_CVAL_P1,8,HEAP_OFF_N1,9)
+, bytes2word(HEAP_OFF_N1,5,RETURN_EVAL,ENDCODE)
+, bytes2word(0,0,0,0)
+, 250007
+, useLabel(ST_v1261)
+,	/* CT_v1263: (byte 0) */
+  HW(6,2)
+, 0
+,};
+Node F0_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46showsPrec[] = {
+  CAPTAG(useLabel(FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46showsPrec),2)
+, VAPTAG(useLabel(FN_Prelude_46showString))
+, VAPTAG(useLabel(FN_LAMBDA920))
+, VAPTAG(useLabel(FN_NHC_46Internal_46_95apply1))
+, VAPTAG(useLabel(FN_Prelude_46shows))
+, useLabel(CF_Prelude_46Show_46Prelude_46Int)
+, VAPTAG(useLabel(FN_Prelude_46_46))
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1266)
+,	/* FN_LAMBDA920: (byte 0) */
+  useLabel(TMSUB_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_CADR_N1,4,STRING)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, CONSTRW(1,0)
+, useLabel(ST_v1265)
+, 250040
+, useLabel(ST_v1264)
+,	/* CT_v1266: (byte 0) */
+  HW(0,0)
+, 0
+,	/* CF_LAMBDA920: (byte 0) */
+  VAPTAG(useLabel(FN_LAMBDA920))
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1268)
+,};
+Node FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46show[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_HEAP,HEAP_CVAL_I3,HEAP_CVAL_I4)
+, bytes2word(HEAP_ARG,1,RETURN_EVAL,ENDCODE)
+, bytes2word(0,0,0,0)
+, 240010
+, useLabel(ST_v1267)
+,	/* CT_v1268: (byte 0) */
+  HW(2,1)
+, 0
+,};
+Node F0_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46show[] = {
+  CAPTAG(useLabel(FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46show),1)
+, VAPTAG(useLabel(FN_Prelude_46_95_46show))
+, useLabel(CF_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn)
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1270)
+,};
+Node FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46showsType[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_HEAP,HEAP_CVAL_I3,HEAP_CVAL_I4)
+, bytes2word(HEAP_ARG,1,RETURN_EVAL,ENDCODE)
+, bytes2word(0,0,0,0)
+, 240010
+, useLabel(ST_v1269)
+,	/* CT_v1270: (byte 0) */
+  HW(2,1)
+, 0
+,};
+Node F0_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46showsType[] = {
+  CAPTAG(useLabel(FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46showsType),1)
+, VAPTAG(useLabel(FN_Prelude_46_95_46showsType))
+, useLabel(CF_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn)
+, bytes2word(1,0,0,1)
+, useLabel(CT_v1272)
+,};
+Node FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46showList[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_HEAP,HEAP_CVAL_I3,HEAP_CVAL_I4)
+, bytes2word(HEAP_ARG,1,RETURN_EVAL,ENDCODE)
+, bytes2word(0,0,0,0)
+, 240010
+, useLabel(ST_v1271)
+,	/* CT_v1272: (byte 0) */
+  HW(2,1)
+, 0
+,};
+Node F0_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46showList[] = {
+  CAPTAG(useLabel(FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46showList),1)
+, VAPTAG(useLabel(FN_Prelude_46_95_46showList))
+, useLabel(CF_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn)
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1280)
+,};
+Node FN_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46_61_61[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I1,EVAL,UNPACK)
+, bytes2word(1,PUSH_ZAP_ARG_I2,EVAL,UNPACK)
+, bytes2word(1,PUSH_P1,0,ZAP_STACK_P1)
+, bytes2word(1,EVAL,PUSH_P1,2)
+, bytes2word(ZAP_STACK_P1,3,EVAL,EQ_W)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, 220018
+, useLabel(ST_v1277)
+,	/* CT_v1280: (byte 0) */
+  HW(0,2)
+, 0
+,};
+Node F0_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46_61_61[] = {
+  CAPTAG(useLabel(FN_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46_61_61),2)
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1282)
+,};
+Node FN_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46_47_61[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_HEAP,HEAP_CVAL_I3,HEAP_CVAL_I4)
+, bytes2word(HEAP_ARG_ARG_RET_EVAL,1,2,ENDCODE)
+, bytes2word(0,0,0,0)
+, 220018
+, useLabel(ST_v1281)
+,	/* CT_v1282: (byte 0) */
+  HW(2,2)
+, 0
+,};
+Node F0_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46_47_61[] = {
+  CAPTAG(useLabel(FN_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46_47_61),2)
+, VAPTAG(useLabel(FN_Prelude_46_95_46_47_61))
+, useLabel(CF_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn)
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1306)
+,};
+Node FN_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46_61_61[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDSTACK_I16,PUSH_ZAP_ARG_I1,EVAL,TABLESWITCH)
+, bytes2word(3,NOP,TOP(6),BOT(6))
+,	/* v1286: (byte 4) */
+  bytes2word(TOP(36),BOT(36),TOP(66),BOT(66))
+, bytes2word(UNPACK,1,PUSH_ZAP_ARG_I2,EVAL)
+, bytes2word(NEEDHEAP_I32,TABLESWITCH,3,NOP)
+, bytes2word(TOP(10),BOT(10),TOP(6),BOT(6))
+,	/* v1303: (byte 2) */
+  bytes2word(TOP(6),BOT(6),POP_I1,JUMP)
+,	/* v1290: (byte 2) */
+  bytes2word(10,0,UNPACK,1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I3,HEAP_CVAL_I4,HEAP_I2)
+,	/* v1287: (byte 2) */
+  bytes2word(HEAP_I1,RETURN_EVAL,POP_I1,JUMP)
+,	/* v1291: (byte 2) */
+  bytes2word(61,0,UNPACK,1)
+, bytes2word(PUSH_ZAP_ARG_I2,EVAL,NEEDHEAP_I32,TABLESWITCH)
+, bytes2word(3,NOP,TOP(6),BOT(6))
+,	/* v1304: (byte 4) */
+  bytes2word(TOP(10),BOT(10),TOP(6),BOT(6))
+,	/* v1295: (byte 4) */
+  bytes2word(POP_I1,JUMP,10,0)
+, bytes2word(UNPACK,1,PUSH_HEAP,HEAP_CVAL_I3)
+,	/* v1292: (byte 4) */
+  bytes2word(HEAP_CVAL_I4,HEAP_I2,HEAP_I1,RETURN_EVAL)
+,	/* v1296: (byte 4) */
+  bytes2word(POP_I1,JUMP,31,0)
+, bytes2word(UNPACK,1,PUSH_ZAP_ARG_I2,EVAL)
+, bytes2word(NEEDHEAP_I32,TABLESWITCH,3,NOP)
+, bytes2word(TOP(6),BOT(6),TOP(6),BOT(6))
+,	/* v1305: (byte 2) */
+  bytes2word(TOP(10),BOT(10),POP_I1,JUMP)
+,	/* v1300: (byte 2) */
+  bytes2word(9,0,UNPACK,1)
+, bytes2word(PUSH_HEAP,HEAP_CVAL_I5,HEAP_I2,HEAP_I1)
+,	/* v1297: (byte 1) */
+  bytes2word(RETURN_EVAL,POP_I1,JUMP,2)
+,	/* v1283: (byte 1) */
+  bytes2word(0,PUSH_HEAP,HEAP_CVAL_IN3,RETURN_EVAL)
+, bytes2word(ENDCODE,0,0,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,0,0)
+, 310014
+, useLabel(ST_v1301)
+,	/* CT_v1306: (byte 0) */
+  HW(3,2)
+, 0
+,};
+Node F0_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46_61_61[] = {
+  CAPTAG(useLabel(FN_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46_61_61),2)
+, VAPTAG(useLabel(FN_Prelude_46Eq_46Prelude_46_91_93_46_61_61))
+, useLabel(CF_Prelude_46Eq_46Prelude_46Char)
+, VAPTAG(useLabel(FN_Prelude_46Eq_46Prelude_46Integer_46_61_61))
+, bytes2word(0,0,2,0)
+, bytes2word(1,1,0,2)
+, useLabel(CT_v1308)
+,};
+Node FN_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46_47_61[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_HEAP,HEAP_CVAL_I3,HEAP_CVAL_I4)
+, bytes2word(HEAP_ARG_ARG_RET_EVAL,1,2,ENDCODE)
+, bytes2word(0,0,0,0)
+, 310014
+, useLabel(ST_v1307)
+,	/* CT_v1308: (byte 0) */
+  HW(2,2)
+, 0
+,};
+Node F0_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46_47_61[] = {
+  CAPTAG(useLabel(FN_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46_47_61),2)
+, VAPTAG(useLabel(FN_Prelude_46_95_46_47_61))
+, useLabel(CF_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT)
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1310)
+,};
+Node FN_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_HEAP,HEAP_CVAL_IN3,HEAP_CVAL_I3)
+, bytes2word(HEAP_CVAL_I4,RETURN,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,2,0)
+, 310014
+, useLabel(ST_v1309)
+,	/* CT_v1310: (byte 0) */
+  HW(2,0)
+, 0
+,};
+Node CF_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT[] = {
+  VAPTAG(useLabel(FN_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT))
+, useLabel(F0_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46_47_61)
+, useLabel(F0_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46_61_61)
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1312)
+,};
+Node FN_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_HEAP,HEAP_CVAL_IN3,HEAP_CVAL_I3)
+, bytes2word(HEAP_CVAL_I4,RETURN,ENDCODE,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,2,0)
+, 220018
+, useLabel(ST_v1311)
+,	/* CT_v1312: (byte 0) */
+  HW(2,0)
+, 0
+,};
+Node CF_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn[] = {
+  VAPTAG(useLabel(FN_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn))
+, useLabel(F0_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46_47_61)
+, useLabel(F0_Prelude_46Eq_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46_61_61)
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1314)
+,};
+Node FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_HEAP,HEAP_CVAL_IN3,HEAP_CVAL_I3)
+, bytes2word(HEAP_CVAL_I4,HEAP_CVAL_I5,HEAP_CVAL_P1,6)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,4,0)
+, 240010
+, useLabel(ST_v1313)
+,	/* CT_v1314: (byte 0) */
+  HW(4,0)
+, 0
+,};
+Node CF_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn[] = {
+  VAPTAG(useLabel(FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn))
+, useLabel(F0_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46showsPrec)
+, useLabel(F0_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46showsType)
+, useLabel(F0_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46showList)
+, useLabel(F0_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46Posn_46show)
+, bytes2word(0,0,0,0)
+, useLabel(CT_v1316)
+,};
+Node FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT[] = {
+  useLabel(TM_Text_46XML_46HaXml_46Xtract_46Lex)
+, bytes2word(NEEDHEAP_I32,PUSH_HEAP,HEAP_CVAL_IN3,HEAP_CVAL_I3)
+, bytes2word(HEAP_CVAL_I4,HEAP_CVAL_I5,HEAP_CVAL_P1,6)
+, bytes2word(RETURN,ENDCODE,0,0)
+, bytes2word(0,0,0,0)
+, 0
+, CONSTR(0,4,0)
+, 330010
+, useLabel(ST_v1315)
+,	/* CT_v1316: (byte 0) */
+  HW(4,0)
+, 0
+,};
+Node CF_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT[] = {
+  VAPTAG(useLabel(FN_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT))
+, useLabel(F0_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46showsPrec)
+, useLabel(F0_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46showsType)
+, useLabel(F0_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46showList)
+, useLabel(F0_Prelude_46Show_46Text_46XML_46HaXml_46Xtract_46Lex_46TokenT_46show)
+,	/* ST_v925: (byte 0) */
+ 	/* ST_v979: (byte 2) */
+  bytes2word(10,0,32,116)
+, bytes2word(111,32,109,97)
+, bytes2word(116,99,104,32)
+, bytes2word(111,112,101,110)
+, bytes2word(105,110,103,32)
+, bytes2word(113,117,111,116)
+, bytes2word(101,32,97,116)
+,	/* ST_v1242: (byte 2) */
+  bytes2word(32,0,33,61)
+,	/* ST_v1237: (byte 1) */
+ 	/* ST_v1232: (byte 3) */
+  bytes2word(0,34,0,39)
+,	/* ST_v1003: (byte 1) */
+  bytes2word(0,45,95,58)
+,	/* ST_v1229: (byte 1) */
+  bytes2word(0,46,33,61)
+,	/* ST_v1226: (byte 2) */
+  bytes2word(46,0,46,47)
+,	/* ST_v1223: (byte 1) */
+  bytes2word(0,46,60,46)
+,	/* ST_v1220: (byte 1) */
+  bytes2word(0,46,60,61)
+,	/* ST_v1217: (byte 2) */
+  bytes2word(46,0,46,61)
+,	/* ST_v1214: (byte 2) */
+  bytes2word(46,0,46,62)
+,	/* ST_v1211: (byte 2) */
+  bytes2word(46,0,46,62)
+,	/* ST_v1208: (byte 3) */
+  bytes2word(61,46,0,47)
+,	/* ST_v1008: (byte 2) */
+  bytes2word(47,0,47,91)
+, bytes2word(93,40,41,64)
+, bytes2word(44,61,42,38)
+, bytes2word(124,126,36,43)
+,	/* ST_v1205: (byte 4) */
+  bytes2word(45,60,62,0)
+,	/* ST_v928: (byte 2) */
+  bytes2word(58,0,58,32)
+,	/* ST_v1202: (byte 1) */
+ 	/* ST_v1199: (byte 4) */
+  bytes2word(0,60,61,0)
+,	/* ST_v931: (byte 3) */
+  bytes2word(62,61,0,76)
+, bytes2word(101,120,105,99)
+, bytes2word(97,108,32,101)
+, bytes2word(114,114,111,114)
+, bytes2word(32,105,110,32)
+, bytes2word(115,101,108,101)
+, bytes2word(99,116,105,111)
+, bytes2word(110,32,112,97)
+, bytes2word(116,116,101,114)
+, bytes2word(110,32,97,116)
+,	/* ST_v1311: (byte 2) */
+  bytes2word(32,0,80,114)
+, bytes2word(101,108,117,100)
+, bytes2word(101,46,69,113)
+, bytes2word(46,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,80)
+,	/* ST_v1281: (byte 4) */
+  bytes2word(111,115,110,0)
+, bytes2word(80,114,101,108)
+, bytes2word(117,100,101,46)
+, bytes2word(69,113,46,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(46,80,111,115)
+, bytes2word(110,46,47,61)
+,	/* ST_v1277: (byte 1) */
+  bytes2word(0,80,114,101)
+, bytes2word(108,117,100,101)
+, bytes2word(46,69,113,46)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,88)
+, bytes2word(116,114,97,99)
+, bytes2word(116,46,76,101)
+, bytes2word(120,46,80,111)
+, bytes2word(115,110,46,61)
+,	/* ST_v1309: (byte 2) */
+  bytes2word(61,0,80,114)
+, bytes2word(101,108,117,100)
+, bytes2word(101,46,69,113)
+, bytes2word(46,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,84)
+, bytes2word(111,107,101,110)
+,	/* ST_v1307: (byte 2) */
+  bytes2word(84,0,80,114)
+, bytes2word(101,108,117,100)
+, bytes2word(101,46,69,113)
+, bytes2word(46,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,84)
+, bytes2word(111,107,101,110)
+, bytes2word(84,46,47,61)
+,	/* ST_v1301: (byte 1) */
+  bytes2word(0,80,114,101)
+, bytes2word(108,117,100,101)
+, bytes2word(46,69,113,46)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,88)
+, bytes2word(116,114,97,99)
+, bytes2word(116,46,76,101)
+, bytes2word(120,46,84,111)
+, bytes2word(107,101,110,84)
+,	/* ST_v1313: (byte 4) */
+  bytes2word(46,61,61,0)
+, bytes2word(80,114,101,108)
+, bytes2word(117,100,101,46)
+, bytes2word(83,104,111,119)
+, bytes2word(46,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,80)
+,	/* ST_v1267: (byte 4) */
+  bytes2word(111,115,110,0)
+, bytes2word(80,114,101,108)
+, bytes2word(117,100,101,46)
+, bytes2word(83,104,111,119)
+, bytes2word(46,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,80)
+, bytes2word(111,115,110,46)
+, bytes2word(115,104,111,119)
+,	/* ST_v1271: (byte 1) */
+  bytes2word(0,80,114,101)
+, bytes2word(108,117,100,101)
+, bytes2word(46,83,104,111)
+, bytes2word(119,46,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,88,116,114)
+, bytes2word(97,99,116,46)
+, bytes2word(76,101,120,46)
+, bytes2word(80,111,115,110)
+, bytes2word(46,115,104,111)
+, bytes2word(119,76,105,115)
+,	/* ST_v1261: (byte 2) */
+  bytes2word(116,0,80,114)
+, bytes2word(101,108,117,100)
+, bytes2word(101,46,83,104)
+, bytes2word(111,119,46,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(46,80,111,115)
+, bytes2word(110,46,115,104)
+, bytes2word(111,119,115,80)
+,	/* ST_v1264: (byte 4) */
+  bytes2word(114,101,99,0)
+, bytes2word(80,114,101,108)
+, bytes2word(117,100,101,46)
+, bytes2word(83,104,111,119)
+, bytes2word(46,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,80)
+, bytes2word(111,115,110,46)
+, bytes2word(115,104,111,119)
+, bytes2word(115,80,114,101)
+, bytes2word(99,58,50,53)
+, bytes2word(58,52,48,45)
+, bytes2word(50,53,58,53)
+,	/* ST_v1269: (byte 2) */
+  bytes2word(48,0,80,114)
+, bytes2word(101,108,117,100)
+, bytes2word(101,46,83,104)
+, bytes2word(111,119,46,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(46,80,111,115)
+, bytes2word(110,46,115,104)
+, bytes2word(111,119,115,84)
+,	/* ST_v1315: (byte 4) */
+  bytes2word(121,112,101,0)
+, bytes2word(80,114,101,108)
+, bytes2word(117,100,101,46)
+, bytes2word(83,104,111,119)
+, bytes2word(46,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,84)
+, bytes2word(111,107,101,110)
+,	/* ST_v1253: (byte 2) */
+  bytes2word(84,0,80,114)
+, bytes2word(101,108,117,100)
+, bytes2word(101,46,83,104)
+, bytes2word(111,119,46,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(46,84,111,107)
+, bytes2word(101,110,84,46)
+, bytes2word(115,104,111,119)
+,	/* ST_v1257: (byte 1) */
+  bytes2word(0,80,114,101)
+, bytes2word(108,117,100,101)
+, bytes2word(46,83,104,111)
+, bytes2word(119,46,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,88,116,114)
+, bytes2word(97,99,116,46)
+, bytes2word(76,101,120,46)
+, bytes2word(84,111,107,101)
+, bytes2word(110,84,46,115)
+, bytes2word(104,111,119,76)
+,	/* ST_v1250: (byte 4) */
+  bytes2word(105,115,116,0)
+, bytes2word(80,114,101,108)
+, bytes2word(117,100,101,46)
+, bytes2word(83,104,111,119)
+, bytes2word(46,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,84)
+, bytes2word(111,107,101,110)
+, bytes2word(84,46,115,104)
+, bytes2word(111,119,115,80)
+,	/* ST_v1255: (byte 4) */
+  bytes2word(114,101,99,0)
+, bytes2word(80,114,101,108)
+, bytes2word(117,100,101,46)
+, bytes2word(83,104,111,119)
+, bytes2word(46,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,84)
+, bytes2word(111,107,101,110)
+, bytes2word(84,46,115,104)
+, bytes2word(111,119,115,84)
+, bytes2word(121,112,101,0)
+,};
+Node PM_Text_46XML_46HaXml_46Xtract_46Lex[] = {
+ 	/* ST_v921: (byte 0) */
+  bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,88)
+, bytes2word(116,114,97,99)
+, bytes2word(116,46,76,101)
+,	/* ST_v972: (byte 2) */
+  bytes2word(120,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,88,116,114)
+, bytes2word(97,99,116,46)
+, bytes2word(76,101,120,46)
+, bytes2word(97,99,99,117)
+, bytes2word(109,117,108,97)
+, bytes2word(116,101,85,110)
+,	/* ST_v975: (byte 4) */
+  bytes2word(116,105,108,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,88)
+, bytes2word(116,114,97,99)
+, bytes2word(116,46,76,101)
+, bytes2word(120,46,97,99)
+, bytes2word(99,117,109,117)
+, bytes2word(108,97,116,101)
+, bytes2word(85,110,116,105)
+, bytes2word(108,58,49,50)
+, bytes2word(55,58,49,45)
+, bytes2word(49,51,52,58)
+,	/* ST_v981: (byte 3) */
+  bytes2word(55,48,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(46,97,99,99)
+, bytes2word(117,109,117,108)
+, bytes2word(97,116,101,85)
+, bytes2word(110,116,105,108)
+, bytes2word(58,49,50,56)
+, bytes2word(58,49,53,45)
+, bytes2word(49,50,56,58)
+,	/* ST_v978: (byte 3) */
+  bytes2word(53,53,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(46,97,99,99)
+, bytes2word(117,109,117,108)
+, bytes2word(97,116,101,85)
+, bytes2word(110,116,105,108)
+, bytes2word(58,49,50,57)
+, bytes2word(58,49,54,45)
+, bytes2word(49,50,57,58)
+,	/* ST_v944: (byte 3) */
+  bytes2word(52,52,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(46,97,100,100)
+,	/* ST_v1028: (byte 4) */
+  bytes2word(99,111,108,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,88)
+, bytes2word(116,114,97,99)
+, bytes2word(116,46,76,101)
+, bytes2word(120,46,98,108)
+,	/* ST_v933: (byte 4) */
+  bytes2word(97,110,107,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,88)
+, bytes2word(116,114,97,99)
+, bytes2word(116,46,76,101)
+, bytes2word(120,46,101,109)
+,	/* ST_v935: (byte 3) */
+  bytes2word(105,116,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(46,101,109,105)
+, bytes2word(116,58,52,48)
+, bytes2word(58,57,45,52)
+, bytes2word(48,58,50,53)
+,	/* ST_v999: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,103)
+, bytes2word(97,116,104,101)
+, bytes2word(114,78,97,109)
+,	/* ST_v1002: (byte 2) */
+  bytes2word(101,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,88,116,114)
+, bytes2word(97,99,116,46)
+, bytes2word(76,101,120,46)
+, bytes2word(103,97,116,104)
+, bytes2word(101,114,78,97)
+, bytes2word(109,101,58,49)
+, bytes2word(49,52,58,51)
+, bytes2word(48,45,49,49)
+, bytes2word(52,58,51,52)
+,	/* ST_v990: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,103)
+, bytes2word(97,116,104,101)
+, bytes2word(114,78,117,109)
+,	/* ST_v1244: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,108)
+, bytes2word(101,120,88,116)
+, bytes2word(114,97,99,116)
+,	/* ST_v922: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,108)
+, bytes2word(101,120,101,114)
+,	/* ST_v930: (byte 4) */
+  bytes2word(114,111,114,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,88)
+, bytes2word(116,114,97,99)
+, bytes2word(116,46,76,101)
+, bytes2word(120,46,108,101)
+, bytes2word(120,101,114,114)
+, bytes2word(111,114,58,52)
+, bytes2word(51,58,50,51)
+, bytes2word(45,52,51,58)
+,	/* ST_v927: (byte 3) */
+  bytes2word(54,50,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(46,108,101,120)
+, bytes2word(101,114,114,111)
+, bytes2word(114,58,52,51)
+, bytes2word(58,55,51,45)
+, bytes2word(52,51,58,55)
+,	/* ST_v924: (byte 2) */
+  bytes2word(54,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,88,116,114)
+, bytes2word(97,99,116,46)
+, bytes2word(76,101,120,46)
+, bytes2word(108,101,120,101)
+, bytes2word(114,114,111,114)
+, bytes2word(58,52,52,58)
+, bytes2word(50,57,45,52)
+, bytes2word(52,58,51,50)
+,	/* ST_v1012: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,110)
+, bytes2word(101,119,108,105)
+,	/* ST_v1161: (byte 3) */
+  bytes2word(110,101,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(46,115,101,108)
+,	/* ST_v1213: (byte 4) */
+  bytes2word(65,110,121,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,88)
+, bytes2word(116,114,97,99)
+, bytes2word(116,46,76,101)
+, bytes2word(120,46,115,101)
+, bytes2word(108,65,110,121)
+, bytes2word(58,49,48,48)
+, bytes2word(58,52,52,45)
+, bytes2word(49,48,48,58)
+,	/* ST_v1210: (byte 3) */
+  bytes2word(52,56,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(46,115,101,108)
+, bytes2word(65,110,121,58)
+, bytes2word(49,48,50,58)
+, bytes2word(52,52,45,49)
+, bytes2word(48,50,58,52)
+,	/* ST_v1225: (byte 2) */
+  bytes2word(57,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,88,116,114)
+, bytes2word(97,99,116,46)
+, bytes2word(76,101,120,46)
+, bytes2word(115,101,108,65)
+, bytes2word(110,121,58,49)
+, bytes2word(48,51,58,52)
+, bytes2word(52,45,49,48)
+, bytes2word(51,58,52,55)
+,	/* ST_v1192: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,115)
+, bytes2word(101,108,65,110)
+, bytes2word(121,58,49,48)
+, bytes2word(57,58,51,52)
+, bytes2word(45,49,48,57)
+,	/* ST_v1189: (byte 4) */
+  bytes2word(58,53,53,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,88)
+, bytes2word(116,114,97,99)
+, bytes2word(116,46,76,101)
+, bytes2word(120,46,115,101)
+, bytes2word(108,65,110,121)
+, bytes2word(58,56,49,58)
+, bytes2word(49,45,49,48)
+, bytes2word(57,58,53,55)
+,	/* ST_v1207: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,115)
+, bytes2word(101,108,65,110)
+, bytes2word(121,58,56,50)
+, bytes2word(58,52,48,45)
+, bytes2word(56,50,58,52)
+,	/* ST_v1241: (byte 2) */
+  bytes2word(51,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,88,116,114)
+, bytes2word(97,99,116,46)
+, bytes2word(76,101,120,46)
+, bytes2word(115,101,108,65)
+, bytes2word(110,121,58,56)
+, bytes2word(51,58,52,48)
+, bytes2word(45,56,51,58)
+,	/* ST_v1201: (byte 3) */
+  bytes2word(52,51,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(46,115,101,108)
+, bytes2word(65,110,121,58)
+, bytes2word(56,52,58,52)
+, bytes2word(48,45,56,52)
+,	/* ST_v1198: (byte 4) */
+  bytes2word(58,52,51,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,88)
+, bytes2word(116,114,97,99)
+, bytes2word(116,46,76,101)
+, bytes2word(120,46,115,101)
+, bytes2word(108,65,110,121)
+, bytes2word(58,56,53,58)
+, bytes2word(52,48,45,56)
+, bytes2word(53,58,52,51)
+,	/* ST_v1234: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,115)
+, bytes2word(101,108,65,110)
+, bytes2word(121,58,56,54)
+, bytes2word(58,52,48,45)
+, bytes2word(56,54,58,52)
+,	/* ST_v1231: (byte 2) */
+  bytes2word(50,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,88,116,114)
+, bytes2word(97,99,116,46)
+, bytes2word(76,101,120,46)
+, bytes2word(115,101,108,65)
+, bytes2word(110,121,58,56)
+, bytes2word(55,58,53,54)
+, bytes2word(45,56,55,58)
+,	/* ST_v1239: (byte 3) */
+  bytes2word(53,56,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(46,115,101,108)
+, bytes2word(65,110,121,58)
+, bytes2word(56,57,58,52)
+, bytes2word(48,45,56,57)
+,	/* ST_v1236: (byte 4) */
+  bytes2word(58,52,51,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,88)
+, bytes2word(116,114,97,99)
+, bytes2word(116,46,76,101)
+, bytes2word(120,46,115,101)
+, bytes2word(108,65,110,121)
+, bytes2word(58,57,48,58)
+, bytes2word(53,53,45,57)
+, bytes2word(48,58,53,56)
+,	/* ST_v1195: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,115)
+, bytes2word(101,108,65,110)
+, bytes2word(121,58,57,50)
+, bytes2word(58,52,48,45)
+, bytes2word(57,50,58,52)
+,	/* ST_v1204: (byte 2) */
+  bytes2word(50,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,88,116,114)
+, bytes2word(97,99,116,46)
+, bytes2word(76,101,120,46)
+, bytes2word(115,101,108,65)
+, bytes2word(110,121,58,57)
+, bytes2word(51,58,52,48)
+, bytes2word(45,57,51,58)
+,	/* ST_v1216: (byte 3) */
+  bytes2word(52,50,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(46,115,101,108)
+, bytes2word(65,110,121,58)
+, bytes2word(57,52,58,52)
+, bytes2word(52,45,57,52)
+,	/* ST_v1228: (byte 4) */
+  bytes2word(58,52,56,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,88)
+, bytes2word(116,114,97,99)
+, bytes2word(116,46,76,101)
+, bytes2word(120,46,115,101)
+, bytes2word(108,65,110,121)
+, bytes2word(58,57,54,58)
+, bytes2word(52,52,45,57)
+, bytes2word(54,58,52,57)
+,	/* ST_v1222: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,46,115)
+, bytes2word(101,108,65,110)
+, bytes2word(121,58,57,55)
+, bytes2word(58,52,52,45)
+, bytes2word(57,55,58,52)
+,	/* ST_v1219: (byte 2) */
+  bytes2word(56,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,88,116,114)
+, bytes2word(97,99,116,46)
+, bytes2word(76,101,120,46)
+, bytes2word(115,101,108,65)
+, bytes2word(110,121,58,57)
+, bytes2word(57,58,52,52)
+, bytes2word(45,57,57,58)
+,	/* ST_v1005: (byte 3) */
+  bytes2word(52,57,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(46,115,121,109)
+,	/* ST_v1007: (byte 2) */
+  bytes2word(115,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,88,116,114)
+, bytes2word(97,99,116,46)
+, bytes2word(76,101,120,46)
+, bytes2word(115,121,109,115)
+, bytes2word(58,55,56,58)
+, bytes2word(56,45,55,56)
+,	/* ST_v939: (byte 4) */
+  bytes2word(58,50,54,0)
+, bytes2word(84,101,120,116)
+, bytes2word(46,88,77,76)
+, bytes2word(46,72,97,88)
+, bytes2word(109,108,46,88)
+, bytes2word(116,114,97,99)
+, bytes2word(116,46,76,101)
+, bytes2word(120,46,116,97)
+,	/* ST_v955: (byte 2) */
+  bytes2word(98,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,88,116,114)
+, bytes2word(97,99,116,46)
+, bytes2word(76,101,120,46)
+, bytes2word(119,104,105,116)
+,	/* ST_v958: (byte 2) */
+  bytes2word(101,0,84,101)
+, bytes2word(120,116,46,88)
+, bytes2word(77,76,46,72)
+, bytes2word(97,88,109,108)
+, bytes2word(46,88,116,114)
+, bytes2word(97,99,116,46)
+, bytes2word(76,101,120,46)
+, bytes2word(119,104,105,116)
+, bytes2word(101,58,53,52)
+, bytes2word(58,49,45,53)
+, bytes2word(56,58,50,51)
+,	/* ST_v976: (byte 1) */
+  bytes2word(0,84,101,120)
+, bytes2word(116,46,88,77)
+, bytes2word(76,46,72,97)
+, bytes2word(88,109,108,46)
+, bytes2word(88,116,114,97)
+, bytes2word(99,116,46,76)
+, bytes2word(101,120,58,32)
+, bytes2word(80,97,116,116)
+, bytes2word(101,114,110,32)
+, bytes2word(109,97,116,99)
+, bytes2word(104,32,102,97)
+, bytes2word(105,108,117,114)
+, bytes2word(101,32,105,110)
+, bytes2word(32,102,117,110)
+, bytes2word(99,116,105,111)
+, bytes2word(110,32,97,116)
+, bytes2word(32,49,50,55)
+, bytes2word(58,49,45,49)
+, bytes2word(51,52,58,55)
+,	/* ST_v959: (byte 3) */
+  bytes2word(48,46,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(58,32,80,97)
+, bytes2word(116,116,101,114)
+, bytes2word(110,32,109,97)
+, bytes2word(116,99,104,32)
+, bytes2word(102,97,105,108)
+, bytes2word(117,114,101,32)
+, bytes2word(105,110,32,102)
+, bytes2word(117,110,99,116)
+, bytes2word(105,111,110,32)
+, bytes2word(97,116,32,53)
+, bytes2word(52,58,49,45)
+, bytes2word(53,56,58,50)
+,	/* ST_v1190: (byte 3) */
+  bytes2word(51,46,0,84)
+, bytes2word(101,120,116,46)
+, bytes2word(88,77,76,46)
+, bytes2word(72,97,88,109)
+, bytes2word(108,46,88,116)
+, bytes2word(114,97,99,116)
+, bytes2word(46,76,101,120)
+, bytes2word(58,32,80,97)
+, bytes2word(116,116,101,114)
+, bytes2word(110,32,109,97)
+, bytes2word(116,99,104,32)
+, bytes2word(102,97,105,108)
+, bytes2word(117,114,101,32)
+, bytes2word(105,110,32,102)
+, bytes2word(117,110,99,116)
+, bytes2word(105,111,110,32)
+, bytes2word(97,116,32,56)
+, bytes2word(49,58,49,45)
+, bytes2word(49,48,57,58)
+,	/* ST_v1196: (byte 4) */
+  bytes2word(53,55,46,0)
+,	/* ST_v1265: (byte 2) */
+  bytes2word(95,0,99,104)
+, bytes2word(97,114,32,112)
+,	/* ST_v982: (byte 4) */
+  bytes2word(111,115,32,0)
+, bytes2word(102,111,117,110)
+, bytes2word(100,32,101,110)
+, bytes2word(100,32,111,102)
+, bytes2word(32,112,97,116)
+, bytes2word(116,101,114,110)
+, bytes2word(32,119,104,105)
+, bytes2word(108,101,32,108)
+, bytes2word(111,111,107,105)
+, bytes2word(110,103,32,102)
+,	/* ST_v1193: (byte 4) */
+  bytes2word(111,114,32,0)
+, bytes2word(117,110,114,101)
+, bytes2word(99,111,103,110)
+, bytes2word(105,115,101,100)
+, bytes2word(32,112,97,116)
+, bytes2word(116,101,114,110)
+, bytes2word(0,0,0,0)
+,};

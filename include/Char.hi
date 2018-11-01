@@ -1,0 +1,72 @@
+interface Char where {
+
+interface ! Char
+{-# NEED isPrint #-}
+isPrint{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED digitToInt #-}
+digitToInt{-# 1 #-}::(Prelude.Char -> Prelude.Int);
+
+{-# NEED isHexDigit #-}
+isHexDigit{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isOctDigit #-}
+isOctDigit{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isDigit #-}
+isDigit{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED intToDigit #-}
+intToDigit{-# 1 #-}::(Prelude.Int -> Prelude.Char);
+
+{-# NEED chr #-}
+chr{-# 0 #-}::(Prelude.Int -> Prelude.Char);
+
+{-# NEED isLower #-}
+isLower{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED toLower #-}
+toLower{-# 1 #-}::(Prelude.Char -> Prelude.Char);
+
+{-# NEED isUpper #-}
+isUpper{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED toUpper #-}
+toUpper{-# 1 #-}::(Prelude.Char -> Prelude.Char);
+
+{-# NEED lexLitChar #-}
+lexLitChar{-# 1 #-}::(Prelude.ReadS Prelude.String);
+
+{-# NEED showLitChar #-}
+showLitChar{-# 1 #-}::(Prelude.Char -> Prelude.ShowS);
+
+{-# NEED readLitChar #-}
+readLitChar{-# 1 #-}::(Prelude.ReadS Prelude.Char);
+interface ! Prelude
+{-# NEED String #-}
+type {-# 1 #-} String = [Char];
+interface ! Char
+{-# NEED isAlphaNum #-}
+isAlphaNum{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isControl #-}
+isControl{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isAscii #-}
+isAscii{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isSpace #-}
+isSpace{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED ord #-}
+ord{-# 0 #-}::(Prelude.Char -> Prelude.Int);
+
+{-# NEED isAlpha #-}
+isAlpha{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isLatin1 #-}
+isLatin1{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+interface ! Prelude
+{-# NEED Char #-}
+data Char;
+}

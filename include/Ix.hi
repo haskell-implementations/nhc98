@@ -1,0 +1,74 @@
+interface Ix where {
+
+{-# NEED #-}
+instance Ix Prelude.Integer;
+
+{-# NEED #-}
+instance Ix Prelude.Bool;
+
+{-# NEED #-}
+instance Ix Prelude.Int;
+
+{-# NEED #-}
+instance Ix Prelude.Char;
+
+{-# NEED #-}
+instance Ix Prelude.Ordering;
+
+{-# NEED #-}
+instance (Ix a,Ix b) => Ix (a,b);
+
+{-# NEED #-}
+instance (Ix a,Ix b,Ix c) => Ix (a,b,c);
+
+{-# NEED #-}
+instance (Ix a,Ix b,Ix c,Ix d) => Ix (a,b,c,d);
+
+{-# NEED #-}
+instance (Ix a,Ix b,Ix c,Ix d,Ix e) => Ix (a,b,c,d,e);
+
+{-# NEED #-}
+instance (Ix a,Ix b,Ix c,Ix d,Ix e,Ix f) => Ix (a,b,c,d,e,f);
+
+{-# NEED #-}
+instance (Ix a,Ix b,Ix c,Ix d,Ix e,Ix f,Ix g) => Ix (a,b,c,d,e,f,g);
+
+{-# NEED #-}
+instance (Ix a,Ix b,Ix c,Ix d,Ix e,Ix f,Ix g,Ix h) => Ix (a,b,c,d,e,f,g,h);
+
+{-# NEED #-}
+instance (Ix a,Ix b,Ix c,Ix d,Ix e,Ix f,Ix g,Ix h,Ix i) => Ix (a,b,c,d,e,f,g,h,i);
+
+{-# NEED #-}
+instance (Ix a,Ix b,Ix c,Ix d,Ix e,Ix f,Ix g,Ix h,Ix i,Ix j) => Ix (a,b,c,d,e,f,g,h,i,j);
+
+{-# NEED #-}
+instance (Ix a,Ix b,Ix c,Ix d,Ix e,Ix f,Ix g,Ix h,Ix i,Ix j,Ix k) => Ix (a,b,c,d,e,f,g,h,i,j,k);
+
+{-# NEED #-}
+instance (Ix a,Ix b,Ix c,Ix d,Ix e,Ix f,Ix g,Ix h,Ix i,Ix j,Ix k,Ix l) => Ix (a,b,c,d,e,f,g,h,i,j,k,l);
+
+{-# NEED #-}
+instance (Ix a,Ix b,Ix c,Ix d,Ix e,Ix f,Ix g,Ix h,Ix i,Ix j,Ix k,Ix l,Ix m) => Ix (a,b,c,d,e,f,g,h,i,j,k,l,m);
+
+{-# NEED #-}
+instance (Ix a,Ix b,Ix c,Ix d,Ix e,Ix f,Ix g,Ix h,Ix i,Ix j,Ix k,Ix l,Ix m,Ix n) => Ix (a,b,c,d,e,f,g,h,i,j,k,l,m,n);
+
+{-# NEED #-}
+instance (Ix a,Ix b,Ix c,Ix d,Ix e,Ix f,Ix g,Ix h,Ix i,Ix j,Ix k,Ix l,Ix m,Ix n,Ix o) => Ix (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o);
+
+interface ! Ix
+{-# NEED _tupleIndex #-}
+_tupleIndex{-# 4 #-}::(Ix a) => (a -> (a -> (a -> (Prelude.Int -> Prelude.Int))));
+
+{-# NEED _tupleRange #-}
+_tupleRange{-# 3 #-}::(Ix a) => (a -> (a -> ([(a -> b)] -> [b])));
+
+{-# NEED {Ix range index inRange rangeSize} #-}
+class (Prelude.Ord a) => Ix a where {
+  range{-# 1 #-}::((a,a) -> [a]);
+  index{-# 2 #-}::((a,a) -> (a -> Prelude.Int));
+  inRange{-# 2 #-}::((a,a) -> (a -> Prelude.Bool));
+  rangeSize{-# 1 #-}::((a,a) -> Prelude.Int);
+};
+}

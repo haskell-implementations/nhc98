@@ -1,0 +1,5 @@
+======	Errors when renaming:
+Multi-parameter type-classes (used at 162:25-162:34) are not supported.
+Multi-parameter type-classes (used at 101:12-101:21) are not supported.
+Multi-parameter type-classes (used at 75:14-75:23) are not supported.
+Multi-parameter type-classes (used at 54:22-54:31) are not supported.

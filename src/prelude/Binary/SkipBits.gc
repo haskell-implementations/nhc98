@@ -1,0 +1,24 @@
+module NHC.Binary
+  ( skipBits
+  ) where
+
+import NHC.GreenCard
+import BinHandle ({-type-}BinHandle(..))
+
+%-#include "cLowBinary.h"
+
+%fun skipBits :: BinHandle -> Int -> IO ()
+%call (binHandle bh) (int width)
+%code
+%  while (width > 0) {
+%    int avail = (CACHESIZE*8) - bh->cptr;
+%    if (width >= avail) {
+%      width    -= avail;
+%      nextcache(bh);
+%    } else {
+%      bh->cptr += width;
+%      width     = 0;
+%    }
+%  }
+%result ()
+

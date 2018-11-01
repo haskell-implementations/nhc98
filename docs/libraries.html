@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>nhc98 libraries</title></head>
+<body bgcolor='#ffffff'>
+<table><tr><td width=500>
+
+<center>
+  <h1>nhc98 libraries</h1>
+</center>
+<hr>
+
+<h3>Standard Libraries</h3>
+<p>
+<b>nhc98</b> supports all the standard libraries from the official
+<a href="http://www.haskell.org/onlinelibrary/_._.html">
+<em>Haskell '98 Library Report</em></a>.  Here is a summary of
+the status of each.
+
+<p>
+<table align=center width=450 border=1 cellspacing=0 cellpadding=2><tr>
+<th>library name</th><th>complete?</th><th>notes</th>
+</tr><tr>
+<td>Array</td> <td>yes</td> <td>implementation based on vectors</td>
+</tr><tr>
+<td>CPUTime</td> <td>yes</td> <td>.</td>
+</tr><tr>
+<td>Char</td> <td>yes</td> <td>.</td>
+</tr><tr>
+<td>Complex</td> <td>yes</td> <td>.</td>
+</tr><tr>
+<td>Directory</td> <td>yes</td> <td>.</td>
+</tr><tr>
+<td>IO</td> <td>no</td> <td>missing: hReady, hWaitForInput, hLookAhead,
+    hIsOpen, hIsClosed, hIsReadable, hIsWritable, hIsSeekable</td>
+</tr><tr>
+<td>Ix</td> <td>yes</td> <td>.</td>
+</tr><tr>
+<td>List</td> <td>yes</td> <td>additional fns: deleteFirsts, elemBy,
+    elemIndexBy, lookupBy, notElemBy, permutations, subsequences, sums,
+    products</td>
+</tr><tr>
+<td>Locale</td> <td>yes</td> <td>.</td>
+</tr><tr>
+<td>Maybe</td> <td>yes</td> <td>.</td>
+</tr><tr>
+<td>Monad</td> <td>yes</td> <td>additional fn: untilM</td>
+</tr><tr>
+<td>Numeric</td> <td>yes</td> <td>additional fn: showIntBase</td>
+</tr><tr>
+<td>Prelude</td> <td>yes</td> <td>.</td>
+</tr><tr>
+<td>Random</td> <td>yes</td> <td>identical to Hugs implementation</td>
+</tr><tr>
+<td>Ratio</td> <td>yes</td> <td>.</td>
+</tr><tr>
+<td>System</td> <td>yes</td> <td>.</td>
+</tr><tr>
+<td>Time</td> <td>yes</td> <td>.</td>
+
+</tr></table>
+
+<h3>Extension libraries</h3>
+<p>
+Many of the standard hierarchical libraries are provided in
+<b>nhc98</b>.  To use these, you must add the compile-time
+option <em>-package pkg</em>, where <em>pkg</em> is the name
+of the package.  See
+<a href="http://www.haskell.org/ghc/docs/latest/html/libraries/index.html">
+here</a> for ghc's documentation of many of these.
+
+<p>
+Packages supplied with nhc98-1.20 are:
+        base, Cabal, directory, filepath, fps, haskell-src, HaXml,
+        html, HUnit, old-locale, old-time, parsec, polyparse, pretty,
+        process, QuickCheck, random, xhtml
+
+
+<!--
+<p>
+<table border=1 align=center cellspacing=0 cellpadding=2><tr>
+<th><font color="green">supported</font></th>
+<th><font color="red">unsupported</font></th>
+</tr><tr>
+<td valign=top>
+    Control.Arrow<br>
+    Control.Monad<br>
+    Control.Monad.Fix<br>
+    Control.Monad.Trans</td>
+<td valign=top>
+        Control.Concurrent<br>
+        Control.Concurrent.*<br>
+        Control.Exception<br>
+        Control.Exception.*<br>
+        Control.Monad.*<br>
+        Control.Parallel<br>
+        Control.Parallel.*</td>
+</tr><tr>
+<td valign=top>
+    Data.Array<br>
+    Data.Bits<br>
+    Data.Bool<br>
+    Data.Char<br>
+    Data.Complex<br>
+    Data.Dynamic<br>
+    Data.Either<br>
+    Data.FiniteMap<br>
+    Data.IORef<br>
+    Data.Int<br>
+    Data.Ix<br>
+    Data.List<br>
+    Data.Maybe<br>
+    Data.PackedString<br>
+    Data.Ratio<br>
+    Data.Set<br>
+    Data.Tuple<br>
+    Data.Word</td>
+<td valign=top>
+        Data.Array.*<br>
+        Data.Generics<br>
+        Data.STRef<br>
+        Data.STRef.*<br>
+        Data.Unique</td>
+</tr><tr>
+<td valign=top>
+    Debug.Trace</td>
+<td valign=top>
+    Debug.QuickCheck<br>
+    Debug.QuickCheck.*</td>
+</tr><tr>
+<td valign=top>
+    Foreign.C<br>
+    Foreign.C.Error<br>
+    Foreign.C.String<br>
+    Foreign.C.Types<br>
+    Foreign.C.TypesISO<br>
+    Foreign.ForeignPtr<br>
+    Foreign.Marshal.Alloc<br>
+    Foreign.Marshal.Array<br>
+    Foreign.Marshal.Error<br>
+    Foreign.Marshal.Utils<br>
+    Foreign.Marshal.Pool<br>
+    Foreign.Marshal<br>
+    Foreign.Ptr<br>
+    Foreign.StablePtr<br>
+    Foreign.Storable<br>
+    Foreign</td>
+<td valign=top>
+    </td>
+</tr><tr>
+<td valign=top>
+    System.Console.GetOpt<br>
+    System.Cmd<br>
+    System.Directory<br>
+    System.Environment<br>
+    System.Exit<br>
+    System.IO<br>
+    System.IO.Error<br>
+    System.IO.Unsafe<br>
+    System.Info<br>
+    System.Locale<br>
+    System.Random</td>
+<td valign=top>
+        System.CPUTime<br>
+        System.Mem<br>
+        System.Mem.StableName<br>
+        System.Mem.Weak<br>
+        System.Posix.Signals<br>
+        System.Posix.Types<br>
+        System.Time</td>
+</tr><tr>
+<td valign=top>
+    Text.Html<br>
+    Text.Html.BlockTable<br>
+    Text.ParserCombinators.Parsec<br>
+    Text.ParserCombinators.Parsec.Error<br>
+    Text.ParserCombinators.Parsec.Char<br>
+    Text.ParserCombinators.Parsec.Combinator<br>
+    Text.ParserCombinators.Parsec.Expr<br>
+    Text.ParserCombinators.Parsec.Perm<br>
+    Text.ParserCombinators.Parsec.Pos<br>
+    Text.ParserCombinators.Parsec.Prim<br>
+    Text.PrettyPrint<br>
+    Text.PrettyPrint.HughesPJ<br>
+    Text.Read<br>
+    Text.Show<br>
+    Text.Show.Functions</td>
+<td valign=top>
+        Text.ParserCombinators.Parsec.Language<br>
+        Text.ParserCombinators.Parsec.Token<br>
+        Text.ParserCombinators.ReadP<br>
+        Text.ParserCombinators.ReadPrec<br>
+        Text.Read.Lex<br>
+        Text.Regex<br>
+        Text.Regex.*</td>
+</tr></table>
+-->
+
+<p>
+The following non-standard libraries are provided only in <b>nhc98</b>,
+not in any other compiler.  They are available without any special
+compiler options.
+
+<p>
+<table align=center width=450 border=1 cellspacing=0 cellpadding=2><tr>
+<th>library name</th><th>description</th>
+</tr><tr>
+<td><a href="libs/BinArray.html">NHC.BinArray</a></td>
+    <td>imperative binary arrays</td>
+</tr><tr>
+<td><a href="libs/Binary.html">NHC.Binary</a></td>
+    <td>binary I/O and binary representations of values</td>
+</tr><tr>
+<td><a href="libs/Bit.html">NHC.Bit</a></td>
+    <td>bit-twiddling operations, e.g. and, or, xor</td>
+</tr><tr>
+<td><a href="libs/FFI.html">NHC.FFI</a></td>
+    <td>foreign function interface</td>
+</tr><tr>
+<td>NHC.GreenCard</td> <td>just the standard <tt>%dis</tt> definitions and
+                       constructors you need in order to write your own
+                       GreenCard files</td>
+</tr><tr>
+<td><a href="libs/IOExtras.html">NHC.IOExtras</a></td>
+    <td>contains IORefs, IOArrays, unsafePerformIO, etc.</td>
+</tr><tr>
+<td>NonStdTrace</td>
+    <td>the common side-effecting <tt>trace</tt> function</td>
+</tr><tr>
+<td><a href="libs/PackedString.html">NHC.PackedString</a></td>
+    <td>a space-efficient representation of strings</td>
+</tr><tr>
+<td><a href="libs/Vector.html">NHC.Vector</a></td>
+    <td>primitives underlying IO (mutable) arrays</td>
+
+</tr></table>
+
+
+<hr>
+<p>
+The latest updates to these pages are available on the WWW from
+<a href="http://www.haskell.org/nhc98/">
+<tt>http://www.haskell.org/nhc98/</tt></a>
+
+<p>
+This page last updated: 17th December 2003<br>
+<a href="http://www.cs.york.ac.uk/fp/">
+York Functional Programming Group</a><br>
+
+</td></tr></table>
+</body></html>
+

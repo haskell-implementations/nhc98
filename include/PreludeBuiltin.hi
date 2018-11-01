@@ -1,0 +1,50 @@
+interface Prelude where {
+{-# NEED primLeave #-}
+primLeave {-# 1 #-} :: Int -> b;
+{-# NEED primExit #-}
+primExit {-# 1 #-} :: Int -> b;
+interface ! IO
+{-# NEED stdout #-}
+stdout {-# 0 #-} :: IO.Handle;
+{-# NEED stdin #-}
+stdin {-# 0 #-} :: IO.Handle;
+{-# NEED stderr #-}
+stderr {-# 0 #-} :: IO.Handle;
+interface ! Prelude
+{-# NEED primFail #-}
+primFail {-# 1 #-} :: IOError -> NHC.Internal.IO a;
+
+{-# NEED NmType #-}
+data NmType;
+{-# NEED Vector #-}
+data Vector a;
+{-# NEED Int# #-}
+data Int#;
+{-# NEED IOError #-}
+data IOError;
+interface ! NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface ! IO
+{-# NEED Socket #-}
+data Socket;
+{-# NEED Handle #-}
+newtype {-# #-} Handle;
+{-# NEED HandlePosn #-}
+data HandlePosn;
+interface ! Prelude
+{-# NEED #-}
+_eqDouble{-# 2 #-}::(Double -> (Double -> Bool));
+_eqFloat{-# 2 #-}::(Float -> (Float -> Bool));
+_eqInteger{-# 2 #-}::(Integer -> (Integer -> Bool));
+_hPutChar{-# 2 #-}::(IO.Handle -> Char -> Either IOError ());
+_hGetChar{-# 1 #-}::(IO.Handle -> Int);
+_hGetStr{-# 1 #-}::(IO.Handle -> [Char]);
+data (->) a b;
+data Int;
+data Char;
+data Float;
+data Double;
+data Integer;
+
+}

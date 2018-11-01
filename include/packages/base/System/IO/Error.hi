@@ -1,0 +1,392 @@
+interface System.IO.Error where {
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Ratio.Ratio;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.Internal.IO;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable ();
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Char;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Double;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Float;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Integer;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Int;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Ordering;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable [a];
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Control.Exception.Base.SomeException;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Data.Typeable.TyCon;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Data.Typeable.TypeRep;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable IO.Handle;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Prelude.Maybe a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable Prelude.Bool;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (Prelude.Either a b);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a,Data.Typeable.Typeable b) => Data.Typeable.Typeable (a -> b);
+
+{-# NEED #-}
+instance Control.Exception.Base.Exception Control.Exception.Base.SomeException;
+
+{-# NEED #-}
+instance Control.Exception.Base.Exception System.ExitCode;
+
+{-# NEED #-}
+instance Control.Exception.Base.Exception Prelude.IOError;
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus Prelude.[];
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus Prelude.Maybe;
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read System.ExitCode;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord System.ExitCode;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq Data.Typeable.TyCon;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Typeable.TypeRep;
+
+{-# NEED #-}
+instance Prelude.Eq System.ExitCode;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.SomeException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.ArithException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.ArrayException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.AsyncException;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.AssertionFailed;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.PatternMatchFail;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.NoMethodError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.Deadlock;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.BlockedIndefinitelyOnMVar;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.BlockedIndefinitelyOnSTM;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.ErrorCall;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.RecConError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.RecSelError;
+
+{-# NEED #-}
+instance Prelude.Show Control.Exception.Base.RecUpdError;
+
+{-# NEED #-}
+instance Prelude.Show Data.Typeable.TyCon;
+
+{-# NEED #-}
+instance Prelude.Show Data.Typeable.TypeRep;
+
+{-# NEED #-}
+instance Prelude.Show System.ExitCode;
+
+{-# NEED #-}
+instance Prelude.Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+interface Data.Typeable
+{-# NEED Typeable #-}
+class Typeable a;
+interface Control.Exception.Base
+{-# NEED SomeException #-}
+data SomeException;
+
+{-# NEED ArithException #-}
+data ArithException;
+
+{-# NEED ArrayException #-}
+data ArrayException;
+
+{-# NEED AsyncException #-}
+data AsyncException;
+
+{-# NEED AssertionFailed #-}
+data AssertionFailed;
+
+{-# NEED PatternMatchFail #-}
+data PatternMatchFail;
+
+{-# NEED NoMethodError #-}
+data NoMethodError;
+
+{-# NEED Deadlock #-}
+data Deadlock;
+
+{-# NEED BlockedIndefinitelyOnMVar #-}
+data BlockedIndefinitelyOnMVar;
+
+{-# NEED BlockedIndefinitelyOnSTM #-}
+data BlockedIndefinitelyOnSTM;
+
+{-# NEED ErrorCall #-}
+data ErrorCall;
+
+{-# NEED RecConError #-}
+data RecConError;
+
+{-# NEED RecSelError #-}
+data RecSelError;
+
+{-# NEED RecUpdError #-}
+data RecUpdError;
+interface Data.Typeable
+{-# NEED TyCon #-}
+data TyCon;
+
+{-# NEED TypeRep #-}
+data TypeRep;
+interface System
+{-# NEED ExitCode #-}
+data ExitCode;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface ! System.IO.Error
+{-# NEED catch #-}
+catch{-# 0 #-}::((NHC.Internal.IO a) -> ((Prelude.IOError -> (NHC.Internal.IO a)) -> (NHC.Internal.IO a)));
+
+{-# NEED annotateIOError #-}
+annotateIOError{-# 4 #-}::(Prelude.IOError -> (Prelude.String -> ((Prelude.Maybe IO.Handle) -> ((Prelude.Maybe Prelude.FilePath) -> Prelude.IOError))));
+
+{-# NEED modifyIOError #-}
+modifyIOError{-# 2 #-}::((Prelude.IOError -> Prelude.IOError) -> ((NHC.Internal.IO a) -> (NHC.Internal.IO a)));
+
+{-# NEED ioeSetFileName #-}
+ioeSetFileName{-# 2 #-}::(Prelude.IOError -> (Prelude.FilePath -> Prelude.IOError));
+
+{-# NEED ioeSetHandle #-}
+ioeSetHandle{-# 2 #-}::(Prelude.IOError -> (IO.Handle -> Prelude.IOError));
+
+{-# NEED ioeSetLocation #-}
+ioeSetLocation{-# 2 #-}::(Prelude.IOError -> (Prelude.String -> Prelude.IOError));
+
+{-# NEED ioeSetErrorString #-}
+ioeSetErrorString{-# 2 #-}::(Prelude.IOError -> (Prelude.String -> Prelude.IOError));
+
+{-# NEED ioeSetErrorType #-}
+ioeSetErrorType{-# 2 #-}::(Prelude.IOError -> (IOErrorType -> Prelude.IOError));
+
+{-# NEED ioeGetLocation #-}
+ioeGetLocation{-# 1 #-}::(Prelude.IOError -> Prelude.String);
+
+{-# NEED ioeGetErrorType #-}
+ioeGetErrorType{-# 1 #-}::(Prelude.IOError -> IOErrorType);
+
+{-# NEED isUserErrorType #-}
+isUserErrorType{-# 1 #-}::(IOErrorType -> Prelude.Bool);
+
+{-# NEED isPermissionErrorType #-}
+isPermissionErrorType{-# 1 #-}::(IOErrorType -> Prelude.Bool);
+
+{-# NEED isIllegalOperationErrorType #-}
+isIllegalOperationErrorType{-# 1 #-}::(IOErrorType -> Prelude.Bool);
+
+{-# NEED isEOFErrorType #-}
+isEOFErrorType{-# 1 #-}::(IOErrorType -> Prelude.Bool);
+
+{-# NEED isFullErrorType #-}
+isFullErrorType{-# 1 #-}::(IOErrorType -> Prelude.Bool);
+
+{-# NEED isAlreadyInUseErrorType #-}
+isAlreadyInUseErrorType{-# 1 #-}::(IOErrorType -> Prelude.Bool);
+
+{-# NEED isDoesNotExistErrorType #-}
+isDoesNotExistErrorType{-# 1 #-}::(IOErrorType -> Prelude.Bool);
+
+{-# NEED isAlreadyExistsErrorType #-}
+isAlreadyExistsErrorType{-# 1 #-}::(IOErrorType -> Prelude.Bool);
+
+{-# NEED userErrorType #-}
+userErrorType{-# 0 #-}::IOErrorType;
+
+{-# NEED permissionErrorType #-}
+permissionErrorType{-# 0 #-}::IOErrorType;
+
+{-# NEED illegalOperationErrorType #-}
+illegalOperationErrorType{-# 0 #-}::IOErrorType;
+
+{-# NEED eofErrorType #-}
+eofErrorType{-# 0 #-}::IOErrorType;
+
+{-# NEED fullErrorType #-}
+fullErrorType{-# 0 #-}::IOErrorType;
+
+{-# NEED alreadyInUseErrorType #-}
+alreadyInUseErrorType{-# 0 #-}::IOErrorType;
+
+{-# NEED doesNotExistErrorType #-}
+doesNotExistErrorType{-# 0 #-}::IOErrorType;
+
+{-# NEED alreadyExistsErrorType #-}
+alreadyExistsErrorType{-# 0 #-}::IOErrorType;
+
+{-# NEED mkIOError #-}
+mkIOError{-# 4 #-}::(IOErrorType -> (Prelude.String -> ((Prelude.Maybe IO.Handle) -> ((Prelude.Maybe Prelude.String) -> Prelude.IOError))));
+
+{-# NEED IOErrorType #-}
+data IOErrorType;
+interface ! IO
+{-# NEED ioeGetHandle #-}
+ioeGetHandle{-# 1 #-}::(Prelude.IOError -> (Prelude.Maybe IO.Handle));
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface ! IO
+{-# NEED ioeGetFileName #-}
+ioeGetFileName{-# 1 #-}::(Prelude.IOError -> (Prelude.Maybe Prelude.FilePath));
+
+{-# NEED ioeGetErrorString #-}
+ioeGetErrorString{-# 1 #-}::(Prelude.IOError -> Prelude.String);
+
+{-# NEED isEOFError #-}
+isEOFError{-# 1 #-}::(Prelude.IOError -> Prelude.Bool);
+
+{-# NEED isUserError #-}
+isUserError{-# 1 #-}::(Prelude.IOError -> Prelude.Bool);
+
+{-# NEED isPermissionError #-}
+isPermissionError{-# 1 #-}::(Prelude.IOError -> Prelude.Bool);
+
+{-# NEED isIllegalOperation #-}
+isIllegalOperation{-# 1 #-}::(Prelude.IOError -> Prelude.Bool);
+
+{-# NEED isFullError #-}
+isFullError{-# 1 #-}::(Prelude.IOError -> Prelude.Bool);
+
+{-# NEED isAlreadyInUseError #-}
+isAlreadyInUseError{-# 1 #-}::(Prelude.IOError -> Prelude.Bool);
+
+{-# NEED isDoesNotExistError #-}
+isDoesNotExistError{-# 1 #-}::(Prelude.IOError -> Prelude.Bool);
+
+{-# NEED isAlreadyExistsError #-}
+isAlreadyExistsError{-# 1 #-}::(Prelude.IOError -> Prelude.Bool);
+
+{-# NEED try #-}
+try{-# 1 #-}::((NHC.Internal.IO a) -> (NHC.Internal.IO (Prelude.Either Prelude.IOError a)));
+interface ! Prelude
+{-# NEED userError #-}
+userError{-# 1 #-}::(Prelude.String -> Prelude.IOError);
+
+{-# NEED ioError #-}
+ioError{-# 1 #-}::(Prelude.IOError -> (NHC.Internal.IO a));
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+
+{-# NEED World #-}
+data World;
+interface ! Prelude
+{-# NEED IOError #-}
+data IOError;
+}

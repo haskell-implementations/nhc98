@@ -1,0 +1,957 @@
+interface Data.Typeable where {
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Data.Bits.Bits NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Typeable2 Array.Array;
+
+{-# NEED #-}
+instance Typeable2 NHC.IOExtras.IOArray;
+
+{-# NEED #-}
+instance Typeable2 (Prelude.->);
+
+{-# NEED #-}
+instance (Typeable a) => Typeable1 (Array.Array a);
+
+{-# NEED #-}
+instance Typeable1 Prelude.[];
+
+{-# NEED #-}
+instance Typeable1 NHC.IOExtras.IORef;
+
+{-# NEED #-}
+instance (Typeable a) => Typeable1 (NHC.IOExtras.IOArray a);
+
+{-# NEED #-}
+instance Typeable1 Prelude.Maybe;
+
+{-# NEED #-}
+instance (Typeable a) => Typeable1 ( (->) a);
+
+{-# NEED #-}
+instance Typeable1 NHC.Internal.IO;
+
+{-# NEED #-}
+instance Typeable1 Ratio.Ratio;
+
+{-# NEED #-}
+instance Typeable1 NHC.FFI.Ptr;
+
+{-# NEED #-}
+instance Typeable1 NHC.FFI.ForeignPtr;
+
+{-# NEED #-}
+instance Typeable1 NHC.FFI.FunPtr;
+
+{-# NEED #-}
+instance Typeable1 NHC.FFI.StablePtr;
+
+{-# NEED #-}
+instance Typeable TyCon;
+
+{-# NEED #-}
+instance Typeable TypeRep;
+
+{-# NEED #-}
+instance (Typeable a,Typeable b) => Typeable (Array.Array a b);
+
+{-# NEED #-}
+instance (Typeable a) => Typeable [a];
+
+{-# NEED #-}
+instance (Typeable a) => Typeable (NHC.IOExtras.IORef a);
+
+{-# NEED #-}
+instance (Typeable a,Typeable b) => Typeable (NHC.IOExtras.IOArray a b);
+
+{-# NEED #-}
+instance Typeable ();
+
+{-# NEED #-}
+instance Typeable Prelude.Ordering;
+
+{-# NEED #-}
+instance Typeable Prelude.Integer;
+
+{-# NEED #-}
+instance (Typeable a) => Typeable (Prelude.Maybe a);
+
+{-# NEED #-}
+instance (Typeable a,Typeable b) => Typeable (a -> b);
+
+{-# NEED #-}
+instance Typeable Prelude.Float;
+
+{-# NEED #-}
+instance Typeable Prelude.Double;
+
+{-# NEED #-}
+instance Typeable Prelude.Char;
+
+{-# NEED #-}
+instance Typeable Prelude.Bool;
+
+{-# NEED #-}
+instance Typeable Prelude.Int;
+
+{-# NEED #-}
+instance (Typeable a) => Typeable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Typeable a) => Typeable (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Typeable NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Typeable NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Typeable NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Typeable NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Typeable NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Typeable NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Typeable NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Typeable NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Typeable IO.Handle;
+
+{-# NEED #-}
+instance (Typeable a) => Typeable (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance (Typeable a) => Typeable (NHC.FFI.ForeignPtr a);
+
+{-# NEED #-}
+instance (Typeable a) => Typeable (NHC.FFI.FunPtr a);
+
+{-# NEED #-}
+instance (Typeable a) => Typeable (NHC.FFI.StablePtr a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.Int64;
+
+{-# NEED #-}
+instance (Ix.Ix a) => Prelude.Functor (Array.Array a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Bounded Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Bounded IO.IOMode;
+
+{-# NEED #-}
+instance Prelude.Bounded IO.SeekMode;
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b) => Ix.Ix (a,b);
+
+{-# NEED #-}
+instance Ix.Ix Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Ordering;
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c) => Ix.Ix (a,b,c);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d) => Ix.Ix (a,b,c,d);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e) => Ix.Ix (a,b,c,d,e);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f) => Ix.Ix (a,b,c,d,e,f);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g) => Ix.Ix (a,b,c,d,e,f,g);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h) => Ix.Ix (a,b,c,d,e,f,g,h);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i) => Ix.Ix (a,b,c,d,e,f,g,h,i);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j) => Ix.Ix (a,b,c,d,e,f,g,h,i,j);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m,Ix.Ix n,Ix.Ix o) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o);
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Integer;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Char;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Bool;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Int;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Ix.Ix NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Ix.Ix IO.IOMode;
+
+{-# NEED #-}
+instance Ix.Ix IO.SeekMode;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Read a,Prelude.Read b) => Prelude.Read (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Read Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Read IO.BufferMode;
+
+{-# NEED #-}
+instance Prelude.Read IO.IOMode;
+
+{-# NEED #-}
+instance Prelude.Read IO.SeekMode;
+
+{-# NEED #-}
+instance Prelude.Enum Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Enum IO.IOMode;
+
+{-# NEED #-}
+instance Prelude.Enum IO.SeekMode;
+
+{-# NEED #-}
+instance Prelude.Enum DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Enum (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance Prelude.Eq KeyPr;
+
+{-# NEED #-}
+instance Prelude.Eq Key;
+
+{-# NEED #-}
+instance Prelude.Eq TyCon;
+
+{-# NEED #-}
+instance Prelude.Eq TypeRep;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Eq b) => Prelude.Eq (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Eq Data.HashTable.HashData;
+
+{-# NEED #-}
+instance Prelude.Eq Data.HashTable.Inserts;
+
+{-# NEED #-}
+instance Prelude.Eq Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance Prelude.Eq IO.BufferMode;
+
+{-# NEED #-}
+instance Prelude.Eq IO.HandlePosn;
+
+{-# NEED #-}
+instance Prelude.Eq IO.IOMode;
+
+{-# NEED #-}
+instance Prelude.Eq IO.SeekMode;
+
+{-# NEED #-}
+instance Prelude.Eq DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Eq (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance Prelude.Eq (NHC.FFI.ForeignPtr a);
+
+{-# NEED #-}
+instance Prelude.Eq (NHC.FFI.FunPtr a);
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Ord b) => Prelude.Ord (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Ord Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Ord IO.BufferMode;
+
+{-# NEED #-}
+instance Prelude.Ord IO.IOMode;
+
+{-# NEED #-}
+instance Prelude.Ord IO.SeekMode;
+
+{-# NEED #-}
+instance Prelude.Ord (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance Prelude.Ord (NHC.FFI.ForeignPtr a);
+
+{-# NEED #-}
+instance Prelude.Ord (NHC.FFI.FunPtr a);
+
+{-# NEED #-}
+instance Prelude.Show TyCon;
+
+{-# NEED #-}
+instance Prelude.Show TypeRep;
+
+{-# NEED #-}
+instance (Ix.Ix a,Prelude.Show a,Prelude.Show b) => Prelude.Show (Array.Array a b);
+
+{-# NEED #-}
+instance Prelude.Show Data.HashTable.HashData;
+
+{-# NEED #-}
+instance Prelude.Show Data.Char.GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Prelude.Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Word64;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Word32;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Word16;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Word8;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Int8;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Int16;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Int32;
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.Int64;
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance Prelude.Show IO.BufferMode;
+
+{-# NEED #-}
+instance Prelude.Show IO.HandlePosn;
+
+{-# NEED #-}
+instance Prelude.Show IO.IOMode;
+
+{-# NEED #-}
+instance Prelude.Show IO.SeekMode;
+
+{-# NEED #-}
+instance Prelude.Show DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Show (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance Prelude.Show (NHC.FFI.ForeignPtr a);
+
+{-# NEED #-}
+instance Prelude.Show (NHC.FFI.FunPtr a);
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CInt;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Float;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Double;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Char;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Bool;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Int;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Word64;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Word32;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Word16;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Word8;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Int8;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Int16;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Int32;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.Int64;
+
+{-# NEED #-}
+instance NHC.FFI.Storable (NHC.FFI.Ptr a);
+
+{-# NEED #-}
+instance NHC.FFI.Storable (NHC.FFI.FunPtr a);
+
+{-# NEED #-}
+instance NHC.FFI.Storable (NHC.FFI.StablePtr a);
+interface NHC.IOExtras
+{-# NEED IORef #-}
+newtype {-#  #-} IORef a;
+
+{-# NEED IOArray #-}
+data (Ix.Ix a) => IOArray a b;
+interface Data.Typeable
+{-# NEED KeyPr #-}
+data KeyPr;
+
+{-# NEED Key #-}
+newtype {-#  #-} Key;
+interface Data.HashTable
+{-# NEED Inserts #-}
+data Inserts;
+interface Array
+{-# NEED Array #-}
+data (Ix.Ix a) => Array a b;
+interface Ix
+{-# NEED Ix #-}
+class (Prelude.Ord a) => Ix a;
+interface Data.HashTable
+{-# NEED HashData #-}
+data HashData;
+interface Data.Char
+{-# NEED GeneralCategory #-}
+data GeneralCategory;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface IO
+{-# NEED BufferMode #-}
+data BufferMode;
+
+{-# NEED HandlePosn #-}
+data HandlePosn;
+
+{-# NEED IOMode #-}
+data IOMode;
+
+{-# NEED SeekMode #-}
+data SeekMode;
+interface DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface NHC.FFI
+{-# NEED ForeignPtr #-}
+data ForeignPtr a;
+
+{-# NEED CInt #-}
+newtype {-#  #-} CInt;
+
+{-# NEED Word64 #-}
+data Word64;
+
+{-# NEED Word32 #-}
+data Word32;
+
+{-# NEED Word16 #-}
+data Word16;
+
+{-# NEED Word8 #-}
+data Word8;
+
+{-# NEED Int8 #-}
+data Int8;
+
+{-# NEED Int16 #-}
+data Int16;
+
+{-# NEED Int32 #-}
+data Int32;
+
+{-# NEED Int64 #-}
+data Int64;
+
+{-# NEED Ptr #-}
+data Ptr a;
+
+{-# NEED FunPtr #-}
+data FunPtr a;
+
+{-# NEED StablePtr #-}
+data StablePtr a;
+interface ! Data.Typeable
+{-# NEED gcast2 #-}
+gcast2{-# 1 #-}::(Typeable2 b,Typeable2 e) => ((a ((b c) d)) -> (Prelude.Maybe (a ((e c) d))));
+
+{-# NEED gcast1 #-}
+gcast1{-# 1 #-}::(Typeable1 b,Typeable1 d) => ((a (b c)) -> (Prelude.Maybe (a (d c))));
+
+{-# NEED gcast #-}
+gcast{-# 1 #-}::(Typeable b,Typeable c) => ((a b) -> (Prelude.Maybe (a c)));
+
+{-# NEED cast #-}
+cast{-# 1 #-}::(Typeable a,Typeable b) => (a -> (Prelude.Maybe b));
+
+{-# NEED typeOf6Default #-}
+typeOf6Default{-# 1 #-}::(Typeable7 a,Typeable b) => ((((((((a b) c) d) e) f) g) h) -> TypeRep);
+
+{-# NEED {Typeable7 typeOf7} #-}
+class Typeable7 a where {
+  typeOf7{-# 1 #-}::((((((((a b) c) d) e) f) g) h) -> TypeRep);
+};
+
+{-# NEED typeOf5Default #-}
+typeOf5Default{-# 1 #-}::(Typeable6 a,Typeable b) => (((((((a b) c) d) e) f) g) -> TypeRep);
+
+{-# NEED {Typeable6 typeOf6} #-}
+class Typeable6 a where {
+  typeOf6{-# 1 #-}::(((((((a b) c) d) e) f) g) -> TypeRep);
+};
+
+{-# NEED typeOf4Default #-}
+typeOf4Default{-# 1 #-}::(Typeable5 a,Typeable b) => ((((((a b) c) d) e) f) -> TypeRep);
+
+{-# NEED {Typeable5 typeOf5} #-}
+class Typeable5 a where {
+  typeOf5{-# 1 #-}::((((((a b) c) d) e) f) -> TypeRep);
+};
+
+{-# NEED typeOf3Default #-}
+typeOf3Default{-# 1 #-}::(Typeable4 a,Typeable b) => (((((a b) c) d) e) -> TypeRep);
+
+{-# NEED {Typeable4 typeOf4} #-}
+class Typeable4 a where {
+  typeOf4{-# 1 #-}::(((((a b) c) d) e) -> TypeRep);
+};
+
+{-# NEED typeOf2Default #-}
+typeOf2Default{-# 1 #-}::(Typeable3 a,Typeable b) => ((((a b) c) d) -> TypeRep);
+
+{-# NEED {Typeable3 typeOf3} #-}
+class Typeable3 a where {
+  typeOf3{-# 1 #-}::((((a b) c) d) -> TypeRep);
+};
+
+{-# NEED typeOf1Default #-}
+typeOf1Default{-# 1 #-}::(Typeable2 a,Typeable b) => (((a b) c) -> TypeRep);
+
+{-# NEED {Typeable2 typeOf2} #-}
+class Typeable2 a where {
+  typeOf2{-# 1 #-}::(((a b) c) -> TypeRep);
+};
+
+{-# NEED typeOfDefault #-}
+typeOfDefault{-# 1 #-}::(Typeable1 a,Typeable b) => ((a b) -> TypeRep);
+
+{-# NEED {Typeable1 typeOf1} #-}
+class Typeable1 a where {
+  typeOf1{-# 1 #-}::((a b) -> TypeRep);
+};
+
+{-# NEED {Typeable typeOf} #-}
+class Typeable a where {
+  typeOf{-# 1 #-}::(a -> TypeRep);
+};
+
+{-# NEED showsTypeRep #-}
+showsTypeRep{-# 0 #-}::(TypeRep -> Prelude.ShowS);
+
+{-# NEED tyConString #-}
+tyConString{-# 1 #-}::(TyCon -> Prelude.String);
+
+{-# NEED typeRepArgs #-}
+typeRepArgs{-# 1 #-}::(TypeRep -> [TypeRep]);
+
+{-# NEED typeRepTyCon #-}
+typeRepTyCon{-# 1 #-}::(TypeRep -> TyCon);
+
+{-# NEED mkTyCon #-}
+mkTyCon{-# 1 #-}::(Prelude.String -> TyCon);
+
+{-# NEED mkAppTy #-}
+mkAppTy{-# 2 #-}::(TypeRep -> (TypeRep -> TypeRep));
+
+{-# NEED funResultTy #-}
+funResultTy{-# 2 #-}::(TypeRep -> (TypeRep -> (Prelude.Maybe TypeRep)));
+
+{-# NEED splitTyConApp #-}
+splitTyConApp{-# 1 #-}::(TypeRep -> (TyCon,[TypeRep]));
+
+{-# NEED mkFunTy #-}
+mkFunTy{-# 2 #-}::(TypeRep -> (TypeRep -> TypeRep));
+
+{-# NEED mkTyConApp #-}
+mkTyConApp{-# 2 #-}::(TyCon -> ([TypeRep] -> TypeRep));
+
+{-# NEED typeRepKey #-}
+typeRepKey{-# 1 #-}::(TypeRep -> (NHC.Internal.IO Prelude.Int));
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! Data.Typeable
+{-# NEED TyCon #-}
+data TyCon;
+
+{-# NEED TypeRep #-}
+data TypeRep;
+}

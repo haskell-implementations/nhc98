@@ -1,0 +1,23 @@
+interface NonStdProfile where {
+
+{-# NEED #-}
+instance Prelude.Ord PackedString.PackedString;
+
+{-# NEED #-}
+instance Prelude.Eq PackedString.PackedString;
+
+{-# NEED #-}
+instance Prelude.Show PackedString.PackedString;
+
+{-# NEED #-}
+instance Prelude.Read PackedString.PackedString;
+interface ! NonStdProfile
+{-# NEED profile #-}
+profile{-# 2 #-}::(Prelude.String -> (a -> a));
+
+{-# NEED cProfile #-}
+cProfile{-# 1 #-}::(PackedString.PackedString -> ());
+interface PackedString
+{-# NEED PackedString #-}
+data PackedString;
+}

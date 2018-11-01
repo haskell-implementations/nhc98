@@ -1,0 +1,33 @@
+module Directory (getPermissions) where
+
+import NHC.GreenCard
+import PatchIOError
+import DPermissions
+
+%-#include <sys/types.h>
+%-#include <sys/stat.h>
+
+%-#define TRUE  1
+%-#define FALSE 0
+
+%fun getperms :: FilePath -> IO (Int,Permissions)
+%call (filePath fp)
+%code
+%  struct stat st;
+%  err = stat(fp,&st);
+%  if (err==0) {
+%    if (S_IREAD  & st.st_mode) r=TRUE; else r=FALSE;
+%    if (S_IWRITE & st.st_mode) w=TRUE; else w=FALSE;
+%    if (S_IEXEC  & st.st_mode) {
+%      if (S_ISDIR(st.st_mode)) {
+%         x=FALSE; s=TRUE;
+%      } else {
+%         x=TRUE; s=FALSE;
+%      }
+%    }
+%  }
+%result (int err, perms r w x s)
+
+getPermissions :: FilePath -> IO Permissions
+getPermissions fp = patchIOErrorFVal "getPermissions" fp getperms
+

@@ -1,0 +1,80 @@
+interface Language.Preprocessor.Cpphs.SymTab where {
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Prelude.Enum a) => Hashable [a];
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (IndTree a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+interface Ratio
+{-# NEED Ratio #-}
+data Ratio a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! Language.Preprocessor.Cpphs.SymTab
+{-# NEED definedST #-}
+definedST{-# 2 #-}::(Prelude.String -> ((SymTab a) -> Prelude.Bool));
+
+{-# NEED lookupST #-}
+lookupST{-# 2 #-}::(Prelude.String -> ((SymTab a) -> (Prelude.Maybe a)));
+
+{-# NEED deleteST #-}
+deleteST{-# 2 #-}::(Prelude.String -> ((SymTab a) -> (SymTab a)));
+
+{-# NEED insertST #-}
+insertST{-# 2 #-}::((Prelude.String,a) -> ((SymTab a) -> (SymTab a)));
+
+{-# NEED emptyST #-}
+emptyST{-# 0 #-}::(SymTab a);
+
+{-# NEED SymTab #-}
+type {-# 2 #-} SymTab a = (IndTree [(Prelude.String,a)]);
+
+{-# NEED IndTree #-}
+data IndTree a;
+}

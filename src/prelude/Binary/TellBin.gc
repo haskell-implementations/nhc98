@@ -1,0 +1,15 @@
+module NHC.Binary
+  ( tellBin
+  ) where
+
+import NHC.GreenCard
+import BinHandle ({-type-}BinHandle(..))
+import BinPtr    ({-type-}BinPtr(..))
+
+%-#include "cLowBinary.h"
+
+%fun tellBin :: BinHandle -> IO BinPtr
+%call (binHandle bh)
+%code p = (bh->file ? vtell(bh) : mtell(bh));
+%result (binPtr p)
+

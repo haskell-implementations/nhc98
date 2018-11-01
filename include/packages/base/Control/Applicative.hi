@@ -1,0 +1,265 @@
+interface Control.Applicative where {
+infixl  4 <**>;
+infixl  3 <|>;
+infixl  4 *>;
+infixl  4 <*;
+infixl  4 <*>;
+infixl  4 Data.Functor.<$>;
+
+{-# NEED #-}
+instance Control.Monad.Fix.MonadFix NHC.Internal.IO;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 Ratio.Ratio;
+
+{-# NEED #-}
+instance Data.Typeable.Typeable1 NHC.Internal.IO;
+
+{-# NEED #-}
+instance (Control.Arrow.ArrowZero a,Control.Arrow.ArrowPlus a) => Alternative (WrappedArrow a b);
+
+{-# NEED #-}
+instance (Control.Monad.MonadPlus a) => Alternative (WrappedMonad a);
+
+{-# NEED #-}
+instance Alternative Prelude.Maybe;
+
+{-# NEED #-}
+instance Alternative Prelude.[];
+
+{-# NEED #-}
+instance Applicative ZipList;
+
+{-# NEED #-}
+instance (Control.Arrow.Arrow a) => Applicative (WrappedArrow a b);
+
+{-# NEED #-}
+instance (Prelude.Monad a) => Applicative (WrappedMonad a);
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a) => Applicative (Const a);
+
+{-# NEED #-}
+instance Applicative (Prelude.Either a);
+
+{-# NEED #-}
+instance Applicative Prelude.Maybe;
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a) => Applicative ((,) a);
+
+{-# NEED #-}
+instance Applicative Prelude.[];
+
+{-# NEED #-}
+instance Applicative NHC.Internal.IO;
+
+{-# NEED #-}
+instance Applicative ( (->) a);
+
+{-# NEED #-}
+instance Control.Category.Category ( (->) a);
+
+{-# NEED #-}
+instance Control.Category.Category (Prelude.Monad a);
+
+{-# NEED #-}
+instance Control.Arrow.Arrow ( (->) a);
+
+{-# NEED #-}
+instance Data.Typeable.Typeable IO.Handle;
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Data.Typeable.Typeable a) => Data.Typeable.Typeable (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Control.Arrow.ArrowApply ( (->) a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a) => Data.Monoid.Monoid (Prelude.Maybe a);
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid a,Data.Monoid.Monoid b) => Data.Monoid.Monoid (a,b);
+
+{-# NEED #-}
+instance Data.Monoid.Monoid ();
+
+{-# NEED #-}
+instance Data.Monoid.Monoid Prelude.Ordering;
+
+{-# NEED #-}
+instance Data.Monoid.Monoid [a];
+
+{-# NEED #-}
+instance (Data.Monoid.Monoid b) => Data.Monoid.Monoid (a -> b);
+
+{-# NEED #-}
+instance Prelude.Functor ZipList;
+
+{-# NEED #-}
+instance (Control.Arrow.Arrow a) => Prelude.Functor (WrappedArrow a b);
+
+{-# NEED #-}
+instance (Prelude.Monad a) => Prelude.Functor (WrappedMonad a);
+
+{-# NEED #-}
+instance Prelude.Functor (Const a);
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance Prelude.Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus Prelude.Maybe;
+
+{-# NEED #-}
+instance Control.Monad.MonadPlus Prelude.[];
+
+{-# NEED #-}
+instance (Control.Arrow.ArrowApply a) => Prelude.Monad (Control.Arrow.ArrowMonad a);
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+interface Control.Arrow
+{-# NEED ArrowPlus #-}
+class (Control.Arrow.ArrowZero a) => ArrowPlus a;
+
+{-# NEED ArrowZero #-}
+class (Control.Arrow.Arrow a) => ArrowZero a;
+interface Control.Monad
+{-# NEED MonadPlus #-}
+class (Prelude.Monad a) => MonadPlus a;
+interface Data.Typeable
+{-# NEED Typeable #-}
+class Typeable a;
+interface Data.Monoid
+{-# NEED Monoid #-}
+class Monoid a;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface Control.Arrow
+{-# NEED ArrowMonad #-}
+newtype {-#  #-} (Control.Arrow.ArrowApply a) => ArrowMonad a b;
+
+{-# NEED ArrowApply #-}
+class (Control.Arrow.Arrow a) => ArrowApply a;
+
+{-# NEED Arrow #-}
+class (Control.Category.Category a) => Arrow a;
+interface Control.Category
+{-# NEED Category #-}
+class Category a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface ! Control.Applicative
+{-# NEED optional #-}
+optional{-# 1 #-}::(Alternative a) => ((a b) -> (a (Prelude.Maybe b)));
+
+{-# NEED liftA3 #-}
+liftA3{-# 4 #-}::(Applicative e) => ((a -> (b -> (c -> d))) -> ((e a) -> ((e b) -> ((e c) -> (e d)))));
+
+{-# NEED liftA2 #-}
+liftA2{-# 3 #-}::(Applicative d) => ((a -> (b -> c)) -> ((d a) -> ((d b) -> (d c))));
+
+{-# NEED liftA #-}
+liftA{-# 2 #-}::(Applicative c) => ((a -> b) -> ((c a) -> (c b)));
+
+{-# NEED (<**>) #-}
+(<**>){-# 0 #-}::(Applicative a) => ((a b) -> ((a (b -> c)) -> (a c)));
+
+{-# NEED {ZipList ZipList getZipList} #-}
+newtype {-#  #-} ZipList a
+  = ZipList {getZipList :: [a]};
+
+{-# NEED {WrappedArrow WrapArrow unwrapArrow} #-}
+newtype {-#  #-} WrappedArrow a b c
+  = WrapArrow {unwrapArrow :: ((a b) c)};
+
+{-# NEED {WrappedMonad WrapMonad unwrapMonad} #-}
+newtype {-#  #-} WrappedMonad a b
+  = WrapMonad {unwrapMonad :: (a b)};
+
+{-# NEED {Const Const getConst} #-}
+newtype {-#  #-} Const a b
+  = Const {getConst :: a};
+
+{-# NEED {Alternative some many empty (<|>)} #-}
+class (Applicative a) => Alternative a where {
+  some{-# 1 #-}::((a b) -> (a [b]));
+  many{-# 1 #-}::((a b) -> (a [b]));
+  empty{-# 0 #-}::(a b);
+  (<|>){-# 2 #-}::((a b) -> ((a b) -> (a b)));
+};
+
+{-# NEED {Applicative (*>) (<*) pure (<*>)} #-}
+class (Prelude.Functor a) => Applicative a where {
+  (*>){-# 2 #-}::((a b) -> ((a c) -> (a c)));
+  (<*){-# 2 #-}::((a b) -> ((a c) -> (a b)));
+  pure{-# 1 #-}::(b -> (a b));
+  (<*>){-# 2 #-}::((a (b -> c)) -> ((a b) -> (a c)));
+};
+interface ! Data.Functor
+{-# NEED (<$) #-}
+(<$){-# 0 #-}::(Prelude.Functor b) => (a -> ((b c) -> (b a)));
+
+{-# NEED (<$>) #-}
+(<$>){-# 0 #-}::(Prelude.Functor c) => ((a -> b) -> ((c a) -> (c b)));
+}

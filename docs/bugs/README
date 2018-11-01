@@ -1,0 +1,40 @@
+These are files containing sources identifying (possible) problems
+with nhc13---the file names are of the form "nhc13testN.hs" where N is
+the number listed below.
+
+(Those marked with a "?" are points of disagreement with standard
+Haskell and are not necessarily "bugs".)
+
+FIXED:
+======
+
+ 1: Importing qualified names.
+ 5: Bizarre error on seq interacting with classes.
+ 6: Internal error on incorrect program ("0" where "t Int" should be).
+ 7: Parsing an integer literal as a Double.
+ 8: Strictness annotations combining with seq.
+ 9: Parsing literal characters, eg. read "'a'".
+10: Importing/exporting classes without any methods (pedantic).
+11: Printing doubles less than 0.1.
+12: Supplying a function to seq as its second argument.
+13: Using an imported renaming type to define a second renaming type.
+14: Translating do-notation for a pattern of the form `[a]'.
+
+STILL TO FIX:
+=============
+
+[2: Precursor to (3).]
+ 3: Type checking: default declarations.
+ 4? Overloaded cafs are treated as functions (debatable "problem").
+15? Re-defining Prelude entities should strictly speaking cause an error.
+16? Importing qualified Prelude and then using an unqualified Prelude entity.
+17: Contexts required in let-bindings.
+18: Latin-ISO-8859-1 character set not fully supported.
+19: Nhc performs no kind check in type definitions.
+20: Nhc is too restrictive in rhs of newtype definitions.
+21: Same problem as above
+22: Nhc does not handle data types with arguments of kind *->* correctly
+
+
+
+

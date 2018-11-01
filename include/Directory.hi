@@ -1,0 +1,84 @@
+interface Directory where {
+
+{-# NEED #-}
+instance Prelude.Enum DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Read Permissions;
+
+{-# NEED #-}
+instance Prelude.Ord Permissions;
+
+{-# NEED #-}
+instance Prelude.Ord Time.ClockTime;
+
+{-# NEED #-}
+instance Prelude.Eq DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Eq Permissions;
+
+{-# NEED #-}
+instance Prelude.Eq Time.ClockTime;
+
+{-# NEED #-}
+instance Prelude.Show DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Show Permissions;
+
+{-# NEED #-}
+instance Prelude.Show Time.ClockTime;
+interface DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface ! Directory
+{-# NEED setCurrentDirectory #-}
+setCurrentDirectory{-# 1 #-}::(Prelude.FilePath -> (NHC.Internal.IO ()));
+
+{-# NEED getCurrentDirectory #-}
+getCurrentDirectory{-# 0 #-}::(NHC.Internal.IO Prelude.FilePath);
+
+{-# NEED removeDirectory #-}
+removeDirectory{-# 1 #-}::(Prelude.FilePath -> (NHC.Internal.IO ()));
+
+{-# NEED createDirectory #-}
+createDirectory{-# 1 #-}::(Prelude.FilePath -> (NHC.Internal.IO ()));
+
+{-# NEED renameDirectory #-}
+renameDirectory{-# 2 #-}::(Prelude.FilePath -> (Prelude.FilePath -> (NHC.Internal.IO ())));
+
+{-# NEED doesDirectoryExist #-}
+doesDirectoryExist{-# 1 #-}::(Prelude.FilePath -> (NHC.Internal.IO Prelude.Bool));
+
+{-# NEED doesFileExist #-}
+doesFileExist{-# 1 #-}::(Prelude.FilePath -> (NHC.Internal.IO Prelude.Bool));
+
+{-# NEED getDirectoryContents #-}
+getDirectoryContents{-# 1 #-}::(Prelude.FilePath -> (NHC.Internal.IO [Prelude.FilePath]));
+
+{-# NEED setPermissions #-}
+setPermissions{-# 2 #-}::(Prelude.FilePath -> (Permissions -> (NHC.Internal.IO ())));
+
+{-# NEED getPermissions #-}
+getPermissions{-# 1 #-}::(Prelude.FilePath -> (NHC.Internal.IO Permissions));
+
+{-# NEED {Permissions Permissions readable writable executable searchable} #-}
+data Permissions
+  = Permissions {readable :: Prelude.Bool} {writable :: Prelude.Bool} {executable :: Prelude.Bool} {searchable :: Prelude.Bool};
+
+{-# NEED getModificationTime #-}
+getModificationTime{-# 1 #-}::(Prelude.FilePath -> (NHC.Internal.IO Time.ClockTime));
+interface Time
+{-# NEED ClockTime #-}
+data ClockTime;
+interface ! Directory
+{-# NEED removeFile #-}
+removeFile{-# 1 #-}::(Prelude.FilePath -> (NHC.Internal.IO ()));
+
+{-# NEED renameFile #-}
+renameFile{-# 2 #-}::(Prelude.FilePath -> (Prelude.FilePath -> (NHC.Internal.IO ())));
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO;
+}

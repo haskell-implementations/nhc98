@@ -1,0 +1,27 @@
+module NhcFloats
+  ( floatToInt
+  , doubleToInts
+  ) where
+
+import NHC.GreenCard
+
+%fun floatToInt :: Float -> Int
+%call (float fl)
+%code
+%  union {
+%    float f;
+%    int   i;
+%  } tmp;
+%  tmp.f = fl;
+%result (int "tmp.i")
+
+%fun doubleToInts :: Double -> (Int,Int)
+%call (double db)
+%code
+%  union {
+%    double d;
+%    int    i[2];
+%  } tmp;
+%  tmp.d = db;
+%result (int "tmp.i[0]", int "tmp.i[1]")
+

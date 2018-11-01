@@ -1,0 +1,11 @@
+Current Dir: tests/conformance98/Directory/getDirContents
+    .
+    ..
+    Main
+    Main.hi
+    Main.hs
+    Main.o
+    getDir.stdout
+    hmake.err
+    tmp.err
+    tmp.out

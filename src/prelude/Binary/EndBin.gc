@@ -1,0 +1,15 @@
+module NHC.Binary
+  ( endBin
+  ) where
+
+import NHC.GreenCard
+import BinHandle ({-type-}BinHandle(..))
+import BinPtr    ({-type-}BinPtr(..))
+
+%-#include "cLowBinary.h"
+
+%fun endBin :: BinHandle -> IO BinPtr
+%call (binHandle bh)
+%code
+%result (binPtr "bh->highwater")
+

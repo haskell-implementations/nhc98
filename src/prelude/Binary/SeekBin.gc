@@ -1,0 +1,19 @@
+module NHC.Binary
+  ( seekBin
+  ) where
+
+import NHC.GreenCard
+import BinHandle ({-type-}BinHandle(..))
+import BinPtr    ({-type-}BinPtr(..))
+
+%-#include "cLowBinary.h"
+    -- %-#include <stdio.h>
+
+%fun seekBin :: BinHandle -> BinPtr -> IO ()
+%call (binHandle bh) (binPtr p)
+%code
+%  /* fprintf(stderr,"seekBinFile %d: ",p); */
+%  bh->cptr = p - forceCacheTo(bh,p)*8;
+%  /* fprintf(stderr,"bh->cptr=%d\n",bh->cptr); */
+%result ()
+

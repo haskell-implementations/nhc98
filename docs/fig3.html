@@ -1,0 +1,140 @@
+<table>
+  <tr>
+    <td align=left>
+      DIS
+    </td><td align=right>
+      <em>dis</em>
+    </td><td align=center>
+      ->
+    </td><td align=left>
+      <em>var arg_1 ... arg_n</em>
+    </td><td align=left>
+      Macro application
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>(</b></tt><em>dis_1</em><tt><b>,</b></tt> ... <tt><b>,</b></tt><em>dis_n</em><tt><b>)</b></tt>
+    </td><td align=left>
+      Tuple, n >= 0
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <em>Cons arg_1 ... arg_n</em>
+    </td><td align=left>
+      Constructor, n >= 0
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <em>Cons</em> <tt><b>{</b></tt>
+                    <em>field_1</em> <tt><b>=</b></tt> <em>arg_1</em>
+                    <tt><b>,</b></tt> ... <tt><b>,</b></tt>
+                    <em>field_n</em> <tt><b>=</b></tt> <em>arg_n</em>
+                    <tt><b>}</b></tt>
+    </td><td align=left>
+      Named fields, n >= 1
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>&#60;</b></tt><em>var</em><tt><b>/</b></tt><em>var</em><tt><b>&#62;</b></tt>
+      <em>arg_1 ... arg_n</em>
+    </td><td align=left>
+      User-defined functions, n >= 1
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>%%</b></tt><em>Var cv</em>
+    </td><td align=left>
+      Base DIS
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <tt><b>declare</b></tt> <em>cexp cv</em> <tt><b>in</b></tt> <em>dis</em>
+    </td><td align=left>
+      Type-cast DIS
+    </td>
+  </tr><tr>
+    <td align=left>
+      Argument
+    </td><td align=right>
+      <em>arg</em>
+    </td><td align=center>
+      ->
+    </td><td align=left>
+      <em>dis</em>
+    </td><td align=left>
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <em>cv</em>
+    </td><td align=left>
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      Variable / C Expression
+    </td><td align=right>
+      <em>cv</em>
+    </td><td align=center>
+      ->
+    </td><td align=left>
+      <em>cexp</em>
+    </td><td align=left>
+      
+    </td>
+  </tr><tr>
+    <td align=left>
+      
+    </td><td align=right>
+      
+    </td><td align=center>
+      |
+    </td><td align=left>
+      <em>var</em>
+    </td><td align=left>
+      Variable bound in <tt><b>%dis</b></tt>
+    </td>
+  </tr>
+</table>

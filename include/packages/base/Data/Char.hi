@@ -1,0 +1,329 @@
+interface Data.Char where {
+
+{-# NEED #-}
+instance Prelude.Functor NHC.Internal.IO;
+
+{-# NEED #-}
+instance Prelude.Monad NHC.Internal.IO;
+
+{-# NEED #-}
+instance Ix.Ix GeneralCategory;
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m,Ix.Ix n,Ix.Ix o) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m,Ix.Ix n) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m,n);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l,Ix.Ix m) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l,m);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k,Ix.Ix l) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k,l);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j,Ix.Ix k) => Ix.Ix (a,b,c,d,e,f,g,h,i,j,k);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i,Ix.Ix j) => Ix.Ix (a,b,c,d,e,f,g,h,i,j);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h,Ix.Ix i) => Ix.Ix (a,b,c,d,e,f,g,h,i);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g,Ix.Ix h) => Ix.Ix (a,b,c,d,e,f,g,h);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f,Ix.Ix g) => Ix.Ix (a,b,c,d,e,f,g);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e,Ix.Ix f) => Ix.Ix (a,b,c,d,e,f);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d,Ix.Ix e) => Ix.Ix (a,b,c,d,e);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c,Ix.Ix d) => Ix.Ix (a,b,c,d);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b,Ix.Ix c) => Ix.Ix (a,b,c);
+
+{-# NEED #-}
+instance (Ix.Ix a,Ix.Ix b) => Ix.Ix (a,b);
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Ordering;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Integer;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Bool;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Char;
+
+{-# NEED #-}
+instance Ix.Ix Prelude.Int;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Fractional (Ratio.Ratio a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.RealFrac (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Bounded GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Bounded NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Read GeneralCategory;
+
+{-# NEED #-}
+instance (Prelude.Read a,Prelude.Integral a) => Prelude.Read (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Read NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Num (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Num NHC.FFI.CInt;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Real (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Real NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Integral NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Eq GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Eq NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Eq IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Eq (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Eq NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Ord GeneralCategory;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Ord (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Ord NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Enum GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Enum NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Enum (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Enum NHC.FFI.CInt;
+
+{-# NEED #-}
+instance Prelude.Show GeneralCategory;
+
+{-# NEED #-}
+instance Prelude.Show NHC.DErrNo.ErrNo;
+
+{-# NEED #-}
+instance Prelude.Show IO.Handle;
+
+{-# NEED #-}
+instance (Prelude.Show a) => Prelude.Show (NHC.Internal.IO a);
+
+{-# NEED #-}
+instance (Prelude.Integral a) => Prelude.Show (Ratio.Ratio a);
+
+{-# NEED #-}
+instance Prelude.Show NHC.FFI.CInt;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Float;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Double;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Bool;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Char;
+
+{-# NEED #-}
+instance NHC.FFI.Storable Prelude.Int;
+
+{-# NEED #-}
+instance NHC.FFI.Storable NHC.FFI.CInt;
+interface Ix
+{-# NEED Ix #-}
+class (Prelude.Ord a) => Ix a;
+interface NHC.Internal
+{-# NEED IO #-}
+newtype {-#  #-} IO a;
+interface NHC.DErrNo
+{-# NEED ErrNo #-}
+data ErrNo;
+interface IO
+{-# NEED Handle #-}
+newtype {-#  #-} Handle;
+interface NHC.Internal
+{-# NEED World #-}
+data World;
+interface Ratio
+{-# NEED Ratio #-}
+data (Prelude.Integral a) => Ratio a;
+interface NHC.FFI
+{-# NEED CInt #-}
+newtype {-#  #-} CInt;
+interface ! Data.Char
+{-# NEED toTitle #-}
+toTitle{-# 0 #-}::(Prelude.Char -> Prelude.Char);
+
+{-# NEED isSeparator #-}
+isSeparator{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isSymbol #-}
+isSymbol{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isPunctuation #-}
+isPunctuation{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isNumber #-}
+isNumber{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isMark #-}
+isMark{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isLetter #-}
+isLetter{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED generalCategory #-}
+generalCategory{-# 1 #-}::(Prelude.Char -> GeneralCategory);
+
+{-# NEED {GeneralCategory UppercaseLetter LowercaseLetter TitlecaseLetter ModifierLetter OtherLetter NonSpacingMark SpacingCombiningMark EnclosingMark DecimalNumber LetterNumber OtherNumber ConnectorPunctuation DashPunctuation OpenPunctuation ClosePunctuation InitialQuote FinalQuote OtherPunctuation MathSymbol CurrencySymbol ModifierSymbol OtherSymbol Space LineSeparator ParagraphSeparator Control Format Surrogate PrivateUse NotAssigned} #-}
+data GeneralCategory
+  = UppercaseLetter 
+  | LowercaseLetter 
+  | TitlecaseLetter 
+  | ModifierLetter 
+  | OtherLetter 
+  | NonSpacingMark 
+  | SpacingCombiningMark 
+  | EnclosingMark 
+  | DecimalNumber 
+  | LetterNumber 
+  | OtherNumber 
+  | ConnectorPunctuation 
+  | DashPunctuation 
+  | OpenPunctuation 
+  | ClosePunctuation 
+  | InitialQuote 
+  | FinalQuote 
+  | OtherPunctuation 
+  | MathSymbol 
+  | CurrencySymbol 
+  | ModifierSymbol 
+  | OtherSymbol 
+  | Space 
+  | LineSeparator 
+  | ParagraphSeparator 
+  | Control 
+  | Format 
+  | Surrogate 
+  | PrivateUse 
+  | NotAssigned ;
+
+{-# NEED isAsciiUpper #-}
+isAsciiUpper{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isAsciiLower #-}
+isAsciiLower{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED digitToInt #-}
+digitToInt{-# 1 #-}::(Prelude.Char -> Prelude.Int);
+interface ! Char
+{-# NEED isLatin1 #-}
+isLatin1{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isAlpha #-}
+isAlpha{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED ord #-}
+ord{-# 0 #-}::(Prelude.Char -> Prelude.Int);
+
+{-# NEED isSpace #-}
+isSpace{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isAscii #-}
+isAscii{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isControl #-}
+isControl{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isAlphaNum #-}
+isAlphaNum{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED readLitChar #-}
+readLitChar{-# 1 #-}::(Prelude.ReadS Prelude.Char);
+
+{-# NEED showLitChar #-}
+showLitChar{-# 1 #-}::(Prelude.Char -> Prelude.ShowS);
+
+{-# NEED lexLitChar #-}
+lexLitChar{-# 1 #-}::(Prelude.ReadS Prelude.String);
+interface ! Prelude
+{-# NEED String #-}
+type {-# 1 #-} String = [Char];
+interface ! Char
+{-# NEED toUpper #-}
+toUpper{-# 1 #-}::(Prelude.Char -> Prelude.Char);
+
+{-# NEED isUpper #-}
+isUpper{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED toLower #-}
+toLower{-# 1 #-}::(Prelude.Char -> Prelude.Char);
+
+{-# NEED isLower #-}
+isLower{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED chr #-}
+chr{-# 0 #-}::(Prelude.Int -> Prelude.Char);
+
+{-# NEED intToDigit #-}
+intToDigit{-# 1 #-}::(Prelude.Int -> Prelude.Char);
+
+{-# NEED isDigit #-}
+isDigit{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isOctDigit #-}
+isOctDigit{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isHexDigit #-}
+isHexDigit{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+
+{-# NEED isPrint #-}
+isPrint{-# 1 #-}::(Prelude.Char -> Prelude.Bool);
+interface ! Prelude
+{-# NEED Char #-}
+data Char;
+}

@@ -1,0 +1,30 @@
+interface NHC.Bit where {
+infixl  7 ^&;
+infixl  6 ^|;
+infixl  5 `xor`;
+infixl  8 ^<<;
+infixl  8 ^>>;
+infixl  8 `asr`;
+infixl  8 `rol`;
+infixl  8 `ror`;
+
+{-# NEED #-}
+instance Bits Prelude.Int;
+interface ! NHC.Bit
+{-# NEED {Bits (^&) (^|) xor compl (^<<) (^>>) asr rol ror test set clear bitSize} #-}
+class (Prelude.Integral a) => Bits a where {
+  (^&){-# 2 #-}::(a -> (a -> a));
+  (^|){-# 2 #-}::(a -> (a -> a));
+  xor{-# 2 #-}::(a -> (a -> a));
+  compl{-# 1 #-}::(a -> a);
+  (^<<){-# 2 #-}::(a -> (Prelude.Int -> a));
+  (^>>){-# 2 #-}::(a -> (Prelude.Int -> a));
+  asr{-# 2 #-}::(a -> (Prelude.Int -> a));
+  rol{-# 2 #-}::(a -> (Prelude.Int -> a));
+  ror{-# 2 #-}::(a -> (Prelude.Int -> a));
+  test{-# 2 #-}::(Prelude.Int -> (a -> Prelude.Bool));
+  set{-# 2 #-}::(Prelude.Int -> (a -> a));
+  clear{-# 2 #-}::(Prelude.Int -> (a -> a));
+  bitSize{-# 1 #-}::(a -> Prelude.Int);
+};
+}
